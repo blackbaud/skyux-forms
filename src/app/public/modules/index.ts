@@ -1,1 +1,2 @@
-export * from './sample';
+export * from './checkbox';
+export * from './radio';

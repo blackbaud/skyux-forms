@@ -25,7 +25,9 @@
     "url": "https://github.com/blackbaud/skyux-forms/issues"
   },
   "homepage": "https://github.com/blackbaud/skyux-forms#readme",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@skyux/indicators":"^3.0.0-rc.0"
+  },
   "dependencies": {},
   "devDependencies": {
     "@angular/animations": "4.3.6",
@@ -41,6 +43,7 @@
     "@blackbaud/skyux": "2.25.0",
     "@blackbaud/skyux-builder": "1.23.1",
     "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.0",
+    "@skyux/indicators":"3.0.0-rc.0",
     "core-js": "2.4.1",
     "rxjs": "5.4.3",
     "ts-node": "3.0.4",
