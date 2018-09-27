@@ -567,5 +567,12 @@ describe('Checkbox component', () => {
       span = debugElement.query(By.css('span')).nativeElement;
       expect(span).toHaveCssClass('sky-switch-control-danger');
     });
+
+    it('should pass accessibility', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(fixture.nativeElement).toBeAccessible();
+      });
+    }));
   });
 });
