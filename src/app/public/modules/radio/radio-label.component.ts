@@ -5,7 +5,7 @@ import {
 
 @Component({
   selector: 'sky-radio-label',
-  templateUrl: '../shared/simple-content.html'
+  templateUrl: './radio-label.component.html'
 })
 export class SkyRadioLabelComponent {
   // When clicking on a checkbox label, Angular registers two click events.

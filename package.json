@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "3.0.0-alpha.x",
+  "version": "3.0.0-rc.0",
   "description": "SKY UX Forms",
   "main": "bundles/bundle.umd.js",
   "module": "index.ts",
@@ -26,20 +26,21 @@
   },
   "homepage": "https://github.com/blackbaud/skyux-forms#readme",
   "peerDependencies": {
-    "@skyux/indicators":"^3.0.0-rc.0"
+    "@angular/common": "^4.3.6",
+    "@angular/core": "^4.3.6",
+    "@angular/forms": "^4.3.6",
+    "@skyux/core": "^3.1.0",
+    "@skyux/indicators":">=3.0.0-rc.0",
+    "rxjs": "^5.4.3"
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular/animations": "4.3.6",
     "@angular/common": "4.3.6",
     "@angular/compiler": "4.3.6",
     "@angular/compiler-cli": "4.3.6",
     "@angular/core": "4.3.6",
     "@angular/forms": "4.3.6",
-    "@angular/http": "4.3.6",
     "@angular/platform-browser": "4.3.6",
-    "@angular/platform-browser-dynamic": "4.3.6",
-    "@angular/router": "4.3.6",
     "@blackbaud/skyux": "2.25.0",
     "@blackbaud/skyux-builder": "1.23.1",
     "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.0",

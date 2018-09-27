@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   OnInit
 } from '@angular/core';
@@ -10,13 +9,13 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'sky-radio-demo',
-  templateUrl: './radio-demo.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'radio-visual',
+  templateUrl: './radio-visual.component.html'
 })
-export class SkyRadioDemoComponent implements OnInit {
-  public iconSelectedValue = 'info';
-  public iconGroupSelectedValue = 'table';
+export class RadioVisualComponent implements OnInit {
+  public selectedValue = '3';
+  public iconSelectedValue = '2';
+  public valueGuy = '2';
   public radioForm: FormGroup;
 
   public seasons = [
@@ -25,8 +24,6 @@ export class SkyRadioDemoComponent implements OnInit {
     { name: 'Fall', disabled: true },
     { name: 'Winter', disabled: false }
   ];
-
-  public favoriteSeason = this.seasons[1];
 
   constructor(
     private formBuilder: FormBuilder
