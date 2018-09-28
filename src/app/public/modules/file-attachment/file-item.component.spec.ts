@@ -188,7 +188,7 @@ describe('File item component', () => {
     expect(deletedFile.file.size).toBe(1000);
   });
 
-  xit('shows an image if the item is an image', () => {
+  it('shows an image if the item is an image', () => {
     testImage('png');
     testImage('bmp');
     testImage('jpeg');
