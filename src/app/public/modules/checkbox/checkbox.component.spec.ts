@@ -21,12 +21,10 @@ import {
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import {
+  SkyCheckboxChange,
   SkyCheckboxComponent,
-  SkyCheckboxChange
-} from './checkbox.component';
-import {
   SkyCheckboxModule
-} from './checkbox.module';
+} from './';
 
 /** Simple component for testing a single checkbox. */
 @Component({
