@@ -6,7 +6,7 @@ import {
 
 import {
   expect
-} from '@blackbaud/skyux-builder/runtime/testing/browser';
+} from '@skyux-sdk/testing';
 
 import {
   SkyFileAttachmentsModule
@@ -85,6 +85,11 @@ describe('File item component', () => {
 
     let otherEl = getOtherPreview();
     expect(otherEl).toBeFalsy();
+
+    // Test Accessibility
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
   }
 
   function testOtherPreview(extension: string, type: string) {
@@ -117,6 +122,11 @@ describe('File item component', () => {
 
     let imageEl = getImage();
     expect(imageEl).toBeFalsy();
+
+    // Test Accessibility
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
   }
   //#endregion
 
@@ -152,6 +162,11 @@ describe('File item component', () => {
 
     let sizeEl = getSizeEl();
     expect(sizeEl).toBeFalsy();
+
+    // Test Accessibility
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
   });
 
   it('emits the delete event when the delete button is clicked', () => {

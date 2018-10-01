@@ -35,6 +35,10 @@
     "_description": "",
     "message": "Drop files here"
   },
+  "file_upload_image_preview_alt_text": {
+    "_description": "Alt text for uploaded image",
+    "message": "Image preview"
+  },
   "file_upload_invalid_file": {
     "_description": "",
     "message": "This file type is invalid"
