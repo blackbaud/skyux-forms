@@ -12,6 +12,10 @@ import {
   ControlValueAccessor
 } from '@angular/forms';
 
+import {
+  SkyCheckboxChange
+} from './types/checkbox-change';
+
 /**
  * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
  */
@@ -27,12 +31,6 @@ export const SKY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any = {
   useExisting: forwardRef(() => SkyCheckboxComponent),
   multi: true
 };
-
-// A simple change event emitted by the SkyCheckbox component.
-export class SkyCheckboxChange {
-  public source: SkyCheckboxComponent;
-  public checked: boolean;
-}
 // tslint:enable
 
 @Component({
