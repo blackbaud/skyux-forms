@@ -38,18 +38,18 @@ export class SkyFileSizePipe implements PipeTransform {
     /* tslint:enable */
 
     if (Math.abs(input) === 1) {
-      template = this.getString('file_size_b_singular');
+      template = this.getString('skyux_file_attachment_file_size_b_singular');
     } else if (input < 1000) {
-      template = this.getString('file_size_b_plural');
+      template = this.getString('skyux_file_attachment_file_size_b_plural');
     } else if (input < 1e6) {
-      template = this.getString('file_size_kb');
+      template = this.getString('skyux_file_attachment_file_size_kb');
       dividend = 1000;
     } else if (input < 1e9) {
-      template = this.getString('file_size_mb');
+      template = this.getString('skyux_file_attachment_file_size_mb');
       dividend = 1e6;
       decimalPlaces = 1;
     } else {
-      template = this.getString('file_size_gb');
+      template = this.getString('skyux_file_attachment_file_size_gb');
       dividend = 1e9;
       decimalPlaces = 1;
     }
