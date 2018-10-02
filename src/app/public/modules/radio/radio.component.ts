@@ -94,7 +94,14 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   @Input()
-  public tabindex = 0;
+  public set tabindex(value: number) {
+    console.warn('The sky-radio `tabindex` property is deprecated. Please use the `tabindex` property on the sky-radio-group component.');
+    this._tabindex = value;
+    this.changeDetector.detectChanges();
+  }
+  public get tabindex(): number {
+    return this._tabindex || 0;
+  }
 
   @Input()
   public set value(value: any) {
@@ -150,6 +157,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   private _name: string;
   private _radioType: string;
   private _selectedValue: any;
+  private _tabindex: number;
   private _value: any;
 
   constructor(

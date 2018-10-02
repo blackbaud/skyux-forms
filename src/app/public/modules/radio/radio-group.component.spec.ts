@@ -93,6 +93,18 @@ describe('Radio group component', function () {
     expect(componentInstance.radioForm.value.option.name).toBe('Harima Kenji');
   }));
 
+  it('should use tabindex when specified', fakeAsync(function () {
+    componentInstance.tabindex = 2;
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const radios = fixture.nativeElement.querySelectorAll('input');
+    radios.forEach((element: any) => {
+      expect(element.getAttribute('tabindex')).toBe('2');
+    });
+  }));
+
   it('should maintain checked state when value is changed', fakeAsync(function () {
     fixture.detectChanges();
 
