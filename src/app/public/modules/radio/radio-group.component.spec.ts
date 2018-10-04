@@ -100,9 +100,9 @@ describe('Radio group component', function () {
     fixture.detectChanges();
 
     const radios = fixture.nativeElement.querySelectorAll('input');
-    radios.forEach((element: any) => {
+    for (let element of radios) {
       expect(element.getAttribute('tabindex')).toBe('2');
-    });
+    }
   }));
 
   it('should maintain checked state when value is changed', fakeAsync(function () {
