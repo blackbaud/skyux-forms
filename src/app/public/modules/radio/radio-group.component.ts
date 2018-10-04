@@ -128,7 +128,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   private updateRadioButtonTabindexes(): void {
     if (this.radios) {
       this.radios.forEach(radio => {
-        radio.tabindex = this.tabindex;
+        radio.groupTabindex = this.tabindex;
       });
     }
   }
