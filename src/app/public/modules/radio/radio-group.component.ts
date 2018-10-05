@@ -69,14 +69,14 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   }
 
   @Input()
-  public set tabindex(value: number) {
-    if (this._tabindex !== value) {
-      this._tabindex = value;
-      this.updateRadioButtonTabindexes();
+  public set tabIndex(value: number) {
+    if (this._tabIndex !== value) {
+      this._tabIndex = value;
+      this.updateRadioButtonTabIndexes();
     }
   }
-  public get tabindex(): number {
-    return this._tabindex;
+  public get tabIndex(): number {
+    return this._tabIndex;
   }
 
   @ContentChildren(SkyRadioComponent, { descendants: true })
@@ -84,12 +84,12 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   private _name = `sky-radio-group-${nextUniqueId++}`;
   private _value: any;
-  private _tabindex: number;
+  private _tabIndex: number;
 
   public ngAfterContentInit(): void {
     this.updateCheckedRadioFromValue();
     this.updateRadioButtonNames();
-    this.updateRadioButtonTabindexes();
+    this.updateRadioButtonTabIndexes();
 
     // Watch for radio selections.
     this.radios.forEach((radio) => {
@@ -125,10 +125,10 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     }
   }
 
-  private updateRadioButtonTabindexes(): void {
+  private updateRadioButtonTabIndexes(): void {
     if (this.radios) {
       this.radios.forEach(radio => {
-        radio.groupTabindex = this.tabindex;
+        radio.groupTabIndex = this.tabIndex;
       });
     }
   }

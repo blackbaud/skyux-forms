@@ -24,7 +24,7 @@ export class SkyRadioGroupTestComponent {
 
   public radioForm: FormGroup;
 
-  public tabindex: number;
+  public tabIndex: number;
   public options = [
     { name: 'Lillith Corharvest', disabled: false },
     { name: 'Harima Kenji', disabled: false },

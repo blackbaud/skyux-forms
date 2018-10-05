@@ -93,8 +93,8 @@ describe('Radio group component', function () {
     expect(componentInstance.radioForm.value.option.name).toBe('Harima Kenji');
   }));
 
-  it('should use tabindex when specified', fakeAsync(function () {
-    componentInstance.tabindex = 2;
+  it('should use tabIndex when specified', fakeAsync(function () {
+    componentInstance.tabIndex = 2;
     fixture.detectChanges();
     tick();
     fixture.detectChanges();

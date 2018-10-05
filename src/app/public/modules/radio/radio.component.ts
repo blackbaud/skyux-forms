@@ -104,7 +104,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   // For setting the tabindex from the radio group
-  public set groupTabindex(value: number) {
+  public set groupTabIndex(value: number) {
     this._tabindex = value;
     this.changeDetector.detectChanges();
   }
