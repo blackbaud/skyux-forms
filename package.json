@@ -23,15 +23,15 @@
   },
   "homepage": "https://github.com/blackbaud/skyux-forms#readme",
   "peerDependencies": {
-    "@angular/common": "^4.3.6",
-    "@angular/core": "^4.3.6",
-    "@angular/forms": "^4.3.6",
+    "@angular/common": ">=4.3.6",
+    "@angular/core": ">=4.3.6",
+    "@angular/forms": ">=4.3.6",
     "@skyux/i18n": "^3.3.0",
     "@skyux/indicators": "^3.0.0-rc.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "@blackbaud/skyux": "2.29.0",
+    "@blackbaud/skyux": "2.30.0",
     "@blackbaud/skyux-builder": "1.29.0",
     "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.5"
   }
