@@ -1,22 +1,41 @@
-<div style="width: 60%; margin-left: auto; margin-right: auto;">
-  <div id="screenshot-file-drop">
+<div
+  style="width: 60%; margin-left: auto; margin-right: auto;"
+>
+  <div
+    id="screenshot-file-drop"
+  >
     <sky-file-drop
-      (filesChanged)="filesUpdated($event)"
-      (linkChanged)="linkAdded($event)"
+      [allowLinks]="allowLinks"
+      [disabled]="disabled"
       [maxFileSize]="maxFileSize"
       [validateFn]="validateFile"
-      [allowLinks]="allowLinks">
+      (filesChanged)="filesUpdated($event)"
+      (linkChanged)="linkAdded($event)"
+    >
     </sky-file-drop>
 
     <div *ngFor="let file of allItems">
-      <sky-file-item [fileItem]="file" (deleteFile)="deleteFile($event)"></sky-file-item>
+      <sky-file-item
+        [fileItem]="file"
+        (deleteFile)="deleteFile($event)"
+      >
+      </sky-file-item>
     </div>
   </div>
 </div>
 
 <button
-  type="button"
   class="sky-btn sky-btn-primary sky-test-allow-links"
-  (click)="allowLinks = !allowLinks">
+  type="button"
+  (click)="allowLinks = !allowLinks"
+>
   Toggle allowLinks
+</button>
+
+<button
+  class="sky-btn sky-btn-primary sky-test-disable"
+  type="button"
+  (click)="disabled = !disabled"
+>
+  Toggle disabled
 </button>

@@ -52,6 +52,9 @@ export class SkyFileDropComponent {
   @Input()
   public allowLinks: boolean = false;
 
+  @Input()
+  public disabled: boolean = false;
+
   @ViewChild('fileInput')
   public inputEl: ElementRef;
 

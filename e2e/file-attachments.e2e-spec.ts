@@ -21,6 +21,13 @@ describe('File attachments', () => {
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done);
   });
 
+  it('should match previous file attachments screenshot when disabled', (done) => {
+    SkyHostBrowser.get('visual/file-attachment');
+    SkyHostBrowser.setWindowBreakpoint('lg');
+    element(by.css('.sky-test-disable')).click();
+    expect('#screenshot-file-drop').toMatchBaselineScreenshot(done);
+  });
+
   it('should match previous file attachments screenshot when no links allowed', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('lg');

@@ -38,11 +38,18 @@ describe('File drop component', () => {
   /** Simple test component with tabIndex */
   @Component({
     template: `
-      <sky-file-drop>
-        <div class="sky-custom-drop"></div>
+      <sky-file-drop
+        [disabled]="disabled"
+      >
+        <div
+          class="sky-custom-drop"
+        >
+        </div>
       </sky-file-drop>`
   })
-  class FileDropContentComponent { }
+  class FileDropContentComponent {
+    public disabled = false;
+  }
 
   let fixture: ComponentFixture<SkyFileDropComponent>;
   let el: any;
@@ -651,10 +658,7 @@ describe('File drop component', () => {
     'should accept a file of rejected type on drag (but not on drop)',
     'if the browser does not support dataTransfer.items'
   ].join(' '), () => {
-    let filesChangedActual: SkyFileDropChange;
-
-    componentInstance.filesChanged.subscribe(
-      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+    componentInstance.filesChanged.subscribe();
 
     componentInstance.acceptedTypes = 'image/png, image/tiff';
 
@@ -694,10 +698,7 @@ describe('File drop component', () => {
       }
     ];
 
-    let filesChangedActual: SkyFileDropChange;
-
-    componentInstance.filesChanged.subscribe(
-      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+    componentInstance.filesChanged.subscribe();
 
     let fileReaderSpy = setupFileReaderSpy();
 
@@ -726,10 +727,7 @@ describe('File drop component', () => {
       }
     ];
 
-    let filesChangedActual: SkyFileDropChange;
-
-    componentInstance.filesChanged.subscribe(
-      (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+    componentInstance.filesChanged.subscribe();
 
     let fileReaderSpy = setupFileReaderSpy();
     fixture.detectChanges();
@@ -740,6 +738,18 @@ describe('File drop component', () => {
     triggerDragOver(files, dropDebugEl);
     triggerDrop(files, dropDebugEl);
     expect(fileReaderSpy.loadCallbacks.length).toBe(0);
+  });
+
+  it('should disable all inputs and buttons when disabled is true', () => {
+    componentInstance.disabled = true;
+    componentInstance.allowLinks = true;
+    fixture.detectChanges();
+
+    let inputs = fixture.nativeElement.querySelectorAll('input,button');
+    expect(inputs.length).toBe(4);
+    inputs.forEach((element: any) => {
+      expect(element.getAttribute('disabled')).not.toBeUndefined();
+    });
   });
 
   it('should show link section when allowLinks is true', () => {
@@ -814,6 +824,16 @@ describe('File drop component', () => {
 
   it('should pass accessibility', async(() => {
     fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
+
+  it('should pass accessibility when disabled', async(() => {
+    componentInstance.disabled = true;
+    componentInstance.allowLinks = true;
+    fixture.detectChanges();
+
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement).toBeAccessible();
     });

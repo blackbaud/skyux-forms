@@ -1,29 +1,41 @@
 <div
-  class="sky-file-drop-row" [ngClass]="{ 'sky-file-drop-allow-links': allowLinks }">
+  class="sky-file-drop-row"
+  [ngClass]="{
+    'sky-file-drop-allow-links': allowLinks,
+    'sky-file-drop-disabled': disabled
+  }"
+>
   <div
     class="sky-file-drop-col"
-    [ngClass]="{ 'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver }">
+    [ngClass]="{
+      'sky-file-drop-accept': acceptedOver,
+      'sky-file-drop-reject': rejectedOver
+    }">
 
     <button
       class="sky-file-drop sky-file-drop-target"
       type="button"
+      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources"
+      [disabled]="disabled"
       (click)="dropClicked()"
-      (dragover)="fileDragOver($event)"
       (dragenter)="fileDragEnter($event)"
+      (dragover)="fileDragOver($event)"
       (dragleave)="fileDragLeave($event)"
       (drop)="fileDrop($event)"
-      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources">
+    >
     </button>
 
     <input
-      tabindex="-1"
       aria-hidden="true"
-      type="file"
       class="sky-file-input-hidden"
-      [attr.multiple]="multiple ? multiple: null"
+      tabindex="-1"
+      type="file"
       [attr.accept]="acceptedTypes ? acceptedTypes: null"
+      [attr.multiple]="multiple ? multiple: null"
+      [disabled]="disabled"
       (change)="fileChangeEvent($event)"
-      #fileInput>
+      #fileInput
+    />
 
     <div class="sky-file-drop-contents sky-padding-even-default" *ngIf="customEl.children.length === 0">
       <div class="sky-file-drop-contents-not-over">
@@ -67,17 +79,19 @@
         </div>
         <div class="sky-form-group">
           <input
-            type="text"
             class="sky-form-control"
+            type="text"
+            [attr.aria-label]="'skyux_file_attachment_file_upload_link_input' | skyLibResources"
             [attr.placeholder]="'skyux_file_attachment_file_upload_link_placeholder' | skyLibResources"
+            [disabled]="disabled"
             [(ngModel)]="linkUrl"
             (keyup)="addLinkEnter($event)"
-            [attr.aria-label]="'skyux_file_attachment_file_upload_link_input' | skyLibResources">
+          />
         </div>
         <button
-          type="button"
           class="sky-btn sky-btn-primary"
-          [disabled]="!linkUrl"
+          type="button"
+          [disabled]="!linkUrl || disabled"
           (click)="addLink($event)">
           {{ 'skyux_file_attachment_file_upload_paste_link_done' | skyLibResources }}
         </button>

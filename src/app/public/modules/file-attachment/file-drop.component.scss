@@ -56,6 +56,13 @@ button.sky-file-drop {
   }
 }
 
+.sky-file-drop-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: .65;
+  box-shadow: none;
+}
+
 .sky-file-drop-accept,
 .sky-file-drop-reject {
   .sky-file-drop-contents {
