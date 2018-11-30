@@ -38,7 +38,7 @@ import {
 } from './fixtures/radio-on-push.component.fixture';
 // #endregion
 
-fdescribe('Radio component', function () {
+describe('Radio component', function () {
   let fixture: ComponentFixture<any>;
   let componentInstance: any;
 
