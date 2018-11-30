@@ -1,7 +1,6 @@
 import {
   Component,
-  OnInit,
-  ChangeDetectionStrategy
+  OnInit
 } from '@angular/core';
 
 import {
@@ -11,8 +10,7 @@ import {
 
 @Component({
   selector: 'radio-visual',
-  templateUrl: './radio-visual.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './radio-visual.component.html'
 })
 export class RadioVisualComponent implements OnInit {
   public selectedValue = '3';
@@ -35,9 +33,5 @@ export class RadioVisualComponent implements OnInit {
     this.radioForm = this.formBuilder.group({
       favoriteSeason: this.seasons[0]
     });
-  }
-
-  public changeValue() {
-    this.iconSelectedValue = this.iconSelectedValue === '3' ? '1' : '3';
   }
 }
