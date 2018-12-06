@@ -1,6 +1,6 @@
 # 3.0.0-rc.4 (2018-12-06)
 
-- Fixed checkbox component to update properly when when used in a component using `ChangeDetectionStrategy.OnPush`. [#11](https://github.com/blackbaud/skyux-forms/pull/11)
+- Fixed checkbox component to emit its change event properly for all change detection strategies. [#11](https://github.com/blackbaud/skyux-forms/pull/11)
 
 # 3.0.0-rc.3 (2018-11-15)
 
