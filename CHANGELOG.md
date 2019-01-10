@@ -1,3 +1,7 @@
+# 3.0.0-rc.5 (2019-01-10)
+
+- Fixed checkbox component to not add `aria-label` to HTML tags unless a label is supplied. [#14](https://github.com/blackbaud/skyux-forms/pull/14)
+
 # 3.0.0-rc.4 (2018-12-06)
 
 - Fixed checkbox component to emit its change event properly for all change detection strategies. [#11](https://github.com/blackbaud/skyux-forms/pull/11)
