@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "3.0.0-rc.4",
+  "version": "3.0.0",
   "description": "SKY UX Forms",
   "main": "bundles/bundle.umd.js",
   "module": "index.ts",
@@ -26,13 +26,13 @@
     "@angular/common": ">=4.3.6",
     "@angular/core": ">=4.3.6",
     "@angular/forms": ">=4.3.6",
-    "@skyux/i18n": "^3.3.0",
-    "@skyux/indicators": "^3.0.0-rc.0"
+    "@skyux/i18n": "^3.5.0",
+    "@skyux/indicators": "^3.0.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "@blackbaud/skyux": "2.30.0",
-    "@blackbaud/skyux-builder": "1.29.0",
+    "@blackbaud/skyux": "2.38.0",
+    "@blackbaud/skyux-builder": "1.30.0",
     "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.5"
   }
 }
