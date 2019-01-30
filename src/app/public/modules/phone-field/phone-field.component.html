@@ -5,7 +5,7 @@
         <div [className]="'iti-flag ' + selectedCountry.iso2"></div>
       </sky-dropdown-button>
       <sky-dropdown-menu>
-        <sky-dropdown-item *ngFor="let country of countryData">
+        <sky-dropdown-item *ngFor="let country of countryData; let i = index" [ngClass]="{ 'sky-selected-country': i === 0 }">
           <button
             type="button"
             (click)="selectCountry(country)"

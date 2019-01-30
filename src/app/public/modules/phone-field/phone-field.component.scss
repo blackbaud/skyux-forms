@@ -1,3 +1,6 @@
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+
 .sky-input-group-country-btn ::ng-deep .sky-dropdown-button {
   border-radius: 0;
 }
@@ -10,6 +13,10 @@
 ::ng-deep .sky-dropdown-button-content-container {
   margin: auto 0;
   overflow: visible;
+}
+
+.sky-selected-country {
+  @include sky-border(light, bottom);
 }
 
 .iti-flag {
