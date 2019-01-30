@@ -1,0 +1,34 @@
+<div class="sky-form-group sky-input-group">
+  <div class="sky-input-group-btn sky-input-group-country-btn">
+    <sky-dropdown>
+      <sky-dropdown-button>
+        <div [className]="'iti-flag ' + selectedCountry.iso2"></div>
+      </sky-dropdown-button>
+      <sky-dropdown-menu>
+        <sky-dropdown-item *ngFor="let country of countryData">
+          <button
+            type="button"
+            (click)="selectCountry(country)"
+          >
+            <div
+                [className]="'iti-flag ' + country.iso2"
+              ></div>
+              {{ country.name }}
+              <span
+                class="sky-deemphasized"
+              >
+                +{{ country.dialCode }}
+              </span>
+          </button>
+        </sky-dropdown-item>
+      </sky-dropdown-menu>
+    </sky-dropdown>
+  </div>
+  <input
+    type="text"
+    class="sky-form-control"
+    [(ngModel)]="phoneNumber"
+    [attr.placeholder]="selectedCountry.placeholder"
+  >
+   <!-- [attr.aria-label]="'skyux_file_attachment_file_upload_link_input' | skyLibResources"> -->
+</div>

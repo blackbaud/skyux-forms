@@ -29,10 +29,13 @@
     "@skyux/i18n": "^3.5.0",
     "@skyux/indicators": "^3.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "intl-tel-input": "14.0.8"
+  },
   "devDependencies": {
     "@blackbaud/skyux": "2.38.0",
     "@blackbaud/skyux-builder": "1.30.0",
-    "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.5"
+    "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.5",
+    "@types/intl-tel-input": "14.0.1"
   }
 }
