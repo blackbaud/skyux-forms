@@ -1,6 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  Component
+  Component,
+  Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 import 'intl-tel-input';
@@ -21,7 +24,8 @@ interface CountryData {
 })
 export class SkyPhoneFieldComponent {
 
-  public phoneNumber: string;
+  @Input()
+  public disabled: boolean;
 
   public set selectedCountry(newCountry: CountryData) {
     this._selectedCountry = newCountry;
@@ -38,11 +42,15 @@ export class SkyPhoneFieldComponent {
       } });
     sortedNewCountries.splice(0, 0, newCountry);
     this.countryData = sortedNewCountries;
+    this.selectedCountryChanged.emit(newCountry);
   }
 
   public get selectedCountry() {
     return this._selectedCountry;
   }
+
+  @Output()
+  public selectedCountryChanged = new EventEmitter<CountryData>();
 
   private _selectedCountry: CountryData;
 
@@ -59,6 +67,10 @@ export class SkyPhoneFieldComponent {
 
   public selectCountry(country: CountryData) {
     this.selectedCountry = country;
+  }
+
+  public validateNumber(phoneNumber: string): boolean {
+    return (<any> window).intlTelInputUtils.isValidNumber(phoneNumber, this.selectedCountry.iso2);
   }
 
 }

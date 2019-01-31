@@ -16,11 +16,13 @@ import {
 import {
   SkyPhoneFieldComponent
 } from './phone-field.component';
+import { SkyPhoneFieldInputDirective } from './phone-field-input.directive';
 // #endregion
 
 @NgModule({
   declarations: [
-    SkyPhoneFieldComponent
+    SkyPhoneFieldComponent,
+    SkyPhoneFieldInputDirective
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import {
     SkyDropdownModule
   ],
   exports: [
-    SkyPhoneFieldComponent
+    SkyPhoneFieldComponent,
+    SkyPhoneFieldInputDirective
   ]
 })
 export class SkyPhoneFieldModule { }

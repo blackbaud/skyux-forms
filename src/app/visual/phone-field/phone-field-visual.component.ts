@@ -8,5 +8,7 @@ import {
 })
 export class PhoneFieldVisualComponent {
 
+  public phoneNumber: string;
+
   constructor() { }
 }

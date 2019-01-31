@@ -1,4 +1,10 @@
 <div style="width: 50%; margin: 10px;">
-  <sky-phone-field></sky-phone-field>
+  <sky-phone-field #phoneField>
+    <input
+      type="text"
+      [(ngModel)]="phoneNumber"
+      [skyPhoneFieldInput]="phoneField"
+      >
+  </sky-phone-field>
 </div>
 
