@@ -11,7 +11,7 @@
         </div>
       </sky-dropdown-button>
       <sky-dropdown-menu>
-        <sky-dropdown-item *ngFor="let country of countryData; let i = index" [ngClass]="{ 'sky-selected-country': i === 0 }">
+        <sky-dropdown-item *ngFor="let country of countryData; let i = index" [ngClass]="{ 'sky-selected-country': i === 0, 'sky-default-country': country === defaultCountryData }">
           <button
             type="button"
             (click)="selectCountry(country)"

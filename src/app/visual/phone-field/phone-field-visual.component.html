@@ -7,4 +7,14 @@
       >
   </sky-phone-field>
 </div>
+<div style="width: 50%; margin: 10px;">
+    <sky-phone-field #phoneField2>
+      <input
+        type="text"
+        [(ngModel)]="phoneNumber2"
+        [skyPhoneFieldInput]="phoneField2"
+        [defaultCountry]="'us'"
+        >
+    </sky-phone-field>
+  </div>
 

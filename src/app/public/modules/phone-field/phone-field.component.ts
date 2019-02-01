@@ -35,7 +35,7 @@ export class SkyPhoneFieldComponent {
     }
     this.countryData.splice(this.countryData.indexOf(newCountry), 1);
     let sortedNewCountries = this.countryData
-      .sort((a, b) => { if (a.name < b.name) {
+      .sort((a, b) => { if ((a === this.defaultCountryData || a.name < b.name) && b !== this.defaultCountryData) {
         return -1;
       } else {
         return 1;
@@ -54,23 +54,29 @@ export class SkyPhoneFieldComponent {
 
   private _selectedCountry: CountryData;
 
+  public defaultCountryData: CountryData;
+
   public countryData: CountryData[];
-  // private phoneUtils: intlTelInput.Plugin;
 
   constructor() {
-    this.countryData = window.intlTelInputGlobals.getCountryData();
-    // (<any> window.intlTelInputGlobals).startedLoadingUtilsScript = false;
-    // window.intlTelInputGlobals.loadUtils('webpack://./~/intl-tel-input/build/js/utils.js');
-    // this.phoneUtils = window.intlTelInput(undefined);
+    this.countryData = window.intlTelInputGlobals.getCountryData().slice(0);
     this.selectedCountry = this.countryData[0];
   }
 
-  public selectCountry(country: CountryData) {
-    this.selectedCountry = country;
+  public selectCountry(country: CountryData | string) {
+    if (typeof country === 'string') {
+      this.selectedCountry = this.countryData.find(countryInfo => countryInfo.iso2 === country);
+    } else {
+      this.selectedCountry = country;
+    }
   }
 
   public validateNumber(phoneNumber: string): boolean {
     return (<any> window).intlTelInputUtils.isValidNumber(phoneNumber, this.selectedCountry.iso2);
+  }
+
+  public setDefaultCountry(countryCode: string) {
+    this.defaultCountryData = this.countryData.find(country => country.iso2 === countryCode);
   }
 
 }

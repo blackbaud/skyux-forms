@@ -53,10 +53,16 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
   public skyPhoneFieldComponent: SkyPhoneFieldComponent;
 
   @Input()
-  public get disabled(): boolean {
-    return this._disabled || false;
+  public set defaultCountry(value: string) {
+    this.skyPhoneFieldComponent.setDefaultCountry(value);
+    this._defaultCountryCode = value;
   }
 
+  public get defaultCountry() {
+    return this._defaultCountryCode;
+  }
+
+  @Input()
   public set disabled(value: boolean) {
     this.skyPhoneFieldComponent.disabled = value;
     this.renderer.setProperty(
@@ -64,6 +70,10 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
       'disabled',
       value);
     this._disabled = value;
+  }
+
+  public get disabled(): boolean {
+    return this._disabled || false;
   }
 
   private get modelValue(): string {
@@ -79,6 +89,7 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
 
   private _disabled: boolean;
   private _modelValue: string;
+  private _defaultCountryCode: string;
 
   public constructor(
     private renderer: Renderer2,
@@ -88,15 +99,19 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
   ) { }
 
   public ngOnInit(): void {
+
+  }
+
+  public ngAfterViewInit(): void {
     this.renderer.addClass(this.elRef.nativeElement, 'sky-form-control');
+    if (this.defaultCountry) {
+      this.skyPhoneFieldComponent.selectCountry(this.defaultCountry);
+    }
     this.renderer.setAttribute(this.elRef.nativeElement, 'placeholder', this.skyPhoneFieldComponent.selectedCountry.placeholder);
     this.skyPhoneFieldComponent.selectedCountryChanged.subscribe((country: any) => {
       this._validatorChange();
       this.renderer.setAttribute(this.elRef.nativeElement, 'placeholder', country.placeholder);
     });
-  }
-
-  public ngAfterViewInit(): void {
     // This is needed to address a bug in Angular 4, where the value is not changed on the view.
     // See: https://github.com/angular/angular/issues/13792
     const control = (<NgControl>this.injector.get(NgControl)).control as FormControl;
