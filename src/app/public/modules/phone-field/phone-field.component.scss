@@ -1,18 +1,24 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
+@import "~intl-tel-input/build/css/intlTelInput";
 
-.sky-input-group-country-btn ::ng-deep .sky-dropdown-button {
-  border-radius: 0;
-}
 
-::ng-deep .sky-dropdown-item .iti-flag {
-  display: inline-block;
-  margin-right: 5px;
-}
+.sky-input-group-country-btn {
 
-::ng-deep .sky-dropdown-button-content-container {
-  margin: auto 0;
-  overflow: visible;
+  ::ng-deep .sky-dropdown-button {
+    border-radius: 0;
+  }
+
+  ::ng-deep .sky-dropdown-item .iti-flag {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  ::ng-deep .sky-dropdown-button-content-container {
+    margin: auto 0;
+    overflow: visible;
+  }
+
 }
 
 .sky-selected-country, .sky-default-country {

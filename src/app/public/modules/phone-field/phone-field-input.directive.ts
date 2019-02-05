@@ -76,6 +76,9 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
     return this._disabled || false;
   }
 
+  @Input()
+  public skyPhoneFieldNoValidate: boolean = false;
+
   private get modelValue(): string {
     return this._modelValue;
   }
@@ -155,7 +158,7 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
       return undefined;
     }
 
-    if (!this.skyPhoneFieldComponent.validateNumber(value)) {
+    if (!this.skyPhoneFieldComponent.validateNumber(value) && !this.skyPhoneFieldNoValidate) {
       return {
         'skyPhoneField': {
           invalid: control.value

@@ -9,17 +9,14 @@ import {
 import 'intl-tel-input';
 require('intl-tel-input/build/js/utils');
 
-interface CountryData {
-  name: string;
-  iso2: string;
-  dialCode: string;
-  placeholder?: string;
-}
+import {
+  SkyCountryData
+} from './types';
 
 @Component({
   selector: 'sky-phone-field',
   templateUrl: './phone-field.component.html',
-  styleUrls: ['./phone-field.component.scss', '../../../../../node_modules/intl-tel-input/build/css/intlTelInput.css'],
+  styleUrls: ['./phone-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyPhoneFieldComponent {
@@ -27,7 +24,7 @@ export class SkyPhoneFieldComponent {
   @Input()
   public disabled: boolean;
 
-  public set selectedCountry(newCountry: CountryData) {
+  public set selectedCountry(newCountry: SkyCountryData) {
     this._selectedCountry = newCountry;
     if (!this._selectedCountry.placeholder) {
       this._selectedCountry.placeholder = (<any>window).intlTelInputUtils.getExampleNumber(newCountry.iso2, true,
@@ -50,25 +47,21 @@ export class SkyPhoneFieldComponent {
   }
 
   @Output()
-  public selectedCountryChanged = new EventEmitter<CountryData>();
+  public selectedCountryChanged = new EventEmitter<SkyCountryData>();
 
-  private _selectedCountry: CountryData;
+  private _selectedCountry: SkyCountryData;
 
-  public defaultCountryData: CountryData;
+  public defaultCountryData: SkyCountryData;
 
-  public countryData: CountryData[];
+  public countryData: SkyCountryData[];
 
   constructor() {
     this.countryData = window.intlTelInputGlobals.getCountryData().slice(0);
     this.selectedCountry = this.countryData[0];
   }
 
-  public selectCountry(country: CountryData | string) {
-    if (typeof country === 'string') {
-      this.selectedCountry = this.countryData.find(countryInfo => countryInfo.iso2 === country);
-    } else {
-      this.selectedCountry = country;
-    }
+  public selectCountry(countryCode: string) {
+    this.selectedCountry = this.countryData.find(countryInfo => countryInfo.iso2 === countryCode);
   }
 
   public validateNumber(phoneNumber: string): boolean {
