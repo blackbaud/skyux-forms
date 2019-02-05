@@ -9,6 +9,7 @@ import {
 export class PhoneFieldVisualComponent {
 
   public phoneNumber: string;
+
   public phoneNumber2: string;
 
   constructor() { }

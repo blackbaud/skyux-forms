@@ -1,10 +1,12 @@
-<form [formGroup]="phoneForm">
+<form
+  [formGroup]="phoneForm"
+>
   <sky-phone-field #phoneField>
     <input
       formControlName="phone"
+      [defaultCountry]="defaultCountry"
       [skyPhoneFieldInput]="phoneField"
       [skyPhoneFieldNoValidate]="noValidate"
-      [defaultCountry]="defaultCountry"
-      >
+    >
   </sky-phone-field>
 </form>

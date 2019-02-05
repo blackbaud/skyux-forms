@@ -21,6 +21,7 @@ export class PhoneFieldTestComponent {
   public isDisabled: boolean = false;
 
   public defaultCountry: string;
+
   public noValidate: boolean = false;
 
 }

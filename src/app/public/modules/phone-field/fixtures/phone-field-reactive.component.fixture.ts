@@ -5,9 +5,13 @@ import {
 } from '@angular/core';
 
 import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+
+import {
   SkyPhoneFieldInputDirective
 } from '../phone-field-input.directive';
-import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'sky-test-cmp',

@@ -20,7 +20,10 @@ import {
   NgControl,
   FormControl
 } from '@angular/forms';
-import { SkyPhoneFieldComponent } from './phone-field.component';
+
+import {
+  SkyPhoneFieldComponent
+} from './phone-field.component';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_PHONE_FIELD_VALUE_ACCESSOR = {
@@ -43,12 +46,15 @@ const SKY_PHONE_FIELD_VALIDATOR = {
     SKY_PHONE_FIELD_VALIDATOR
   ]
 })
-export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, ControlValueAccessor, Validator {
+export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit,
+  ControlValueAccessor, Validator {
 
-  // Disabling linting here as per the Angular style guide "Style 05-13" it is acceptable
-  // to alias when when the directive name is also an input property,
-  // and the directive name doesn't describe the property
-  // tslint:disable-next-line:no-input-rename
+  /**
+   * Disabling linting here as per the Angular style guide "Style 05-13" it is acceptable
+   * to alias when when the directive name is also an input property,
+   * and the directive name doesn't describe the property.
+   */
+   // tslint:disable-next-line:no-input-rename
   @Input('skyPhoneFieldInput')
   public skyPhoneFieldComponent: SkyPhoneFieldComponent;
 
@@ -79,10 +85,6 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
   @Input()
   public skyPhoneFieldNoValidate: boolean = false;
 
-  private get modelValue(): string {
-    return this._modelValue;
-  }
-
   private set modelValue(value: string) {
     this._modelValue = value;
     this.setInputValue(value);
@@ -90,27 +92,33 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
     this._validatorChange();
   }
 
-  private _disabled: boolean;
-  private _modelValue: string;
+  private get modelValue(): string {
+    return this._modelValue;
+  }
+
   private _defaultCountryCode: string;
 
+  private _disabled: boolean;
+
+  private _modelValue: string;
+
   public constructor(
-    private renderer: Renderer2,
-    private elRef: ElementRef,
     private changeDetector: ChangeDetectorRef,
-    private injector: Injector
+    private elRef: ElementRef,
+    private injector: Injector,
+    private renderer: Renderer2
   ) { }
 
   public ngOnInit(): void {
-
-  }
-
-  public ngAfterViewInit(): void {
     this.renderer.addClass(this.elRef.nativeElement, 'sky-form-control');
     if (this.defaultCountry) {
       this.skyPhoneFieldComponent.selectCountry(this.defaultCountry);
     }
-    this.renderer.setAttribute(this.elRef.nativeElement, 'placeholder', this.skyPhoneFieldComponent.selectedCountry.placeholder);
+    this.renderer.setAttribute(this.elRef.nativeElement, 'placeholder',
+      this.skyPhoneFieldComponent.selectedCountry.placeholder);
+  }
+
+  public ngAfterViewInit(): void {
     this.skyPhoneFieldComponent.selectedCountryChanged.subscribe((country: any) => {
       this._validatorChange();
       this.renderer.setAttribute(this.elRef.nativeElement, 'placeholder', country.placeholder);
@@ -128,16 +136,27 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
     }
   }
 
+  /**
+   * Writes the new value for reactive forms on change events on the input element
+   * @param event The change event that was received
+   */
   @HostListener('change', ['$event'])
-  public onChange(event: any) {
+  public onChange(event: any): void {
     this.writeValue(event.target.value);
   }
 
+  /**
+   * Marks reactive form controls as touched on input blur events
+   */
   @HostListener('blur')
-  public onBlur() {
+  public onBlur(): void {
     this._onTouched();
   }
 
+  /**
+   * Writes the new value for reactive forms
+   * @param value The new value for the input
+   */
   public writeValue(value: any): void {
     this.modelValue = value;
   }
@@ -147,10 +166,19 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
 
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
+
+  /**
+   * Sets the disabled state on the input
+   * @param isDisabled the new value of the input's disabled state
+   */
   public setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
+  /**
+   * Validate's the form control's current value
+   * @param control the form control for the input
+   */
   public validate(control: AbstractControl): { [key: string]: any } {
     let value = control.value;
 
@@ -180,6 +208,8 @@ export class SkyPhoneFieldInputDirective implements OnInit, AfterViewInit, Contr
   /*istanbul ignore next */
   private _onChange = (_: any) => { };
   /*istanbul ignore next */
+
   private _onTouched = () => { };
+
   private _validatorChange = () => { };
 }

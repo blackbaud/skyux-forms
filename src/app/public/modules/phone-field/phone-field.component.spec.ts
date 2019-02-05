@@ -7,8 +7,14 @@ import {
 } from '@angular/core/testing';
 
 import {
-  FormsModule, NgModel, ReactiveFormsModule
+  FormsModule,
+  NgModel,
+  ReactiveFormsModule
 } from '@angular/forms';
+
+import {
+  By
+} from '@angular/platform-browser';
 
 import {
   expect
@@ -19,10 +25,12 @@ import {
 } from './fixtures/phone-field.component.fixture';
 
 import {
+  PhoneFieldReactiveTestComponent
+} from './fixtures/phone-field-reactive.component.fixture';
+
+import {
   SkyPhoneFieldModule
 } from './phone-field.module';
-import { By } from '@angular/platform-browser';
-import { PhoneFieldReactiveTestComponent } from './fixtures/phone-field-reactive.component.fixture';
 
 fdescribe('Phone Field Component', () => {
 

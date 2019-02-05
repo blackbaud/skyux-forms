@@ -4,8 +4,8 @@ import {
 } from '@skyux-sdk/e2e';
 
 import {
-  element,
-  by
+  by,
+  element
 } from 'protractor';
 
 fdescribe('Phone Field', () => {

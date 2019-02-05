@@ -2,9 +2,11 @@
 import {
   NgModule
 } from '@angular/core';
+
 import {
   CommonModule
 } from '@angular/common';
+
 import {
   FormsModule
 } from '@angular/forms';
@@ -16,7 +18,10 @@ import {
 import {
   SkyPhoneFieldComponent
 } from './phone-field.component';
-import { SkyPhoneFieldInputDirective } from './phone-field-input.directive';
+
+import {
+  SkyPhoneFieldInputDirective
+} from './phone-field-input.directive';
 // #endregion
 
 @NgModule({
