@@ -1,3 +1,8 @@
+# 3.1.0 (2019-03-19)
+
+- Added `ariaLabel` property to radio group components. [#26](https://github.com/blackbaud/skyux-forms/pull/26)
+- Fixed radio group component to properly watch for changes to inner radio components. [#26](https://github.com/blackbaud/skyux-forms/pull/26)
+
 # 3.0.0 (2019-01-11)
 
 - Major version release.
