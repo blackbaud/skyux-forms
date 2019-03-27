@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "SKY UX Forms",
   "main": "bundles/bundle.umd.js",
   "module": "index.ts",
@@ -31,8 +31,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@blackbaud/skyux": "2.38.0",
-    "@blackbaud/skyux-builder": "1.30.0",
-    "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.5"
+    "@blackbaud/skyux": "2.46.0",
+    "@blackbaud/skyux-builder": "1.33.0",
+    "@skyux-sdk/builder-plugin-skyux": "1.0.0-rc.6"
   }
 }
