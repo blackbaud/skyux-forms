@@ -28,7 +28,7 @@ describe('Radio group component', function () {
     return radioFixture.nativeElement.querySelectorAll('.sky-radio-input');
   }
 
-  function selectCheckbox(radioFixture: ComponentFixture<any>, index: number) {
+  function clickCheckbox(radioFixture: ComponentFixture<any>, index: number) {
     const radios = getRadios(radioFixture);
     radios.item(index).click();
     fixture.detectChanges();
@@ -50,7 +50,7 @@ describe('Radio group component', function () {
     fixture.destroy();
   });
 
-  it('should update the FormGroup properly when nothing is selected on init', fakeAsync(function () {
+  it('should update ngModel properly when nothing is selected on init', fakeAsync(function () {
     fixture.detectChanges();
 
     // tslint:disable-next-line:no-null-keyword
@@ -60,7 +60,7 @@ describe('Radio group component', function () {
     expect(componentInstance.radioForm.dirty).toEqual(false);
     // tslint:enable
 
-    selectCheckbox(fixture, 0);
+    clickCheckbox(fixture, 0);
 
     expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Lillith Corharvest', disabled: false } });
     expect(componentInstance.radioForm.touched).toEqual(true);
@@ -72,7 +72,7 @@ describe('Radio group component', function () {
     fixture.detectChanges();
 
     const radios = getRadios(fixture);
-    selectCheckbox(fixture, 1);
+    clickCheckbox(fixture, 1);
 
     const value = componentInstance.radioForm.value.option;
 
@@ -83,7 +83,7 @@ describe('Radio group component', function () {
 
   it('should update the radio buttons properly when ngModel is changed', fakeAsync(function () {
     fixture.detectChanges();
-    selectCheckbox(fixture, 0);
+    clickCheckbox(fixture, 0);
     expect(componentInstance.radioGroupComponent.value.name).toEqual('Lillith Corharvest');
 
     componentInstance.radioForm.patchValue({
@@ -98,10 +98,10 @@ describe('Radio group component', function () {
   it('should handle disabled state properly', fakeAsync(function (done: Function) {
     componentInstance.options[1].disabled = true;
     fixture.detectChanges();
-    selectCheckbox(fixture, 0);
+    clickCheckbox(fixture, 0);
 
     const radios = getRadios(fixture);
-    selectCheckbox(fixture, 1);
+    clickCheckbox(fixture, 1);
 
     expect(radios.item(1).checked).toBe(false);
     expect(componentInstance.radioForm.value.option.name).toBe('Lillith Corharvest');
@@ -110,7 +110,7 @@ describe('Radio group component', function () {
     fixture.detectChanges();
     tick();
 
-    selectCheckbox(fixture, 1);
+    clickCheckbox(fixture, 1);
 
     expect(radios.item(1).checked).toBe(true);
     expect(componentInstance.radioForm.value.option.name).toBe('Harima Kenji');
@@ -170,7 +170,7 @@ describe('Radio group component', function () {
 
   it('should maintain checked state when value is changed', fakeAsync(function () {
     fixture.detectChanges();
-    selectCheckbox(fixture, 0);
+    clickCheckbox(fixture, 0);
 
     let newValue = {
       name: 'Jerry Salmonella',
@@ -200,7 +200,7 @@ describe('Radio group component', function () {
   it('should maintain checked state when options are changed', fakeAsync(function () {
     fixture.detectChanges();
 
-    selectCheckbox(fixture, 0);
+    clickCheckbox(fixture, 0);
 
     let newValue = {
       name: 'Jerry Salmonella',
@@ -254,14 +254,14 @@ describe('Radio group component', function () {
     expect(radios.item(0).checked).toEqual(true);
     expect(radios.item(1).checked).toEqual(false);
 
-    selectCheckbox(booleanFixture, 1);
+    clickCheckbox(booleanFixture, 1);
 
     expect(booleanComponent.radioGroupComponent.value).toEqual(true);
     expect(booleanComponent.radioForm.get('booleanValue').value).toEqual(true);
     expect(radios.item(0).checked).toEqual(false);
     expect(radios.item(1).checked).toEqual(true);
 
-    selectCheckbox(booleanFixture, 0);
+    clickCheckbox(booleanFixture, 0);
 
     expect(booleanComponent.radioGroupComponent.value).toEqual(false);
     expect(booleanComponent.radioForm.get('booleanValue').value).toEqual(false);
