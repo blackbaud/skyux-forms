@@ -68,6 +68,28 @@ describe('Radio group component', function () {
     expect(componentInstance.radioForm.dirty).toEqual(true);
   }));
 
+  it('should update ngModel properly when form is initialized with values', fakeAsync(function () {
+    componentInstance.radioForm.patchValue({
+      option: componentInstance.options[0]
+    });
+
+    fixture.detectChanges();
+
+    // tslint:disable-next-line:no-null-keyword
+    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Lillith Corharvest', disabled: false } });
+    expect(componentInstance.radioForm.touched).toEqual(false);
+    expect(componentInstance.radioForm.pristine).toEqual(true);
+    expect(componentInstance.radioForm.dirty).toEqual(false);
+    // tslint:enable
+
+    clickCheckbox(fixture, 1);
+
+    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Harima Kenji', disabled: false } });
+    expect(componentInstance.radioForm.touched).toEqual(true);
+    expect(componentInstance.radioForm.pristine).toEqual(false);
+    expect(componentInstance.radioForm.dirty).toEqual(true);
+  }));
+
   it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
     fixture.detectChanges();
 
