@@ -1,12 +1,12 @@
 <div id="screenshot-checkbox">
-  <sky-checkbox [(ngModel)]="checkValue" #skycheck="ngModel">
+  <sky-checkbox [checked]="true">
     <sky-checkbox-label>Checked Checkbox</sky-checkbox-label>
   </sky-checkbox>
-  <!-- <sky-checkbox [checked]="false">
+  <sky-checkbox [checked]="false">
     <sky-checkbox-label>Unchecked Checkbox</sky-checkbox-label>
-  </sky-checkbox> -->
+  </sky-checkbox>
 </div>
-<!-- <div id="screenshot-icon-checkbox">
+<div id="screenshot-icon-checkbox">
   <sky-checkbox
     icon="bold"
     label="bold"
@@ -65,24 +65,4 @@
     label="wrong"
     [checked]="false">
   </sky-checkbox>
-</div> -->
-
-
-<table>
-  <tr>
-    <th>Touched</th>
-    <td>{{ skycheck.touched }}</td>
-  </tr>
-  <tr>
-    <th>Dirty</th>
-    <td>{{ skycheck.dirty }}</td>
-  </tr>
-  <tr>
-    <th>Pristine</th>
-    <td>{{ skycheck.pristine }}</td>
-  </tr>
-  <tr>
-    <th>Valid</th>
-    <td>{{ skycheck.valid }}</td>
-  </tr>
-</table>
+</div>
