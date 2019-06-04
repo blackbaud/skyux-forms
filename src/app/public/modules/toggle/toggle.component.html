@@ -1,0 +1,18 @@
+<label
+  class="sky-toggle-wrapper sky-switch"
+  [ngClass]="{ 'sky-switch-disabled': disabled }">
+  <input
+    type="checkbox"
+    [id]="inputId"
+    [checked]="toggled"
+    [disabled]="disabled"
+    [name]="name"
+    [tabIndex]="tabindex"
+    [attr.aria-label]="label"
+    [attr.aria-labelledby]="labelledBy"
+    (blur)="onInputBlur()"
+    (change)="onInteractionEvent($event)"/>
+  <span class="sky-toggle-slider"></span>
+  <ng-content select="sky-toggle-label">
+  </ng-content>
+</label>
