@@ -52,12 +52,17 @@ export class SkyFileDropComponent {
   @Input()
   public allowLinks: boolean = false;
 
+  @Input()
+  public singleFile: boolean = false;
+
   @ViewChild('fileInput')
   public inputEl: ElementRef;
 
   public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
   public linkUrl: string;
+  public singleFileAttachment: SkyFileItem;
+  public singleFileValid: boolean;
 
   private enterEventTarget: any;
 
@@ -147,12 +152,62 @@ export class SkyFileDropComponent {
     this.linkUrl = undefined;
   }
 
+  public singleAttachmentDelete() {
+    this.singleFileAttachment = undefined;
+  }
+
+  public isImg() {
+    let fileTypeUpper = this.getFileTypeUpper(),
+                        slashIndex: number;
+
+    slashIndex = fileTypeUpper.indexOf('/');
+
+    if (slashIndex >= 0) {
+      switch (fileTypeUpper.substr(fileTypeUpper.indexOf('/') + 1)) {
+        case 'BMP':
+        case 'GIF':
+        case 'JPEG':
+        case 'PNG':
+          return true;
+        default:
+          break;
+      }
+    }
+
+    return false;
+  }
+
+  private getFileTypeUpper() {
+    let fileType = '';
+    /* istanbul ignore else */
+    /* sanity check */
+    if (this.singleFileAttachment) {
+      let file = (<SkyFileItem>this.singleFileAttachment).file;
+      if (file) {
+        fileType = file.type || '';
+      } else {
+        fileType = '';
+      }
+    }
+
+    return fileType.toUpperCase();
+  }
+
   private emitFileChangeEvent(
     totalFiles: number,
     rejectedFileArray: Array<SkyFileItem>,
     validFileArray: Array<SkyFileItem>
   ) {
     if (totalFiles === rejectedFileArray.length + validFileArray.length) {
+      if (this.singleFile) {
+        if (validFileArray.length > 0) {
+          this.singleFileAttachment = validFileArray[0];
+          this.singleFileValid = true;
+        } else {
+          // this.singleFileAttachment = rejectedFileArray[0];
+          this.singleFileValid = false;
+        }
+      }
       this.filesChanged.emit({
         files: validFileArray,
         rejectedFiles: rejectedFileArray

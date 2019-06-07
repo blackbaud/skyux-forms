@@ -1,5 +1,6 @@
 <div
-  class="sky-file-drop-row" [ngClass]="{ 'sky-file-drop-allow-links': allowLinks }">
+  class="sky-file-drop-row" [ngClass]="{ 'sky-file-drop-allow-links': allowLinks }"
+  *ngIf="!singleFile">
   <div
     class="sky-file-drop-col"
     [ngClass]="{ 'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver }">
@@ -84,4 +85,58 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="singleFile">
+    <div
+      class="custom-file-upload"
+      [ngClass]="{ 'sky-single-file-drop-accept': acceptedOver, 'sky-single-file-drop-reject': rejectedOver }"
+      (dragover)="fileDragOver($event)"
+      (dragenter)="fileDragEnter($event)"
+      (dragleave)="fileDragLeave($event)"
+      (drop)="fileDrop($event)">
+      <input
+        tabindex="-1"
+        aria-hidden="true"
+        type="file"
+        class="sky-file-input-hidden"
+        (change)="fileChangeEvent($event)"
+        [attr.accept]="acceptedTypes ? acceptedTypes: null"
+        #fileInput>
+      <button
+        type="button"
+        class="sky-single-file-drop sky-btn sky-btn-default"
+        (click)="dropClicked()">
+          <sky-icon icon="folder-open-o"></sky-icon>
+        {{ singleFileAttachment ? 'Replace File' : 'Choose File' }}
+      </button>
+      <span class="sky-file-name" (click)="dropClicked()">
+        <i>
+          {{ singleFileAttachment ?
+            ((singleFileAttachment.file.name.length>26) ?
+              (singleFileAttachment.file.name | slice:0:26) + '..' :
+              (singleFileAttachment.file.name)) :
+            'No file chosen' }}
+        </i>
+      </span>
+      <sky-icon
+        *ngIf="singleFileAttachment"
+        icon="trash"
+        class="sky-file-delete"
+        (click)="singleAttachmentDelete()"></sky-icon>
+    </div>
+
+    <div *ngIf="singleFileAttachment && isImg()">
+      <img
+        class="sky-file-item-preview-img"
+        [src]="singleFileAttachment.url"
+        [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources" />
+    </div>
+    <!-- <div *ngIf="singleFileAttachment && !isImg()" class="sky-file-item-preview-other">
+      <sky-icon [icon]="icon"></sky-icon>
+    </div> -->
+
+  <!-- <button type="button" class="sky-btn sky-btn-default">
+      <sky-icon icon="folder-open"></sky-icon>
+    Choose file
+  </button> -->
 </div>

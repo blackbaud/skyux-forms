@@ -102,6 +102,43 @@ button.sky-file-drop {
   }
 }
 
+.custom-file-upload {
+  padding-right: 8px;
+  display: inline-block;
+}
+
+.sky-file-name {
+  padding: 0 5px 0 5px;
+}
+
+.sky-single-file-drop-accept {
+  border-color: $sky-highlight-color-success;
+  border-style: dashed;
+  border-width: 1px;
+  border-radius: 5px;
+  color: $sky-text-color-default;
+}
+
+.sky-single-file-drop-reject {
+  border-color: $sky-highlight-color-danger;
+  border-style: dashed;
+  border-width: 1px;
+  border-radius: 5px;
+  color: $sky-text-color-default;
+}
+
+.sky-file-delete {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.sky-file-item-preview-img {
+  max-width: 25%;
+  height: auto;
+  box-shadow: 0 0 5px #666;
+  margin: 10px;
+}
+
 .sky-file-drop-contents-accept,
 .sky-file-drop-contents-reject {
   display: none;

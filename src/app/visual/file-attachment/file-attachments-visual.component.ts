@@ -44,6 +44,10 @@ export class FileAttachmentsVisualComponent {
     this.allItems = this.allItems.concat(result.files);
   }
 
+  public singleFileUpdated(result: SkyFileDropChange) {
+    console.log(result.files);
+  }
+
   public linkAdded(result: SkyFileLink) {
     this.linksToUpload = this.linksToUpload.concat(result);
     this.allItems = this.allItems.concat(result);

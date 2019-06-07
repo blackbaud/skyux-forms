@@ -316,6 +316,8 @@ describe('File drop component', () => {
     componentInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
+    fixture.detectChanges();
+
     setupStandardFileChangeEvent();
 
     expect(filesChangedActual.files.length).toBe(2);
@@ -334,6 +336,8 @@ describe('File drop component', () => {
 
     componentInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+    fixture.detectChanges();
 
     let fileReaderSpy = setupFileReaderSpy();
 
@@ -818,4 +822,84 @@ describe('File drop component', () => {
       expect(fixture.nativeElement).toBeAccessible();
     });
   }));
+});
+
+describe('Single file attachment component', () => {
+
+  @Component({
+    template: `
+      <sky-file-drop>
+        <div class="sky-custom-drop"></div>
+      </sky-file-drop>`
+  })
+  class FileDropContentComponent { }
+
+  let fixture: ComponentFixture<SkyFileDropComponent>;
+  let el: any;
+  let componentInstance: SkyFileDropComponent;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyFileAttachmentsModule
+      ],
+      declarations: [
+        FileDropContentComponent
+      ]
+    });
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SkyFileDropComponent);
+    el = fixture.nativeElement;
+    componentInstance = fixture.componentInstance;
+    componentInstance.singleFile = true;
+    fixture.detectChanges();
+  });
+
+  function getInputDebugEl() {
+    return fixture.debugElement.query(By.css('input.sky-file-input-hidden'));
+  }
+
+  function getDropEl() {
+    return el.querySelector('.sky-single-file-drop');
+  }
+
+  it('should click the file input on choose file button click', () => {
+    let inputClicked = false;
+
+    fixture.detectChanges();
+
+    let inputEl = getInputDebugEl();
+
+    spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function () {
+      inputClicked = true;
+    });
+
+    let dropEl = getDropEl();
+
+    dropEl.click();
+
+    fixture.detectChanges();
+
+    expect(inputClicked).toBe(true);
+    expect(componentInstance.singleFile).toBe(true);
+  });
+  it('should click the file input on text click', () => {
+
+  });
+  it('should not click the file input on remove button click', () => {
+
+  });
+  // Maybe some other tests here about dragging
+  it('should load and emit file on file change event', () => {
+
+  });
+  // Maybe some other tests here about setting the file
+  it('should clear file on remove press', () => {
+
+  });
+  it('should update the file when replaced', () => {
+
+  });
 });
