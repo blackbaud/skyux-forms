@@ -1,23 +1,24 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
   DebugElement
 } from '@angular/core';
+
 import {
-  ComponentFixture,
   async,
-  TestBed
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick
 } from '@angular/core/testing';
+
 import {
   BrowserModule,
   By
 } from '@angular/platform-browser';
+
 import {
+  FormControl,
   FormsModule,
   NgModel,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule
 } from '@angular/forms';
 
@@ -26,138 +27,18 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyToggleChange,
   SkyToggleComponent,
   SkyToggleModule
 } from './';
 
-/** Simple component for testing a single toggle. */
-@Component({
-  template: `
-  <div>
-    <sky-toggle
-        id="simple-toggle"
-        [toggled]="isToggled"
-        [disabled]="isDisabled"
-        (change)="toggleChange($event)">
-      <sky-toggle-label>
-        Simple toggle
-      </sky-toggle-label>
-    </sky-toggle>
-  </div>`
-})
-class SingleToggleComponent {
-  public isToggled: boolean = false;
-  public isDisabled: boolean = false;
-
-  public toggleChange($event: any) {
-    this.isToggled = $event.toggled;
-  }
-}
-
-/** Simple component for testing an MdToggle with ngModel. */
-@Component({
-  template: `
-  <div>
-    <form>
-      <sky-toggle name="cb" [(ngModel)]="isGood" #wut>
-        <sky-toggle-label>
-          Be good
-        </sky-toggle-label>
-      </sky-toggle>
-    </form>
-  </div>
-  `
-})
-class ToggleWithFormDirectivesComponent {
-  public isGood: boolean = false;
-}
-
-/** Simple component for testing an MdToggle with ngModel. */
-@Component({
-  template: `
-  <div>
-    <form [formGroup]="toggleForm">
-      <sky-toggle name="tog" formControlName="toggle1" #wut>
-        <sky-toggle-label>
-          Be good
-        </sky-toggle-label>
-      </sky-toggle>
-    </form>
-  </div>
-  `
-})
-class ToggleWithReactiveFormComponent {
-  public toggle1: FormControl = new FormControl(false);
-
-  public toggleForm = new FormGroup({ 'toggle1': this.toggle1 });
-}
-
-/** Simple test component with multiple toggles. */
-@Component(({
-  template: `
-    <sky-toggle>
-      <sky-toggle-label>
-        Option 1
-      </sky-toggle-label>
-    </sky-toggle>
-    <sky-toggle>Option 2</sky-toggle>
-  `
-}))
-class MultipleTogglesComponent { }
-
-/** Simple test component with tabIndex */
-@Component({
-  template: `
-    <sky-toggle [tabindex]="customTabIndex" [disabled]="isDisabled">
-    </sky-toggle>`
-})
-class ToggleWithTabIndexComponent {
-  public customTabIndex: number = 7;
-  public isDisabled: boolean = false;
-}
-
-/** Simple test component with an aria-label set. */
-@Component({
-  template: `<sky-toggle label="Super effective"></sky-toggle>`
-})
-class ToggleWithAriaLabelComponent { }
-
-/** Simple test component with an aria-label set. */
-@Component({
-  template: `<sky-toggle labelledBy="some-id"></sky-toggle>`
-})
-class ToggleWithAriaLabelledbyComponent { }
-
-/** Simple test component with name attribute */
-@Component({
-  template: `<sky-toggle name="test-name"></sky-toggle>`
-})
-class ToggleWithNameAttributeComponent { }
-
-/** Simple test component with change event */
-@Component({
-  template: `<sky-toggle (change)="lastEvent = $event"></sky-toggle>`
-})
-class ToggleWithChangeEventComponent {
-  public lastEvent: SkyToggleChange;
-}
-
-/** Simple test component with OnPush change detection */
-@Component({
-  template: `
-  <div>
-    <sky-toggle
-      id="simple-toggle"
-      [(ngModel)]="isToggled">
-    </sky-toggle>
-  </div>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-class ToggleWithOnPushChangeDetectionComponent {
-  public isToggled: boolean = false;
-  constructor(public ref: ChangeDetectorRef) { }
-}
+import {
+  ToggleChangeEventTestComponent,
+  ToggleFormDirectivesTestComponent,
+  ToggleOnPushTestComponent,
+  ToggleReactiveFormTestComponent,
+  ToggleTestComponent,
+  ToggleTestModule
+} from './fixtures';
 
 describe('Toggle component', () => {
   let fixture: ComponentFixture<any>;
@@ -170,23 +51,12 @@ describe('Toggle component', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ToggleWithAriaLabelComponent,
-        ToggleWithAriaLabelledbyComponent,
-        ToggleWithChangeEventComponent,
-        ToggleWithFormDirectivesComponent,
-        ToggleWithNameAttributeComponent,
-        ToggleWithOnPushChangeDetectionComponent,
-        ToggleWithTabIndexComponent,
-        ToggleWithReactiveFormComponent,
-        MultipleTogglesComponent,
-        SingleToggleComponent
-      ],
       imports: [
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        SkyToggleModule
+        SkyToggleModule,
+        ToggleTestModule
       ]
     });
   });
@@ -195,22 +65,23 @@ describe('Toggle component', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
     let toggleInstance: SkyToggleComponent;
-    let testComponent: SingleToggleComponent;
+    let testComponent: ToggleTestComponent;
     let inputElement: HTMLInputElement;
     let labelElement: HTMLLabelElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(SingleToggleComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
 
-      fixture.whenStable().then(() => {
-        toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleDebugElement.nativeElement;
-        toggleInstance = toggleDebugElement.componentInstance;
-        testComponent = fixture.debugElement.componentInstance;
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-        labelElement =
-          <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
-      });
+      fixture.detectChanges();
+      tick();
+
+      toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleDebugElement.nativeElement;
+      toggleInstance = toggleDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      labelElement =
+        <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
     it('should add and remove the toggled state', () => {
@@ -230,30 +101,30 @@ describe('Toggle component', () => {
       expect(inputElement.checked).toBe(false);
     });
 
-    it('should toggle `toggled` state on click', async(() => {
+    it('should toggle `toggled` state on click', fakeAsync(() => {
       fixture.detectChanges();
       expect(toggleInstance.toggled).toBe(false);
       expect(testComponent.isToggled).toBe(false);
 
       labelElement.click();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(toggleInstance.toggled).toBe(true);
-        expect(testComponent.isToggled).toBe(true);
+      tick();
+      fixture.detectChanges();
+      expect(toggleInstance.toggled).toBe(true);
+      expect(testComponent.isToggled).toBe(true);
 
-        labelElement.click();
+      labelElement.click();
 
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-          expect(toggleInstance.toggled).toBe(false);
-          expect(testComponent.isToggled).toBe(false);
-        });
-      });
+      expect(toggleInstance.toggled).toBe(false);
+      expect(testComponent.isToggled).toBe(false);
     }));
 
     it('should add and remove disabled state', () => {
+      fixture.detectChanges();
+
       expect(toggleInstance.disabled).toBe(false);
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
@@ -311,40 +182,38 @@ describe('Toggle component', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
     let toggleInstance: SkyToggleComponent;
-    let testComponent: ToggleWithChangeEventComponent;
+    let testComponent: ToggleChangeEventTestComponent;
     let inputElement: HTMLInputElement;
     let labelElement: HTMLLabelElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithChangeEventComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleChangeEventTestComponent);
 
       fixture.detectChanges();
+      tick();
 
-      fixture.whenStable().then(() => {
-        toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleDebugElement.nativeElement;
-        toggleInstance = toggleDebugElement.componentInstance;
-        testComponent = fixture.debugElement.componentInstance;
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-        labelElement =
-          <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
-      });
+      toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleDebugElement.nativeElement;
+      toggleInstance = toggleDebugElement.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      labelElement =
+        <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
     it('should call not call the change event when the toggle is not interacted with',
-      async(() => {
+      fakeAsync(() => {
         fixture.detectChanges();
         expect(testComponent.lastEvent).toBeUndefined();
 
         toggleInstance.toggled = true;
         fixture.detectChanges();
 
-        fixture.whenStable().then(() => {
-          expect(testComponent.lastEvent).toBeUndefined();
-        });
+        tick();
+        expect(testComponent.lastEvent).toBeUndefined();
       }));
 
-    it('should call the change event and not emit a DOM event to the change output', async(() => {
+    it('should call the change event and not emit a DOM event to the change output', fakeAsync(() => {
       fixture.detectChanges();
       expect(testComponent.lastEvent).toBeUndefined();
 
@@ -353,12 +222,11 @@ describe('Toggle component', () => {
       inputElement.click();
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        // We're checking the arguments type / emitted value to be a boolean, because sometimes the
-        // emitted value can be a DOM Event, which is not valid.
-        // See angular/angular#4059
-        expect(testComponent.lastEvent.toggled).toBe(true);
-      });
+      tick();
+      // We're checking the arguments type / emitted value to be a boolean, because sometimes the
+      // emitted value can be a DOM Event, which is not valid.
+      // See angular/angular#4059
+      expect(testComponent.lastEvent.toggled).toBe(true);
 
     }));
   });
@@ -368,8 +236,8 @@ describe('Toggle component', () => {
     let toggleNativeElement: HTMLElement;
     let inputElement: HTMLInputElement;
 
-    it('should use the provided label as the input aria-label', async(() => {
-      fixture = TestBed.createComponent(ToggleWithAriaLabelComponent);
+    it('should use the provided label as the input aria-label', fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
@@ -377,9 +245,8 @@ describe('Toggle component', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
-      });
+      tick();
+      expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
     }));
   });
 
@@ -388,22 +255,23 @@ describe('Toggle component', () => {
     let toggleNativeElement: HTMLElement;
     let inputElement: HTMLInputElement;
 
-    it('should use the provided labeledBy as the input aria-labelledby', async(() => {
-      fixture = TestBed.createComponent(ToggleWithAriaLabelledbyComponent);
+    it('should use the provided labeledBy as the input aria-labelledby', fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
       inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
 
+      fixture.debugElement.componentInstance.labelledById = 'some-id';
+
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
-      });
+      tick();
+      expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
     }));
 
-    it('should not assign aria-labelledby if no labeledBy is provided', async(() => {
-      fixture = TestBed.createComponent(SingleToggleComponent);
+    it('should not assign aria-labelledby if no labeledBy is provided', fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
@@ -411,36 +279,37 @@ describe('Toggle component', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(inputElement.getAttribute('aria-labelledby')).toBeNull();
-      });
+      tick();
+      expect(inputElement.getAttribute('aria-labelledby')).toBeNull();
     }));
   });
 
   describe('with provided tabIndex', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
-    let testComponent: ToggleWithTabIndexComponent;
+    let testComponent: ToggleTestComponent;
     let inputElement: HTMLInputElement;
     let labelElement: HTMLLabelElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithTabIndexComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
 
       fixture.detectChanges();
+      tick();
 
-      fixture.whenStable().then(() => {
-        testComponent = fixture.debugElement.componentInstance;
-        toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleDebugElement.nativeElement;
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-        labelElement = <HTMLLabelElement>toggleNativeElement.querySelector('label');
-      });
+      testComponent = fixture.debugElement.componentInstance;
+      toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleDebugElement.nativeElement;
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      labelElement = <HTMLLabelElement>toggleNativeElement.querySelector('label');
+
+      testComponent.customTabIndex = 7;
+      fixture.detectChanges();
     }));
 
-    it('should preserve any given tabIndex', async(() => {
+    it('should preserve any given tabIndex', () => {
       expect(inputElement.tabIndex).toBe(7);
-    }));
+    });
 
     it('should preserve given tabIndex when the toggle is disabled then enabled', () => {
       testComponent.isDisabled = true;
@@ -457,11 +326,11 @@ describe('Toggle component', () => {
   });
 
   describe('with multiple toggles', () => {
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(MultipleTogglesComponent);
-
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
+      fixture.debugElement.componentInstance.multiple = true;
       fixture.detectChanges();
-    }));
+    });
 
     it('should assign a unique id to each toggle', () => {
       let [firstId, secondId] =
@@ -476,31 +345,31 @@ describe('Toggle component', () => {
 
   describe('with ngModel and an initial value', () => {
     let toggleElement: DebugElement;
-    let testComponent: ToggleWithFormDirectivesComponent;
+    let testComponent: ToggleFormDirectivesTestComponent;
     let inputElement: HTMLInputElement;
     let toggleNativeElement: HTMLElement;
     let ngModel: NgModel;
     let labelElement: HTMLLabelElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithFormDirectivesComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleFormDirectivesTestComponent);
       testComponent = fixture.debugElement.componentInstance;
       testComponent.isGood = true;
+
       fixture.detectChanges();
+      tick();
 
-      fixture.whenStable().then(() => {
-        toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleElement.nativeElement;
+      toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleElement.nativeElement;
 
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-        ngModel = <NgModel>toggleElement.injector.get(NgModel);
-        labelElement =
-          <HTMLLabelElement>toggleElement
-            .nativeElement.querySelector('label.sky-toggle-wrapper');
-      });
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      ngModel = <NgModel>toggleElement.injector.get(NgModel);
+      labelElement =
+        <HTMLLabelElement>toggleElement
+          .nativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
-    it('should be in pristine, untouched, and valid states', async(() => {
+    it('should be in pristine, untouched, and valid states', fakeAsync(() => {
       fixture.detectChanges();
       expect(ngModel.valid).toBe(true);
       expect(ngModel.pristine).toBe(true);
@@ -512,47 +381,46 @@ describe('Toggle component', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-        expect(ngModel.valid).toBe(true);
-        expect(ngModel.pristine).toBe(false);
-        expect(ngModel.dirty).toBe(true);
-        expect(ngModel.touched).toBe(false);
-        expect(testComponent.isGood).toBe(false);
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(false);
+      expect(ngModel.dirty).toBe(true);
+      expect(ngModel.touched).toBe(false);
+      expect(testComponent.isGood).toBe(false);
 
-        inputElement.dispatchEvent(createEvent('blur'));
-        expect(ngModel.touched).toBe(true);
-      });
+      inputElement.dispatchEvent(createEvent('blur'));
+      expect(ngModel.touched).toBe(true);
     }));
   });
 
   describe('with ngModel', () => {
     let toggleElement: DebugElement;
-    let testComponent: ToggleWithFormDirectivesComponent;
+    let testComponent: ToggleFormDirectivesTestComponent;
     let inputElement: HTMLInputElement;
     let toggleNativeElement: HTMLElement;
     let ngModel: NgModel;
     let labelElement: HTMLLabelElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithFormDirectivesComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleFormDirectivesTestComponent);
+
       fixture.detectChanges();
+      tick();
 
-      fixture.whenStable().then(() => {
-        toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleElement.nativeElement;
+      toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleElement.nativeElement;
 
-        testComponent = fixture.debugElement.componentInstance;
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-        ngModel = <NgModel>toggleElement.injector.get(NgModel);
-        labelElement =
-          <HTMLLabelElement>toggleElement
-            .nativeElement.querySelector('label.sky-toggle-wrapper');
-      });
+      testComponent = fixture.debugElement.componentInstance;
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      ngModel = <NgModel>toggleElement.injector.get(NgModel);
+      labelElement =
+        <HTMLLabelElement>toggleElement
+          .nativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
-    it('should be in pristine, untouched, and valid states initially', async(() => {
+    it('should be in pristine, untouched, and valid states initially', fakeAsync(() => {
       fixture.detectChanges();
       expect(ngModel.valid).toBe(true);
       expect(ngModel.pristine).toBe(true);
@@ -563,63 +431,60 @@ describe('Toggle component', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-        expect(ngModel.valid).toBe(true);
-        expect(ngModel.pristine).toBe(false);
-        expect(ngModel.dirty).toBe(true);
-        expect(ngModel.touched).toBe(false);
-        expect(testComponent.isGood).toBe(true);
+      expect(ngModel.valid).toBe(true);
+      expect(ngModel.pristine).toBe(false);
+      expect(ngModel.dirty).toBe(true);
+      expect(ngModel.touched).toBe(false);
+      expect(testComponent.isGood).toBe(true);
 
-        inputElement.dispatchEvent(createEvent('blur'));
-        expect(ngModel.touched).toBe(true);
-      });
+      inputElement.dispatchEvent(createEvent('blur'));
+      expect(ngModel.touched).toBe(true);
     }));
 
-    it('should change toggle state through ngModel programmatically', async(() => {
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(inputElement.checked).toBe(false);
-        expect(testComponent.isGood).toBe(false);
-        fixture.detectChanges();
-        testComponent.isGood = true;
+    it('should change toggle state through ngModel programmatically', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.checked).toBe(false);
+      expect(testComponent.isGood).toBe(false);
+      fixture.detectChanges();
+      testComponent.isGood = true;
 
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          expect(inputElement.checked).toBe(true);
-        });
-      });
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.checked).toBe(true);
     }));
   });
 
   describe('with reactive form', () => {
     let toggleElement: DebugElement;
-    let testComponent: ToggleWithReactiveFormComponent;
+    let testComponent: ToggleReactiveFormTestComponent;
     let inputElement: HTMLInputElement;
     let toggleNativeElement: HTMLElement;
     let formControl: FormControl;
     let labelElement: HTMLLabelElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithReactiveFormComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleReactiveFormTestComponent);
+
       fixture.detectChanges();
+      tick();
 
-      fixture.whenStable().then(() => {
-        toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleElement.nativeElement;
+      toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleElement.nativeElement;
 
-        testComponent = fixture.debugElement.componentInstance;
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-        formControl = testComponent.toggle1;
-        labelElement =
-          <HTMLLabelElement>toggleElement
-            .nativeElement.querySelector('label.sky-toggle-wrapper');
-      });
+      testComponent = fixture.debugElement.componentInstance;
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      formControl = testComponent.toggle1;
+      labelElement =
+        <HTMLLabelElement>toggleElement
+          .nativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
-    it('should be in pristine, untouched, and valid states initially', async(() => {
+    it('should be in pristine, untouched, and valid states initially', fakeAsync(() => {
       fixture.detectChanges();
       expect(formControl.valid).toBe(true);
       expect(formControl.pristine).toBe(true);
@@ -630,68 +495,62 @@ describe('Toggle component', () => {
 
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-        expect(formControl.valid).toBe(true);
-        expect(formControl.pristine).toBe(false);
-        expect(formControl.touched).toBe(false);
-        expect(formControl.dirty).toBe(true);
-        expect(formControl.value).toBe(true);
+      expect(formControl.valid).toBe(true);
+      expect(formControl.pristine).toBe(false);
+      expect(formControl.touched).toBe(false);
+      expect(formControl.dirty).toBe(true);
+      expect(formControl.value).toBe(true);
 
-        inputElement.dispatchEvent(createEvent('blur'));
-        expect(formControl.touched).toBe(true);
-      });
+      inputElement.dispatchEvent(createEvent('blur'));
+      expect(formControl.touched).toBe(true);
     }));
 
-    it('should change toggle state through form control programmatically', async(() => {
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(inputElement.checked).toBe(false);
-        expect(formControl.value).toBe(false);
-        fixture.detectChanges();
-        formControl.setValue(true);
+    it('should change toggle state through form control programmatically', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.checked).toBe(false);
+      expect(formControl.value).toBe(false);
+      fixture.detectChanges();
+      formControl.setValue(true);
 
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          expect(inputElement.checked).toBe(true);
-        });
-      });
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.checked).toBe(true);
     }));
 
-    it('should change disable state through form control programmatically', async(() => {
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(inputElement.disabled).toBe(false);
-        expect(formControl.value).toBe(false);
-        fixture.detectChanges();
-        formControl.disable();
+    it('should change disable state through form control programmatically', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.disabled).toBe(false);
+      expect(formControl.value).toBe(false);
+      fixture.detectChanges();
+      formControl.disable();
 
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          expect(inputElement.disabled).toBe(true);
-          expect(inputElement.checked).toBe(false);
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.disabled).toBe(true);
+      expect(inputElement.checked).toBe(false);
 
-          formControl.enable();
-          fixture.detectChanges();
-          fixture.whenStable().then(() => {
-            fixture.detectChanges();
-            expect(inputElement.disabled).toBe(false);
-            expect(inputElement.checked).toBe(false);
-          });
-        });
-      });
+      formControl.enable();
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.disabled).toBe(false);
+      expect(inputElement.checked).toBe(false);
     }));
   });
 
   describe('with name attribute', () => {
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithNameAttributeComponent);
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ToggleTestComponent);
 
       fixture.detectChanges();
-    }));
+    });
 
     it('should forward name value to input element', () => {
       let toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
@@ -703,38 +562,36 @@ describe('Toggle component', () => {
 
   describe('with a consumer using OnPush change detection', () => {
     let toggleElement: DebugElement;
-    let testComponent: ToggleWithOnPushChangeDetectionComponent;
+    let testComponent: ToggleOnPushTestComponent;
     let inputElement: HTMLInputElement;
     let toggleNativeElement: HTMLElement;
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ToggleWithOnPushChangeDetectionComponent);
+    beforeEach(fakeAsync(() => {
+      fixture = TestBed.createComponent(ToggleOnPushTestComponent);
+
       fixture.detectChanges();
+      tick();
 
-      fixture.whenStable().then(() => {
-        toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-        toggleNativeElement = toggleElement.nativeElement;
+      toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
+      toggleNativeElement = toggleElement.nativeElement;
 
-        testComponent = fixture.debugElement.componentInstance;
-        inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
-      });
+      testComponent = fixture.debugElement.componentInstance;
+      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
     }));
 
-    it('should change toggle state through ngModel programmatically', async(() => {
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(inputElement.checked).toBe(false);
-        expect(testComponent.isToggled).toBe(false);
-        fixture.detectChanges();
-        testComponent.isToggled = true;
-        testComponent.ref.markForCheck();
+    it('should change toggle state through ngModel programmatically', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.checked).toBe(false);
+      expect(testComponent.isToggled).toBe(false);
+      fixture.detectChanges();
+      testComponent.isToggled = true;
+      testComponent.ref.markForCheck();
 
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
-          expect(inputElement.checked).toBe(true);
-        });
-      });
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+      expect(inputElement.checked).toBe(true);
     }));
   });
 });

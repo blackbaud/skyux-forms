@@ -1,0 +1,19 @@
+<div>
+    <sky-toggle
+        name="test-name"
+        id="simple-toggle"
+        label="Super effective"
+        [labelledBy]="labelledById"
+        [toggled]="isToggled"
+        [disabled]="isDisabled"
+        [tabindex]="customTabIndex"
+        (change)="toggleChange($event)">
+      <sky-toggle-label>
+        Simple toggle
+      </sky-toggle-label>
+    </sky-toggle>
+    <sky-toggle
+      *ngIf="multiple">
+      Option 2
+    </sky-toggle>
+  </div>

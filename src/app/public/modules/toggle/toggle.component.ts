@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -10,11 +9,15 @@ import {
 import {
   AbstractControl,
   ControlValueAccessor,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator,
-  NG_VALIDATORS
+  Validator
 } from '@angular/forms';
+
+import {
+  SkyToggleChange
+} from './types';
 
 /**
  * Monotonically increasing integer used to auto-generate unique ids for toggle components.
@@ -38,11 +41,6 @@ const SKY_TOGGLE_VALIDATOR = {
   multi: true
 };
 
-// A simple change event emitted by the SkyToggle component.
-export class SkyToggleChange {
-  public source: SkyToggleComponent;
-  public toggled: boolean;
-}
 // tslint:enable
 
 @Component({
@@ -179,12 +177,11 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
   private _emitChangeEvent() {
-    let event = new SkyToggleChange();
-    event.source = this;
-    event.toggled = this._toggled;
-
     this._controlValueAccessorChangeFn(this._toggled);
-    this.change.emit(event);
+    this.change.emit({
+      source: this,
+      toggled: this._toggled
+    });
   }
 
   /**

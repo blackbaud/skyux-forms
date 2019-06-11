@@ -2,9 +2,11 @@
 import {
   NgModule
 } from '@angular/core';
+
 import {
   CommonModule
 } from '@angular/common';
+
 import {
   FormsModule
 } from '@angular/forms';
@@ -12,6 +14,7 @@ import {
 import {
   SkyToggleLabelComponent
 } from './toggle-label.component';
+
 import {
   SkyToggleComponent
 } from './toggle.component';
