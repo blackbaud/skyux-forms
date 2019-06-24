@@ -26,6 +26,10 @@ import {
 } from './file-drop.component';
 
 import {
+  SkyFileDropLabelComponent
+} from './file-drop-label.component';
+
+import {
   SkyFileItemComponent
 } from './file-item.component';
 
@@ -36,6 +40,7 @@ import {
 @NgModule({
   declarations: [
     SkyFileDropComponent,
+    SkyFileDropLabelComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],
@@ -48,6 +53,7 @@ import {
   ],
   exports: [
     SkyFileDropComponent,
+    SkyFileDropLabelComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],

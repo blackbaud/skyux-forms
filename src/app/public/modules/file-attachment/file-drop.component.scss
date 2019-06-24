@@ -1,10 +1,20 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
+.sky-file-drop-row {
+  border: 1px solid #ef404300;
+}
+
+.sky-file-drop-required {
+  box-shadow: 0 0 8px rgba(239, 64, 68, 0.6);
+  border: 1px solid #ef4044;
+}
+
 .sky-file-drop-col {
-  margin-bottom: $sky-margin;
+  padding-bottom: $sky-margin-half;
   padding-left: $sky-margin-half;
   padding-right: $sky-margin-half;
+  padding-top: $sky-margin-half;
   position: relative;
 }
 
@@ -102,9 +112,13 @@ button.sky-file-drop {
   }
 }
 
-.custom-file-upload {
-  padding-right: 8px;
+.sky-single-file-wrapper {
   display: inline-block;
+}
+
+.sky-single-file-upload {
+  padding-right: 8px;
+  display: block;
 }
 
 .sky-file-name {

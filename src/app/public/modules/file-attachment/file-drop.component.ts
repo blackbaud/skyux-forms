@@ -1,9 +1,9 @@
 import {
   Component,
-  Input,
-  Output,
   EventEmitter,
   ElementRef,
+  Input,
+  Output,
   ViewChild
 } from '@angular/core';
 
@@ -55,8 +55,14 @@ export class SkyFileDropComponent {
   @Input()
   public singleFile: boolean = false;
 
+  @Input()
+  public required: boolean = false;
+
   @ViewChild('fileInput')
   public inputEl: ElementRef;
+
+  @ViewChild('labelWrapper')
+  public labelWrap: ElementRef;
 
   public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
@@ -65,6 +71,10 @@ export class SkyFileDropComponent {
   public singleFileValid: boolean;
 
   private enterEventTarget: any;
+
+  public hasLabel() {
+    return this.labelWrap.nativeElement.children.length > 0;
+  }
 
   public dropClicked() {
     if (!this.noClick) {
@@ -154,6 +164,7 @@ export class SkyFileDropComponent {
 
   public singleAttachmentDelete() {
     this.singleFileAttachment = undefined;
+    this.emitFileChangeEvent(0, [], []);
   }
 
   public isImg() {
@@ -175,6 +186,30 @@ export class SkyFileDropComponent {
     }
 
     return false;
+  }
+
+  public getSingleFileName() {
+    if (this.singleFileAttachment) {
+      // tslint:disable-next-line: max-line-length
+      let dropName = this.isFile() && this.singleFileAttachment.file.name ? this.singleFileAttachment.file.name : this.singleFileAttachment.url;
+
+      if (dropName.length > 26) {
+        return dropName.slice(0, 26) + '....';
+      } else {
+        return dropName;
+      }
+    } else {
+      return 'No file chosen';
+    }
+  }
+
+  private isFile() {
+    let file = (<SkyFileItem>this.singleFileAttachment).file;
+
+    /* tslint:disable */
+    return file && file !== undefined && file !== null && file.size !== undefined
+      && file.size !== null;
+    /* tslint:enable */
   }
 
   private getFileTypeUpper() {
@@ -204,7 +239,6 @@ export class SkyFileDropComponent {
           this.singleFileAttachment = validFileArray[0];
           this.singleFileValid = true;
         } else {
-          // this.singleFileAttachment = rejectedFileArray[0];
           this.singleFileValid = false;
         }
       }
@@ -340,7 +374,7 @@ export class SkyFileDropComponent {
   }
 
   private verifyDropFiles(files: any) {
-    if (!this.multiple && files.length > 1) {
+    if ((!this.multiple || this.singleFile) && files.length > 1) {
       return false;
     }
 

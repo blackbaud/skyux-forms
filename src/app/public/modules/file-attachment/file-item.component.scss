@@ -5,6 +5,7 @@
   @include sky-border(light, top, bottom, left, right);
   background-color: $sky-background-color-neutral-light;
   margin-bottom: $sky-margin;
+  margin-top: $sky-margin-half;
 }
 
 .sky-file-item-name-container {

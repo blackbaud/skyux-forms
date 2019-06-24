@@ -6,7 +6,9 @@ import {
 
 import {
   Component,
-  DebugElement
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -33,6 +35,11 @@ import {
   SkyFileLink
 } from './file-link';
 
+import {
+  SkyFileItem
+} from './file-item';
+import { SkyFileDropLabelComponent } from './file-drop-label.component';
+
 describe('File drop component', () => {
 
   /** Simple test component with tabIndex */
@@ -40,6 +47,9 @@ describe('File drop component', () => {
     template: `
       <sky-file-drop>
         <div class="sky-custom-drop"></div>
+        <sky-file-drop-label>
+          Field Label
+        </sky-file-drop-label>
       </sky-file-drop>`
   })
   class FileDropContentComponent { }
@@ -61,6 +71,7 @@ describe('File drop component', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SkyFileDropComponent);
+    fixture.detectChanges();
     el = fixture.nativeElement;
     componentInstance = fixture.componentInstance;
   });
@@ -80,6 +91,14 @@ describe('File drop component', () => {
 
   function getDropElWrapper() {
     return el.querySelector('.sky-file-drop-col');
+  }
+
+  function getDropWrapper() {
+    return el.querySelector('.sky-file-drop-row');
+  }
+
+  function getLabelWrapper() {
+    return el.querySelector('.sky-file-drop-label-wrapper');
   }
 
   function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
@@ -565,6 +584,36 @@ describe('File drop component', () => {
     expect(filesChangedActual.files[1].file.size).toBe(2000);
   });
 
+  it('should allow the user to specify if the file is required', () => {
+    componentInstance.required = false;
+    fixture.detectChanges();
+    let dropWrapper = getDropWrapper();
+
+    expect(dropWrapper.classList.contains('sky-file-drop-required')).toBe(false);
+
+    componentInstance.required = true;
+    fixture.detectChanges();
+    expect(dropWrapper.classList.contains('sky-file-drop-required')).toBe(true);
+  });
+
+  it('should mark the field label as required when specified', () => {
+    componentInstance.required = false;
+    fixture.detectChanges();
+    let labelWrapper = getLabelWrapper();
+
+    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
+
+    componentInstance.required = true;
+    fixture.detectChanges();
+
+    console.log(componentInstance.hasLabel());
+    console.log(labelWrapper);
+    // let content = el.querySelector('.sky-file-drop-label-wrapper sky-file-drop-label');
+    // console.log(content);
+
+    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
+  });
+
   it('should load files and set classes on drag and drop', () => {
     let filesChangedActual: SkyFileDropChange;
 
@@ -822,84 +871,559 @@ describe('File drop component', () => {
       expect(fixture.nativeElement).toBeAccessible();
     });
   }));
-});
 
-describe('Single file attachment component', () => {
+  describe('Single file attachment', () => {
 
-  @Component({
-    template: `
-      <sky-file-drop>
-        <div class="sky-custom-drop"></div>
-      </sky-file-drop>`
-  })
-  class FileDropContentComponent { }
-
-  let fixture: ComponentFixture<SkyFileDropComponent>;
-  let el: any;
-  let componentInstance: SkyFileDropComponent;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        SkyFileAttachmentsModule
-      ],
-      declarations: [
-        FileDropContentComponent
-      ]
-    });
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SkyFileDropComponent);
-    el = fixture.nativeElement;
-    componentInstance = fixture.componentInstance;
-    componentInstance.singleFile = true;
-    fixture.detectChanges();
-  });
-
-  function getInputDebugEl() {
-    return fixture.debugElement.query(By.css('input.sky-file-input-hidden'));
-  }
-
-  function getDropEl() {
-    return el.querySelector('.sky-single-file-drop');
-  }
-
-  it('should click the file input on choose file button click', () => {
-    let inputClicked = false;
-
-    fixture.detectChanges();
-
-    let inputEl = getInputDebugEl();
-
-    spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function () {
-      inputClicked = true;
+    beforeEach(() => {
+      componentInstance.singleFile = true;
+      fixture.detectChanges();
     });
 
-    let dropEl = getDropEl();
+    function getInputDebugEl() {
+      return fixture.debugElement.query(By.css('input.sky-file-input-hidden'));
+    }
 
-    dropEl.click();
+    function getButtonEl() {
+      return el.querySelector('.sky-single-file-btn');
+    }
 
+    // function getButtonDebugEl() {
+    //   return fixture.debugElement.query(By.css('.sky-single-file-btn'));
+    // }
+
+    function getDropEl() {
+      return el.querySelector('.sky-single-file-drop');
+    }
+
+    function getDropDebugEl() {
+      return fixture.debugElement.query(By.css('.sky-single-file-drop'));
+    }
+
+    function getFileNameEl() {
+      return el.querySelector('.sky-file-name');
+    }
+
+    function getFileNameText() {
+      return el.querySelector('.sky-file-name-text').textContent.trim();
+    }
+
+    function getDeleteEl() {
+      return el.querySelector('.sky-file-delete');
+    }
+
+    function validateDropClasses(hasAccept: boolean, hasReject: boolean, dropEl: any) {
+      expect(dropEl.classList.contains('sky-single-file-drop-accept')).toBe(hasAccept);
+      expect(dropEl.classList.contains('sky-single-file-drop-reject')).toBe(hasReject);
+    }
+
+    function getImage() {
+      return fixture.debugElement.query(By.css('.sky-file-item-preview-img'));
+    }
+
+    function testImage(extension: string) {
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: 'myFile.' + extension,
+          type: 'image/' + extension,
+          size: 1000
+        },
+        url: 'myFile.' + extension
+      };
+
+      fixture.detectChanges();
+
+      let imageEl = getImage();
+      expect(imageEl.nativeElement.getAttribute('src')).toBe('myFile.' + extension);
+
+      // Test Accessibility
+      fixture.whenStable().then(() => {
+        expect(fixture.nativeElement).toBeAccessible();
+      });
+    }
+
+    function testOtherTypes(extension: string, type: string) {
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: 'myFile.' + extension,
+          type:  type + '/' + extension,
+          size: 1000
+        },
+        url: 'myFile.' + extension
+      };
+      fixture.detectChanges();
+
+      let imageEl = getImage();
+      expect(imageEl).toBeFalsy();
+
+      // Test Accessibility
+      fixture.whenStable().then(() => {
+        expect(fixture.nativeElement).toBeAccessible();
+      });
+    }
+
+    it('should allow the user to specify if the file is required', () => {
+      componentInstance.required = false;
+      fixture.detectChanges();
+      let buttonEl = getButtonEl();
+
+      expect(buttonEl.classList.contains('sky-file-drop-required')).toBe(false);
+
+      componentInstance.required = true;
+      fixture.detectChanges();
+      expect(buttonEl.classList.contains('sky-file-drop-required')).toBe(true);
+    });
+
+    xit('should mark the field label as required when specified', () => {
+      componentInstance.required = false;
+      fixture.detectChanges();
+      let labelWrapper = getLabelWrapper();
+
+      expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
+
+      componentInstance.required = true;
+      fixture.detectChanges();
+      expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
+    });
+
+    it('should click the file input on choose file button click', () => {
+      let inputClicked = false;
+
+      fixture.detectChanges();
+
+      let inputEl = getInputDebugEl();
+
+      spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function () {
+        inputClicked = true;
+      });
+
+      let dropEl = getButtonEl();
+
+      dropEl.click();
+
+      fixture.detectChanges();
+
+      expect(inputClicked).toBe(true);
+    });
+
+    it('should click the file input on text click', () => {
+      let inputClicked = false;
+
+      fixture.detectChanges();
+
+      let inputEl = getInputDebugEl();
+
+      spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function () {
+        inputClicked = true;
+      });
+
+      let textEl = getFileNameEl();
+
+      textEl.click();
+
+      fixture.detectChanges();
+
+      expect(inputClicked).toBe(true);
+    });
+
+    it('should not click the file input on remove button click', () => {
+      let inputClicked = false;
+
+      fixture.detectChanges();
+
+      let inputEl = getInputDebugEl();
+
+      spyOn((<any>inputEl.references).fileInput, 'click').and.callFake(function () {
+        inputClicked = true;
+      });
+
+      fixture.detectChanges();
+
+      let file = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
+
+      setupStandardFileChangeEvent(file);
+
+      let deleteEl = getDeleteEl();
+
+      deleteEl.click();
+
+      fixture.detectChanges();
+
+      expect(inputClicked).toBe(false);
+    });
+
+    // Maybe some other tests here about dragging
+    it('should load and emit file on file change event', () => {
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe(
+        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      fixture.detectChanges();
+
+      let file = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
+
+      setupStandardFileChangeEvent(file);
+
+      expect(filesChangedActual.files.length).toBe(1);
+      expect(filesChangedActual.files[0].url).toBe('url');
+      expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+      expect(filesChangedActual.files[0].file.size).toBe(1000);
+    });
+
+    // Maybe some other tests here about setting the file
+    it('should clear file on remove press', () => {
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe(
+        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      fixture.detectChanges();
+
+      let file = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
+
+      setupStandardFileChangeEvent(file);
+
+      let deleteEl = getDeleteEl();
+
+      deleteEl.click();
+
+      fixture.detectChanges();
+
+      expect(filesChangedActual.files.length).toBe(0);
+    });
+
+    it('should truncate the file name when too long', () => {
+
+      // let file = [
+      //   {
+      //     name: 'abcdefghijklmnopqrstuvwxyz12345.txt',
+      //     size: 1000,
+      //     type: 'image/png'
+      //   }
+      // ];
+
+      // setupStandardFileChangeEvent(file);
+
+      // Regular file
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: 'test.png',
+          size: 1000,
+          type: 'image/png'
+        },
+        url: 'myFile'
+      };
+      fixture.detectChanges();
+
+      expect(getFileNameText()).toBe('test.png');
+
+      // File with truncated name
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: 'abcdefghijklmnopqrstuvwxyz12345.png',
+          size: 1000,
+          type: 'image/png'
+        },
+        url: 'myFile'
+      };
+      fixture.detectChanges();
+
+      expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
+
+      // File with no name
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: undefined,
+          size: 1000,
+          type: 'image/png'
+        },
+        url: 'myFile'
+      };
+      fixture.detectChanges();
+
+      expect(getFileNameText()).toBe('myFile');
+
+      // File with no name and truncated url
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: undefined,
+          size: 1000,
+          type: 'image/txt'
+        },
+        url: 'abcdefghijklmnopqrstuvwxyz12345'
+      };
+      fixture.detectChanges();
+
+      expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
+    });
+
+    it('should load files and set classes on drag and drop', () => {
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe(
+        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      let fileReaderSpy = setupFileReaderSpy();
+
+      componentInstance.acceptedTypes = 'image/png, image/tiff';
+
+      fixture.detectChanges();
+
+      let dropDebugEl = getDropDebugEl();
+      let dropEl = getDropEl();
+
+      let files = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
+
+      let invalidFiles = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/jpeg'
+        }
+      ];
+
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver(files, dropDebugEl);
+
+      validateDropClasses(true, false, dropEl);
+
+      triggerDrop(files, dropDebugEl);
+
+      validateDropClasses(false, false, dropEl);
+
+      fileReaderSpy.loadCallbacks[0]({
+        target: {
+          result: 'url'
+        }
+      });
+
+      fixture.detectChanges();
+
+      expect(filesChangedActual.rejectedFiles.length).toBe(0);
+      expect(filesChangedActual.files.length).toBe(1);
+      expect(filesChangedActual.files[0].url).toBe('url');
+      expect(filesChangedActual.files[0].file.name).toBe('foo.txt');
+      expect(filesChangedActual.files[0].file.size).toBe(1000);
+
+      // Verify reject classes when appropriate
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver(invalidFiles, dropDebugEl);
+      validateDropClasses(false, true, dropEl);
+      triggerDragLeave('something', dropDebugEl);
+      validateDropClasses(false, true, dropEl);
+      triggerDragLeave('sky-drop', dropDebugEl);
+      validateDropClasses(false, false, dropEl);
+
+      // Verify empty file array
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver([], dropDebugEl);
+      validateDropClasses(false, false, dropEl);
+
+      let emptyEvent = {
+        stopPropagation: function () {},
+        preventDefault: function () {}
+      };
+
+      // Verify no dataTransfer drag
+      dropDebugEl.triggerEventHandler('dragover', emptyEvent);
+      fixture.detectChanges();
+      validateDropClasses(false, false, dropEl);
+
+      // Verify no dataTransfer drop
+      fileReaderSpy.loadCallbacks = [];
+      dropDebugEl.triggerEventHandler('drop', emptyEvent);
+      fixture.detectChanges();
+      expect(fileReaderSpy.loadCallbacks.length).toBe(0);
+
+    });
+
+    it([
+      'should accept a file of rejected type on drag (but not on drop)',
+      'if the browser does not support dataTransfer.items'
+    ].join(' '), () => {
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe(
+        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      componentInstance.acceptedTypes = 'image/png, image/tiff';
+
+      fixture.detectChanges();
+
+      let dropDebugEl = getDropDebugEl();
+
+      let invalidFiles = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/jpeg'
+        }
+      ];
+
+      let dropEl = getDropEl();
+
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver(undefined, dropDebugEl);
+      validateDropClasses(true, false, dropEl);
+
+      triggerDrop(invalidFiles, dropDebugEl);
+      validateDropClasses(false, false, dropEl);
+    });
+
+    it('should prevent loading multiple files on drag and drop', () => {
+      let files = [
+        {
+          name: 'foo.txt',
+          size: 1000,
+          type: 'image/png'
+        },
+        {
+          name: 'goo.txt',
+          size: 1000,
+          type: 'image/png'
+        }
+      ];
+
+      let filesChangedActual: SkyFileDropChange;
+
+      componentInstance.filesChanged.subscribe(
+        (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
+
+      let fileReaderSpy = setupFileReaderSpy();
+
+      let dropDebugEl = getDropDebugEl();
+
+      triggerDragEnter('sky-drop', dropDebugEl);
+      triggerDragOver(files, dropDebugEl);
+      triggerDrop(files, dropDebugEl);
+      expect(fileReaderSpy.loadCallbacks.length).toBe(0);
+    });
+
+    it('shows the thumbnail if the item is an image', () => {
+      testImage('png');
+      testImage('bmp');
+      testImage('jpeg');
+      testImage('gif');
+    });
+
+    it('does not show an icon if it is not an image', () => {
+      testOtherTypes('pdf', 'pdf');
+      testOtherTypes('gz', 'gz');
+      testOtherTypes('rar', 'rar');
+      testOtherTypes('tgz', 'tgz');
+      testOtherTypes('zip', 'zip');
+      testOtherTypes('ppt', 'ppt');
+      testOtherTypes('pptx', 'pptx');
+      testOtherTypes('doc', 'doc');
+      testOtherTypes('docx', 'docx');
+      testOtherTypes('xls', 'xls');
+      testOtherTypes('xlsx', 'xlsx');
+      testOtherTypes('txt', 'txt');
+      testOtherTypes('htm', 'htm');
+      testOtherTypes('html', 'html');
+      testOtherTypes('mp3', 'audio');
+      testOtherTypes('tiff', 'image');
+      testOtherTypes('other', 'text');
+      testOtherTypes('mp4', 'video');
+    });
+
+    it('should not show an icon if file or type does not exist', () => {
+      let imageEl = getImage();
+      expect(imageEl).toBeFalsy();
+
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: undefined,
+        url: 'myFile'
+      };
+      fixture.detectChanges();
+
+      expect(imageEl).toBeFalsy();
+
+      componentInstance.singleFileAttachment = <SkyFileItem> {
+        file: {
+          name: 'myFile.png',
+          type: undefined,
+          size: 1000
+        },
+        url: 'myFile'
+      };
+      fixture.detectChanges();
+
+      expect(imageEl).toBeFalsy();
+    });
+
+    it('should pass accessibility', async(() => {
     fixture.detectChanges();
-
-    expect(inputClicked).toBe(true);
-    expect(componentInstance.singleFile).toBe(true);
-  });
-  it('should click the file input on text click', () => {
-
-  });
-  it('should not click the file input on remove button click', () => {
-
-  });
-  // Maybe some other tests here about dragging
-  it('should load and emit file on file change event', () => {
-
-  });
-  // Maybe some other tests here about setting the file
-  it('should clear file on remove press', () => {
-
-  });
-  it('should update the file when replaced', () => {
-
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
   });
 });
+
+// @Component({
+//   selector: 'test-wrapper',
+//   template: `
+//   <sky-file-drop>
+//     <sky-file-drop-label>
+//       Field Label
+//     </sky-file-drop-label>
+//   </sky-file-drop>`
+// })
+// class TestWrapperComponent {
+//   @ViewChild(SkyFileDropComponent) public myDrop: SkyFileDropLabelComponent;
+// }
+
+// describe('Test Label', () => {
+//   let component: SkyFileDropLabelComponent;
+//   let fixture: ComponentFixture<TestWrapperComponent>;
+
+//   beforeEach(async() => {
+//     TestBed.configureTestingModule({
+//       imports: [
+//         SkyFileAttachmentsModule
+//       ],
+//       declarations: [
+//         TestWrapperComponent,
+//         SkyFileDropComponent,
+//         SkyFileDropLabelComponent
+//       ]
+//     }).compileComponents();
+//   });
+
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(TestWrapperComponent);
+//     fixture.detectChanges();
+//     component = fixture.componentInstance.myDrop;
+//     fixture.detectChanges();
+//   });
+
+//   it('should set the label on init', () => {
+//     console.log(component);
+//     expect(false).toBe(true);
+//   });
+// });

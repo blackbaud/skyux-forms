@@ -1,28 +1,68 @@
-<div style="width: 60%; margin-left: auto; margin-right: auto;">
-  <div id="screenshot-file-drop">
+<div
+  style="width: 60%; margin-left: auto; margin-right: auto;">
+  <div
+    id="screenshot-file-drop">
     <sky-file-drop
       (filesChanged)="filesUpdated($event)"
       (linkChanged)="linkAdded($event)"
       [maxFileSize]="maxFileSize"
       [validateFn]="validateFile"
-      [allowLinks]="allowLinks">
+      [allowLinks]="allowLinks"
+      [required]="required">
+      <sky-file-drop-label
+        *ngIf="showLabel">
+        Field Label
+      </sky-file-drop-label>
     </sky-file-drop>
 
-    <div *ngFor="let file of allItems">
-      <sky-file-item [fileItem]="file" (deleteFile)="deleteFile($event)"></sky-file-item>
+    <div
+      *ngFor="let file of allItems">
+      <sky-file-item
+        [fileItem]="file"
+        (deleteFile)="deleteFile($event)"></sky-file-item>
     </div>
   </div>
 </div>
 
-<sky-file-drop
-    singleFile="true"
-    [validateFn]="validateFile"
-    (filesChanged)="singleFileUpdated($event)">
-</sky-file-drop>
+<div
+  style="margin-left: 5px;">
+  <div
+    id="screenshot-single-file-drop">
+    <sky-file-drop
+      singleFile="true"
+      [validateFn]="validateFile"
+      (filesChanged)="singleFileUpdated($event)"
+      [required]="required">
+      <sky-file-drop-label
+        *ngIf="showLabel">
+        Field Label
+      </sky-file-drop-label>
+    </sky-file-drop>
+  </div>
+</div>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-primary sky-test-allow-links"
-  (click)="allowLinks = !allowLinks">
-  Toggle allowLinks
-</button>
+<div
+  style="margin-top: 10px">
+  <button
+    type="button"
+    class="sky-btn sky-btn-primary sky-test-allow-links"
+    (click)="allowLinks = !allowLinks">
+    Toggle allowLinks
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-primary sky-test-required"
+    (click)="required = !required">
+    Toggle required
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-primary sky-test-label"
+    (click)="showLabel = !showLabel">
+    Toggle showLabel
+  </button>
+</div>
+
+
