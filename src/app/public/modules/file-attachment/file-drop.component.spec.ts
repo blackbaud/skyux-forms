@@ -7,7 +7,6 @@ import {
 import {
   Component,
   DebugElement,
-  NO_ERRORS_SCHEMA,
   ViewChild
 } from '@angular/core';
 
@@ -38,7 +37,6 @@ import {
 import {
   SkyFileItem
 } from './file-item';
-import { SkyFileDropLabelComponent } from './file-drop-label.component';
 
 describe('File drop component', () => {
 
@@ -52,11 +50,14 @@ describe('File drop component', () => {
         </sky-file-drop-label>
       </sky-file-drop>`
   })
-  class FileDropContentComponent { }
+  class FileDropContentComponent {
+    @ViewChild(SkyFileDropComponent)
+    public fileDropComponent: SkyFileDropComponent;
+  }
 
-  let fixture: ComponentFixture<SkyFileDropComponent>;
+  let fixture: ComponentFixture<FileDropContentComponent>;
   let el: any;
-  let componentInstance: SkyFileDropComponent;
+  let fileDropInstance: SkyFileDropComponent;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -70,10 +71,10 @@ describe('File drop component', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SkyFileDropComponent);
+    fixture = TestBed.createComponent(FileDropContentComponent);
     fixture.detectChanges();
     el = fixture.nativeElement;
-    componentInstance = fixture.componentInstance;
+    fileDropInstance = fixture.componentInstance.fileDropComponent;
   });
 
   //#region helper functions
@@ -324,7 +325,7 @@ describe('File drop component', () => {
   });
 
   it('should prevent click when noclick is specified', () => {
-    componentInstance.noClick = true;
+    fileDropInstance.noClick = true;
     fixture.detectChanges();
     testClick(false);
   });
@@ -332,7 +333,7 @@ describe('File drop component', () => {
   it('should load and emit files on file change event', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
     fixture.detectChanges();
@@ -353,7 +354,7 @@ describe('File drop component', () => {
   () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
     fixture.detectChanges();
@@ -404,19 +405,19 @@ describe('File drop component', () => {
   });
 
   it('should allow the user to specify to not allow multiple files', () => {
-    componentInstance.multiple = false;
+    fileDropInstance.multiple = false;
     fixture.detectChanges();
     let inputEl = getInputDebugEl();
 
     expect(inputEl.nativeElement.hasAttribute('multiple')).toBe(false);
 
-    componentInstance.multiple = true;
+    fileDropInstance.multiple = true;
     fixture.detectChanges();
     expect(inputEl.nativeElement.hasAttribute('multiple')).toBe(true);
   });
 
   it('should set accepted types on the file input html', () => {
-    componentInstance.acceptedTypes = 'image/png';
+    fileDropInstance.acceptedTypes = 'image/png';
     fixture.detectChanges();
     let inputEl = getInputDebugEl();
 
@@ -427,10 +428,10 @@ describe('File drop component', () => {
   it('should allow the user to specify a min file size', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.minFileSize = 1500;
+    fileDropInstance.minFileSize = 1500;
     fixture.detectChanges();
 
     setupStandardFileChangeEvent();
@@ -450,10 +451,10 @@ describe('File drop component', () => {
   it('should allow the user to specify a max file size', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.maxFileSize = 1500;
+    fileDropInstance.maxFileSize = 1500;
     fixture.detectChanges();
 
     setupStandardFileChangeEvent();
@@ -473,12 +474,12 @@ describe('File drop component', () => {
   it('should allow the user to specify a validation function', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
     let errorMessage = 'You may not upload a file that begins with the letter "w."';
 
-    componentInstance.validateFn = function(file: any) {
+    fileDropInstance.validateFn = function(file: any) {
       if (file.file.name.indexOf('w') === 0) {
         return errorMessage;
       }
@@ -503,10 +504,10 @@ describe('File drop component', () => {
   it('should allow the user to specify accepted types', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.acceptedTypes = 'image/png,image/tiff';
+    fileDropInstance.acceptedTypes = 'image/png,image/tiff';
 
     fixture.detectChanges();
 
@@ -516,7 +517,7 @@ describe('File drop component', () => {
     expect(filesChangedActual.rejectedFiles[0].file.name).toBe('woo.txt');
     expect(filesChangedActual.rejectedFiles[0].file.size).toBe(2000);
     expect(filesChangedActual.rejectedFiles[0].errorType).toBe('fileType');
-    expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(componentInstance.acceptedTypes);
+    expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(fileDropInstance.acceptedTypes);
 
     expect(filesChangedActual.files.length).toBe(1);
     expect(filesChangedActual.files[0].url).toBe('url');
@@ -527,10 +528,10 @@ describe('File drop component', () => {
   it('should reject a file with no type when accepted types are defined', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.acceptedTypes = 'image/png,image/tiff';
+    fileDropInstance.acceptedTypes = 'image/png,image/tiff';
 
     fixture.detectChanges();
 
@@ -552,22 +553,22 @@ describe('File drop component', () => {
     expect(filesChangedActual.rejectedFiles[1].file.name).toBe('woo.txt');
     expect(filesChangedActual.rejectedFiles[1].file.size).toBe(2000);
     expect(filesChangedActual.rejectedFiles[1].errorType).toBe('fileType');
-    expect(filesChangedActual.rejectedFiles[1].errorParam).toBe(componentInstance.acceptedTypes);
+    expect(filesChangedActual.rejectedFiles[1].errorParam).toBe(fileDropInstance.acceptedTypes);
 
     expect(filesChangedActual.rejectedFiles[0].file.name).toBe('foo.txt');
     expect(filesChangedActual.rejectedFiles[0].file.size).toBe(1000);
     expect(filesChangedActual.rejectedFiles[0].errorType).toBe('fileType');
-    expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(componentInstance.acceptedTypes);
+    expect(filesChangedActual.rejectedFiles[0].errorParam).toBe(fileDropInstance.acceptedTypes);
 
   });
 
   it('should allow the user to specify accepted type with wildcards', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.acceptedTypes = 'application/*,image/*';
+    fileDropInstance.acceptedTypes = 'application/*,image/*';
 
     fixture.detectChanges();
 
@@ -585,44 +586,38 @@ describe('File drop component', () => {
   });
 
   it('should allow the user to specify if the file is required', () => {
-    componentInstance.required = false;
+    fileDropInstance.required = false;
     fixture.detectChanges();
     let dropWrapper = getDropWrapper();
 
     expect(dropWrapper.classList.contains('sky-file-drop-required')).toBe(false);
 
-    componentInstance.required = true;
+    fileDropInstance.required = true;
     fixture.detectChanges();
     expect(dropWrapper.classList.contains('sky-file-drop-required')).toBe(true);
   });
 
   it('should mark the field label as required when specified', () => {
-    componentInstance.required = false;
+    fileDropInstance.required = false;
     fixture.detectChanges();
     let labelWrapper = getLabelWrapper();
 
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
 
-    componentInstance.required = true;
+    fileDropInstance.required = true;
     fixture.detectChanges();
-
-    console.log(componentInstance.hasLabel());
-    console.log(labelWrapper);
-    // let content = el.querySelector('.sky-file-drop-label-wrapper sky-file-drop-label');
-    // console.log(content);
-
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
   });
 
   it('should load files and set classes on drag and drop', () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
     let fileReaderSpy = setupFileReaderSpy();
 
-    componentInstance.acceptedTypes = 'image/png, image/tiff';
+    fileDropInstance.acceptedTypes = 'image/png, image/tiff';
 
     fixture.detectChanges();
 
@@ -706,10 +701,10 @@ describe('File drop component', () => {
   ].join(' '), () => {
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-    componentInstance.acceptedTypes = 'image/png, image/tiff';
+    fileDropInstance.acceptedTypes = 'image/png, image/tiff';
 
     fixture.detectChanges();
 
@@ -749,12 +744,12 @@ describe('File drop component', () => {
 
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
     let fileReaderSpy = setupFileReaderSpy();
 
-    componentInstance.multiple = false;
+    fileDropInstance.multiple = false;
     fixture.detectChanges();
 
     let dropDebugEl = getDropDebugEl();
@@ -781,7 +776,7 @@ describe('File drop component', () => {
 
     let filesChangedActual: SkyFileDropChange;
 
-    componentInstance.filesChanged.subscribe(
+    fileDropInstance.filesChanged.subscribe(
       (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
     let fileReaderSpy = setupFileReaderSpy();
@@ -796,7 +791,7 @@ describe('File drop component', () => {
   });
 
   it('should show link section when allowLinks is true', () => {
-    componentInstance.allowLinks = true;
+    fileDropInstance.allowLinks = true;
     fixture.detectChanges();
 
     let linkInput = getLinkInput();
@@ -807,10 +802,10 @@ describe('File drop component', () => {
   it('should emit link event when link is added on click', () => {
     let fileLinkActual: SkyFileLink;
 
-    componentInstance.linkChanged.subscribe(
+    fileDropInstance.linkChanged.subscribe(
       (newLink: SkyFileLink) => fileLinkActual = newLink );
 
-    componentInstance.allowLinks = true;
+    fileDropInstance.allowLinks = true;
     fixture.detectChanges();
 
     let linkInput = getLinkInput();
@@ -827,10 +822,10 @@ describe('File drop component', () => {
   it('should emit link event when link is added on enter press', () => {
     let fileLinkActual: SkyFileLink;
 
-    componentInstance.linkChanged.subscribe(
+    fileDropInstance.linkChanged.subscribe(
       (newLink: SkyFileLink) => fileLinkActual = newLink );
 
-    componentInstance.allowLinks = true;
+    fileDropInstance.allowLinks = true;
     fixture.detectChanges();
 
     let linkInput = getLinkInput();
@@ -875,7 +870,7 @@ describe('File drop component', () => {
   describe('Single file attachment', () => {
 
     beforeEach(() => {
-      componentInstance.singleFile = true;
+      fileDropInstance.singleFile = true;
       fixture.detectChanges();
     });
 
@@ -921,7 +916,7 @@ describe('File drop component', () => {
     }
 
     function testImage(extension: string) {
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: 'myFile.' + extension,
           type: 'image/' + extension,
@@ -942,7 +937,7 @@ describe('File drop component', () => {
     }
 
     function testOtherTypes(extension: string, type: string) {
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: 'myFile.' + extension,
           type:  type + '/' + extension,
@@ -962,25 +957,25 @@ describe('File drop component', () => {
     }
 
     it('should allow the user to specify if the file is required', () => {
-      componentInstance.required = false;
+      fileDropInstance.required = false;
       fixture.detectChanges();
       let buttonEl = getButtonEl();
 
       expect(buttonEl.classList.contains('sky-file-drop-required')).toBe(false);
 
-      componentInstance.required = true;
+      fileDropInstance.required = true;
       fixture.detectChanges();
       expect(buttonEl.classList.contains('sky-file-drop-required')).toBe(true);
     });
 
-    xit('should mark the field label as required when specified', () => {
-      componentInstance.required = false;
+    it('should mark the field label as required when specified', () => {
+      fileDropInstance.required = false;
       fixture.detectChanges();
       let labelWrapper = getLabelWrapper();
 
       expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
 
-      componentInstance.required = true;
+      fileDropInstance.required = true;
       fixture.detectChanges();
       expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
     });
@@ -1061,7 +1056,7 @@ describe('File drop component', () => {
     it('should load and emit file on file change event', () => {
       let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
+      fileDropInstance.filesChanged.subscribe(
         (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
       fixture.detectChanges();
@@ -1086,7 +1081,7 @@ describe('File drop component', () => {
     it('should clear file on remove press', () => {
       let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
+      fileDropInstance.filesChanged.subscribe(
         (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
       fixture.detectChanges();
@@ -1123,7 +1118,7 @@ describe('File drop component', () => {
       // setupStandardFileChangeEvent(file);
 
       // Regular file
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: 'test.png',
           size: 1000,
@@ -1136,7 +1131,7 @@ describe('File drop component', () => {
       expect(getFileNameText()).toBe('test.png');
 
       // File with truncated name
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: 'abcdefghijklmnopqrstuvwxyz12345.png',
           size: 1000,
@@ -1149,7 +1144,7 @@ describe('File drop component', () => {
       expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
 
       // File with no name
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: undefined,
           size: 1000,
@@ -1162,7 +1157,7 @@ describe('File drop component', () => {
       expect(getFileNameText()).toBe('myFile');
 
       // File with no name and truncated url
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: undefined,
           size: 1000,
@@ -1178,12 +1173,12 @@ describe('File drop component', () => {
     it('should load files and set classes on drag and drop', () => {
       let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
+      fileDropInstance.filesChanged.subscribe(
         (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
       let fileReaderSpy = setupFileReaderSpy();
 
-      componentInstance.acceptedTypes = 'image/png, image/tiff';
+      fileDropInstance.acceptedTypes = 'image/png, image/tiff';
 
       fixture.detectChanges();
 
@@ -1267,10 +1262,10 @@ describe('File drop component', () => {
     ].join(' '), () => {
       let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
+      fileDropInstance.filesChanged.subscribe(
         (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
-      componentInstance.acceptedTypes = 'image/png, image/tiff';
+      fileDropInstance.acceptedTypes = 'image/png, image/tiff';
 
       fixture.detectChanges();
 
@@ -1310,7 +1305,7 @@ describe('File drop component', () => {
 
       let filesChangedActual: SkyFileDropChange;
 
-      componentInstance.filesChanged.subscribe(
+      fileDropInstance.filesChanged.subscribe(
         (filesChanged: SkyFileDropChange) => filesChangedActual = filesChanged );
 
       let fileReaderSpy = setupFileReaderSpy();
@@ -1355,7 +1350,7 @@ describe('File drop component', () => {
       let imageEl = getImage();
       expect(imageEl).toBeFalsy();
 
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: undefined,
         url: 'myFile'
       };
@@ -1363,7 +1358,7 @@ describe('File drop component', () => {
 
       expect(imageEl).toBeFalsy();
 
-      componentInstance.singleFileAttachment = <SkyFileItem> {
+      fileDropInstance.singleFileAttachment = <SkyFileItem> {
         file: {
           name: 'myFile.png',
           type: undefined,
@@ -1384,46 +1379,3 @@ describe('File drop component', () => {
   }));
   });
 });
-
-// @Component({
-//   selector: 'test-wrapper',
-//   template: `
-//   <sky-file-drop>
-//     <sky-file-drop-label>
-//       Field Label
-//     </sky-file-drop-label>
-//   </sky-file-drop>`
-// })
-// class TestWrapperComponent {
-//   @ViewChild(SkyFileDropComponent) public myDrop: SkyFileDropLabelComponent;
-// }
-
-// describe('Test Label', () => {
-//   let component: SkyFileDropLabelComponent;
-//   let fixture: ComponentFixture<TestWrapperComponent>;
-
-//   beforeEach(async() => {
-//     TestBed.configureTestingModule({
-//       imports: [
-//         SkyFileAttachmentsModule
-//       ],
-//       declarations: [
-//         TestWrapperComponent,
-//         SkyFileDropComponent,
-//         SkyFileDropLabelComponent
-//       ]
-//     }).compileComponents();
-//   });
-
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(TestWrapperComponent);
-//     fixture.detectChanges();
-//     component = fixture.componentInstance.myDrop;
-//     fixture.detectChanges();
-//   });
-
-//   it('should set the label on init', () => {
-//     console.log(component);
-//     expect(false).toBe(true);
-//   });
-// });
