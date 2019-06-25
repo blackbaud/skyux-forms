@@ -31,7 +31,6 @@
     <sky-file-drop
       singleFile="true"
       [validateFn]="validateFile"
-      (filesChanged)="singleFileUpdated($event)"
       [required]="required">
       <sky-file-drop-label
         *ngIf="showLabel">

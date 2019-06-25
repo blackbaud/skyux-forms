@@ -152,7 +152,8 @@
       type="button"
       class="sky-single-file-btn sky-btn sky-btn-default"
       [ngClass]="{ 'sky-file-drop-required' : required }"
-      (click)="dropClicked()">
+      (click)="dropClicked()"
+      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources">
         <sky-icon
           icon="folder-open-o">
         </sky-icon>
@@ -166,11 +167,14 @@
         {{ getSingleFileName() }}
       </i>
     </span>
-    <sky-icon
+    <button
       *ngIf="singleFileAttachment"
-      icon="trash"
-      class="sky-file-delete"
-      (click)="singleAttachmentDelete()"></sky-icon>
+      type="button"
+      class="sky-btn sky-file-delete"
+      [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
+      (click)="singleAttachmentDelete()">
+        <sky-icon icon="trash" size="md"></sky-icon>
+    </button>
   </div>
 
   <div

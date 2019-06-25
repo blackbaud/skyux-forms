@@ -1,7 +1,7 @@
 import {
   Component,
-  EventEmitter,
   ElementRef,
+  EventEmitter,
   Input,
   Output,
   ViewChild
@@ -68,7 +68,6 @@ export class SkyFileDropComponent {
   public acceptedOver: boolean = false;
   public linkUrl: string;
   public singleFileAttachment: SkyFileItem;
-  public singleFileValid: boolean;
 
   private enterEventTarget: any;
 
@@ -237,9 +236,6 @@ export class SkyFileDropComponent {
       if (this.singleFile) {
         if (validFileArray.length > 0) {
           this.singleFileAttachment = validFileArray[0];
-          this.singleFileValid = true;
-        } else {
-          this.singleFileValid = false;
         }
       }
       this.filesChanged.emit({

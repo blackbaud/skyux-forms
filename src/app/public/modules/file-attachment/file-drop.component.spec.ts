@@ -1,7 +1,7 @@
 import {
-  TestBed,
+  async,
   ComponentFixture,
-  async
+  TestBed
 } from '@angular/core/testing';
 
 import {
@@ -882,10 +882,6 @@ describe('File drop component', () => {
       return el.querySelector('.sky-single-file-btn');
     }
 
-    // function getButtonDebugEl() {
-    //   return fixture.debugElement.query(By.css('.sky-single-file-btn'));
-    // }
-
     function getDropEl() {
       return el.querySelector('.sky-single-file-drop');
     }
@@ -1105,17 +1101,7 @@ describe('File drop component', () => {
       expect(filesChangedActual.files.length).toBe(0);
     });
 
-    it('should truncate the file name when too long', () => {
-
-      // let file = [
-      //   {
-      //     name: 'abcdefghijklmnopqrstuvwxyz12345.txt',
-      //     size: 1000,
-      //     type: 'image/png'
-      //   }
-      // ];
-
-      // setupStandardFileChangeEvent(file);
+    it('should show the appropriate file name', () => {
 
       // Regular file
       fileDropInstance.singleFileAttachment = <SkyFileItem> {

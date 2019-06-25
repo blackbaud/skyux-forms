@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
+  SkyFileDropChange,
   SkyFileItem,
-  SkyFileLink,
-  SkyFileDropChange
+  SkyFileLink
 } from '../../public';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'file-attachments-visual',
   templateUrl: './file-attachments-visual.component.html'
 })
-export class FileAttachmentsVisualComponent implements OnInit {
+export class FileAttachmentsVisualComponent {
   public filesToUpload: Array<SkyFileItem>;
 
   public allItems: Array<SkyFileItem | SkyFileLink>;
@@ -30,16 +31,7 @@ export class FileAttachmentsVisualComponent implements OnInit {
 
   public showLabel: boolean = false;
 
-  public reactiveForm: FormGroup;
-
-  public get reactiveFile(): FormControl {
-    // console.log(this.reactiveForm.get('file').errors, this.reactiveForm.get('file').dirty, this.reactiveForm.get('file').touched);
-    return this.reactiveForm.get('file') as FormControl;
-  }
-
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
+  constructor() {
     this.filesToUpload = [];
     this.rejectedFiles = [];
     this.allItems = [<SkyFileItem>{
@@ -52,21 +44,10 @@ export class FileAttachmentsVisualComponent implements OnInit {
     this.linksToUpload = [];
   }
 
-  public ngOnInit(): void {
-    this.reactiveForm = this.formBuilder.group({
-      file: new FormControl(undefined, Validators.required)
-    });
-  }
-
   public filesUpdated(result: SkyFileDropChange) {
     this.filesToUpload = this.filesToUpload.concat(result.files);
     this.rejectedFiles = this.rejectedFiles.concat(result.rejectedFiles);
     this.allItems = this.allItems.concat(result.files);
-    console.log(this.filesToUpload, this.rejectedFiles, this.allItems);
-  }
-
-  public singleFileUpdated(result: SkyFileDropChange) {
-    console.log(result);
   }
 
   public linkAdded(result: SkyFileLink) {
