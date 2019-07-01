@@ -1,11 +1,13 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
-/* Hide default checkbox */
-.sky-switch input {
+/* Hide default button */
+.sky-switch button {
   opacity: 0;
   width: 0;
   height: 0;
+  border: 0;
+  padding: 0;
 }
 
 /* The slider */
@@ -44,24 +46,24 @@
   }
 }
 
-input:checked + .sky-toggle-slider:before {
+.sky-toggle-checked + .sky-toggle-slider:before {
   -webkit-transform: translateX(23px);
   -ms-transform: translateX(23px);
   transform: translateX(23px);
 }
 
-input:checked + .sky-toggle-slider {
+.sky-toggle-checked + .sky-toggle-slider {
   background-color: $sky-background-color-info-light;
   border: 2px solid $sky-highlight-color-info;
 }
 
-input:focus + .sky-toggle-slider {
+button:focus + .sky-toggle-slider {
   @include sky-field-status(active);
   border-width: 2px;
 }
 
 .sky-switch-disabled {
-  input:checked + .sky-toggle-slider {
+  .sky-toggle-checked + .sky-toggle-slider {
     background-color: $sky-background-color-disabled;
     border: 2px solid $sky-border-color-neutral-medium;
   }

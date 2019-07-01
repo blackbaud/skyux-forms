@@ -1,15 +1,17 @@
 <label
   class="sky-toggle-wrapper sky-switch"
   [ngClass]="{ 'sky-switch-disabled': disabled }">
-  <input
-    type="checkbox"
-    [checked]="checked"
+  <button
+    role="switch"
+    [ngClass]="{ 'sky-toggle-checked': checked }"
     [disabled]="disabled"
+    [attr.aria-checked]="checked"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledBy"
     (blur)="onInputBlur()"
-    (change)="onInteractionEvent($event)"
-    [tabIndex]="tabindex"/>
+    (click)="onInteractionEvent($event)"
+    [tabIndex]="tabindex">
+  </button>
   <span
     class="sky-toggle-slider">
   </span>

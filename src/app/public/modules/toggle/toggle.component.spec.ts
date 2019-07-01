@@ -66,7 +66,7 @@ describe('Toggle component', () => {
     let toggleNativeElement: HTMLElement;
     let toggleInstance: SkyToggleComponent;
     let testComponent: ToggleTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let labelElement: HTMLLabelElement;
 
     beforeEach(fakeAsync(() => {
@@ -79,26 +79,26 @@ describe('Toggle component', () => {
       toggleNativeElement = toggleDebugElement.nativeElement;
       toggleInstance = toggleDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
       labelElement =
         <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
     it('should add and remove the checked state', () => {
       expect(toggleInstance.checked).toBe(false);
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
 
       testComponent.isChecked = true;
       fixture.detectChanges();
 
       expect(toggleInstance.checked).toBe(true);
-      expect(inputElement.checked).toBe(true);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(true);
 
       testComponent.isChecked = false;
       fixture.detectChanges();
 
       expect(toggleInstance.checked).toBe(false);
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
     });
 
     it('should toggle `checked` state on click', fakeAsync(() => {
@@ -126,28 +126,28 @@ describe('Toggle component', () => {
       fixture.detectChanges();
 
       expect(toggleInstance.disabled).toBe(false);
-      expect(inputElement.tabIndex).toBe(0);
-      expect(inputElement.disabled).toBe(false);
+      expect(buttonElement.tabIndex).toBe(0);
+      expect(buttonElement.disabled).toBe(false);
 
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
       expect(toggleInstance.disabled).toBe(true);
-      expect(inputElement.disabled).toBe(true);
+      expect(buttonElement.disabled).toBe(true);
 
       testComponent.isDisabled = false;
       fixture.detectChanges();
 
       expect(toggleInstance.disabled).toBe(false);
-      expect(inputElement.tabIndex).toBe(0);
-      expect(inputElement.disabled).toBe(false);
+      expect(buttonElement.tabIndex).toBe(0);
+      expect(buttonElement.disabled).toBe(false);
     });
 
     it('should not toggle `checked` state upon interation while disabled', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      inputElement.dispatchEvent(createEvent('change'));
+      buttonElement.dispatchEvent(createEvent('click'));
       fixture.detectChanges();
       expect(toggleInstance.checked).toBe(false);
       labelElement.click();
@@ -162,7 +162,7 @@ describe('Toggle component', () => {
     });
 
     it('should make the host element a tab stop', () => {
-      expect(inputElement.tabIndex).toBe(0);
+      expect(buttonElement.tabIndex).toBe(0);
     });
 
     it('should pass accessibility', async(() => {
@@ -179,7 +179,7 @@ describe('Toggle component', () => {
     let toggleNativeElement: HTMLElement;
     let toggleInstance: SkyToggleComponent;
     let testComponent: ToggleChangeEventTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let labelElement: HTMLLabelElement;
 
     beforeEach(fakeAsync(() => {
@@ -192,7 +192,7 @@ describe('Toggle component', () => {
       toggleNativeElement = toggleDebugElement.nativeElement;
       toggleInstance = toggleDebugElement.componentInstance;
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
       labelElement =
         <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
     }));
@@ -213,9 +213,9 @@ describe('Toggle component', () => {
       fixture.detectChanges();
       expect(testComponent.lastEvent).toBeUndefined();
 
-      // Trigger the click on the inputElement, because the input will probably
+      // Trigger the click on the buttonElement, because the input will probably
       // emit a DOM event to the change output.
-      inputElement.click();
+      buttonElement.click();
       fixture.detectChanges();
 
       tick();
@@ -230,40 +230,40 @@ describe('Toggle component', () => {
   describe('with provided ariaLabel attribute ', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
 
     it('should use the provided ariaLabel as the input aria-label', fakeAsync(() => {
       fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
 
       fixture.detectChanges();
 
       tick();
-      expect(inputElement.getAttribute('aria-label')).toBe('Super effective');
+      expect(buttonElement.getAttribute('aria-label')).toBe('Super effective');
     }));
   });
 
   describe('with provided ariaLabelledBy attribute ', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
 
     it('should use the provided ariaLabelledBy as the input aria-labelledby', fakeAsync(() => {
       fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
 
       fixture.debugElement.componentInstance.labelledById = 'some-id';
 
       fixture.detectChanges();
 
       tick();
-      expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
+      expect(buttonElement.getAttribute('aria-labelledby')).toBe('some-id');
     }));
 
     it('should not assign aria-labelledby if no ariaLabelledBy is provided', fakeAsync(() => {
@@ -271,12 +271,12 @@ describe('Toggle component', () => {
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
 
       fixture.detectChanges();
 
       tick();
-      expect(inputElement.getAttribute('aria-labelledby')).toBeNull();
+      expect(buttonElement.getAttribute('aria-labelledby')).toBeNull();
     }));
   });
 
@@ -284,7 +284,7 @@ describe('Toggle component', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
     let testComponent: ToggleTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let labelElement: HTMLLabelElement;
 
     beforeEach(fakeAsync(() => {
@@ -296,7 +296,7 @@ describe('Toggle component', () => {
       testComponent = fixture.debugElement.componentInstance;
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleDebugElement.nativeElement;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
       labelElement = <HTMLLabelElement>toggleNativeElement.querySelector('label');
 
       testComponent.customTabIndex = 7;
@@ -304,7 +304,7 @@ describe('Toggle component', () => {
     }));
 
     it('should preserve any given tabIndex', () => {
-      expect(inputElement.tabIndex).toBe(7);
+      expect(buttonElement.tabIndex).toBe(7);
     });
 
     it('should preserve given tabIndex when the toggle is disabled then enabled', () => {
@@ -317,7 +317,7 @@ describe('Toggle component', () => {
       testComponent.isDisabled = false;
       fixture.detectChanges();
 
-      expect(inputElement.tabIndex).toBe(13);
+      expect(buttonElement.tabIndex).toBe(13);
     });
   });
 
@@ -332,7 +332,7 @@ describe('Toggle component', () => {
   describe('with ngModel and an initial value', () => {
     let toggleElement: DebugElement;
     let testComponent: ToggleFormDirectivesTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let toggleNativeElement: HTMLElement;
     let ngModel: NgModel;
     let labelElement: HTMLLabelElement;
@@ -348,7 +348,7 @@ describe('Toggle component', () => {
       toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
       toggleNativeElement = toggleElement.nativeElement;
 
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
       ngModel = <NgModel>toggleElement.injector.get(NgModel);
       labelElement =
         <HTMLLabelElement>toggleElement
@@ -376,7 +376,7 @@ describe('Toggle component', () => {
       expect(ngModel.touched).toBe(false);
       expect(testComponent.isGood).toBe(false);
 
-      inputElement.dispatchEvent(createEvent('blur'));
+      buttonElement.dispatchEvent(createEvent('blur'));
       expect(ngModel.touched).toBe(true);
     }));
   });
@@ -384,7 +384,7 @@ describe('Toggle component', () => {
   describe('with ngModel', () => {
     let toggleElement: DebugElement;
     let testComponent: ToggleFormDirectivesTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let toggleNativeElement: HTMLElement;
     let ngModel: NgModel;
     let labelElement: HTMLLabelElement;
@@ -399,7 +399,7 @@ describe('Toggle component', () => {
       toggleNativeElement = toggleElement.nativeElement;
 
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
       ngModel = <NgModel>toggleElement.injector.get(NgModel);
       labelElement =
         <HTMLLabelElement>toggleElement
@@ -426,14 +426,14 @@ describe('Toggle component', () => {
       expect(ngModel.touched).toBe(false);
       expect(testComponent.isGood).toBe(true);
 
-      inputElement.dispatchEvent(createEvent('blur'));
+      buttonElement.dispatchEvent(createEvent('blur'));
       expect(ngModel.touched).toBe(true);
     }));
 
     it('should change toggle state through ngModel programmatically', fakeAsync(() => {
       tick();
       fixture.detectChanges();
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
       expect(testComponent.isGood).toBe(false);
       fixture.detectChanges();
       testComponent.isGood = true;
@@ -441,14 +441,14 @@ describe('Toggle component', () => {
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(inputElement.checked).toBe(true);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(true);
     }));
   });
 
   describe('with reactive form', () => {
     let toggleElement: DebugElement;
     let testComponent: ToggleReactiveFormTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let toggleNativeElement: HTMLElement;
     let formControl: FormControl;
     let labelElement: HTMLLabelElement;
@@ -463,7 +463,7 @@ describe('Toggle component', () => {
       toggleNativeElement = toggleElement.nativeElement;
 
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
       formControl = testComponent.toggle1;
       labelElement =
         <HTMLLabelElement>toggleElement
@@ -490,14 +490,14 @@ describe('Toggle component', () => {
       expect(formControl.dirty).toBe(true);
       expect(formControl.value).toBe(true);
 
-      inputElement.dispatchEvent(createEvent('blur'));
+      buttonElement.dispatchEvent(createEvent('blur'));
       expect(formControl.touched).toBe(true);
     }));
 
     it('should change toggle state through form control programmatically', fakeAsync(() => {
       tick();
       fixture.detectChanges();
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
       expect(formControl.value).toBe(false);
       fixture.detectChanges();
       formControl.setValue(true);
@@ -505,13 +505,13 @@ describe('Toggle component', () => {
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(inputElement.checked).toBe(true);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(true);
     }));
 
     it('should change disable state through form control programmatically', fakeAsync(() => {
       tick();
       fixture.detectChanges();
-      expect(inputElement.disabled).toBe(false);
+      expect(buttonElement.disabled).toBe(false);
       expect(formControl.value).toBe(false);
       fixture.detectChanges();
       formControl.disable();
@@ -519,22 +519,22 @@ describe('Toggle component', () => {
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(inputElement.disabled).toBe(true);
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.disabled).toBe(true);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
 
       formControl.enable();
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(inputElement.disabled).toBe(false);
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.disabled).toBe(false);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
     }));
   });
 
   describe('with a consumer using OnPush change detection', () => {
     let toggleElement: DebugElement;
     let testComponent: ToggleOnPushTestComponent;
-    let inputElement: HTMLInputElement;
+    let buttonElement: HTMLButtonElement;
     let toggleNativeElement: HTMLElement;
 
     beforeEach(fakeAsync(() => {
@@ -547,13 +547,13 @@ describe('Toggle component', () => {
       toggleNativeElement = toggleElement.nativeElement;
 
       testComponent = fixture.debugElement.componentInstance;
-      inputElement = <HTMLInputElement>toggleNativeElement.querySelector('input');
+      buttonElement = <HTMLButtonElement>toggleNativeElement.querySelector('button');
     }));
 
     it('should change toggle state through ngModel programmatically', fakeAsync(() => {
       tick();
       fixture.detectChanges();
-      expect(inputElement.checked).toBe(false);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(false);
       expect(testComponent.isChecked).toBe(false);
       fixture.detectChanges();
       testComponent.isChecked = true;
@@ -562,7 +562,7 @@ describe('Toggle component', () => {
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(inputElement.checked).toBe(true);
+      expect(buttonElement.classList.contains('sky-toggle-checked')).toBe(true);
     }));
   });
 });
