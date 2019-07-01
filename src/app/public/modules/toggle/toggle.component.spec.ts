@@ -154,10 +154,6 @@ describe('Toggle component', () => {
       expect(toggleInstance.toggled).toBe(false);
     });
 
-    it('should preserve the user-provided id', () => {
-      expect(toggleNativeElement.id).toBe('simple-toggle');
-    });
-
     it('should project the toggle content into the label element', () => {
       let label =
         <HTMLLabelElement>toggleNativeElement
@@ -231,12 +227,12 @@ describe('Toggle component', () => {
     }));
   });
 
-  describe('with provided label attribute ', () => {
+  describe('with provided ariaLabel attribute ', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
     let inputElement: HTMLInputElement;
 
-    it('should use the provided label as the input aria-label', fakeAsync(() => {
+    it('should use the provided ariaLabel as the input aria-label', fakeAsync(() => {
       fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
@@ -250,12 +246,12 @@ describe('Toggle component', () => {
     }));
   });
 
-  describe('with provided labelledBy attribute ', () => {
+  describe('with provided ariaLabelledBy attribute ', () => {
     let toggleDebugElement: DebugElement;
     let toggleNativeElement: HTMLElement;
     let inputElement: HTMLInputElement;
 
-    it('should use the provided labeledBy as the input aria-labelledby', fakeAsync(() => {
+    it('should use the provided ariaLabelledBy as the input aria-labelledby', fakeAsync(() => {
       fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
@@ -270,7 +266,7 @@ describe('Toggle component', () => {
       expect(inputElement.getAttribute('aria-labelledby')).toBe('some-id');
     }));
 
-    it('should not assign aria-labelledby if no labeledBy is provided', fakeAsync(() => {
+    it('should not assign aria-labelledby if no ariaLabelledBy is provided', fakeAsync(() => {
       fixture = TestBed.createComponent(ToggleTestComponent);
 
       toggleDebugElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
@@ -330,16 +326,6 @@ describe('Toggle component', () => {
       fixture = TestBed.createComponent(ToggleTestComponent);
       fixture.debugElement.componentInstance.multiple = true;
       fixture.detectChanges();
-    });
-
-    it('should assign a unique id to each toggle', () => {
-      let [firstId, secondId] =
-        fixture.debugElement.queryAll(By.directive(SkyToggleComponent))
-          .map(debugElement => debugElement.nativeElement.querySelector('input').id);
-
-      expect(firstId).toBeTruthy();
-      expect(secondId).toBeTruthy();
-      expect(firstId).not.toEqual(secondId);
     });
   });
 
@@ -543,21 +529,6 @@ describe('Toggle component', () => {
       expect(inputElement.disabled).toBe(false);
       expect(inputElement.checked).toBe(false);
     }));
-  });
-
-  describe('with name attribute', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(ToggleTestComponent);
-
-      fixture.detectChanges();
-    });
-
-    it('should forward name value to input element', () => {
-      let toggleElement = fixture.debugElement.query(By.directive(SkyToggleComponent));
-      let inputElement = <HTMLInputElement>toggleElement.nativeElement.querySelector('input');
-
-      expect(inputElement.getAttribute('name')).toBe('test-name');
-    });
   });
 
   describe('with a consumer using OnPush change detection', () => {

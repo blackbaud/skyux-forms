@@ -1,13 +1,11 @@
 <div>
     <sky-toggle
-        name="test-name"
-        id="simple-toggle"
-        label="Super effective"
-        [labelledBy]="labelledById"
+        ariaLabel="Super effective"
+        [ariaLabelledBy]="labelledById"
         [toggled]="isToggled"
         [disabled]="isDisabled"
         [tabindex]="customTabIndex"
-        (change)="toggleChange($event)">
+        (toggleChanged)="toggleChange($event)">
       <sky-toggle-label>
         Simple toggle
       </sky-toggle-label>
