@@ -68,10 +68,10 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   public toggleChanged: EventEmitter<SkyToggleChange> = new EventEmitter<SkyToggleChange>();
 
   @Input()
-  public set toggled(toggled: boolean) {
-    if (toggled !== this.toggled) {
-      this._toggled = toggled;
-      this._controlValueAccessorChangeFn(toggled);
+  public set checked(checked: boolean) {
+    if (checked !== this.checked) {
+      this._checked = checked;
+      this._controlValueAccessorChangeFn(checked);
 
       // Do not mark the field as "dirty"
       // if the field has been initialized with a value.
@@ -82,13 +82,13 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
     }
   }
 
-  public get toggled() {
-    return this._toggled;
+  public get checked() {
+    return this._checked;
   }
 
   private control: AbstractControl;
   private isFirstChange = true;
-  private _toggled: boolean = false;
+  private _checked: boolean = false;
 
   constructor(
     private changeDetector: ChangeDetectorRef
@@ -98,7 +98,7 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
    * Implemented as part of ControlValueAccessor.
    */
   public writeValue(value: any) {
-    this.toggled = !!value;
+    this.checked = !!value;
     this.changeDetector.markForCheck();
   }
 
@@ -165,16 +165,16 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
   private _emitChangeEvent() {
-    this._controlValueAccessorChangeFn(this._toggled);
+    this._controlValueAccessorChangeFn(this._checked);
     this.toggleChanged.emit({
-      toggled: this._toggled
+      checked: this._checked
     });
   }
 
   /**
-   * Toggles the `toggled` value between true and false
+   * Toggles the `checked` value between true and false
    */
   private _toggle() {
-    this.toggled = !this.toggled;
+    this.checked = !this.checked;
   }
 }

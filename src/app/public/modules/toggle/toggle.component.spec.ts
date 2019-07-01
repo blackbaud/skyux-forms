@@ -84,42 +84,42 @@ describe('Toggle component', () => {
         <HTMLLabelElement>toggleNativeElement.querySelector('label.sky-toggle-wrapper');
     }));
 
-    it('should add and remove the toggled state', () => {
-      expect(toggleInstance.toggled).toBe(false);
+    it('should add and remove the checked state', () => {
+      expect(toggleInstance.checked).toBe(false);
       expect(inputElement.checked).toBe(false);
 
-      testComponent.isToggled = true;
+      testComponent.isChecked = true;
       fixture.detectChanges();
 
-      expect(toggleInstance.toggled).toBe(true);
+      expect(toggleInstance.checked).toBe(true);
       expect(inputElement.checked).toBe(true);
 
-      testComponent.isToggled = false;
+      testComponent.isChecked = false;
       fixture.detectChanges();
 
-      expect(toggleInstance.toggled).toBe(false);
+      expect(toggleInstance.checked).toBe(false);
       expect(inputElement.checked).toBe(false);
     });
 
-    it('should toggle `toggled` state on click', fakeAsync(() => {
+    it('should toggle `checked` state on click', fakeAsync(() => {
       fixture.detectChanges();
-      expect(toggleInstance.toggled).toBe(false);
-      expect(testComponent.isToggled).toBe(false);
+      expect(toggleInstance.checked).toBe(false);
+      expect(testComponent.isChecked).toBe(false);
 
       labelElement.click();
 
       tick();
       fixture.detectChanges();
-      expect(toggleInstance.toggled).toBe(true);
-      expect(testComponent.isToggled).toBe(true);
+      expect(toggleInstance.checked).toBe(true);
+      expect(testComponent.isChecked).toBe(true);
 
       labelElement.click();
 
       tick();
       fixture.detectChanges();
 
-      expect(toggleInstance.toggled).toBe(false);
-      expect(testComponent.isToggled).toBe(false);
+      expect(toggleInstance.checked).toBe(false);
+      expect(testComponent.isChecked).toBe(false);
     }));
 
     it('should add and remove disabled state', () => {
@@ -143,15 +143,15 @@ describe('Toggle component', () => {
       expect(inputElement.disabled).toBe(false);
     });
 
-    it('should not toggle `toggled` state upon interation while disabled', () => {
+    it('should not toggle `checked` state upon interation while disabled', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
       inputElement.dispatchEvent(createEvent('change'));
       fixture.detectChanges();
-      expect(toggleInstance.toggled).toBe(false);
+      expect(toggleInstance.checked).toBe(false);
       labelElement.click();
-      expect(toggleInstance.toggled).toBe(false);
+      expect(toggleInstance.checked).toBe(false);
     });
 
     it('should project the toggle content into the label element', () => {
@@ -202,7 +202,7 @@ describe('Toggle component', () => {
         fixture.detectChanges();
         expect(testComponent.lastEvent).toBeUndefined();
 
-        toggleInstance.toggled = true;
+        toggleInstance.checked = true;
         fixture.detectChanges();
 
         tick();
@@ -222,7 +222,7 @@ describe('Toggle component', () => {
       // We're checking the arguments type / emitted value to be a boolean, because sometimes the
       // emitted value can be a DOM Event, which is not valid.
       // See angular/angular#4059
-      expect(testComponent.lastEvent.toggled).toBe(true);
+      expect(testComponent.lastEvent.checked).toBe(true);
 
     }));
   });
@@ -554,9 +554,9 @@ describe('Toggle component', () => {
       tick();
       fixture.detectChanges();
       expect(inputElement.checked).toBe(false);
-      expect(testComponent.isToggled).toBe(false);
+      expect(testComponent.isChecked).toBe(false);
       fixture.detectChanges();
-      testComponent.isToggled = true;
+      testComponent.isChecked = true;
       testComponent.ref.markForCheck();
 
       fixture.detectChanges();

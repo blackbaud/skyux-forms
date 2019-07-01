@@ -2,10 +2,10 @@
     <sky-toggle
         ariaLabel="Super effective"
         [ariaLabelledBy]="labelledById"
-        [toggled]="isToggled"
+        [checked]="isChecked"
         [disabled]="isDisabled"
         [tabindex]="customTabIndex"
-        (toggleChanged)="toggleChange($event)">
+        (toggleChanged)="checkChanged($event)">
       <sky-toggle-label>
         Simple toggle
       </sky-toggle-label>

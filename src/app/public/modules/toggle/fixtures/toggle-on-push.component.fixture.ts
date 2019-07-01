@@ -9,6 +9,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToggleOnPushTestComponent {
-  public isToggled: boolean = false;
+  public isChecked: boolean = false;
   constructor(public ref: ChangeDetectorRef) { }
 }

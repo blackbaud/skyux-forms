@@ -1,3 +1,3 @@
 export interface SkyToggleChange {
-  toggled: boolean;
+  checked: boolean;
 }
