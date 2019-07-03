@@ -65,7 +65,7 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   public tabindex: number = 0;
 
   @Output()
-  public toggleChanged: EventEmitter<SkyToggleChange> = new EventEmitter<SkyToggleChange>();
+  public toggleChange: EventEmitter<SkyToggleChange> = new EventEmitter<SkyToggleChange>();
 
   @Input()
   public set checked(checked: boolean) {
@@ -166,7 +166,7 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
 
   private _emitChangeEvent() {
     this._controlValueAccessorChangeFn(this._checked);
-    this.toggleChanged.emit({
+    this.toggleChange.emit({
       checked: this._checked
     });
   }
