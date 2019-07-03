@@ -30,6 +30,14 @@ import {
 } from './file-drop-label.component';
 
 import {
+  SkyFileAttachmentComponent
+} from './file-attachment.component';
+
+import {
+  SkyFileAttachmentLabelComponent
+} from './file-attachment-label.component';
+
+import {
   SkyFileItemComponent
 } from './file-item.component';
 
@@ -41,6 +49,8 @@ import {
   declarations: [
     SkyFileDropComponent,
     SkyFileDropLabelComponent,
+    SkyFileAttachmentComponent,
+    SkyFileAttachmentLabelComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],
@@ -54,6 +64,8 @@ import {
   exports: [
     SkyFileDropComponent,
     SkyFileDropLabelComponent,
+    SkyFileAttachmentComponent,
+    SkyFileAttachmentLabelComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],

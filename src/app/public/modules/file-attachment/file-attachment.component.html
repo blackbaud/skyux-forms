@@ -1,0 +1,69 @@
+<div
+  class="sky-single-file-wrapper">
+  <div
+    #labelWrapper
+    class="sky-file-drop-label-wrapper"
+    [ngClass]="{ 'sky-control-label-required': required && hasLabel() }">
+    <ng-container
+      *ngTemplateOutlet="tempOutlet" >
+    </ng-container>
+  </div>
+  <div
+    class="sky-single-file-upload sky-single-file-drop sky-single-file-drop-target"
+    [ngClass]="{ 'sky-single-file-drop-accept': acceptedOver, 'sky-single-file-drop-reject': rejectedOver }"
+    (dragover)="fileDragOver($event)"
+    (dragenter)="fileDragEnter($event)"
+    (dragleave)="fileDragLeave($event)"
+    (drop)="fileDrop($event)">
+    <input
+      tabindex="-1"
+      aria-hidden="true"
+      type="file"
+      class="sky-file-input-hidden"
+      (change)="fileChangeEvent($event)"
+      [attr.accept]="acceptedTypes ? acceptedTypes: null"
+      #fileInput>
+    <button
+      type="button"
+      class="sky-single-file-btn sky-btn sky-btn-default"
+      [ngClass]="{ 'sky-file-drop-required' : required }"
+      (click)="dropClicked()"
+      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources">
+        <sky-icon
+          icon="folder-open-o">
+        </sky-icon>
+      {{ singleFileAttachment ? 'Replace File' : 'Choose File' }}
+    </button>
+    <span
+      class="sky-file-name"
+      (click)="dropClicked()">
+      <i
+        class="sky-file-name-text">
+        {{ getSingleFileName() }}
+      </i>
+    </span>
+    <button
+      *ngIf="singleFileAttachment"
+      type="button"
+      class="sky-btn sky-file-delete"
+      [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
+      (click)="singleAttachmentDelete()">
+        <sky-icon icon="trash" size="md"></sky-icon>
+    </button>
+  </div>
+
+  <div
+    *ngIf="singleFileAttachment && isImg()">
+    <img
+      class="sky-file-item-preview-img"
+      [src]="singleFileAttachment.url"
+      [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources" />
+  </div>
+</div>
+
+<ng-template
+  #tempOutlet>
+    <ng-content
+      select="sky-file-attachment-label">
+    </ng-content>
+</ng-template>

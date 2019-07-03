@@ -28,15 +28,14 @@
   style="margin-left: 5px;">
   <div
     id="screenshot-single-file-drop">
-    <sky-file-drop
-      singleFile="true"
+    <sky-file-attachment
       [validateFn]="validateFile"
       [required]="required">
-      <sky-file-drop-label
+      <sky-file-attachment-label
         *ngIf="showLabel">
         Field Label
-      </sky-file-drop-label>
-    </sky-file-drop>
+      </sky-file-attachment-label>
+    </sky-file-attachment>
   </div>
 </div>
 

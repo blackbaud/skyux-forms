@@ -12,24 +12,17 @@ import {
 } from './file-item';
 
 import {
-  SkyFileLink
-} from './file-link';
-
-import {
-  SkyFileDropChange
-} from './file-drop-change';
+  SkyFileAttachmentChange
+} from './file-attachment-change';
 
 @Component({
-  selector: 'sky-file-drop',
-  templateUrl: './file-drop.component.html',
-  styleUrls: ['./file-drop.component.scss']
+  selector: 'sky-file-attachment',
+  templateUrl: './file-attachment.component.html',
+  styleUrls: ['./file-attachment.component.scss']
 })
-export class SkyFileDropComponent {
+export class SkyFileAttachmentComponent {
   @Output()
-  public filesChanged = new EventEmitter<SkyFileDropChange>();
-
-  @Output()
-  public linkChanged = new EventEmitter<SkyFileLink>();
+  public fileChanged = new EventEmitter<SkyFileAttachmentChange>();
 
   @Input()
   public minFileSize: number = 0;
@@ -38,19 +31,10 @@ export class SkyFileDropComponent {
   public maxFileSize: number = 500000;
 
   @Input()
-  public multiple: boolean = true;
-
-  @Input()
   public validateFn: Function;
 
   @Input()
   public acceptedTypes: string;
-
-  @Input()
-  public noClick: boolean = false;
-
-  @Input()
-  public allowLinks: boolean = false;
 
   @Input()
   public required: boolean = false;
@@ -63,7 +47,7 @@ export class SkyFileDropComponent {
 
   public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
-  public linkUrl: string;
+  public singleFileAttachment: SkyFileItem;
 
   private enterEventTarget: any;
 
@@ -72,9 +56,7 @@ export class SkyFileDropComponent {
   }
 
   public dropClicked() {
-    if (!this.noClick) {
-      this.inputEl.nativeElement.click();
-    }
+    this.inputEl.nativeElement.click();
   }
 
   public fileChangeEvent(fileChangeEvent: any) {
@@ -145,64 +127,99 @@ export class SkyFileDropComponent {
     }
   }
 
-  public addLinkEnter(event: KeyboardEvent) {
-    if (event.which === 13) {
-      this.addLink(event);
+  public singleAttachmentDelete() {
+    this.singleFileAttachment = undefined;
+    this.emitFileChangeEvent(this.singleFileAttachment);
+  }
+
+  public isImg() {
+    let fileTypeUpper = this.getFileTypeUpper(),
+                        slashIndex: number;
+
+    slashIndex = fileTypeUpper.indexOf('/');
+
+    if (slashIndex >= 0) {
+      switch (fileTypeUpper.substr(fileTypeUpper.indexOf('/') + 1)) {
+        case 'BMP':
+        case 'GIF':
+        case 'JPEG':
+        case 'PNG':
+          return true;
+        default:
+          break;
+      }
+    }
+
+    return false;
+  }
+
+  public getSingleFileName() {
+    if (this.singleFileAttachment) {
+      // tslint:disable-next-line: max-line-length
+      let dropName = this.isFile() && this.singleFileAttachment.file.name ? this.singleFileAttachment.file.name : this.singleFileAttachment.url;
+
+      if (dropName.length > 26) {
+        return dropName.slice(0, 26) + '....';
+      } else {
+        return dropName;
+      }
+    } else {
+      return 'No file chosen';
     }
   }
 
-  public addLink(event: Event) {
-    event.preventDefault();
-    this.linkChanged.emit({ url: this.linkUrl } as SkyFileLink);
-    this.linkUrl = undefined;
+  private isFile() {
+    let file = (<SkyFileItem>this.singleFileAttachment).file;
+
+    /* tslint:disable */
+    return file && file !== undefined && file !== null && file.size !== undefined
+      && file.size !== null;
+    /* tslint:enable */
   }
 
+  private getFileTypeUpper() {
+    let fileType = '';
+    /* istanbul ignore else */
+    /* sanity check */
+    if (this.singleFileAttachment) {
+      let file = (<SkyFileItem>this.singleFileAttachment).file;
+      if (file) {
+        fileType = file.type || '';
+      } else {
+        fileType = '';
+      }
+    }
+
+    return fileType.toUpperCase();
+  }
+// Rip out multiple file capability
   private emitFileChangeEvent(
-    totalFiles: number,
-    rejectedFileArray: Array<SkyFileItem>,
-    validFileArray: Array<SkyFileItem>
+    currentFile: SkyFileItem
   ) {
-    if (totalFiles === rejectedFileArray.length + validFileArray.length) {
-      this.filesChanged.emit({
-        files: validFileArray,
-        rejectedFiles: rejectedFileArray
-      } as SkyFileDropChange);
+      this.singleFileAttachment = currentFile;
+      this.fileChanged.emit({
+        file: currentFile
+      } as SkyFileAttachmentChange);
 
       this.inputEl.nativeElement.value = '';
     }
-  }
-
-  private filesRejected(
-    file: SkyFileItem,
-    validFileArray: Array<SkyFileItem>,
-    rejectedFileArray: Array<SkyFileItem>,
-    totalFiles: number
-  ) {
-    rejectedFileArray.push(file);
-    this.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
-  }
 
   private loadFile(
-    fileDrop: SkyFileDropComponent,
-    file: SkyFileItem,
-    validFileArray: Array<SkyFileItem>,
-    rejectedFileArray: Array<SkyFileItem>,
-    totalFiles: number
+    file: SkyFileItem
   ) {
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
       file.url = event.target.result;
-      validFileArray.push(file);
-      fileDrop.emitFileChangeEvent(totalFiles, rejectedFileArray, validFileArray);
+      this.emitFileChangeEvent(file);
     });
 
     reader.addEventListener('error', (event: any) => {
-      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      this.emitFileChangeEvent(file);
     });
 
     reader.addEventListener('abort', (event: any) => {
-      fileDrop.filesRejected(file, validFileArray, rejectedFileArray, totalFiles);
+      this.emitFileChangeEvent(file);
     });
 
     reader.readAsDataURL(file.file);
@@ -251,11 +268,6 @@ export class SkyFileDropComponent {
   }
 
   private handleFiles(files: FileList) {
-    let validFileArray: Array<SkyFileItem> = [];
-    let rejectedFileArray: Array<SkyFileItem> = [];
-    let totalFiles = files.length;
-    let fileDrop = this;
-
     for (let index = 0; index < files.length; index++) {
       let fileItem = {
         file: files.item(index)
@@ -264,17 +276,17 @@ export class SkyFileDropComponent {
       if (fileItem.file.size < this.minFileSize) {
         fileItem.errorType = 'minFileSize';
         fileItem.errorParam = this.minFileSize.toString();
-        this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+        this.emitFileChangeEvent(fileItem);
 
       } else if (fileItem.file.size > this.maxFileSize) {
         fileItem.errorType = 'maxFileSize';
         fileItem.errorParam = this.maxFileSize.toString();
-        this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+        this.emitFileChangeEvent(fileItem);
 
       } else if (this.fileTypeRejected(fileItem.file.type)) {
         fileItem.errorType = 'fileType';
         fileItem.errorParam = this.acceptedTypes;
-        this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+        this.emitFileChangeEvent(fileItem);
 
       } else if (this.validateFn) {
         let errorParam = this.validateFn(fileItem);
@@ -282,20 +294,20 @@ export class SkyFileDropComponent {
         if (!!errorParam) {
           fileItem.errorType = 'validate';
           fileItem.errorParam = errorParam;
-          this.filesRejected(fileItem, validFileArray, rejectedFileArray, totalFiles);
+          this.emitFileChangeEvent(fileItem);
 
         } else {
-          this.loadFile(fileDrop, fileItem, validFileArray, rejectedFileArray, totalFiles);
+          this.loadFile(fileItem);
         }
 
       } else {
-        this.loadFile(fileDrop, fileItem, validFileArray, rejectedFileArray, totalFiles);
+        this.loadFile(fileItem);
       }
     }
   }
 
   private verifyDropFiles(files: any) {
-    if ((!this.multiple) && files.length > 1) {
+    if (files.length > 1) {
       return false;
     }
 
