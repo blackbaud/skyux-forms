@@ -5,19 +5,22 @@ import {
 import {
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
-  SkyRadioModule
+  SkyRadioModule,
+  SkyCharacterCountModule
 } from './public';
 
 @NgModule({
   imports: [
     SkyCheckboxModule,
     SkyFileAttachmentsModule,
-    SkyRadioModule
+    SkyRadioModule,
+    SkyCharacterCountModule
   ],
   exports: [
     SkyCheckboxModule,
     SkyFileAttachmentsModule,
-    SkyRadioModule
+    SkyRadioModule,
+    SkyCharacterCountModule
   ],
   providers: [],
   entryComponents: []
