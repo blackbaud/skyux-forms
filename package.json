@@ -26,12 +26,8 @@
     "@angular/common": ">=4.3.6",
     "@angular/core": ">=4.3.6",
     "@angular/forms": ">=4.3.6",
-    "@skyux-sdk/builder": "^3.7.1",
-    "@skyux/forms": "^3.2.0",
-    "@skyux/i18n": "^3.7.1",
-    "@skyux/indicators": "^3.0.3",
-    "@skyux/list-builder": "^3.4.0",
-    "@skyux/router": "^3.1.1"
+    "@skyux/i18n": "^3.5.0",
+    "@skyux/indicators": "^3.0.0"
   },
   "dependencies": {},
   "devDependencies": {
