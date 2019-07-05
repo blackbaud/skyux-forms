@@ -1,3 +1,7 @@
+# 3.2.1 (2019-07-05)
+
+- Fixed radio group component to update state when model value changes. [#52](https://github.com/blackbaud/skyux-forms/pull/52)
+
 # 3.2.0 (2019-06-07)
 
 - Added the ability to trigger responsive styles based on a parent component. [#35](https://github.com/blackbaud/skyux-forms/pull/35)
