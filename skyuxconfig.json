@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/@skyux/config/skyuxconfig-schema.json",
   "name": "skyux-forms",
   "mode": "easy",
   "compileMode": "aot",
@@ -15,5 +16,10 @@
     "unit": {
       "browserSet": "paranoid"
     }
+  },
+  "app": {
+    "styles": [
+      "@skyux/theme/css/sky.css"
+    ]
   }
 }
