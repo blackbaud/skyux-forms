@@ -1,11 +1,11 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   forwardRef,
   Input,
-  Output,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
+  Output
 } from '@angular/core';
 
 import {
@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 
 import {
-  SkyToggleChange
+  SkyToggleSwitchChange
 } from './types';
 
 /**
@@ -26,31 +26,31 @@ import {
  * This allows it to support [(ngModel)].
  */
 // tslint:disable:no-forward-ref no-use-before-declare
-export const SKY_TOGGLE_CONTROL_VALUE_ACCESSOR: any = {
+export const SKY_TOGGLE_SWITCH_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SkyToggleComponent),
+  useExisting: forwardRef(() => SkyToggleSwitchComponent),
   multi: true
 };
 
-const SKY_TOGGLE_VALIDATOR = {
+const SKY_TOGGLE_SWITCH_VALIDATOR = {
   provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => SkyToggleComponent),
+  useExisting: forwardRef(() => SkyToggleSwitchComponent),
   multi: true
 };
 
 // tslint:enable
 
 @Component({
-  selector: 'sky-toggle',
-  templateUrl: './toggle.component.html',
-  styleUrls: ['./toggle.component.scss'],
+  selector: 'sky-toggle-switch',
+  templateUrl: './toggle-switch.component.html',
+  styleUrls: ['./toggle-switch.component.scss'],
   providers: [
-    SKY_TOGGLE_CONTROL_VALUE_ACCESSOR,
-    SKY_TOGGLE_VALIDATOR
+    SKY_TOGGLE_SWITCH_CONTROL_VALUE_ACCESSOR,
+    SKY_TOGGLE_SWITCH_VALIDATOR
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyToggleComponent implements ControlValueAccessor, Validator {
+export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator {
 
   @Input()
   public ariaLabel: string;
@@ -59,19 +59,19 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   public ariaLabelledBy: string;
 
   @Input()
-  public disabled: boolean = false;
+  public disabled = false;
 
   @Input()
-  public tabindex: number = 0;
+  public tabIndex = 0;
 
   @Output()
-  public toggleChange: EventEmitter<SkyToggleChange> = new EventEmitter<SkyToggleChange>();
+  public toggleChange = new EventEmitter<SkyToggleSwitchChange>();
 
   @Input()
   public set checked(checked: boolean) {
     if (checked !== this.checked) {
       this._checked = checked;
-      this._controlValueAccessorChangeFn(checked);
+      this.controlValueAccessorChangeFn(checked);
 
       // Do not mark the field as "dirty"
       // if the field has been initialized with a value.
@@ -82,12 +82,13 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
     }
   }
 
-  public get checked() {
+  public get checked(): boolean {
     return this._checked;
   }
 
   private control: AbstractControl;
-  private isFirstChange = true;
+  private isFirstChange: boolean = true;
+
   private _checked: boolean = false;
 
   constructor(
@@ -97,7 +98,7 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   /**
    * Implemented as part of ControlValueAccessor.
    */
-  public writeValue(value: any) {
+  public writeValue(value: boolean) {
     this.checked = !!value;
     this.changeDetector.markForCheck();
   }
@@ -106,7 +107,7 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
    * Implemented as part of ControlValueAccessor.
    */
   public registerOnChange(fn: (value: any) => void) {
-    this._controlValueAccessorChangeFn = fn;
+    this.controlValueAccessorChangeFn = fn;
   }
 
   /**
@@ -135,8 +136,8 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
     event.stopPropagation();
 
     if (!this.disabled) {
-      this._toggle();
-      this._emitChangeEvent();
+      this.toggle();
+      this.emitChangeEvent();
     }
   }
 
@@ -152,20 +153,14 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
     return;
   }
 
-  public registerOnValidatorChange?(fn: () => void): void {
-    this.onValidatorChange = fn;
-  }
-
   /** Called when the toggle is blurred. Needed to properly implement ControlValueAccessor. */
   /*istanbul ignore next */
   public onTouched: () => any = () => {};
-  /*istanbul ignore next */
-  private onValidatorChange = () => {};
 
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
+  private controlValueAccessorChangeFn: (value: any) => void = (value) => {};
 
-  private _emitChangeEvent() {
-    this._controlValueAccessorChangeFn(this._checked);
+  private emitChangeEvent() {
+    this.controlValueAccessorChangeFn(this._checked);
     this.toggleChange.emit({
       checked: this._checked
     });
@@ -174,7 +169,7 @@ export class SkyToggleComponent implements ControlValueAccessor, Validator {
   /**
    * Toggles the `checked` value between true and false
    */
-  private _toggle() {
+  private toggle() {
     this.checked = !this.checked;
   }
 }

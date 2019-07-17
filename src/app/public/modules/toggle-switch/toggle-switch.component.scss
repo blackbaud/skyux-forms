@@ -1,0 +1,81 @@
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+
+.sky-toggle-switch-button {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  border: 0;
+  padding: 0;
+
+  &:focus + .sky-toggle-slider {
+    @include sky-field-status(active);
+    border-width: 2px;
+  }
+}
+
+.sky-toggle-switch-slider {
+  position: relative;
+  width: 49px;
+  height: 26px;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid $sky-border-color-neutral-medium;
+  border-radius: 13px;
+  background-color: $sky-background-color-neutral-light;
+  -webkit-transition: 150ms;
+  transition: 150ms;
+  margin: 0 5px auto auto;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    background-color: $sky-color-white;
+    -webkit-transition: 150ms;
+    transition: 150ms;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 11px;
+  }
+
+  &:hover {
+    border: 2px solid $sky-highlight-color-info;
+  }
+}
+
+.sky-toggle-switch-checked {
+  & + .sky-toggle-switch-slider {
+    background-color: $sky-background-color-info-light;
+    border: 2px solid $sky-highlight-color-info;
+
+    &:before {
+      -webkit-transform: translateX(23px);
+      -ms-transform: translateX(23px);
+      transform: translateX(23px);
+    }
+  }
+}
+
+.sky-toggle-switch-disabled {
+  .sky-toggle-switch-checked + .sky-toggle-switch-slider {
+    background-color: $sky-background-color-disabled;
+    border: 2px solid $sky-border-color-neutral-medium;
+  }
+
+  .sky-toggle-switch-slider {
+    cursor: default;
+    background-color: $sky-background-color-disabled;
+
+    &:hover {
+      border: 2px solid $sky-border-color-neutral-medium;
+    }
+
+    &:before {
+      background-color: $sky-background-color-neutral-light;
+    }
+  }
+}

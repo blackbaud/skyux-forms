@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 
 import {
-  SkyToggleModule
+  SkyToggleSwitchModule
 } from '../toggle.module';
 
 import {
@@ -40,7 +40,7 @@ import {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SkyToggleModule
+    SkyToggleSwitchModule
   ],
   declarations: [
     ToggleChangeEventTestComponent,

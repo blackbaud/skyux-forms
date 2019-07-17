@@ -27,8 +27,8 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyToggleComponent,
-  SkyToggleModule
+  SkyToggleSwitchComponent,
+  SkyToggleSwitchModule
 } from './';
 
 import {
@@ -55,7 +55,7 @@ describe('Toggle component', () => {
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        SkyToggleModule,
+        SkyToggleSwitchModule,
         ToggleTestModule
       ]
     });
