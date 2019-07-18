@@ -11,15 +11,12 @@ import {
 } from '@angular/core/testing';
 
 import {
-  BrowserModule,
   By
 } from '@angular/platform-browser';
 
 import {
   FormControl,
-  FormsModule,
-  NgModel,
-  ReactiveFormsModule
+  NgModel
 } from '@angular/forms';
 
 import {
@@ -40,20 +37,12 @@ import {
   SkyToggleSwitchComponent
 } from './toggle-switch.component';
 
-import {
-  SkyToggleSwitchModule
-} from './toggle-switch.module';
-
-describe('Toggle component', () => {
+describe('Toggle switch component', () => {
   let fixture: ComponentFixture<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SkyToggleSwitchModule,
         SkyToggleSwitchFixturesModule
       ]
     });
@@ -526,16 +515,37 @@ describe('Toggle component', () => {
     it('should change toggle state through ngModel programmatically', fakeAsync(() => {
       tick();
       fixture.detectChanges();
+
       expect(buttonElement.classList.contains('sky-toggle-switch-checked')).toEqual(false);
       expect(testComponent.isChecked).toEqual(false);
+
       fixture.detectChanges();
+
       testComponent.isChecked = true;
       testComponent.ref.markForCheck();
 
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
+
       expect(buttonElement.classList.contains('sky-toggle-switch-checked')).toEqual(true);
+    }));
+
+    it('should only use ARIA labelledby if label component exists', fakeAsync(() => {
+      tick();
+      fixture.detectChanges();
+
+      const labelledBy = buttonElement.getAttribute('aria-labelledby');
+
+      expect(labelledBy.indexOf('sky-toggle-switch-label-')).toEqual(0);
+
+      testComponent.showLabel = false;
+      testComponent.ref.markForCheck();
+
+      tick();
+      fixture.detectChanges();
+
+      expect(buttonElement.getAttribute('aria-labelledby')).toBeFalsy();
     }));
   });
 });

@@ -12,6 +12,8 @@ export class SkyToggleSwitchOnPushFixtureComponent {
 
   public isChecked: boolean = false;
 
+  public showLabel: boolean = true;
+
   constructor(
     public ref: ChangeDetectorRef
   ) { }
