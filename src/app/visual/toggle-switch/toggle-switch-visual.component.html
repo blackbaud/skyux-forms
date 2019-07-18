@@ -1,0 +1,67 @@
+<div
+  class="app-screenshot"
+  id="screenshot-toggle-switch"
+>
+  <p>
+    <sky-toggle-switch
+      [checked]="true"
+    >
+      Switch is "on"
+    </sky-toggle-switch>
+  </p>
+
+  <p>
+    <sky-toggle-switch
+      [checked]="false"
+    >
+      Switch is "off"
+    </sky-toggle-switch>
+  </p>
+
+  <p>
+    <sky-toggle-switch
+      [checked]="true"
+      [disabled]="true"
+    >
+      Switch is "on", readonly
+    </sky-toggle-switch>
+  </p>
+
+  <p>
+    <sky-toggle-switch
+      [checked]="false"
+      [disabled]="true"
+    >
+      Switch is "off", readonly
+    </sky-toggle-switch>
+  </p>
+</div>
+
+<div
+  class="app-screenshot"
+>
+  <h2>
+    Reactive form
+  </h2>
+
+  <form
+    [formGroup]="formGroup"
+    novalidate
+  >
+    <div class="sky-form-group">
+      <sky-toggle-switch
+        formControlName="notifyByEmail"
+      >
+        Notify me by email
+      </sky-toggle-switch>
+    </div>
+
+    <button
+      class="sky-btn"
+      type="button"
+      (click)="onReadonlyClick()"
+    >
+      Toggle readonly
+    </button>
+  </form>
+</div>

@@ -1,17 +1,17 @@
 <div>
-    <sky-toggle
+    <sky-toggle-switch
         ariaLabel="Super effective"
         [ariaLabelledBy]="labelledById"
         [checked]="isChecked"
         [disabled]="isDisabled"
         [tabindex]="customTabIndex"
         (toggleChange)="checkChanged($event)">
-      <sky-toggle-label>
+      <sky-toggle-switch-label>
         Simple toggle
-      </sky-toggle-label>
-    </sky-toggle>
-    <sky-toggle
+      </sky-toggle-switch-label>
+    </sky-toggle-switch>
+    <sky-toggle-switch
       *ngIf="multiple">
       Option 2
-    </sky-toggle>
+    </sky-toggle-switch>
   </div>

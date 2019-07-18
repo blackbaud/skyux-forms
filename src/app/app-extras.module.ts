@@ -3,6 +3,10 @@ import {
 } from '@angular/core';
 
 import {
+  SkyAppLinkModule
+} from '@skyux/router';
+
+import {
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
   SkyRadioModule,
@@ -11,6 +15,7 @@ import {
 
 @NgModule({
   exports: [
+    SkyAppLinkModule,
     SkyCheckboxModule,
     SkyFileAttachmentsModule,
     SkyRadioModule,

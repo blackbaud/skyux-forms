@@ -1,81 +1,63 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
+$indicator-size: 22px;
+
+.sky-toggle-switch {
+  display: inline-flex;
+  align-items: baseline;
+}
+
 .sky-toggle-switch-button {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  border: 0;
-  padding: 0;
-
-  &:focus + .sky-toggle-slider {
-    @include sky-field-status(active);
-    border-width: 2px;
-  }
-}
-
-.sky-toggle-switch-slider {
-  position: relative;
-  width: 49px;
-  height: 26px;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 2px solid $sky-border-color-neutral-medium;
-  border-radius: 13px;
+  border: 1px solid $sky-border-color-neutral-medium;
   background-color: $sky-background-color-neutral-light;
-  -webkit-transition: 150ms;
-  transition: 150ms;
-  margin: 0 5px auto auto;
+  padding: 1px;
+  border-radius: $indicator-size + 2;
+  width: $indicator-size * 2 + 2;
+  line-height: $sky-line-height-base;
 
-  &:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    background-color: $sky-color-white;
-    -webkit-transition: 150ms;
-    transition: 150ms;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 11px;
+  &:hover:not(.sky-toggle-switch-readonly) {
+    border-color: $sky-highlight-color-info;
+    border-width: 2px;
+    padding: 0;
+    cursor: pointer;
   }
 
-  &:hover {
-    border: 2px solid $sky-highlight-color-info;
-  }
-}
-
-.sky-toggle-switch-checked {
-  & + .sky-toggle-switch-slider {
+  &.sky-toggle-switch-checked {
     background-color: $sky-background-color-info-light;
-    border: 2px solid $sky-highlight-color-info;
+    border-color: $sky-highlight-color-info;
+    border-width: 2px;
+    padding: 0;
 
-    &:before {
-      -webkit-transform: translateX(23px);
-      -ms-transform: translateX(23px);
-      transform: translateX(23px);
+    .sky-toggle-switch-indicator {
+      left: 100%;
     }
   }
-}
 
-.sky-toggle-switch-disabled {
-  .sky-toggle-switch-checked + .sky-toggle-switch-slider {
+  &.sky-toggle-switch-readonly {
     background-color: $sky-background-color-disabled;
-    border: 2px solid $sky-border-color-neutral-medium;
-  }
+    border-color: transparent;
 
-  .sky-toggle-switch-slider {
-    cursor: default;
-    background-color: $sky-background-color-disabled;
-
-    &:hover {
-      border: 2px solid $sky-border-color-neutral-medium;
-    }
-
-    &:before {
+    .sky-toggle-switch-indicator {
       background-color: $sky-background-color-neutral-light;
     }
   }
+
+  & + .sky-toggle-switch-label {
+    margin-left: $sky-margin;
+  }
+}
+
+.sky-toggle-switch-indicator {
+  height: $indicator-size;
+  width: $indicator-size;
+  display: block;
+  position: relative;
+  top: 0;
+  left: $indicator-size;
+  margin-left: -$indicator-size;
+  border-radius: 100%;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.75);
+  background-color: $sky-color-white;
+  transition: left 150ms;
 }

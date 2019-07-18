@@ -21,24 +21,20 @@ import {
   SkyToggleSwitchChange
 } from './types';
 
-/**
- * Provider Expression that allows sky-toggle to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)].
- */
 // tslint:disable:no-forward-ref no-use-before-declare
-export const SKY_TOGGLE_SWITCH_CONTROL_VALUE_ACCESSOR: any = {
+const SKY_TOGGLE_SWITCH_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SkyToggleSwitchComponent),
   multi: true
 };
-
 const SKY_TOGGLE_SWITCH_VALIDATOR = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => SkyToggleSwitchComponent),
   multi: true
 };
-
 // tslint:enable
+
+let uniqueId = 0;
 
 @Component({
   selector: 'sky-toggle-switch',
@@ -56,22 +52,10 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
   public ariaLabel: string;
 
   @Input()
-  public ariaLabelledBy: string;
-
-  @Input()
-  public disabled = false;
-
-  @Input()
-  public tabIndex = 0;
-
-  @Output()
-  public toggleChange = new EventEmitter<SkyToggleSwitchChange>();
-
-  @Input()
   public set checked(checked: boolean) {
     if (checked !== this.checked) {
       this._checked = checked;
-      this.controlValueAccessorChangeFn(checked);
+      this.onChange(checked);
 
       // Do not mark the field as "dirty"
       // if the field has been initialized with a value.
@@ -83,11 +67,29 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
   }
 
   public get checked(): boolean {
-    return this._checked;
+    return this._checked || false;
+  }
+
+  @Input()
+  public disabled = false;
+
+  @Input()
+  public tabIndex = 0;
+
+  @Output()
+  public toggleChange = new EventEmitter<SkyToggleSwitchChange>();
+
+  public get labelElementId(): string {
+    if (this.ariaLabel) {
+      return;
+    }
+
+    return `sky-toggle-switch-label-${this.toggleSwitchId}`;
   }
 
   private control: AbstractControl;
   private isFirstChange: boolean = true;
+  private toggleSwitchId = uniqueId++;
 
   private _checked: boolean = false;
 
@@ -95,54 +97,9 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
   public writeValue(value: boolean) {
     this.checked = !!value;
     this.changeDetector.markForCheck();
-  }
-
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public registerOnChange(fn: (value: any) => void) {
-    this.controlValueAccessorChangeFn = fn;
-  }
-
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
-    this.changeDetector.markForCheck();
-  }
-
-  /**
-   * Event handler for toggle input element.
-   * Toggles `toggle` state if element is not disabled.
-   */
-  public onInteractionEvent(event: Event) {
-    // We always have to stop propagation on the change event.
-    // Otherwise the change event, from the input element, will bubble up and
-    // emit its event object to the `change` output.
-    event.stopPropagation();
-
-    if (!this.disabled) {
-      this.toggle();
-      this.emitChangeEvent();
-    }
-  }
-
-  public onInputBlur() {
-    this.onTouched();
   }
 
   public validate(control: AbstractControl): ValidationErrors {
@@ -153,23 +110,47 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
     return;
   }
 
-  /** Called when the toggle is blurred. Needed to properly implement ControlValueAccessor. */
-  /*istanbul ignore next */
-  public onTouched: () => any = () => {};
+  public registerOnChange(fn: (value: any) => void) {
+    this.onChange = fn;
+  }
 
-  private controlValueAccessorChangeFn: (value: any) => void = (value) => {};
+  public registerOnTouched(fn: any) {
+    this.onTouched = fn;
+  }
+
+  public setDisabledState(disabled: boolean) {
+    this.disabled = disabled;
+    this.changeDetector.markForCheck();
+  }
+
+  public onButtonClick(event: any): void {
+    event.stopPropagation();
+
+    if (this.disabled) {
+      event.preventDefault();
+      return;
+    }
+
+    this.toggle();
+    this.emitChangeEvent();
+  }
+
+  public onButtonBlur(): void {
+    this.onTouched();
+  }
+
+  /* istanbul ignore next */
+  private onTouched: () => any = () => {};
+  private onChange: (value: any) => void = () => {};
 
   private emitChangeEvent() {
-    this.controlValueAccessorChangeFn(this._checked);
+    this.onChange(this._checked);
     this.toggleChange.emit({
       checked: this._checked
     });
   }
 
-  /**
-   * Toggles the `checked` value between true and false
-   */
-  private toggle() {
+  private toggle(): void {
     this.checked = !this.checked;
   }
 }
