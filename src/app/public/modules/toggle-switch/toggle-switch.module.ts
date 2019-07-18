@@ -14,8 +14,13 @@ import {
   SkyToggleSwitchComponent
 } from './toggle-switch.component';
 
+import {
+  SkyToggleSwitchLabelComponent
+} from './toggle-switch-label.component';
+
 @NgModule({
   declarations: [
+    SkyToggleSwitchLabelComponent,
     SkyToggleSwitchComponent
   ],
   imports: [
@@ -23,6 +28,7 @@ import {
     FormsModule
   ],
   exports: [
+    SkyToggleSwitchLabelComponent,
     SkyToggleSwitchComponent
   ]
 })

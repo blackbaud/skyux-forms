@@ -6,7 +6,9 @@
     <sky-toggle-switch
       [checked]="true"
     >
-      Switch is "on"
+      <sky-toggle-switch-label>
+        Switch is "on"
+      </sky-toggle-switch-label>
     </sky-toggle-switch>
   </p>
 
@@ -14,7 +16,9 @@
     <sky-toggle-switch
       [checked]="false"
     >
+    <sky-toggle-switch-label>
       Switch is "off"
+    </sky-toggle-switch-label>
     </sky-toggle-switch>
   </p>
 
@@ -23,7 +27,9 @@
       [checked]="true"
       [disabled]="true"
     >
+    <sky-toggle-switch-label>
       Switch is "on", readonly
+    </sky-toggle-switch-label>
     </sky-toggle-switch>
   </p>
 
@@ -32,7 +38,9 @@
       [checked]="false"
       [disabled]="true"
     >
+    <sky-toggle-switch-label>
       Switch is "off", readonly
+    </sky-toggle-switch-label>
     </sky-toggle-switch>
   </p>
 </div>
@@ -41,7 +49,7 @@
   class="app-screenshot"
 >
   <h2>
-    Reactive form
+    Reactive form with asynchronous label component
   </h2>
 
   <form
@@ -50,18 +58,29 @@
   >
     <div class="sky-form-group">
       <sky-toggle-switch
+        ariaLabel="Foobar label"
         formControlName="notifyByEmail"
       >
-        Notify me by email
+        <sky-toggle-switch-label *ngIf="showLabel">
+          Notify me by email
+        </sky-toggle-switch-label>
       </sky-toggle-switch>
     </div>
 
     <button
-      class="sky-btn"
+      class="sky-btn sky-margin-inline-compact"
       type="button"
       (click)="onReadonlyClick()"
     >
       Toggle readonly
+    </button>
+
+    <button
+      class="sky-btn"
+      type="button"
+      (click)="showLabel = !showLabel"
+    >
+      Toggle label visibility
     </button>
   </form>
 </div>

@@ -1,11 +1,15 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChildren,
   EventEmitter,
   forwardRef,
   Input,
-  Output
+  Output,
+  QueryList,
+  OnDestroy
 } from '@angular/core';
 
 import {
@@ -18,8 +22,18 @@ import {
 } from '@angular/forms';
 
 import {
+  Subject
+} from 'rxjs/Subject';
+
+import 'rxjs/add/operator/takeUntil';
+
+import {
   SkyToggleSwitchChange
 } from './types';
+
+import {
+  SkyToggleSwitchLabelComponent
+} from './toggle-switch-label.component';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_TOGGLE_SWITCH_CONTROL_VALUE_ACCESSOR: any = {
@@ -46,7 +60,7 @@ let uniqueId = 0;
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator {
+export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, ControlValueAccessor, Validator {
 
   @Input()
   public ariaLabel: string;
@@ -79,16 +93,20 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
   @Output()
   public toggleChange = new EventEmitter<SkyToggleSwitchChange>();
 
-  public get labelElementId(): string {
-    if (this.ariaLabel) {
-      return;
-    }
+  public get hasLabelComponent(): boolean {
+    return this.labelComponents.length > 0;
+  }
 
+  public get labelElementId(): string {
     return `sky-toggle-switch-label-${this.toggleSwitchId}`;
   }
 
+  @ContentChildren(SkyToggleSwitchLabelComponent)
+  private labelComponents: QueryList<SkyToggleSwitchLabelComponent>;
+
   private control: AbstractControl;
   private isFirstChange: boolean = true;
+  private ngUnsubscribe = new Subject<void>();
   private toggleSwitchId = uniqueId++;
 
   private _checked: boolean = false;
@@ -96,6 +114,21 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
   constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
+
+  public ngAfterContentInit(): void {
+    this.labelComponents.changes
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(() => {
+        // Allow the template to reload any ARIA attributes that are relying on the
+        // label component existing in the DOM.
+        this.changeDetector.markForCheck();
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   public writeValue(value: boolean) {
     this.checked = !!value;
@@ -131,7 +164,7 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
       return;
     }
 
-    this.toggle();
+    this.toggleChecked();
     this.emitChangeEvent();
   }
 
@@ -150,7 +183,7 @@ export class SkyToggleSwitchComponent implements ControlValueAccessor, Validator
     });
   }
 
-  private toggle(): void {
+  private toggleChecked(): void {
     this.checked = !this.checked;
   }
 }

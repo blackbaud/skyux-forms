@@ -3,16 +3,16 @@ import {
 } from '@angular/core';
 
 @Component({
-  templateUrl: './toggle.component.fixture.html'
+  templateUrl: './toggle-switch.component.fixture.html'
 })
-export class ToggleTestComponent {
+export class SkyToggleSwitchFixtureComponent {
+
   public isChecked: boolean = false;
   public isDisabled: boolean = false;
   public customTabIndex: number = 0;
-  public labelledById: string;
   public multiple: boolean = false;
 
-  public checkChanged($event: any) {
-    this.isChecked = $event.checked;
+  public checkChanged(event: any): void {
+    this.isChecked = event.checked;
   }
 }

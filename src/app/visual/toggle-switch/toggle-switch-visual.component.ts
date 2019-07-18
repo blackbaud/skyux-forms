@@ -15,6 +15,7 @@ import {
 export class ToggleSwitchVisualComponent {
 
   public formGroup: FormGroup;
+  public showLabel = false;
 
   constructor(
     private formBuilder: FormBuilder
@@ -22,6 +23,10 @@ export class ToggleSwitchVisualComponent {
     this.formGroup = this.formBuilder.group({
       notifyByEmail: new FormControl(true)
     });
+
+    setTimeout(() => {
+      this.showLabel = true;
+    }, 2000);
   }
 
   public onReadonlyClick(): void {
