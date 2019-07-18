@@ -7,6 +7,6 @@ import {
 })
 export class SkyToggleSwitchFormDirectivesFixtureComponent {
 
-  public isGood: boolean = false;
+  public modelValue: boolean = false;
 
 }

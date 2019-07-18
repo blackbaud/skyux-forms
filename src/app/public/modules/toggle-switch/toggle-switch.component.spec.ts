@@ -294,7 +294,7 @@ describe('Toggle switch component', () => {
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(SkyToggleSwitchFormDirectivesFixtureComponent);
       testComponent = fixture.debugElement.componentInstance;
-      testComponent.isGood = true;
+      testComponent.modelValue = true;
 
       fixture.detectChanges();
       tick();
@@ -313,7 +313,7 @@ describe('Toggle switch component', () => {
       expect(ngModel.pristine).toEqual(true);
       expect(ngModel.dirty).toEqual(false);
       expect(ngModel.touched).toEqual(false);
-      expect(testComponent.isGood).toEqual(true);
+      expect(testComponent.modelValue).toEqual(true);
 
       buttonElement.click();
 
@@ -325,7 +325,7 @@ describe('Toggle switch component', () => {
       expect(ngModel.pristine).toEqual(false);
       expect(ngModel.dirty).toEqual(true);
       expect(ngModel.touched).toEqual(false);
-      expect(testComponent.isGood).toEqual(false);
+      expect(testComponent.modelValue).toEqual(false);
 
       SkyAppTestUtility.fireDomEvent(buttonElement, 'blur');
 
@@ -372,7 +372,7 @@ describe('Toggle switch component', () => {
       expect(ngModel.pristine).toEqual(false);
       expect(ngModel.dirty).toEqual(true);
       expect(ngModel.touched).toEqual(false);
-      expect(testComponent.isGood).toEqual(true);
+      expect(testComponent.modelValue).toEqual(true);
 
       SkyAppTestUtility.fireDomEvent(buttonElement, 'blur');
 
@@ -384,11 +384,11 @@ describe('Toggle switch component', () => {
       fixture.detectChanges();
 
       expect(buttonElement.classList.contains('sky-toggle-switch-checked')).toEqual(false);
-      expect(testComponent.isGood).toEqual(false);
+      expect(testComponent.modelValue).toEqual(false);
 
       fixture.detectChanges();
 
-      testComponent.isGood = true;
+      testComponent.modelValue = true;
 
       fixture.detectChanges();
       tick();
