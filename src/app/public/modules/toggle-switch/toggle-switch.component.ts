@@ -130,7 +130,7 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
     this.ngUnsubscribe.complete();
   }
 
-  public writeValue(value: boolean) {
+  public writeValue(value: boolean): void {
     this.checked = !!value;
     this.changeDetector.markForCheck();
   }
@@ -147,11 +147,11 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
     this.onChange = fn;
   }
 
-  public registerOnTouched(fn: any) {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  public setDisabledState(disabled: boolean) {
+  public setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
     this.changeDetector.markForCheck();
   }
@@ -176,7 +176,7 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
   private onTouched: () => any = () => {};
   private onChange: (value: any) => void = () => {};
 
-  private emitChangeEvent() {
+  private emitChangeEvent(): void {
     this.onChange(this._checked);
     this.toggleChange.emit({
       checked: this._checked
