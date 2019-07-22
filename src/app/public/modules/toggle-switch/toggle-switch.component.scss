@@ -13,7 +13,7 @@ $indicator-size: 22px;
   background-color: $sky-background-color-neutral-light;
   padding: 1px;
   border-radius: $indicator-size + 2;
-  width: $indicator-size * 2 + 2;
+  flex: 1 0 $indicator-size * 2 + 2;
   line-height: $sky-line-height-base;
 
   &:hover:not(.sky-toggle-switch-readonly) {
@@ -45,6 +45,7 @@ $indicator-size: 22px;
 
   & + .sky-toggle-switch-label {
     margin-left: $sky-margin;
+    flex: 1 0 auto;
   }
 }
 
