@@ -20,6 +20,9 @@
     <i
       aria-hidden="true"
       class="sky-toggle-switch-indicator"
+      [ngClass]="{
+        'sky-toggle-switch-transition': enableIndicatorAnimation
+      }"
       role="presentation"
     >&nbsp;</i> <!-- Non-breaking space needed to align switch to baseline! -->
   </button>

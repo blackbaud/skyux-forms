@@ -97,6 +97,8 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
     return this.labelComponents.length > 0;
   }
 
+  public enableIndicatorAnimation = false;
+
   public get labelElementId(): string {
     return `sky-toggle-switch-label-${this.toggleSwitchId}`;
   }
@@ -123,6 +125,12 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
         // label component existing in the DOM.
         this.changeDetector.markForCheck();
       });
+
+    // Wait for the view to render before applying animation effects.
+    // (Some browsers, such as Firefox, apply the animation too early.)
+    setTimeout(() => {
+      this.enableIndicatorAnimation = true;
+    });
   }
 
   public ngOnDestroy(): void {
