@@ -1,15 +1,5 @@
-
 <div
-  #labelWrapper
-  class="sky-file-drop-label-wrapper"
-  [ngClass]="{ 'sky-control-label-required': required && hasLabel() }">
-  <ng-container
-    *ngTemplateOutlet="tempOutlet">
-  </ng-container>
-</div>
-<div
-  class="sky-file-drop-row"
-  [ngClass]="{ 'sky-file-drop-allow-links': allowLinks, 'sky-file-drop-required' : required }">
+  class="sky-file-drop-row" [ngClass]="{ 'sky-file-drop-allow-links': allowLinks }">
   <div
     class="sky-file-drop-col"
     [ngClass]="{ 'sky-file-drop-accept': acceptedOver, 'sky-file-drop-reject': rejectedOver }">
@@ -35,71 +25,47 @@
       (change)="fileChangeEvent($event)"
       #fileInput>
 
-    <div
-      class="sky-file-drop-contents sky-padding-even-default"
-      *ngIf="customEl.children.length === 0">
-      <div
-        class="sky-file-drop-contents-not-over">
-        <div
-          class="sky-file-drop-text-header sky-headline">
+    <div class="sky-file-drop-contents sky-padding-even-default" *ngIf="customEl.children.length === 0">
+      <div class="sky-file-drop-contents-not-over">
+        <div class="sky-file-drop-text-header sky-headline">
           {{ 'skyux_file_attachment_file_upload_drag_file_here' | skyLibResources }}
         </div>
-        <div
-          class="sky-file-drop-text">
+        <div class="sky-file-drop-text">
           {{ 'skyux_file_attachment_file_upload_or_click_to_browse' | skyLibResources }}
         </div>
-        <sky-icon
-          icon="cloud-upload"
-          class="sky-file-upload-icon"></sky-icon>
+        <sky-icon icon="cloud-upload" class="sky-file-upload-icon"></sky-icon>
       </div>
 
       <!-- This will appear when file is dragged over and is valid -->
-      <div
-        class="sky-file-drop-contents-accept" >
-        <div
-          class="sky-file-drop-text-header sky-headline">
+      <div class="sky-file-drop-contents-accept" >
+        <div class="sky-file-drop-text-header sky-headline">
           {{ 'skyux_file_attachment_file_upload_drop_files_here' | skyLibResources }}
         </div>
-        <sky-icon
-          icon="bullseye"
-          class="sky-file-upload-icon"></sky-icon>
+        <sky-icon icon="bullseye" class="sky-file-upload-icon"></sky-icon>
       </div>
 
       <!-- This will appear when file is dragged over and is invalid -->
-      <div
-        class="sky-file-drop-contents-reject" >
-        <div
-          class="sky-file-drop-text-header sky-headline">
+      <div class="sky-file-drop-contents-reject" >
+        <div class="sky-file-drop-text-header sky-headline">
           {{ 'skyux_file_attachment_file_upload_invalid_file' | skyLibResources }}
         </div>
-        <sky-icon
-          icon="times-circle"
-          class="sky-file-upload-icon"></sky-icon>
+        <sky-icon icon="times-circle" class="sky-file-upload-icon"></sky-icon>
       </div>
     </div>
 
-    <div
-      class="sky-file-drop-contents-custom"
-      #customEl>
+    <div class="sky-file-drop-contents-custom" #customEl>
       <ng-content></ng-content>
     </div>
   </div>
-  <div
-    class="sky-file-drop-col"
-    *ngIf="allowLinks">
-    <div
-      class="sky-file-drop-contents sky-padding-even-default">
-      <div
-        class="sky-file-drop-link">
-        <div
-          class="sky-file-drop-link-header">
-          <div
-            class="sky-file-drop-text-header sky-headline">
+  <div class="sky-file-drop-col" *ngIf="allowLinks">
+    <div class="sky-file-drop-contents sky-padding-even-default">
+      <div class="sky-file-drop-link">
+        <div class="sky-file-drop-link-header">
+          <div class="sky-file-drop-text-header sky-headline">
             {{ 'skyux_file_attachment_file_upload_paste_link' | skyLibResources }}
           </div>
         </div>
-        <div
-          class="sky-form-group">
+        <div class="sky-form-group">
           <input
             type="text"
             class="sky-form-control"
@@ -119,10 +85,3 @@
     </div>
   </div>
 </div>
-
-<ng-template
-  #tempOutlet>
-    <ng-content
-      select="sky-file-drop-label">
-    </ng-content>
-</ng-template>

@@ -7,12 +7,7 @@
       (linkChanged)="linkAdded($event)"
       [maxFileSize]="maxFileSize"
       [validateFn]="validateFile"
-      [allowLinks]="allowLinks"
-      [required]="required">
-      <sky-file-drop-label
-        *ngIf="showLabel">
-        Field Label
-      </sky-file-drop-label>
+      [allowLinks]="allowLinks">
     </sky-file-drop>
 
     <div

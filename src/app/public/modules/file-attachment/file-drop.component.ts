@@ -1,9 +1,9 @@
 import {
   Component,
-  ElementRef,
-  EventEmitter,
   Input,
   Output,
+  EventEmitter,
+  ElementRef,
   ViewChild
 } from '@angular/core';
 
@@ -52,24 +52,14 @@ export class SkyFileDropComponent {
   @Input()
   public allowLinks: boolean = false;
 
-  @Input()
-  public required: boolean = false;
-
   @ViewChild('fileInput')
   public inputEl: ElementRef;
-
-  @ViewChild('labelWrapper')
-  public labelWrap: ElementRef;
 
   public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
   public linkUrl: string;
 
   private enterEventTarget: any;
-
-  public hasLabel() {
-    return this.labelWrap.nativeElement.children.length > 0;
-  }
 
   public dropClicked() {
     if (!this.noClick) {
