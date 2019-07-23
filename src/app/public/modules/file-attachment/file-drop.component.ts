@@ -295,7 +295,7 @@ export class SkyFileDropComponent {
   }
 
   private verifyDropFiles(files: any) {
-    if ((!this.multiple) && files.length > 1) {
+    if (!this.multiple && files.length > 1) {
       return false;
     }
 
