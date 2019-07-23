@@ -3,9 +3,6 @@
   "name": "skyux-forms",
   "mode": "easy",
   "compileMode": "aot",
-  "skyuxModules": [
-    "SkyErrorModule"
-  ],
   "plugins": [
     "@skyux-sdk/builder-plugin-skyux"
   ],
@@ -19,7 +16,8 @@
   },
   "app": {
     "styles": [
-      "@skyux/theme/css/sky.css"
+      "@skyux/theme/css/sky.css",
+      "src/app/visual-styles.scss"
     ]
   }
 }
