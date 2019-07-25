@@ -41,6 +41,14 @@ import {
   SkyFileSizePipe
 } from './file-size.pipe';
 
+import {
+  SkyFileAttachmentService
+} from './file-attachment.service';
+
+import {
+  SkyFileItemService
+} from './file-item.service';
+
 @NgModule({
   declarations: [
     SkyFileDropComponent,
@@ -64,7 +72,9 @@ import {
     SkyFileSizePipe
   ],
   providers: [
-    DecimalPipe
+    DecimalPipe,
+    SkyFileAttachmentService,
+    SkyFileItemService
   ]
 })
 export class SkyFileAttachmentsModule { }

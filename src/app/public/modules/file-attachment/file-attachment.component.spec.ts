@@ -208,11 +208,6 @@ describe('Single file attachment', () => {
           name: 'foo.txt',
           size: 1000,
           type: 'image/png'
-        },
-        {
-          name: 'woo.txt',
-          size: 2000,
-          type: 'image/jpeg'
         }
       ];
     }
@@ -441,6 +436,49 @@ describe('Single file attachment', () => {
     expect(fileChangedActual.file.url).toBe('url');
     expect(fileChangedActual.file.file.name).toBe('foo.txt');
     expect(fileChangedActual.file.file.size).toBe(1000);
+  });
+
+  it('should load and emit files on file change event when file reader has an error and aborts',
+  () => {
+    let filesChangedActual: SkyFileAttachmentChange;
+
+    fileDropInstance.fileChanged.subscribe(
+      (filesChanged: SkyFileAttachmentChange) => {
+        console.log(filesChanged);
+        filesChangedActual = filesChanged;
+      });
+
+    let fileReaderSpy = setupFileReaderSpy();
+
+    triggerChangeEvent([
+      {
+        name: 'woo.txt',
+        size: 3000
+      }
+    ]);
+    fixture.detectChanges();
+
+    fileReaderSpy.abortCallbacks[0]();
+    fixture.detectChanges();
+
+    expect(filesChangedActual.file.url).toBeFalsy();
+    expect(filesChangedActual.file.file.name).toBe('woo.txt');
+    expect(filesChangedActual.file.file.size).toBe(3000);
+
+    triggerChangeEvent([
+      {
+        name: 'foo.txt',
+        size: 2000
+      }
+    ]);
+    fixture.detectChanges();
+
+    fileReaderSpy.errorCallbacks[1]();
+    fixture.detectChanges();
+
+    expect(filesChangedActual.file.url).toBeFalsy();
+    expect(filesChangedActual.file.file.name).toBe('foo.txt');
+    expect(filesChangedActual.file.file.size).toBe(2000);
   });
 
   // Maybe some other tests here about setting the file
@@ -672,6 +710,40 @@ describe('Single file attachment', () => {
     triggerDragOver(files, dropDebugEl);
     triggerDrop(files, dropDebugEl);
     expect(fileReaderSpy.loadCallbacks.length).toBe(0);
+  });
+
+  it('should allow the user to specify a validation function', () => {
+    let fileChangedActual: SkyFileAttachmentChange;
+
+    fileDropInstance.fileChanged.subscribe(
+      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+
+    let errorMessage = 'You may not upload a file that begins with the letter "w."';
+
+    fileDropInstance.validateFn = function(file: any) {
+      if (file.file.name.indexOf('w') === 0) {
+        return errorMessage;
+      }
+    };
+
+    fixture.detectChanges();
+
+    let file = [
+      {
+        name: 'woo.txt',
+        size: 2000,
+        type: 'image/png'
+      }
+    ];
+
+    setupStandardFileChangeEvent(file);
+
+    expect(fileChangedActual.file.file.name).toBe('woo.txt');
+    expect(fileChangedActual.file.file.size).toBe(2000);
+    expect(fileChangedActual.file.errorType).toBe('validate');
+    expect(fileChangedActual.file.errorParam).toBe(errorMessage);
+
+    expect(fileDropInstance.singleFileAttachment).toBeFalsy();
   });
 
   it('shows the thumbnail if the item is an image', () => {

@@ -15,10 +15,22 @@ import {
   SkyFileAttachmentChange
 } from './file-attachment-change';
 
+import {
+  SkyFileAttachmentService
+} from './file-attachment.service';
+
+import {
+  SkyFileItemService
+} from './file-item.service';
+
 @Component({
   selector: 'sky-file-attachment',
   templateUrl: './file-attachment.component.html',
-  styleUrls: ['./file-attachment.component.scss']
+  styleUrls: ['./file-attachment.component.scss'],
+  providers: [
+    SkyFileAttachmentService,
+    SkyFileItemService
+  ]
 })
 export class SkyFileAttachmentComponent {
   @Output()
@@ -51,8 +63,17 @@ export class SkyFileAttachmentComponent {
 
   private enterEventTarget: any;
 
+  constructor(
+    private fileAttachmentService: SkyFileAttachmentService,
+    private fileItemService: SkyFileItemService
+  ) { }
+
   public hasLabel() {
     return this.labelWrap.nativeElement.children.length > 0;
+  }
+
+  public isImg() {
+    return this.fileItemService.isImg(this.singleFileAttachment);
   }
 
   public dropClicked() {
@@ -83,7 +104,7 @@ export class SkyFileAttachmentComponent {
         for (let index = 0; index < files.length; index++) {
           const file: any = files[index];
 
-          if (file.type && this.fileTypeRejected(file.type)) {
+          if (file.type && this.fileAttachmentService.fileTypeRejected(file.type, this.acceptedTypes)) {
             this.rejectedOver = true;
             this.acceptedOver = false;
             return;
@@ -114,7 +135,7 @@ export class SkyFileAttachmentComponent {
     this.acceptedOver = false;
 
     if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
-      if (this.verifyDropFiles(dropEvent.dataTransfer.files)) {
+      if (this.fileAttachmentService.verifyDropFiles(dropEvent.dataTransfer.files)) {
         this.handleFiles(dropEvent.dataTransfer.files);
       }
     }
@@ -132,31 +153,10 @@ export class SkyFileAttachmentComponent {
     this.emitFileChangeEvent(this.singleFileAttachment);
   }
 
-  public isImg() {
-    let fileTypeUpper = this.getFileTypeUpper(),
-                        slashIndex: number;
-
-    slashIndex = fileTypeUpper.indexOf('/');
-
-    if (slashIndex >= 0) {
-      switch (fileTypeUpper.substr(fileTypeUpper.indexOf('/') + 1)) {
-        case 'BMP':
-        case 'GIF':
-        case 'JPEG':
-        case 'PNG':
-          return true;
-        default:
-          break;
-      }
-    }
-
-    return false;
-  }
-
   public getSingleFileName() {
     if (this.singleFileAttachment) {
       // tslint:disable-next-line: max-line-length
-      let dropName = this.isFile() && this.singleFileAttachment.file.name ? this.singleFileAttachment.file.name : this.singleFileAttachment.url;
+      let dropName = this.fileItemService.isFile(this.singleFileAttachment) && this.singleFileAttachment.file.name ? this.singleFileAttachment.file.name : this.singleFileAttachment.url;
 
       if (dropName.length > 26) {
         return dropName.slice(0, 26) + '....';
@@ -168,35 +168,12 @@ export class SkyFileAttachmentComponent {
     }
   }
 
-  private isFile() {
-    let file = (<SkyFileItem>this.singleFileAttachment).file;
-
-    /* tslint:disable */
-    return file && file !== undefined && file !== null && file.size !== undefined
-      && file.size !== null;
-    /* tslint:enable */
-  }
-
-  private getFileTypeUpper() {
-    let fileType = '';
-    /* istanbul ignore else */
-    /* sanity check */
-    if (this.singleFileAttachment) {
-      let file = (<SkyFileItem>this.singleFileAttachment).file;
-      if (file) {
-        fileType = file.type || '';
-      } else {
-        fileType = '';
-      }
-    }
-
-    return fileType.toUpperCase();
-  }
-// Rip out multiple file capability
   private emitFileChangeEvent(
     currentFile: SkyFileItem
   ) {
-      this.singleFileAttachment = currentFile;
+      if (currentFile && !currentFile.errorType) {
+        this.singleFileAttachment = currentFile;
+      }
       this.fileChanged.emit({
         file: currentFile
       } as SkyFileAttachmentChange);
@@ -225,100 +202,16 @@ export class SkyFileAttachmentComponent {
     reader.readAsDataURL(file.file);
   }
 
-  private getMimeSubtype(type: string) {
-    return type.substr(type.indexOf('/') + 1, type.length);
-  }
-
-  private getMimeMainType(type: string) {
-    return type.substr(0, type.indexOf('/'));
-  }
-
-  private fileTypeInArray(typeArray: string[], fileType: string) {
-    if (typeArray.indexOf(fileType) !== -1) {
-      return true;
-    }
-
-    for (let index = 0; index < typeArray.length; index++) {
-      const type = typeArray[index];
-      const validSubtype = this.getMimeSubtype(type);
-
-      if (validSubtype === '*') {
-        if (this.getMimeMainType(type) === this.getMimeMainType(fileType)) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  private fileTypeRejected(fileType: string) {
-    if (!this.acceptedTypes) {
-      return false;
-    }
-
-    if (!fileType) {
-      return true;
-    }
-
-    let acceptedTypesUpper = this.acceptedTypes.toUpperCase();
-    let typeArray = acceptedTypesUpper.split(',');
-
-    return !this.fileTypeInArray(typeArray, fileType.toUpperCase());
-  }
-
   private handleFiles(files: FileList) {
-    for (let index = 0; index < files.length; index++) {
-      let fileItem = {
-        file: files.item(index)
-      } as SkyFileItem;
+    // tslint:disable-next-line: max-line-length
+    let processedFiles = this.fileAttachmentService.checkFiles(files, this.minFileSize, this.maxFileSize, this.acceptedTypes, this.validateFn);
 
-      if (fileItem.file.size < this.minFileSize) {
-        fileItem.errorType = 'minFileSize';
-        fileItem.errorParam = this.minFileSize.toString();
-        this.emitFileChangeEvent(fileItem);
-
-      } else if (fileItem.file.size > this.maxFileSize) {
-        fileItem.errorType = 'maxFileSize';
-        fileItem.errorParam = this.maxFileSize.toString();
-        this.emitFileChangeEvent(fileItem);
-
-      } else if (this.fileTypeRejected(fileItem.file.type)) {
-        fileItem.errorType = 'fileType';
-        fileItem.errorParam = this.acceptedTypes;
-        this.emitFileChangeEvent(fileItem);
-
-      } else if (this.validateFn) {
-        let errorParam = this.validateFn(fileItem);
-
-        if (!!errorParam) {
-          fileItem.errorType = 'validate';
-          fileItem.errorParam = errorParam;
-          this.emitFileChangeEvent(fileItem);
-
-        } else {
-          this.loadFile(fileItem);
-        }
-
+    for (let file of processedFiles) {
+      if (file.errorType) {
+        this.emitFileChangeEvent(file);
       } else {
-        this.loadFile(fileItem);
+        this.loadFile(file);
       }
     }
-  }
-
-  private verifyDropFiles(files: any) {
-    if (files.length > 1) {
-      return false;
-    }
-
-    for (let index = 0; index < files.length; index++) {
-      const file = files.item(index);
-
-      if (file.webkitGetAsEntry && file.webkitGetAsEntry() && file.webkitGetAsEntry().isDirectory) {
-        return false;
-      }
-    }
-
-    return true;
   }
 }
