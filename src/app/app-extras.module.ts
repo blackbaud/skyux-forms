@@ -3,23 +3,23 @@ import {
 } from '@angular/core';
 
 import {
+  SkyAppLinkModule
+} from '@skyux/router';
+
+import {
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
-  SkyRadioModule
+  SkyRadioModule,
+  SkyToggleSwitchModule
 } from './public';
 
 @NgModule({
-  imports: [
-    SkyCheckboxModule,
-    SkyFileAttachmentsModule,
-    SkyRadioModule
-  ],
   exports: [
+    SkyAppLinkModule,
     SkyCheckboxModule,
     SkyFileAttachmentsModule,
-    SkyRadioModule
-  ],
-  providers: [],
-  entryComponents: []
+    SkyRadioModule,
+    SkyToggleSwitchModule
+  ]
 })
 export class AppExtrasModule { }

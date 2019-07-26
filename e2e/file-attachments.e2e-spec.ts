@@ -9,7 +9,7 @@ import {
 } from '@skyux-sdk/e2e';
 
 describe('File attachments', () => {
-  it('should match previous file attachments screenshot', (done) => {
+  it('should match previous file drop screenshot', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('lg');
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done, {
@@ -17,7 +17,7 @@ describe('File attachments', () => {
     });
   });
 
-  it('should match previous file attachments screenshot (screen: xs)', (done) => {
+  it('should match previous file drop screenshot (screen: xs)', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('xs');
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done, {
@@ -25,7 +25,7 @@ describe('File attachments', () => {
     });
   });
 
-  it('should match previous file attachments screenshot when no links allowed', (done) => {
+  it('should match previous file drop screenshot when no links allowed', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('lg');
     element(by.css('.sky-test-allow-links')).click();
@@ -34,7 +34,7 @@ describe('File attachments', () => {
     });
   });
 
-  it('should match previous file attachments screenshot (screen: xs)', (done) => {
+  it('should match previous file drop screenshot (screen: xs)', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('xs');
     element(by.css('.sky-test-allow-links')).click();
