@@ -5,9 +5,7 @@ import {
 } from '@angular/core/testing';
 
 import {
-  Component,
-  DebugElement,
-  ViewChild
+  DebugElement
 } from '@angular/core';
 
 import {
@@ -23,10 +21,6 @@ import {
 } from './file-attachment.component';
 
 import {
-  SkyFileAttachmentsModule
-} from './file-attachments.module';
-
-import {
   SkyFileAttachmentChange
 } from './file-attachment-change';
 
@@ -34,40 +28,30 @@ import {
   SkyFileItem
 } from './file-item';
 
+import {
+  FileAttachmentTestComponent
+} from './fixtures/file-attachment.component.fixture';
+
+import {
+  FileAttachmentTestModule
+} from './fixtures/file-attachment.module.fixture';
+
 describe('Single file attachment', () => {
 
-  /** Simple test component with tabIndex */
-  @Component({
-    template: `
-      <sky-file-attachment>
-        <div class="sky-custom-drop"></div>
-        <sky-file-attachment-label>
-          Field Label
-        </sky-file-attachment-label>
-      </sky-file-attachment>`
-  })
-  class FileDropContentComponent {
-    @ViewChild(SkyFileAttachmentComponent)
-    public fileDropComponent: SkyFileAttachmentComponent;
-  }
-
-  let fixture: ComponentFixture<FileDropContentComponent>;
+  let fixture: ComponentFixture<FileAttachmentTestComponent>;
   let el: any;
   let fileDropInstance: SkyFileAttachmentComponent;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        SkyFileAttachmentsModule
-      ],
-      declarations: [
-        FileDropContentComponent
+        FileAttachmentTestModule
       ]
     });
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileDropContentComponent);
+    fixture = TestBed.createComponent(FileAttachmentTestComponent);
     fixture.detectChanges();
     el = fixture.nativeElement;
     fileDropInstance = fixture.componentInstance.fileDropComponent;
@@ -415,10 +399,10 @@ describe('Single file attachment', () => {
 
   // Maybe some other tests here about dragging
   it('should load and emit file on file change event', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fixture.detectChanges();
 
@@ -432,17 +416,17 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file).toBeTruthy();
-    expect(fileChangedActual.file.url).toBe('url');
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file).toBeTruthy();
+    expect(fileChangeActual.file.url).toBe('url');
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
   });
 
   it('should load and emit files on file change event when file reader has an error and aborts',
   () => {
     let filesChangedActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
+    fileDropInstance.fileChange.subscribe(
       (filesChanged: SkyFileAttachmentChange) => {
         filesChangedActual = filesChanged;
       });
@@ -482,10 +466,10 @@ describe('Single file attachment', () => {
 
   // Maybe some other tests here about setting the file
   it('should clear file on remove press', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fixture.detectChanges();
 
@@ -505,7 +489,7 @@ describe('Single file attachment', () => {
 
     fixture.detectChanges();
 
-    expect(fileChangedActual.file).toBeFalsy();
+    expect(fileChangeActual.file).toBeFalsy();
   });
 
   it('should show the appropriate file name', () => {
@@ -564,10 +548,10 @@ describe('Single file attachment', () => {
   });
 
   it('should load files and set classes on drag and drop', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     let fileReaderSpy = setupFileReaderSpy();
 
@@ -611,11 +595,11 @@ describe('Single file attachment', () => {
 
     fixture.detectChanges();
 
-    expect(fileChangedActual.file).toBeTruthy();
-    expect(fileChangedActual.file.errorType).toBeFalsy();
-    expect(fileChangedActual.file.url).toBe('url');
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file).toBeTruthy();
+    expect(fileChangeActual.file.errorType).toBeFalsy();
+    expect(fileChangeActual.file.url).toBe('url');
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
 
     // Verify reject classes when appropriate
     triggerDragEnter('sky-drop', dropDebugEl);
@@ -653,11 +637,6 @@ describe('Single file attachment', () => {
     'should accept a file of rejected type on drag (but not on drop)',
     'if the browser does not support dataTransfer.items'
   ].join(' '), () => {
-    let fileChangedActual: SkyFileAttachmentChange;
-
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
-
     fileDropInstance.acceptedTypes = 'image/png, image/tiff';
 
     fixture.detectChanges();
@@ -696,11 +675,6 @@ describe('Single file attachment', () => {
       }
     ];
 
-    let fileChangedActual: SkyFileAttachmentChange;
-
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
-
     let fileReaderSpy = setupFileReaderSpy();
 
     let dropDebugEl = getDropDebugEl();
@@ -737,29 +711,29 @@ describe('Single file attachment', () => {
   });
 
   it('should allow the user to specify a min file size', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.minFileSize = 1500;
     fixture.detectChanges();
 
     setupStandardFileChangeEvent();
 
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
-    expect(fileChangedActual.file.errorType).toBe('minFileSize');
-    expect(fileChangedActual.file.errorParam).toBe('1500');
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file.errorType).toBe('minFileSize');
+    expect(fileChangeActual.file.errorParam).toBe('1500');
 
     expect(fileDropInstance.singleFileAttachment).toBeFalsy();
   });
 
   it('should allow the user to specify a max file size', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.maxFileSize = 1500;
     fixture.detectChanges();
@@ -774,19 +748,19 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('woo.txt');
-    expect(fileChangedActual.file.file.size).toBe(2000);
-    expect(fileChangedActual.file.errorType).toBe('maxFileSize');
-    expect(fileChangedActual.file.errorParam).toBe('1500');
+    expect(fileChangeActual.file.file.name).toBe('woo.txt');
+    expect(fileChangeActual.file.file.size).toBe(2000);
+    expect(fileChangeActual.file.errorType).toBe('maxFileSize');
+    expect(fileChangeActual.file.errorParam).toBe('1500');
 
     expect(fileDropInstance.singleFileAttachment).toBeFalsy();
   });
 
   it('should set errors if file fails user provided validation function', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     let errorMessage = 'You may not upload a file that begins with the letter "w."';
 
@@ -808,19 +782,19 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('woo.txt');
-    expect(fileChangedActual.file.file.size).toBe(2000);
-    expect(fileChangedActual.file.errorType).toBe('validate');
-    expect(fileChangedActual.file.errorParam).toBe(errorMessage);
+    expect(fileChangeActual.file.file.name).toBe('woo.txt');
+    expect(fileChangeActual.file.file.size).toBe(2000);
+    expect(fileChangeActual.file.errorType).toBe('validate');
+    expect(fileChangeActual.file.errorParam).toBe(errorMessage);
 
     expect(fileDropInstance.singleFileAttachment).toBeFalsy();
   });
 
   it('should accept if file passes user provided validation function', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     let errorMessage = 'You may not upload a file that begins with the letter "w."';
 
@@ -842,18 +816,18 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
-    expect(fileChangedActual.file.url).toBe('url');
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file.url).toBe('url');
 
     expect(fileDropInstance.singleFileAttachment).toBeTruthy();
   });
 
   it('should accept a file when type is accepted', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.acceptedTypes = 'image/png,image/tiff';
 
@@ -869,16 +843,16 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
-    expect(fileChangedActual.file.url).toBe('url');
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file.url).toBe('url');
   });
 
   it('should reject a file with a type that is not accepted', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.acceptedTypes = 'image/png,image/tiff';
 
@@ -894,17 +868,17 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('woo.txt');
-    expect(fileChangedActual.file.file.size).toBe(2000);
-    expect(fileChangedActual.file.errorType).toBe('fileType');
-    expect(fileChangedActual.file.errorParam).toBe(fileDropInstance.acceptedTypes);
+    expect(fileChangeActual.file.file.name).toBe('woo.txt');
+    expect(fileChangeActual.file.file.size).toBe(2000);
+    expect(fileChangeActual.file.errorType).toBe('fileType');
+    expect(fileChangeActual.file.errorParam).toBe(fileDropInstance.acceptedTypes);
   });
 
   it('should reject a file with no type when accepted types are defined', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.acceptedTypes = 'image/png,image/tiff';
 
@@ -919,17 +893,17 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
-    expect(fileChangedActual.file.errorType).toBe('fileType');
-    expect(fileChangedActual.file.errorParam).toBe(fileDropInstance.acceptedTypes);
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file.errorType).toBe('fileType');
+    expect(fileChangeActual.file.errorParam).toBe(fileDropInstance.acceptedTypes);
   });
 
   it('should allow the user to specify accepted type with wildcards', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.acceptedTypes = 'application/*,image/*';
 
@@ -945,16 +919,16 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('woo.txt');
-    expect(fileChangedActual.file.file.size).toBe(2000);
-    expect(fileChangedActual.file.url).toBe('url');
+    expect(fileChangeActual.file.file.name).toBe('woo.txt');
+    expect(fileChangeActual.file.file.size).toBe(2000);
+    expect(fileChangeActual.file.url).toBe('url');
   });
 
   it('should accept multiple types using a wildcard', () => {
-    let fileChangedActual: SkyFileAttachmentChange;
+    let fileChangeActual: SkyFileAttachmentChange;
 
-    fileDropInstance.fileChanged.subscribe(
-      (fileChanged: SkyFileAttachmentChange) => fileChangedActual = fileChanged );
+    fileDropInstance.fileChange.subscribe(
+      (fileChange: SkyFileAttachmentChange) => fileChangeActual = fileChange );
 
     fileDropInstance.acceptedTypes = 'application/*,image/*';
 
@@ -970,9 +944,9 @@ describe('Single file attachment', () => {
 
     setupStandardFileChangeEvent(file);
 
-    expect(fileChangedActual.file.file.name).toBe('foo.txt');
-    expect(fileChangedActual.file.file.size).toBe(1000);
-    expect(fileChangedActual.file.url).toBe('url');
+    expect(fileChangeActual.file.file.name).toBe('foo.txt');
+    expect(fileChangeActual.file.file.size).toBe(1000);
+    expect(fileChangeActual.file.url).toBe('url');
   });
 
   it('shows the thumbnail if the item is an image', () => {

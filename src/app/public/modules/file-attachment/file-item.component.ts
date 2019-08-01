@@ -119,8 +119,8 @@ export class SkyFileItemComponent implements DoCheck {
     return this.fileItemService.isFile(<SkyFileItem>this.fileItem);
   }
 
-  public isImg() {
-    return this.fileItemService.isImg(<SkyFileItem>this.fileItem);
+  public isImage() {
+    return this.fileItemService.isImage(<SkyFileItem>this.fileItem);
   }
 
 }

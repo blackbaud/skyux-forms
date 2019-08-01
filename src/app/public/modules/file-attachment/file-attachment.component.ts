@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   ViewChild
 } from '@angular/core';
@@ -32,9 +33,9 @@ import {
     SkyFileItemService
   ]
 })
-export class SkyFileAttachmentComponent {
+export class SkyFileAttachmentComponent implements OnDestroy {
   @Output()
-  public fileChanged = new EventEmitter<SkyFileAttachmentChange>();
+  public fileChange = new EventEmitter<SkyFileAttachmentChange>();
 
   @Input()
   public minFileSize: number = 0;
@@ -52,10 +53,10 @@ export class SkyFileAttachmentComponent {
   public required: boolean = false;
 
   @ViewChild('fileInput')
-  public inputEl: ElementRef;
+  private inputEl: ElementRef;
 
   @ViewChild('labelWrapper')
-  public labelWrap: ElementRef;
+  private labelWrap: ElementRef;
 
   public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
@@ -68,30 +69,30 @@ export class SkyFileAttachmentComponent {
     private fileItemService: SkyFileItemService
   ) { }
 
-  public hasLabel() {
+  public hasLabel(): boolean {
     return this.labelWrap.nativeElement.children.length > 0;
   }
 
-  public isImg() {
-    return this.fileItemService.isImg(this.singleFileAttachment);
+  public isImage(): boolean {
+    return this.fileItemService.isImage(this.singleFileAttachment);
   }
 
-  public dropClicked() {
+  public onDropClicked(): void {
     this.inputEl.nativeElement.click();
   }
 
-  public fileChangeEvent(fileChangeEvent: any) {
+  public fileChangeEvent(fileChangeEvent: any): void {
     this.handleFiles(fileChangeEvent.target.files);
   }
 
-  public fileDragEnter(dragEnterEvent: any) {
+  public fileDragEnter(dragEnterEvent: any): void {
     // Save this target to know when the drag event leaves
     this.enterEventTarget = dragEnterEvent.target;
     dragEnterEvent.stopPropagation();
     dragEnterEvent.preventDefault();
   }
 
-  public fileDragOver(dragOverEvent: any) {
+  public fileDragOver(dragOverEvent: any): void {
     const transfer = dragOverEvent.dataTransfer;
 
     dragOverEvent.stopPropagation();
@@ -126,7 +127,7 @@ export class SkyFileAttachmentComponent {
     }
   }
 
-  public fileDrop(dropEvent: any) {
+  public fileDrop(dropEvent: any): void {
     dropEvent.stopPropagation();
     dropEvent.preventDefault();
 
@@ -141,19 +142,19 @@ export class SkyFileAttachmentComponent {
     }
   }
 
-  public fileDragLeave(dragLeaveEvent: any) {
+  public fileDragLeave(dragLeaveEvent: any): void {
     if (this.enterEventTarget === dragLeaveEvent.target) {
       this.rejectedOver = false;
       this.acceptedOver = false;
     }
   }
 
-  public singleAttachmentDelete() {
+  public singleAttachmentDelete(): void {
     this.singleFileAttachment = undefined;
     this.emitFileChangeEvent(this.singleFileAttachment);
   }
 
-  public getSingleFileName() {
+  public getSingleFileName(): string {
     if (this.singleFileAttachment) {
       // tslint:disable-next-line: max-line-length
       let dropName = this.fileItemService.isFile(this.singleFileAttachment) && this.singleFileAttachment.file.name ? this.singleFileAttachment.file.name : this.singleFileAttachment.url;
@@ -168,22 +169,22 @@ export class SkyFileAttachmentComponent {
     }
   }
 
-  private emitFileChangeEvent(
-    currentFile: SkyFileItem
-  ) {
+  public ngOnDestroy() {
+    this.fileChange.complete();
+  }
+
+  private emitFileChangeEvent(currentFile: SkyFileItem): void {
       if (currentFile && !currentFile.errorType) {
         this.singleFileAttachment = currentFile;
       }
-      this.fileChanged.emit({
+      this.fileChange.emit({
         file: currentFile
       } as SkyFileAttachmentChange);
 
       this.inputEl.nativeElement.value = '';
     }
 
-  private loadFile(
-    file: SkyFileItem
-  ) {
+  private loadFile(file: SkyFileItem): void {
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
@@ -202,7 +203,7 @@ export class SkyFileAttachmentComponent {
     reader.readAsDataURL(file.file);
   }
 
-  private handleFiles(files: FileList) {
+  private handleFiles(files: FileList): void {
     // tslint:disable-next-line: max-line-length
     let processedFiles = this.fileAttachmentService.checkFiles(files, this.minFileSize, this.maxFileSize, this.acceptedTypes, this.validateFn);
 

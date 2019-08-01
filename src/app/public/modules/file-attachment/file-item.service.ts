@@ -9,7 +9,7 @@ import {
 @Injectable()
 export class SkyFileItemService {
 
-  public isFile(fileItem: SkyFileItem) {
+  public isFile(fileItem: SkyFileItem): boolean {
     let file = fileItem.file;
 
     /* tslint:disable */
@@ -18,7 +18,7 @@ export class SkyFileItemService {
     /* tslint:enable */
   }
 
-  public isImg(fileItem: SkyFileItem) {
+  public isImage(fileItem: SkyFileItem): boolean {
     let fileTypeUpper = this.getFileTypeUpper(fileItem),
                         slashIndex: number;
 
@@ -39,7 +39,7 @@ export class SkyFileItemService {
     return false;
   }
 
-  public getFileExtensionUpper(fileItem: SkyFileItem) {
+  public getFileExtensionUpper(fileItem: SkyFileItem): string {
     let extension = '',
         name: string;
 
@@ -61,7 +61,7 @@ export class SkyFileItemService {
     return extension.toUpperCase();
   }
 
-  public getFileTypeUpper(fileItem: SkyFileItem) {
+  public getFileTypeUpper(fileItem: SkyFileItem): string {
     let fileType = '';
     /* istanbul ignore else */
     /* sanity check */

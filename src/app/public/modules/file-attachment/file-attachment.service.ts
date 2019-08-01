@@ -48,7 +48,7 @@ export class SkyFileAttachmentService {
     return fileResults;
   }
 
-  public verifyDropFiles(files: any) {
+  public verifyDropFiles(files: any): boolean {
     if (files.length > 1) {
       return false;
     }
@@ -64,7 +64,7 @@ export class SkyFileAttachmentService {
     return true;
   }
 
-  public fileTypeRejected(fileType: string, acceptedTypes: string) {
+  public fileTypeRejected(fileType: string, acceptedTypes: string): boolean {
     if (!acceptedTypes) {
       return false;
     }
@@ -79,7 +79,7 @@ export class SkyFileAttachmentService {
     return !this.fileTypeInArray(typeArray, fileType.toUpperCase());
   }
 
-  private fileTypeInArray(typeArray: string[], fileType: string) {
+  private fileTypeInArray(typeArray: string[], fileType: string): boolean {
     if (typeArray.indexOf(fileType) !== -1) {
       return true;
     }
@@ -98,11 +98,11 @@ export class SkyFileAttachmentService {
     return false;
   }
 
-  private getMimeSubtype(type: string) {
+  private getMimeSubtype(type: string): string {
     return type.substr(type.indexOf('/') + 1, type.length);
   }
 
-  private getMimeMainType(type: string) {
+  private getMimeMainType(type: string): string {
     return type.substr(0, type.indexOf('/'));
   }
 }

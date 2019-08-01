@@ -27,7 +27,7 @@
       type="button"
       class="sky-single-file-btn sky-btn sky-btn-default"
       [ngClass]="{ 'sky-file-drop-required' : required }"
-      (click)="dropClicked()"
+      (click)="onDropClicked()"
       [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources">
         <sky-icon
           icon="folder-open-o">
@@ -36,7 +36,7 @@
     </button>
     <span
       class="sky-file-name"
-      (click)="dropClicked()">
+      (click)="onDropClicked()">
       <i
         class="sky-file-name-text">
         {{ getSingleFileName() }}
@@ -53,7 +53,7 @@
   </div>
 
   <div
-    *ngIf="singleFileAttachment && isImg()">
+    *ngIf="singleFileAttachment && isImage()">
     <img
       class="sky-file-item-preview-img"
       [src]="singleFileAttachment.url"
