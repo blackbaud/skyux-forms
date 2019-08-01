@@ -36,4 +36,3 @@ BrowserStackLocal
 *.ngfactory.ts
 *.ngsummary.json
 yarn.lock
-package-lock.json

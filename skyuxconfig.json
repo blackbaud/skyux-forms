@@ -1,10 +1,8 @@
 {
+  "$schema": "./node_modules/@skyux/config/skyuxconfig-schema.json",
   "name": "skyux-forms",
   "mode": "easy",
   "compileMode": "aot",
-  "skyuxModules": [
-    "SkyErrorModule"
-  ],
   "plugins": [
     "@skyux-sdk/builder-plugin-skyux"
   ],
@@ -15,5 +13,11 @@
     "unit": {
       "browserSet": "paranoid"
     }
+  },
+  "app": {
+    "styles": [
+      "@skyux/theme/css/sky.css",
+      "src/app/visual-styles.scss"
+    ]
   }
 }

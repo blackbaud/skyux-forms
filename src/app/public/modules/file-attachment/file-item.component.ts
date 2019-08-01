@@ -40,7 +40,7 @@ export class SkyFileItemComponent implements DoCheck {
     private differs: KeyValueDiffers,
     private fileItemService: SkyFileItemService
     ) {
-    this.differ = this.differs.find({}).create(undefined);
+    this.differ = this.differs.find({}).create();
   }
 
   public ngDoCheck() {
