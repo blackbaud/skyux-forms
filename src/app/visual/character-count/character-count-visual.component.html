@@ -1,10 +1,21 @@
 <div id="screenshot-character-count">
-  <sky-character-count #countExample1>
-    <input
-      type="text"
-      [skyCharacterCountInput]="countExample1"
-      [(ngModel)]="myInputText"
-      #input="ngModel"
-    />
-  </sky-character-count>
+  <div style="margin: 50px;">
+
+    <sky-character-count #countExample1 maxCharacterCount="5">
+      <label for="input-count-example" class="sky-control-label">
+        {{ inputLabel }}
+      </label>
+      <input
+        type="text"
+        class="sky-form-control"
+        id="input-count-example"
+        [skyCharacterCountInput]="countExample1"
+        [(ngModel)]="myInputText"
+        #input="ngModel"
+      />
+    </sky-character-count>
+  </div>
+  <button (click)="changeLabel()">
+    Change text
+  </button>
 </div>

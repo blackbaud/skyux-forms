@@ -21,10 +21,6 @@ import {
 } from '@angular/forms';
 
 import {
-  SkyLibResourcesService
-} from '@skyux/i18n';
-
-import {
   Subscription
 } from 'rxjs/Subscription';
 
@@ -35,13 +31,13 @@ import {
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_CHARACTER_COUNT_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SkyCharacterCountDirective),
+  useExisting: forwardRef(() => SkyCharacterCountInputDirective),
   multi: true
 };
 
 const SKY_CHARACTER_COUNT_VALIDATOR = {
   provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => SkyCharacterCountDirective),
+  useExisting: forwardRef(() => SkyCharacterCountInputDirective),
   multi: true
 };
 
@@ -53,7 +49,7 @@ const SKY_CHARACTER_COUNT_VALIDATOR = {
     SKY_CHARACTER_COUNT_VALIDATOR
   ]
 })
-export class SkyCharacterCountDirective implements
+export class SkyCharacterCountInputDirective implements
   OnInit, OnDestroy, ControlValueAccessor, Validator, OnChanges, AfterViewInit {
 
   public inputChangedSubscription: Subscription;
@@ -82,7 +78,6 @@ export class SkyCharacterCountDirective implements
   constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
-    private resourcesService: SkyLibResourcesService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -93,17 +88,6 @@ export class SkyCharacterCountDirective implements
         this.writeValue(newTime);
         this._onTouched();
       });
-
-    // if (!this.elRef.nativeElement.getAttribute('aria-label')) {
-    //   this.resourcesService.getString('skyux_timepicker_input_default_label')
-    //     .subscribe((value: string) => {
-    //       this.renderer.setElementAttribute(
-    //         this.elRef.nativeElement,
-    //         'aria-label',
-    //         value
-    //       );
-    //     });
-    // }
   }
 
   public ngAfterViewInit(): void {
@@ -131,6 +115,11 @@ export class SkyCharacterCountDirective implements
   public ngOnChanges() {
   }
 
+  @HostListener('input', ['$event'])
+  public onInput(event: any) {
+    this.skyCharacterCountInput.currentInputLength = event.target.value.length;
+  }
+
   @HostListener('change', ['$event'])
   public onChange(event: any) {
     this.writeValue(event.target.value);
@@ -145,15 +134,18 @@ export class SkyCharacterCountDirective implements
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
-  // public setDisabledState(isDisabled: boolean) {
-  //   this.disabled = isDisabled;
-  // }
-
   public writeValue(value: any) {
-    this.modelValue = value;
-    if (value.length > 5) {
-      this.renderer.setElementClass(this.elRef.nativeElement, 'ng-invalid', true);
+    /*
+      Component only needs label text after a change event
+      Make sure the label text hasn't changed during the change event
+      Other option is to make a directive for the label to update whenever it changes
+    */
+    if (this.elRef.nativeElement.labels && this.elRef.nativeElement.labels[0]) {
+      this.skyCharacterCountInput.labelText = this.elRef.nativeElement.labels[0].innerText;
     }
+    console.log(this.elRef.nativeElement.labels);
+    this.skyCharacterCountInput.currentInputLength = value ? value.length : 0;
+    this.modelValue = value;
   }
 
   public validate(control: AbstractControl): { [key: string]: any } {
@@ -167,9 +159,11 @@ export class SkyCharacterCountDirective implements
     }
 
     /* istanbul ignore next */
-    if (value.local === 'Invalid date') {
+    if (value.length > this.skyCharacterCountInput.maxCharacterCount) {
+      this.control.markAsTouched();
+
       return {
-        'skyTime': {
+        'skyCharacterCount': {
           invalid: control.value
         }
       };

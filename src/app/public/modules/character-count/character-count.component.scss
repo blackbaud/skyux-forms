@@ -1,0 +1,12 @@
+.sky-label-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+::ng-deep .sky-control-label {
+  flex-grow: 1;
+}
+
+.sky-error-label {
+  margin: 0;
+}

@@ -8,4 +8,9 @@ export class CharacterCountVisualComponent {
 
   public myInputText: string = 'test';
 
+  public inputLabel: string = 'Character Count Input';
+
+  public changeLabel() {
+    this.inputLabel = this.inputLabel + '1';
+  }
 }

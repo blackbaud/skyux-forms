@@ -1,0 +1,16 @@
+<div>
+  <sky-character-count #count maxCharacterCount="5">
+    <label for="input-count" class="sky-control-label">
+      {{ inputLabel }}
+    </label>
+    <input
+      type="text"
+      class="sky-form-control"
+      id="input-count"
+      [skyCharacterCountInput]="count"
+      [(ngModel)]="inputText"
+      #input="ngModel"
+    />
+  </sky-character-count>
+</div>
+

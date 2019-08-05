@@ -7,7 +7,7 @@ import {
 } from '@angular/common';
 
 import {
-  SkyCharacterCountDirective
+  SkyCharacterCountInputDirective
 } from './character-count.directive';
 
 import {
@@ -16,14 +16,14 @@ import {
 
 @NgModule({
   declarations: [
-    SkyCharacterCountDirective,
+    SkyCharacterCountInputDirective,
     SkyCharacterCountComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    SkyCharacterCountDirective,
+    SkyCharacterCountInputDirective,
     SkyCharacterCountComponent
   ]
 })
