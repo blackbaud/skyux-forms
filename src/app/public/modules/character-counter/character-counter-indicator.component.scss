@@ -1,0 +1,10 @@
+:host {
+  // Force the icon and counter text to not wrap with a long form label
+  flex-shrink: 0.0001;
+}
+
+.sky-character-count-label {
+  .sky-error-label {
+    margin: 0;
+  }
+}

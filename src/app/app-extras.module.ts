@@ -6,7 +6,7 @@ import {
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
   SkyRadioModule,
-  SkyCharacterCountModule
+  SkyCharacterCounterModule
 } from './public';
 
 @NgModule({
@@ -14,13 +14,13 @@ import {
     SkyCheckboxModule,
     SkyFileAttachmentsModule,
     SkyRadioModule,
-    SkyCharacterCountModule
+    SkyCharacterCounterModule
   ],
   exports: [
     SkyCheckboxModule,
     SkyFileAttachmentsModule,
     SkyRadioModule,
-    SkyCharacterCountModule
+    SkyCharacterCounterModule
   ],
   providers: [],
   entryComponents: []

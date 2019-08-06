@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {
   SkyCharacterCountInputDirective
-} from '../character-count.directive';
+} from '../character-counter.directive';
 
 @Component({
   selector: 'character-count-test',

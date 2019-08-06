@@ -7,7 +7,6 @@ import {
   HostListener,
   Input,
   OnChanges,
-  OnDestroy,
   OnInit,
   Renderer
 } from '@angular/core';
@@ -21,12 +20,8 @@ import {
 } from '@angular/forms';
 
 import {
-  Subscription
-} from 'rxjs/Subscription';
-
-import {
-  SkyCharacterCountComponent
-} from './character-count.component';
+  SkyCharacterCounterIndicatorComponent
+} from './character-counter-indicator.component';
 
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_CHARACTER_COUNT_VALUE_ACCESSOR = {
@@ -43,19 +38,20 @@ const SKY_CHARACTER_COUNT_VALIDATOR = {
 
 // tslint:enable
 @Directive({
-  selector: '[skyCharacterCountInput]',
+  selector: '[skyCharacterCounter]',
   providers: [
     SKY_CHARACTER_COUNT_VALUE_ACCESSOR,
     SKY_CHARACTER_COUNT_VALIDATOR
   ]
 })
 export class SkyCharacterCountInputDirective implements
-  OnInit, OnDestroy, ControlValueAccessor, Validator, OnChanges, AfterViewInit {
-
-  public inputChangedSubscription: Subscription;
+  OnInit, ControlValueAccessor, Validator, OnChanges, AfterViewInit {
 
   @Input()
-  public skyCharacterCountInput: SkyCharacterCountComponent;
+  public skyCharacterCounterIndicator: SkyCharacterCounterIndicatorComponent;
+
+  @Input()
+  public skyCharacterCounterLimit: number = 0;
 
   private get modelValue(): string {
     return this._modelValue;
@@ -64,7 +60,7 @@ export class SkyCharacterCountInputDirective implements
   private set modelValue(value: string) {
     if (value !== this._modelValue) {
       this._modelValue = value;
-      this.skyCharacterCountInput.currentText = value;
+      this.skyCharacterCounterIndicator.characterCount = value.length;
       this.setInputValue(value);
       this._validatorChange();
       this._onChange(value);
@@ -74,7 +70,6 @@ export class SkyCharacterCountInputDirective implements
   private control: AbstractControl;
   private _modelValue: string;
 
-
   constructor(
     private renderer: Renderer,
     private elRef: ElementRef,
@@ -83,11 +78,7 @@ export class SkyCharacterCountInputDirective implements
 
   public ngOnInit() {
     this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
-    this.inputChangedSubscription = this.skyCharacterCountInput.textChanged
-      .subscribe((newTime: String) => {
-        this.writeValue(newTime);
-        this._onTouched();
-      });
+    this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
   }
 
   public ngAfterViewInit(): void {
@@ -99,25 +90,30 @@ export class SkyCharacterCountInputDirective implements
     /* istanbul ignore else */
     if (this.control && this.control.parent) {
       setTimeout(() => {
+        console.log(this.modelValue);
         this.control.setValue(this.modelValue, {
           emitEvent: false
         });
 
         this.changeDetector.markForCheck();
+        console.log(this.modelValue);
       });
     }
   }
 
-  public ngOnDestroy() {
-    this.inputChangedSubscription.unsubscribe();
-  }
-
   public ngOnChanges() {
+    // Handle changes to character count limit
+    this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
+
+    // Update errors
+    if (this.control) {
+      this.control.updateValueAndValidity();
+    }
   }
 
   @HostListener('input', ['$event'])
   public onInput(event: any) {
-    this.skyCharacterCountInput.currentInputLength = event.target.value.length;
+    this.skyCharacterCounterIndicator.characterCount = event.target.value.length;
   }
 
   @HostListener('change', ['$event'])
@@ -135,16 +131,6 @@ export class SkyCharacterCountInputDirective implements
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
   public writeValue(value: any) {
-    /*
-      Component only needs label text after a change event
-      Make sure the label text hasn't changed during the change event
-      Other option is to make a directive for the label to update whenever it changes
-    */
-    if (this.elRef.nativeElement.labels && this.elRef.nativeElement.labels[0]) {
-      this.skyCharacterCountInput.labelText = this.elRef.nativeElement.labels[0].innerText;
-    }
-    console.log(this.elRef.nativeElement.labels);
-    this.skyCharacterCountInput.currentInputLength = value ? value.length : 0;
     this.modelValue = value;
   }
 
@@ -159,11 +145,11 @@ export class SkyCharacterCountInputDirective implements
     }
 
     /* istanbul ignore next */
-    if (value.length > this.skyCharacterCountInput.maxCharacterCount) {
+    if (value.length > this.skyCharacterCounterLimit) {
       this.control.markAsTouched();
 
       return {
-        'skyCharacterCount': {
+        'skyCharacterCounter': {
           invalid: control.value
         }
       };

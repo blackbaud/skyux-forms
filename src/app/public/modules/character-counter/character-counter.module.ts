@@ -8,23 +8,23 @@ import {
 
 import {
   SkyCharacterCountInputDirective
-} from './character-count.directive';
+} from './character-counter.directive';
 
 import {
-  SkyCharacterCountComponent
-} from './character-count.component';
+  SkyCharacterCounterIndicatorComponent
+} from './character-counter-indicator.component';
 
 @NgModule({
   declarations: [
     SkyCharacterCountInputDirective,
-    SkyCharacterCountComponent
+    SkyCharacterCounterIndicatorComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
     SkyCharacterCountInputDirective,
-    SkyCharacterCountComponent
+    SkyCharacterCounterIndicatorComponent
   ]
 })
-export class SkyCharacterCountModule { }
+export class SkyCharacterCounterModule { }

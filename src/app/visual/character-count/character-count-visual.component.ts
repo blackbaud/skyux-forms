@@ -1,16 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'character-count-visual',
   templateUrl: './character-count-visual.component.html'
 })
-export class CharacterCountVisualComponent {
+export class CharacterCountVisualComponent implements OnInit {
 
-  public myInputText: string = 'test';
+  public testForm: FormGroup;
+  public firstName: FormControl;
 
-  public inputLabel: string = 'Character Count Input';
+  public firstNameLabel: string = 'Field label';
+  public maxCharacterCount: number = 10;
 
-  public changeLabel() {
-    this.inputLabel = this.inputLabel + '1';
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
+
+  public ngOnInit(): void {
+    this.firstName = this.formBuilder.control('test');
+
+    this.testForm = this.formBuilder.group({
+      firstName: this.firstName
+    });
+
   }
 }

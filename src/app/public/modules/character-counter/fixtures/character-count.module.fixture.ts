@@ -8,7 +8,7 @@ import {
 
 import {
   SkyCharacterCountModule
-} from '../character-count.module';
+} from '../character-counter.module';
 
 import {
   FormsModule
