@@ -7,7 +7,7 @@ import {
 } from './character-count.component.fixture';
 
 import {
-  SkyCharacterCountModule
+  SkyCharacterCounterModule
 } from '../character-counter.module';
 
 import {
@@ -19,7 +19,7 @@ import {
     CharacterCountTestComponent
   ],
   imports: [
-    SkyCharacterCountModule,
+    SkyCharacterCounterModule,
     FormsModule
   ],
   exports: [

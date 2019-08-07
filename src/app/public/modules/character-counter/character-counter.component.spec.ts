@@ -78,38 +78,38 @@ fdescribe('character-count', () => {
   });
 
   describe('standard behavior', () => {
-    // let fixture: ComponentFixture<CharacterCountTestComponent>;
-    // let component: CharacterCountTestComponent;
-    // let nativeElement: HTMLElement;
-    // let characterCountComponent: SkyCharacterCountComponent;
+    let fixture: ComponentFixture<CharacterCountTestComponent>;
+    let component: CharacterCountTestComponent;
+    let nativeElement: HTMLElement;
+    let characterCountComponent: SkyCharacterCounterIndicatorComponent;
 
-    // beforeEach(() => {
-    //   fixture = TestBed.createComponent(CharacterCountTestComponent);
-    //   nativeElement = fixture.nativeElement as HTMLElement;
-    //   component = fixture.componentInstance;
+    beforeEach(() => {
+      fixture = TestBed.createComponent(CharacterCountTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      component = fixture.componentInstance;
 
-    //   fixture.detectChanges();
+      fixture.detectChanges();
 
-    //   characterCountComponent = component.inputDirective.skyCharacterCountInput;
-    // });
+      characterCountComponent = component.inputDirective.skyCharacterCounterIndicator;
+    });
 
     // it('should set the count with the initial length', fakeAsync(() => {
 
     // }));
 
-    // it('should update the count on input', fakeAsync(() => {
-    //   let characterCountLabel = nativeElement.querySelector('.sky-character-count-label') as HTMLLabelElement;
+    it('should update the count on input', fakeAsync(() => {
+      let characterCountLabel = nativeElement.querySelector('.sky-character-count-label') as HTMLLabelElement;
 
-    //   setInputWithInputEvent(nativeElement, 'abc', fixture);
+      setInputWithInputEvent(nativeElement, 'abc', fixture);
 
-    //   expect(characterCountComponent.inputLength).toBe(3);
-    //   expect(characterCountLabel.innerText).toBe('3/5');
+      expect(characterCountComponent.characterCount).toBe(3);
+      expect(characterCountLabel.innerText).toBe('3/5');
 
-    //   setInputWithInputEvent(nativeElement, 'abcd', fixture);
+      setInputWithInputEvent(nativeElement, 'abcd', fixture);
 
-    //   expect(characterCountComponent.inputLength).toBe(4);
-    //   expect(characterCountLabel.innerText).toBe('4/5');
-    // }));
+      expect(characterCountComponent.characterCount).toBe(4);
+      expect(characterCountLabel.innerText).toBe('4/5');
+    }));
 
     // it('should show the error icon on the character count when appropriate', fakeAsync(() => {
     //   let characterCountLabel = nativeElement.querySelector('.sky-character-count-label') as HTMLLabelElement;
