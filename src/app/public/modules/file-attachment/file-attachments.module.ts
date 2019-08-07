@@ -1,13 +1,15 @@
 import {
-  NgModule
-} from '@angular/core';
-import {
   CommonModule,
   DecimalPipe
 } from '@angular/common';
+
 import {
   FormsModule
 } from '@angular/forms';
+
+import {
+  NgModule
+} from '@angular/core';
 
 import {
   SkyI18nModule
@@ -18,14 +20,6 @@ import {
 } from '@skyux/indicators';
 
 import {
-  SkyFormsResourcesModule
-} from '../shared';
-
-import {
-  SkyFileDropComponent
-} from './file-drop.component';
-
-import {
   SkyFileAttachmentComponent
 } from './file-attachment.component';
 
@@ -34,26 +28,34 @@ import {
 } from './file-attachment-label.component';
 
 import {
+  SkyFileAttachmentService
+} from './file-attachment.service';
+
+import {
+  SkyFileDropComponent
+} from './file-drop.component';
+
+import {
   SkyFileItemComponent
 } from './file-item.component';
+
+import {
+  SkyFileItemService
+} from './file-item.service';
 
 import {
   SkyFileSizePipe
 } from './file-size.pipe';
 
 import {
-  SkyFileAttachmentService
-} from './file-attachment.service';
-
-import {
-  SkyFileItemService
-} from './file-item.service';
+  SkyFormsResourcesModule
+} from '../shared';
 
 @NgModule({
   declarations: [
-    SkyFileDropComponent,
     SkyFileAttachmentComponent,
     SkyFileAttachmentLabelComponent,
+    SkyFileDropComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],
@@ -61,13 +63,13 @@ import {
     CommonModule,
     FormsModule,
     SkyFormsResourcesModule,
-    SkyIconModule,
-    SkyI18nModule
+    SkyI18nModule,
+    SkyIconModule
   ],
   exports: [
-    SkyFileDropComponent,
     SkyFileAttachmentComponent,
     SkyFileAttachmentLabelComponent,
+    SkyFileDropComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],

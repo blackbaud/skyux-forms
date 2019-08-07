@@ -43,75 +43,75 @@ describe('File attachments', () => {
     });
   });
 
-  it('should match previous single file attachments screenshot', (done) => {
+  it('should match previous file attachment screenshot', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('lg');
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop'
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment'
     });
   });
 
-  it('should match previous single file attachments screenshot (screen: xs)', (done) => {
+  it('should match previous file attachment screenshot (screen: xs)', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('xs');
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-xs'
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-xs'
     });
   });
 
-  it('should match previous single file attachments screenshot when required', (done) => {
-    SkyHostBrowser.get('visual/file-attachment');
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('.sky-test-required')).click();
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-required'
-    });
-  });
-
-  it('should match previous single file attachments screenshot (screen: xs)', (done) => {
-    SkyHostBrowser.get('visual/file-attachment');
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    element(by.css('.sky-test-required')).click();
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-required-xs'
-    });
-  });
-
-  it('should match previous single file attachments screenshot when label set', (done) => {
-    SkyHostBrowser.get('visual/file-attachment');
-    SkyHostBrowser.setWindowBreakpoint('lg');
-    element(by.css('.sky-test-label')).click();
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-label'
-    });
-  });
-
-  it('should match previous single file attachments screenshot (screen: xs)', (done) => {
-    SkyHostBrowser.get('visual/file-attachment');
-    SkyHostBrowser.setWindowBreakpoint('xs');
-    element(by.css('.sky-test-label')).click();
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-label-xs'
-    });
-  });
-
-  it('should match previous single file attachments screenshot when required and label set', (done) => {
+  it('should match previous file attachment screenshot when required', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('lg');
     element(by.css('.sky-test-required')).click();
-    element(by.css('.sky-test-label')).click();
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-required-label'
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-required'
     });
   });
 
-  it('should match previous single file attachments screenshot (screen: xs)', (done) => {
+  it('should match previous file attachment screenshot when required (screen: xs)', (done) => {
+    SkyHostBrowser.get('visual/file-attachment');
+    SkyHostBrowser.setWindowBreakpoint('xs');
+    element(by.css('.sky-test-required')).click();
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-required-xs'
+    });
+  });
+
+  it('should match previous file attachment screenshot when label set', (done) => {
+    SkyHostBrowser.get('visual/file-attachment');
+    SkyHostBrowser.setWindowBreakpoint('lg');
+    element(by.css('.sky-test-label')).click();
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-label'
+    });
+  });
+
+  it('should match previous file attachment screenshot when label set (screen: xs)', (done) => {
+    SkyHostBrowser.get('visual/file-attachment');
+    SkyHostBrowser.setWindowBreakpoint('xs');
+    element(by.css('.sky-test-label')).click();
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-label-xs'
+    });
+  });
+
+  it('should match previous file attachment screenshot when required and label set', (done) => {
+    SkyHostBrowser.get('visual/file-attachment');
+    SkyHostBrowser.setWindowBreakpoint('lg');
+    element(by.css('.sky-test-required')).click();
+    element(by.css('.sky-test-label')).click();
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-required-label'
+    });
+  });
+
+  it('should match previous file attachment screenshot when required and label set (screen: xs)', (done) => {
     SkyHostBrowser.get('visual/file-attachment');
     SkyHostBrowser.setWindowBreakpoint('xs');
     element(by.css('.sky-test-required')).click();
     element(by.css('.sky-test-label')).click();
-    expect('#screenshot-single-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'single-file-drop-required-label-xs'
+    expect('#screenshot-file-attachment').toMatchBaselineScreenshot(done, {
+      screenshotName: 'file-attachment-required-label-xs'
     });
   });
 });

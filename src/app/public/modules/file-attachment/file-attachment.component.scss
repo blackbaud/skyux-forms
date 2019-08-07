@@ -1,29 +1,17 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
 
-.sky-file-drop-required {
-  box-shadow: 0 0 8px rgba(239, 64, 68, 0.6);
-  border: 1px solid #ef4044;
-}
-
-.sky-file-input-hidden {
-  display: none;
-}
-
-.sky-single-file-wrapper {
+.sky-file-attachment-wrapper {
   display: inline-block;
 }
 
-.sky-single-file-upload {
+.sky-file-attachment-upload {
   padding-right: 8px;
   display: block;
+  border: 1px solid transparent;
 }
 
-.sky-file-name {
-  padding: 0 5px 0 5px;
-}
-
-.sky-single-file-drop-accept {
+.sky-file-attachment-accept {
   border-color: $sky-highlight-color-success;
   border-style: dashed;
   border-width: 1px;
@@ -31,7 +19,7 @@
   color: $sky-text-color-default;
 }
 
-.sky-single-file-drop-reject {
+.sky-file-attachment-reject {
   border-color: $sky-highlight-color-danger;
   border-style: dashed;
   border-width: 1px;
@@ -39,7 +27,16 @@
   color: $sky-text-color-default;
 }
 
-.sky-file-delete {
+.sky-file-attachment-required {
+  box-shadow: 0 0 8px rgba(239, 64, 68, 0.6);
+  border: 1px solid $sky-highlight-color-danger;
+}
+
+.sky-file-attachment-name {
+  padding: 0 5px 0 5px;
+}
+
+.sky-file-attachment-delete {
   border: 0;
   width: 24px;
   height: 24px;
@@ -49,7 +46,7 @@
   cursor: pointer;
 }
 
-.sky-file-item-preview-img {
+.sky-file-attachment-preview-img {
   max-width: 25%;
   height: auto;
   box-shadow: 0 0 5px #666;

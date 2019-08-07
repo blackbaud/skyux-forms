@@ -17,7 +17,7 @@ import {
 
 import {
   SkyFileDropChange
-} from './file-drop-change';
+} from './types/file-drop-change';
 
 import {
   SkyFileAttachmentService

@@ -1,69 +1,80 @@
 <div
-  class="sky-single-file-wrapper">
+  class="sky-file-attachment-wrapper"
+>
   <div
+    class="sky-file-attachment-label-wrapper"
+    [ngClass]="{ 'sky-control-label-required': required && hasLabel() }"
     #labelWrapper
-    class="sky-file-drop-label-wrapper"
-    [ngClass]="{ 'sky-control-label-required': required && hasLabel() }">
-    <ng-container
-      *ngTemplateOutlet="tempOutlet" >
-    </ng-container>
+  >
+    <ng-container *ngTemplateOutlet="tempOutlet"
+    ></ng-container>
   </div>
   <div
-    class="sky-single-file-upload sky-single-file-drop sky-single-file-drop-target"
-    [ngClass]="{ 'sky-single-file-drop-accept': acceptedOver, 'sky-single-file-drop-reject': rejectedOver }"
+    class="sky-file-attachment-upload sky-file-attachment sky-file-attachment-target"
+    [ngClass]="{ 'sky-file-attachment-accept': acceptedOver, 'sky-file-attachment-reject': rejectedOver }"
     (dragover)="fileDragOver($event)"
     (dragenter)="fileDragEnter($event)"
     (dragleave)="fileDragLeave($event)"
-    (drop)="fileDrop($event)">
+    (drop)="fileDrop($event)"
+  >
     <input
+      type="file"
+      hidden
       tabindex="-1"
       aria-hidden="true"
-      type="file"
-      class="sky-file-input-hidden"
-      (change)="fileChangeEvent($event)"
       [attr.accept]="acceptedTypes ? acceptedTypes: null"
-      #fileInput>
+      (change)="fileChangeEvent($event)"
+      #fileInput
+    >
     <button
       type="button"
-      class="sky-single-file-btn sky-btn sky-btn-default"
-      [ngClass]="{ 'sky-file-drop-required' : required }"
+      class="sky-file-attachment-btn sky-btn sky-btn-default"
+      [ngClass]="{ 'sky-file-attachment-required' : required }"
+      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources"
       (click)="onDropClicked()"
-      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources">
+    >
         <sky-icon
-          icon="folder-open-o">
-        </sky-icon>
-      {{ singleFileAttachment ? 'Replace File' : 'Choose File' }}
+          icon="folder-open-o"
+        ></sky-icon>
+      {{ fileAttachment ? 'Replace File' : 'Choose File' }}
     </button>
     <span
-      class="sky-file-name"
-      (click)="onDropClicked()">
+      class="sky-file-attachment-name"
+      (click)="onDropClicked()"
+    >
       <i
-        class="sky-file-name-text">
-        {{ getSingleFileName() }}
+        class="sky-file-attachment-name-text"
+      >
+        {{ getFileName() }}
       </i>
     </span>
-    <button
-      *ngIf="singleFileAttachment"
+    <button *ngIf="fileAttachment"
       type="button"
-      class="sky-btn sky-file-delete"
+      class="sky-btn sky-file-attachment-delete"
       [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
-      (click)="singleAttachmentDelete()">
-        <sky-icon icon="trash" size="md"></sky-icon>
+      (click)="deleteFileAttachment()"
+    >
+        <sky-icon
+          icon="trash"
+          size="md"
+        ></sky-icon>
     </button>
   </div>
 
-  <div
-    *ngIf="singleFileAttachment && isImage()">
+  <div *ngIf="fileAttachment && isImage()"
+  >
     <img
-      class="sky-file-item-preview-img"
-      [src]="singleFileAttachment.url"
-      [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources" />
+      class="sky-file-attachment-preview-img"
+      [src]="fileAttachment.url"
+      [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources"
+    />
   </div>
 </div>
 
 <ng-template
-  #tempOutlet>
+  #tempOutlet
+>
     <ng-content
-      select="sky-file-attachment-label">
-    </ng-content>
+      select="sky-file-attachment-label"
+    ></ng-content>
 </ng-template>

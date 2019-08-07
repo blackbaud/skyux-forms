@@ -1,33 +1,41 @@
 <div
-  style="width: 60%; margin-left: auto; margin-right: auto;">
+  style="width: 60%; margin-left: auto; margin-right: auto;"
+>
   <div
-    id="screenshot-file-drop">
+    id="screenshot-file-drop"
+  >
     <sky-file-drop
       (filesChanged)="filesUpdated($event)"
       (linkChanged)="linkAdded($event)"
       [maxFileSize]="maxFileSize"
       [validateFn]="validateFile"
-      [allowLinks]="allowLinks">
-    </sky-file-drop>
+      [allowLinks]="allowLinks"
+    ></sky-file-drop>
 
     <div
-      *ngFor="let file of allItems">
+      *ngFor="let file of allItems"
+    >
       <sky-file-item
         [fileItem]="file"
-        (deleteFile)="deleteFile($event)"></sky-file-item>
+        (deleteFile)="deleteFile($event)"
+      ></sky-file-item>
     </div>
   </div>
 </div>
 
 <div
-  style="margin-left: 5px;">
+  class="sky-padding-even-default"
+>
   <div
-    id="screenshot-single-file-drop">
+    id="screenshot-file-attachment"
+  >
     <sky-file-attachment
       [validateFn]="validateFile"
-      [required]="required">
+      [required]="required"
+    >
       <sky-file-attachment-label
-        *ngIf="showLabel">
+        *ngIf="showLabel"
+      >
         Field Label
       </sky-file-attachment-label>
     </sky-file-attachment>
@@ -35,25 +43,29 @@
 </div>
 
 <div
-  style="margin-top: 10px">
+  style="margin-top: 10px"
+>
   <button
     type="button"
     class="sky-btn sky-btn-primary sky-test-allow-links"
-    (click)="allowLinks = !allowLinks">
+    (click)="allowLinks = !allowLinks"
+  >
     Toggle allowLinks
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-primary sky-test-required"
-    (click)="required = !required">
+    (click)="required = !required"
+  >
     Toggle required
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-primary sky-test-label"
-    (click)="showLabel = !showLabel">
+    (click)="showLabel = !showLabel"
+  >
     Toggle showLabel
   </button>
 </div>

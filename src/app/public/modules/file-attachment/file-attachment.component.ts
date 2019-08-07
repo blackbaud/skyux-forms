@@ -14,7 +14,7 @@ import {
 
 import {
   SkyFileAttachmentChange
-} from './file-attachment-change';
+} from './types/file-attachment-change';
 
 import {
   SkyFileAttachmentService
@@ -34,23 +34,23 @@ import {
   ]
 })
 export class SkyFileAttachmentComponent implements OnDestroy {
-  @Output()
-  public fileChange = new EventEmitter<SkyFileAttachmentChange>();
-
   @Input()
-  public minFileSize: number = 0;
+  public acceptedTypes: string;
 
   @Input()
   public maxFileSize: number = 500000;
 
   @Input()
-  public validateFn: Function;
-
-  @Input()
-  public acceptedTypes: string;
+  public minFileSize: number = 0;
 
   @Input()
   public required: boolean = false;
+
+  @Input()
+  public validateFn: Function;
+
+  @Output()
+  public fileChange = new EventEmitter<SkyFileAttachmentChange>();
 
   @ViewChild('fileInput')
   private inputEl: ElementRef;
@@ -58,11 +58,13 @@ export class SkyFileAttachmentComponent implements OnDestroy {
   @ViewChild('labelWrapper')
   private labelWrap: ElementRef;
 
-  public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
-  public singleFileAttachment: SkyFileItem;
 
   private enterEventTarget: any;
+
+  public rejectedOver: boolean = false;
+
+  public fileAttachment: SkyFileItem;
 
   constructor(
     private fileAttachmentService: SkyFileAttachmentService,
@@ -74,7 +76,7 @@ export class SkyFileAttachmentComponent implements OnDestroy {
   }
 
   public isImage(): boolean {
-    return this.fileItemService.isImage(this.singleFileAttachment);
+    return this.fileItemService.isImage(this.fileAttachment);
   }
 
   public onDropClicked(): void {
@@ -149,15 +151,15 @@ export class SkyFileAttachmentComponent implements OnDestroy {
     }
   }
 
-  public singleAttachmentDelete(): void {
-    this.singleFileAttachment = undefined;
-    this.emitFileChangeEvent(this.singleFileAttachment);
+  public deleteFileAttachment(): void {
+    this.fileAttachment = undefined;
+    this.emitFileChangeEvent(this.fileAttachment);
   }
 
-  public getSingleFileName(): string {
-    if (this.singleFileAttachment) {
+  public getFileName(): string {
+    if (this.fileAttachment) {
       // tslint:disable-next-line: max-line-length
-      let dropName = this.fileItemService.isFile(this.singleFileAttachment) && this.singleFileAttachment.file.name ? this.singleFileAttachment.file.name : this.singleFileAttachment.url;
+      let dropName = this.fileItemService.isFile(this.fileAttachment) && this.fileAttachment.file.name ? this.fileAttachment.file.name : this.fileAttachment.url;
 
       if (dropName.length > 26) {
         return dropName.slice(0, 26) + '....';
@@ -175,7 +177,7 @@ export class SkyFileAttachmentComponent implements OnDestroy {
 
   private emitFileChangeEvent(currentFile: SkyFileItem): void {
       if (currentFile && !currentFile.errorType) {
-        this.singleFileAttachment = currentFile;
+        this.fileAttachment = currentFile;
       }
       this.fileChange.emit({
         file: currentFile

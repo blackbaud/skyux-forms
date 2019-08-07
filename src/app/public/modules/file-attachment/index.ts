@@ -1,5 +1,5 @@
 export * from './file-attachments.module';
-export * from './file-drop-change';
+export * from './types/file-drop-change';
 export * from './file-drop.component';
 export * from './file-attachment.component';
 export * from './file-attachment-label.component';
