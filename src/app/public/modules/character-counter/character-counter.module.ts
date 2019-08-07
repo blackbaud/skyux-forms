@@ -13,6 +13,7 @@ import {
 import {
   SkyCharacterCounterIndicatorComponent
 } from './character-counter-indicator.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {
     SkyCharacterCounterIndicatorComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     SkyCharacterCountInputDirective,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
@@ -24,5 +24,13 @@ export class CharacterCountVisualComponent implements OnInit {
       firstName: this.firstName
     });
 
+  }
+
+  public inc() {
+    this.maxCharacterCount++;
+  }
+
+  public dec() {
+    this.maxCharacterCount--;
   }
 }

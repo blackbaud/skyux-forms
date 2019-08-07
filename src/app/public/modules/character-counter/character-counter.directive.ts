@@ -107,6 +107,7 @@ export class SkyCharacterCountInputDirective implements
 
     // Update errors
     if (this.control) {
+      console.log('ping');
       this.control.updateValueAndValidity();
     }
   }

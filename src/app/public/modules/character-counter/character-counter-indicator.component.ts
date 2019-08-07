@@ -27,10 +27,6 @@ export class SkyCharacterCounterIndicatorComponent {
     this.changeDetector.markForCheck();
   }
 
-  public get characterCountLimit() {
-    return this.currentCharacterCountLimit;
-  }
-
   public set characterCountLimit(limit: number) {
     this.currentCharacterCountLimit = limit;
     this.changeDetector.markForCheck();

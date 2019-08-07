@@ -1,7 +1,9 @@
 import {
   Component,
   ViewChild,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 import {
   SkyCharacterCountInputDirective
@@ -10,7 +12,8 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'character-count-test',
-  templateUrl: './character-count.component.fixture.html'
+  templateUrl: './character-count.component.fixture.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CharacterCountTestComponent implements OnInit {
   @ViewChild(SkyCharacterCountInputDirective)
@@ -20,10 +23,11 @@ export class CharacterCountTestComponent implements OnInit {
   public firstName: FormControl;
 
   public firstNameLabel: string = 'Field label';
-  public maxCharacterCount: number = 10;
+  public maxCharacterCount: number = 5;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   public ngOnInit(): void {
@@ -33,5 +37,10 @@ export class CharacterCountTestComponent implements OnInit {
       firstName: this.firstName
     });
 
+  }
+
+  public setCharacterCountLimit(limit: number) {
+    this.maxCharacterCount = limit;
+    this.changeDetector.markForCheck();
   }
 }

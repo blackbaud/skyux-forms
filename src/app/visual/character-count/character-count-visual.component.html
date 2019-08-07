@@ -26,5 +26,8 @@
         Limit First name to {{maxCharacterCount}} characters.
       </div>
     </form>
+    <button (click)="inc()">Inc</button>
+    <button (click)="dec()">Dec</button>
+    <p>{{firstName.valid}}</p>
   </div>
 </div>

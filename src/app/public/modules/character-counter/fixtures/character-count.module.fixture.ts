@@ -3,6 +3,10 @@ import {
 } from '@angular/core';
 
 import {
+  CommonModule
+} from '@angular/common';
+
+import {
   CharacterCountTestComponent
 } from './character-count.component.fixture';
 
@@ -11,7 +15,7 @@ import {
 } from '../character-counter.module';
 
 import {
-  FormsModule
+  FormsModule, ReactiveFormsModule
 } from '@angular/forms';
 
 @NgModule({
@@ -19,8 +23,10 @@ import {
     CharacterCountTestComponent
   ],
   imports: [
+    CommonModule,
     SkyCharacterCounterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CharacterCountTestComponent
