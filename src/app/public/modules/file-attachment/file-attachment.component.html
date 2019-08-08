@@ -3,10 +3,10 @@
 >
   <div
     class="sky-file-attachment-label-wrapper"
-    [ngClass]="{ 'sky-control-label-required': required && hasLabel() }"
-    #labelWrapper
+    [ngClass]="{ 'sky-control-label-required': required && hasLabelComponent }"
+    [attr.id]="labelElementId"
   >
-    <ng-container *ngTemplateOutlet="tempOutlet"
+    <ng-container *ngTemplateOutlet="labelContent"
     ></ng-container>
   </div>
   <div
@@ -29,14 +29,14 @@
     <button
       type="button"
       class="sky-file-attachment-btn sky-btn sky-btn-default"
-      [ngClass]="{ 'sky-file-attachment-required' : required }"
       [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources"
+      [attr.aria-labelledby]="(hasLabelComponent) ? labelElementId : null"
       (click)="onDropClicked()"
     >
         <sky-icon
           icon="folder-open-o"
         ></sky-icon>
-      {{ fileAttachment ? 'Replace File' : 'Choose File' }}
+      {{ value ? 'Replace File' : 'Choose File' }}
     </button>
     <span
       class="sky-file-attachment-name"
@@ -48,7 +48,7 @@
         {{ getFileName() }}
       </i>
     </span>
-    <button *ngIf="fileAttachment"
+    <button *ngIf="value"
       type="button"
       class="sky-btn sky-file-attachment-delete"
       [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
@@ -61,18 +61,18 @@
     </button>
   </div>
 
-  <div *ngIf="fileAttachment && isImage()"
+  <div *ngIf="value && isImage()"
   >
     <img
       class="sky-file-attachment-preview-img"
-      [src]="fileAttachment.url"
+      [src]="value.url"
       [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources"
     />
   </div>
 </div>
 
 <ng-template
-  #tempOutlet
+  #labelContent
 >
     <ng-content
       select="sky-file-attachment-label"

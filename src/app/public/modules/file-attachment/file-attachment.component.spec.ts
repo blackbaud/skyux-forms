@@ -1,16 +1,18 @@
 import {
   async,
   ComponentFixture,
-  TestBed
+  TestBed,
+  tick,
+  fakeAsync
 } from '@angular/core/testing';
-
-import {
-  DebugElement
-} from '@angular/core';
 
 import {
   By
 } from '@angular/platform-browser';
+
+import {
+  DebugElement
+} from '@angular/core';
 
 import {
   expect
@@ -54,7 +56,7 @@ describe('File attachment', () => {
     fixture = TestBed.createComponent(FileAttachmentTestComponent);
     fixture.detectChanges();
     el = fixture.nativeElement;
-    fileAttachmentInstance = fixture.componentInstance.fileDropComponent;
+    fileAttachmentInstance = fixture.componentInstance.fileAttachmentComponent;
   });
 
   function getInputDebugEl() {
@@ -95,7 +97,7 @@ describe('File attachment', () => {
   }
 
   function testImage(extension: string) {
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    let testFile = <SkyFileItem> {
       file: {
         name: 'myFile.' + extension,
         type: 'image/' + extension,
@@ -103,6 +105,7 @@ describe('File attachment', () => {
       },
       url: 'myFile.' + extension
     };
+    fileAttachmentInstance.writeValue(testFile);
 
     fixture.detectChanges();
 
@@ -116,7 +119,7 @@ describe('File attachment', () => {
   }
 
   function testOtherTypes(extension: string, type: string) {
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    let testFile = <SkyFileItem> {
       file: {
         name: 'myFile.' + extension,
         type:  type + '/' + extension,
@@ -124,6 +127,7 @@ describe('File attachment', () => {
       },
       url: 'myFile.' + extension
     };
+    fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
     let imageEl = getImage();
@@ -301,29 +305,32 @@ describe('File attachment', () => {
   }
   //#endregion
 
-  it('should allow the user to specify if the file is required', () => {
-    fileAttachmentInstance.required = false;
+  it('should allow the user to specify if the file is required', fakeAsync(() => {
+    fileAttachmentInstance.ngAfterViewInit();
+    tick();
     fixture.detectChanges();
-    let buttonEl = getButtonEl();
 
-    expect(buttonEl.classList.contains('sky-file-attachment-required')).toBe(false);
-
-    fileAttachmentInstance.required = true;
-    fixture.detectChanges();
-    expect(buttonEl.classList.contains('sky-file-attachment-required')).toBe(true);
-  });
-
-  it('should mark the field label as required when specified', () => {
-    fileAttachmentInstance.required = false;
-    fixture.detectChanges();
     let labelWrapper = getLabelWrapper();
 
-    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
-
-    fileAttachmentInstance.required = true;
-    fixture.detectChanges();
+    expect(fileAttachmentInstance.required).toBe(true);
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
-  });
+  }));
+
+  it('should handle removing the label', fakeAsync(() => {
+    fileAttachmentInstance.ngAfterViewInit();
+    fileAttachmentInstance.ngAfterContentInit();
+    tick();
+    fixture.detectChanges();
+
+    let labelWrapper = getLabelWrapper();
+
+    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
+
+    fixture.componentInstance.showLabel = false;
+    fixture.detectChanges();
+
+    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
+  }));
 
   it('should click the file input on choose file button click', () => {
     let inputClicked = false;
@@ -495,7 +502,7 @@ describe('File attachment', () => {
   it('should show the appropriate file name', () => {
 
     // Regular file
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    let testFile = <SkyFileItem> {
       file: {
         name: 'test.png',
         size: 1000,
@@ -503,12 +510,13 @@ describe('File attachment', () => {
       },
       url: 'myFile'
     };
+    fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('test.png');
 
     // File with truncated name
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    testFile = <SkyFileItem> {
       file: {
         name: 'abcdefghijklmnopqrstuvwxyz12345.png',
         size: 1000,
@@ -516,12 +524,13 @@ describe('File attachment', () => {
       },
       url: 'myFile'
     };
+    fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
 
     // File with no name
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    testFile = <SkyFileItem> {
       file: {
         name: undefined,
         size: 1000,
@@ -529,12 +538,13 @@ describe('File attachment', () => {
       },
       url: 'myFile'
     };
+    fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('myFile');
 
     // File with no name and truncated url
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    testFile = <SkyFileItem> {
       file: {
         name: undefined,
         size: 1000,
@@ -542,6 +552,7 @@ describe('File attachment', () => {
       },
       url: 'abcdefghijklmnopqrstuvwxyz12345'
     };
+    fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
@@ -726,7 +737,7 @@ describe('File attachment', () => {
     expect(fileChangeActual.file.errorType).toBe('minFileSize');
     expect(fileChangeActual.file.errorParam).toBe('1500');
 
-    expect(fileAttachmentInstance.fileAttachment).toBeFalsy();
+    expect(fileAttachmentInstance.value).toBeFalsy();
   });
 
   it('should allow the user to specify a max file size', () => {
@@ -753,7 +764,7 @@ describe('File attachment', () => {
     expect(fileChangeActual.file.errorType).toBe('maxFileSize');
     expect(fileChangeActual.file.errorParam).toBe('1500');
 
-    expect(fileAttachmentInstance.fileAttachment).toBeFalsy();
+    expect(fileAttachmentInstance.value).toBeFalsy();
   });
 
   it('should set errors if file fails user provided validation function', () => {
@@ -787,7 +798,7 @@ describe('File attachment', () => {
     expect(fileChangeActual.file.errorType).toBe('validate');
     expect(fileChangeActual.file.errorParam).toBe(errorMessage);
 
-    expect(fileAttachmentInstance.fileAttachment).toBeFalsy();
+    expect(fileAttachmentInstance.value).toBeFalsy();
   });
 
   it('should accept if file passes user provided validation function', () => {
@@ -820,7 +831,7 @@ describe('File attachment', () => {
     expect(fileChangeActual.file.file.size).toBe(1000);
     expect(fileChangeActual.file.url).toBe('url');
 
-    expect(fileAttachmentInstance.fileAttachment).toBeTruthy();
+    expect(fileAttachmentInstance.value).toBeTruthy();
   });
 
   it('should accept a file when type is accepted', () => {
@@ -981,7 +992,7 @@ describe('File attachment', () => {
     let imageEl = getImage();
     expect(imageEl).toBeFalsy();
 
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    fileAttachmentInstance.value = <SkyFileItem> {
       file: undefined,
       url: 'myFile'
     };
@@ -989,7 +1000,7 @@ describe('File attachment', () => {
 
     expect(imageEl).toBeFalsy();
 
-    fileAttachmentInstance.fileAttachment = <SkyFileItem> {
+    fileAttachmentInstance.value = <SkyFileItem> {
       file: {
         name: 'myFile.png',
         type: undefined,

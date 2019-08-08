@@ -1,5 +1,13 @@
 import {
-  Component
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from '@angular/forms';
+
+import {
+  Component,
+  OnInit
 } from '@angular/core';
 
 import {
@@ -12,7 +20,7 @@ import {
   selector: 'file-attachments-visual',
   templateUrl: './file-attachments-visual.component.html'
 })
-export class FileAttachmentsVisualComponent {
+export class FileAttachmentsVisualComponent implements OnInit {
   public filesToUpload: Array<SkyFileItem>;
 
   public allItems: Array<SkyFileItem | SkyFileLink>;
@@ -27,11 +35,17 @@ export class FileAttachmentsVisualComponent {
 
   public allowLinks: boolean = true;
 
-  public required: boolean = false;
+  public showLabel: boolean = true;
 
-  public showLabel: boolean = false;
+  public fileForm: FormGroup;
 
-  constructor() {
+  public attachment: FormControl;
+
+  public fileValue: SkyFileItem;
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
     this.filesToUpload = [];
     this.rejectedFiles = [];
     this.allItems = [<SkyFileItem>{
@@ -42,6 +56,13 @@ export class FileAttachmentsVisualComponent {
       }
     }];
     this.linksToUpload = [];
+  }
+
+  public ngOnInit() {
+    this.attachment = new FormControl(undefined, Validators.required);
+    this.fileForm = this.formBuilder.group({
+      attachment: this.attachment
+    });
   }
 
   public filesUpdated(result: SkyFileDropChange) {

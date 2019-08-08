@@ -1,6 +1,20 @@
-<sky-file-attachment>
-  <div class="sky-custom-drop"></div>
-  <sky-file-attachment-label>
-    Field Label
-  </sky-file-attachment-label>
-</sky-file-attachment>
+<form
+  novalidate
+  [formGroup]="fileForm"
+>
+  <sky-file-attachment
+    formControlName="attachment"
+  >
+    <sky-file-attachment-label
+      *ngIf="showLabel"
+    >
+      Field Label
+    </sky-file-attachment-label>
+  </sky-file-attachment>
+
+  <div *ngIf="attachment?.invalid && attachment?.dirty"
+    class="sky-error-label"
+  >
+    Attach a file.
+  </div>
+</form>

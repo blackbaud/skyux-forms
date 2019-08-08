@@ -24,25 +24,6 @@
 </div>
 
 <div
-  class="sky-padding-even-default"
->
-  <div
-    id="screenshot-file-attachment"
-  >
-    <sky-file-attachment
-      [validateFn]="validateFile"
-      [required]="required"
-    >
-      <sky-file-attachment-label
-        *ngIf="showLabel"
-      >
-        Field Label
-      </sky-file-attachment-label>
-    </sky-file-attachment>
-  </div>
-</div>
-
-<div
   style="margin-top: 10px"
 >
   <button
@@ -55,14 +36,6 @@
 
   <button
     type="button"
-    class="sky-btn sky-btn-primary sky-test-required"
-    (click)="required = !required"
-  >
-    Toggle required
-  </button>
-
-  <button
-    type="button"
     class="sky-btn sky-btn-primary sky-test-label"
     (click)="showLabel = !showLabel"
   >
@@ -70,4 +43,89 @@
   </button>
 </div>
 
+<h1>
+  File attachment (reactive)
+</h1>
 
+<form
+  novalidate
+  [formGroup]="fileForm"
+>
+  <div
+    id="screenshot-file-attachment"
+  >
+    <sky-file-attachment
+      formControlName="attachment"
+      [validateFn]="validateFile"
+    >
+      <sky-file-attachment-label
+        *ngIf="showLabel"
+      >
+        Field Label
+      </sky-file-attachment-label>
+    </sky-file-attachment>
+
+    <div *ngIf="attachment?.invalid && attachment?.dirty"
+      class="sky-error-label"
+    >
+      Attach a file.
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th>Touched</th>
+      <td>{{ fileForm.touched }}</td>
+    </tr>
+    <tr>
+      <th>Pristine</th>
+      <td>{{ fileForm.pristine }}</td>
+    </tr>
+    <tr>
+      <th>Valid</th>
+      <td>{{ fileForm.valid }}</td>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <td>{{ fileForm.value.attachment?.file.name || 'Nothing selected...' }}</td>
+    </tr>
+  </table>
+
+</form>
+
+<h1>
+  File attachment (template-driven)
+</h1>
+
+<div>
+    <sky-file-attachment
+      [validateFn]="validateFile"
+      [(ngModel)]="fileValue"
+      #foo="ngModel"
+    >
+      <sky-file-attachment-label
+        *ngIf="showLabel"
+      >
+        Field Label
+      </sky-file-attachment-label>
+    </sky-file-attachment>
+</div>
+
+<table>
+  <tr>
+    <th>Touched</th>
+    <td>{{ foo.touched }}</td>
+  </tr>
+  <tr>
+    <th>Pristine</th>
+    <td>{{ foo.pristine }}</td>
+  </tr>
+  <tr>
+    <th>Valid</th>
+    <td>{{ foo.valid }}</td>
+  </tr>
+  <tr>
+    <th>Value</th>
+    <td>{{ fileValue?.file.name || 'Nothing selected...' }}</td>
+  </tr>
+</table>

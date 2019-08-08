@@ -1,39 +1,78 @@
 import {
+  AfterContentInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChildren,
   ElementRef,
   EventEmitter,
+  forwardRef,
   Input,
   OnDestroy,
   Output,
-  ViewChild
+  ViewChild,
+  QueryList
 } from '@angular/core';
 
 import {
-  SkyFileItem
-} from './file-item';
+  ControlValueAccessor,
+  AbstractControl,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS
+} from '@angular/forms';
+
+import {
+  Subject
+} from 'rxjs';
 
 import {
   SkyFileAttachmentChange
 } from './types/file-attachment-change';
 
 import {
+  SkyFileAttachmentLabelComponent
+} from './file-attachment-label.component';
+
+import {
   SkyFileAttachmentService
 } from './file-attachment.service';
+
+import {
+  SkyFileItem
+} from './file-item';
 
 import {
   SkyFileItemService
 } from './file-item.service';
 
+// tslint:disable:no-forward-ref no-use-before-declare
+const SKY_FILE_ATTACHMENT_VALUE_ACCESSOR = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SkyFileAttachmentComponent),
+  multi: true
+};
+
+const SKY_FILE_ATTACHMENT_VALIDATOR = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => SkyFileAttachmentComponent),
+  multi: true
+};
+
+let uniqueId = 0;
 @Component({
   selector: 'sky-file-attachment',
   templateUrl: './file-attachment.component.html',
   styleUrls: ['./file-attachment.component.scss'],
   providers: [
     SkyFileAttachmentService,
-    SkyFileItemService
-  ]
+    SkyFileItemService,
+    SKY_FILE_ATTACHMENT_VALUE_ACCESSOR,
+    SKY_FILE_ATTACHMENT_VALIDATOR
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyFileAttachmentComponent implements OnDestroy {
+export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterViewInit, AfterContentInit, OnDestroy {
   @Input()
   public acceptedTypes: string;
 
@@ -44,42 +83,98 @@ export class SkyFileAttachmentComponent implements OnDestroy {
   public minFileSize: number = 0;
 
   @Input()
-  public required: boolean = false;
-
-  @Input()
   public validateFn: Function;
 
   @Output()
   public fileChange = new EventEmitter<SkyFileAttachmentChange>();
 
-  @ViewChild('fileInput')
-  private inputEl: ElementRef;
-
-  @ViewChild('labelWrapper')
-  private labelWrap: ElementRef;
-
   public acceptedOver: boolean = false;
 
-  private enterEventTarget: any;
+  public get hasLabelComponent(): boolean {
+    return this.labelComponents.length > 0;
+  }
+
+  public get labelElementId(): string {
+    return `sky-file-attachment-label-${this.fileAttachmentId}`;
+  }
 
   public rejectedOver: boolean = false;
 
-  public fileAttachment: SkyFileItem;
+  public required: boolean = false;
+
+  public set value(value: SkyFileItem) {
+    // The null check is needed to address a bug in Angular 4.
+    // writeValue is being called twice, first time with a phantom null value
+    // See: https://github.com/angular/angular/issues/14988
+    // tslint:disable-next-line:no-null-keyword
+    const isNewValue = value !== this.value && value !== null;
+
+    if (isNewValue) {
+      this._value = value;
+      this._onChange(value);
+    }
+  }
+
+  public get value(): SkyFileItem {
+    return this._value;
+  }
+
+  @ViewChild('fileInput')
+  private inputEl: ElementRef;
+
+  @ContentChildren(SkyFileAttachmentLabelComponent)
+  private labelComponents: QueryList<SkyFileAttachmentLabelComponent>;
+
+  private control: AbstractControl;
+  private enterEventTarget: any;
+  private fileAttachmentId = uniqueId++;
+  private ngUnsubscribe = new Subject<void>();
+  private _value: any;
 
   constructor(
+    private changeDetector: ChangeDetectorRef,
     private fileAttachmentService: SkyFileAttachmentService,
     private fileItemService: SkyFileItemService
   ) { }
 
-  public hasLabel(): boolean {
-    return this.labelWrap.nativeElement.children.length > 0;
+  public ngAfterViewInit(): void {
+    // This is needed to address a bug in Angular 4.
+    // When a control value is set intially, its value is not represented on the view.
+    // See: https://github.com/angular/angular/issues/13792
+    // Of note is the parent check which allows us to determine if the form is reactive.
+    // Without this check there is a changed before checked error
+    /* istanbul ignore else */
+    if (this.control && this.control.parent) {
+      setTimeout(() => {
+        this.control.setValue(this.value, {
+          emitEvent: false
+        });
+
+        // Set required to apply required state to label
+        if (this.control.errors && this.control.errors.required) {
+          this.required = true;
+        }
+
+        this.changeDetector.markForCheck();
+      });
+    }
+  }
+
+  public ngAfterContentInit(): void {
+    // Handles updating classes when label changes
+    this.labelComponents.changes
+    .takeUntil(this.ngUnsubscribe)
+    .subscribe(() => {
+      this.changeDetector.detectChanges();
+    });
   }
 
   public isImage(): boolean {
-    return this.fileItemService.isImage(this.fileAttachment);
+    return this.fileItemService.isImage(this.value);
   }
 
   public onDropClicked(): void {
+    this._onTouched();
     this.inputEl.nativeElement.click();
   }
 
@@ -152,14 +247,15 @@ export class SkyFileAttachmentComponent implements OnDestroy {
   }
 
   public deleteFileAttachment(): void {
-    this.fileAttachment = undefined;
-    this.emitFileChangeEvent(this.fileAttachment);
+    this.value = undefined;
+    this.changeDetector.markForCheck();
+    this.emitFileChangeEvent(this.value);
   }
 
   public getFileName(): string {
-    if (this.fileAttachment) {
+    if (this.value) {
       // tslint:disable-next-line: max-line-length
-      let dropName = this.fileItemService.isFile(this.fileAttachment) && this.fileAttachment.file.name ? this.fileAttachment.file.name : this.fileAttachment.url;
+      let dropName = this.fileItemService.isFile(this.value) && this.value.file.name ? this.value.file.name : this.value.url;
 
       if (dropName.length > 26) {
         return dropName.slice(0, 26) + '....';
@@ -173,11 +269,29 @@ export class SkyFileAttachmentComponent implements OnDestroy {
 
   public ngOnDestroy() {
     this.fileChange.complete();
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
+  public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
+
+  public writeValue(value: any) {
+    this.value = value;
+    this.changeDetector.markForCheck();
+  }
+
+  public validate(control: AbstractControl): { [key: string]: any } {
+    if (!this.control) {
+      this.control = control;
+    }
+
+    return undefined;
   }
 
   private emitFileChangeEvent(currentFile: SkyFileItem): void {
       if (currentFile && !currentFile.errorType) {
-        this.fileAttachment = currentFile;
+        this.writeValue(currentFile);
       }
       this.fileChange.emit({
         file: currentFile
@@ -217,4 +331,9 @@ export class SkyFileAttachmentComponent implements OnDestroy {
       }
     }
   }
+
+  /*istanbul ignore next */
+  private _onChange = (_: any) => { };
+  /*istanbul ignore next */
+  private _onTouched = () => { };
 }
