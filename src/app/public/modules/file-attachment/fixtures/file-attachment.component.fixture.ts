@@ -15,14 +15,14 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   templateUrl: './file-attachment.component.fixture.html'
 })
 export class FileAttachmentTestComponent implements OnInit {
-  @ViewChild(SkyFileAttachmentComponent)
-  public fileAttachmentComponent: SkyFileAttachmentComponent;
-
-  public showLabel: boolean = true;
+  public attachment: FormControl;
 
   public fileForm: FormGroup;
 
-  public attachment: FormControl;
+  public showLabel: boolean = true;
+
+  @ViewChild(SkyFileAttachmentComponent)
+  public fileAttachmentComponent: SkyFileAttachmentComponent;
 
   constructor(
     private formBuilder: FormBuilder

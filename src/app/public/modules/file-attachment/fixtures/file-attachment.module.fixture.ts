@@ -1,16 +1,23 @@
 import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
+import {
+  CommonModule
+} from '@angular/common';
+
+import {
   NgModule
 } from '@angular/core';
 
 import {
-  SkyFileAttachmentsModule
-} from '../file-attachments.module';
-
-import {
   FileAttachmentTestComponent
 } from './file-attachment.component.fixture';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
+import {
+  SkyFileAttachmentsModule
+} from '../file-attachments.module';
 
 @NgModule({
   declarations: [

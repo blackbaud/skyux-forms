@@ -12,30 +12,30 @@
   <div
     class="sky-file-attachment-upload sky-file-attachment sky-file-attachment-target"
     [ngClass]="{ 'sky-file-attachment-accept': acceptedOver, 'sky-file-attachment-reject': rejectedOver }"
-    (dragover)="fileDragOver($event)"
     (dragenter)="fileDragEnter($event)"
+    (dragover)="fileDragOver($event)"
     (dragleave)="fileDragLeave($event)"
     (drop)="fileDrop($event)"
   >
     <input
-      type="file"
+      aria-hidden="true"
       hidden
       tabindex="-1"
-      aria-hidden="true"
+      type="file"
       [attr.accept]="acceptedTypes ? acceptedTypes: null"
       (change)="fileChangeEvent($event)"
       #fileInput
     >
     <button
-      type="button"
       class="sky-file-attachment-btn sky-btn sky-btn-default"
+      type="button"
       [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources"
       [attr.aria-labelledby]="(hasLabelComponent) ? labelElementId : null"
       (click)="onDropClicked()"
     >
-        <sky-icon
-          icon="folder-open-o"
-        ></sky-icon>
+      <sky-icon
+        icon="folder-open-o"
+      ></sky-icon>
       {{ value ? 'Replace File' : 'Choose File' }}
     </button>
     <span
@@ -64,9 +64,9 @@
   <div *ngIf="value && isImage()"
   >
     <img
+      [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources"
       class="sky-file-attachment-preview-img"
       [src]="value.url"
-      [alt]="'skyux_file_attachment_file_upload_image_preview_alt_text' | skyLibResources"
     />
   </div>
 </div>

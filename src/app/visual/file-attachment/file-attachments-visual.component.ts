@@ -21,27 +21,27 @@ import {
   templateUrl: './file-attachments-visual.component.html'
 })
 export class FileAttachmentsVisualComponent implements OnInit {
-  public filesToUpload: Array<SkyFileItem>;
+  public acceptedTypes: Array<String>;
 
   public allItems: Array<SkyFileItem | SkyFileLink>;
 
-  public linksToUpload: Array<SkyFileLink>;
-
-  public rejectedFiles: Array<SkyFileItem>;
-
-  public maxFileSize: number = 4000000;
-
-  public acceptedTypes: Array<String>;
-
   public allowLinks: boolean = true;
-
-  public showLabel: boolean = true;
-
-  public fileForm: FormGroup;
 
   public attachment: FormControl;
 
+  public fileForm: FormGroup;
+
+  public filesToUpload: Array<SkyFileItem>;
+
   public fileValue: SkyFileItem;
+
+  public linksToUpload: Array<SkyFileLink>;
+
+  public maxFileSize: number = 4000000;
+
+  public rejectedFiles: Array<SkyFileItem>;
+
+  public showLabel: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder
