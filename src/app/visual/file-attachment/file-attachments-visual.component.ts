@@ -1,31 +1,51 @@
-import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from '@angular/forms';
 
 import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  SkyFileDropChange,
   SkyFileItem,
-  SkyFileLink,
-  SkyFileDropChange
+  SkyFileLink
 } from '../../public';
 
 @Component({
   selector: 'file-attachments-visual',
   templateUrl: './file-attachments-visual.component.html'
 })
-export class FileAttachmentsVisualComponent {
-  public filesToUpload: Array<SkyFileItem>;
+export class FileAttachmentsVisualComponent implements OnInit {
+  public acceptedTypes: Array<String>;
 
   public allItems: Array<SkyFileItem | SkyFileLink>;
 
-  public linksToUpload: Array<SkyFileLink>;
+  public allowLinks: boolean = true;
 
-  public rejectedFiles: Array<SkyFileItem>;
+  public attachment: FormControl;
+
+  public fileForm: FormGroup;
+
+  public filesToUpload: Array<SkyFileItem>;
+
+  public fileValue: SkyFileItem;
+
+  public linksToUpload: Array<SkyFileLink>;
 
   public maxFileSize: number = 4000000;
 
-  public acceptedTypes: Array<String>;
+  public rejectedFiles: Array<SkyFileItem>;
 
-  public allowLinks: boolean = true;
+  public showLabel: boolean = true;
 
-  constructor() {
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
     this.filesToUpload = [];
     this.rejectedFiles = [];
     this.allItems = [<SkyFileItem>{
@@ -36,6 +56,13 @@ export class FileAttachmentsVisualComponent {
       }
     }];
     this.linksToUpload = [];
+  }
+
+  public ngOnInit() {
+    this.attachment = new FormControl(undefined, Validators.required);
+    this.fileForm = this.formBuilder.group({
+      attachment: this.attachment
+    });
   }
 
   public filesUpdated(result: SkyFileDropChange) {

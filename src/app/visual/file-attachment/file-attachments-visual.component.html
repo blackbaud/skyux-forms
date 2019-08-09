@@ -1,22 +1,131 @@
-<div style="width: 60%; margin-left: auto; margin-right: auto;">
-  <div id="screenshot-file-drop">
+<div
+  style="width: 60%; margin-left: auto; margin-right: auto;"
+>
+  <div
+    id="screenshot-file-drop"
+  >
     <sky-file-drop
       (filesChanged)="filesUpdated($event)"
       (linkChanged)="linkAdded($event)"
       [maxFileSize]="maxFileSize"
       [validateFn]="validateFile"
-      [allowLinks]="allowLinks">
-    </sky-file-drop>
+      [allowLinks]="allowLinks"
+    ></sky-file-drop>
 
-    <div *ngFor="let file of allItems">
-      <sky-file-item [fileItem]="file" (deleteFile)="deleteFile($event)"></sky-file-item>
+    <div
+      *ngFor="let file of allItems"
+    >
+      <sky-file-item
+        [fileItem]="file"
+        (deleteFile)="deleteFile($event)"
+      ></sky-file-item>
     </div>
   </div>
 </div>
 
-<button
-  type="button"
-  class="sky-btn sky-btn-primary sky-test-allow-links"
-  (click)="allowLinks = !allowLinks">
-  Toggle allowLinks
-</button>
+<div
+  style="margin-top: 10px"
+>
+  <button
+    type="button"
+    class="sky-btn sky-btn-primary sky-test-allow-links"
+    (click)="allowLinks = !allowLinks"
+  >
+    Toggle allowLinks
+  </button>
+
+  <button
+    type="button"
+    class="sky-btn sky-btn-primary sky-test-label"
+    (click)="showLabel = !showLabel"
+  >
+    Toggle showLabel
+  </button>
+</div>
+
+<h1>
+  File attachment (reactive)
+</h1>
+
+<form
+  novalidate
+  [formGroup]="fileForm"
+>
+  <div
+    id="screenshot-file-attachment"
+  >
+    <sky-file-attachment
+      formControlName="attachment"
+      [validateFn]="validateFile"
+    >
+      <sky-file-attachment-label
+        *ngIf="showLabel"
+      >
+        Field Label
+      </sky-file-attachment-label>
+    </sky-file-attachment>
+
+    <div *ngIf="attachment?.invalid && attachment?.dirty"
+      class="sky-error-label"
+    >
+      Attach a file.
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th>Touched</th>
+      <td>{{ fileForm.touched }}</td>
+    </tr>
+    <tr>
+      <th>Pristine</th>
+      <td>{{ fileForm.pristine }}</td>
+    </tr>
+    <tr>
+      <th>Valid</th>
+      <td>{{ fileForm.valid }}</td>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <td>{{ fileForm.value.attachment?.file.name || 'Nothing selected...' }}</td>
+    </tr>
+  </table>
+
+</form>
+
+<h1>
+  File attachment (template-driven)
+</h1>
+
+<div>
+    <sky-file-attachment
+      [validateFn]="validateFile"
+      [(ngModel)]="fileValue"
+      #foo="ngModel"
+    >
+      <sky-file-attachment-label
+        *ngIf="showLabel"
+      >
+        Field Label
+      </sky-file-attachment-label>
+    </sky-file-attachment>
+</div>
+
+<table>
+  <tr>
+    <th>Touched</th>
+    <td>{{ foo.touched }}</td>
+  </tr>
+  <tr>
+    <th>Pristine</th>
+    <td>{{ foo.pristine }}</td>
+  </tr>
+  <tr>
+    <th>Valid</th>
+    <td>{{ foo.valid }}</td>
+  </tr>
+  <tr>
+    <th>Value</th>
+    <td>{{ fileValue?.file.name || 'Nothing selected...' }}</td>
+  </tr>
+</table>
