@@ -1,0 +1,7 @@
+
+<label
+  class="sky-character-count-label"
+  [ngClass]="{ 'sky-error-label': currentCharacterCount > currentCharacterCountLimit }"
+>
+  {{currentCharacterCount + '/' + currentCharacterCountLimit}}
+</label>
