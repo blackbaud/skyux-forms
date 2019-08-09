@@ -1,23 +1,26 @@
 import {
-  NgModule
-} from '@angular/core';
-
-import {
   CommonModule
 } from '@angular/common';
 
 import {
-  SkyCharacterCountInputDirective
+  FormsModule
+} from '@angular/forms';
+
+import {
+  NgModule
+} from '@angular/core';
+
+import {
+  SkyCharacterCounterInputDirective
 } from './character-counter.directive';
 
 import {
   SkyCharacterCounterIndicatorComponent
 } from './character-counter-indicator.component';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    SkyCharacterCountInputDirective,
+    SkyCharacterCounterInputDirective,
     SkyCharacterCounterIndicatorComponent
   ],
   imports: [
@@ -25,7 +28,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   exports: [
-    SkyCharacterCountInputDirective,
+    SkyCharacterCounterInputDirective,
     SkyCharacterCounterIndicatorComponent
   ]
 })

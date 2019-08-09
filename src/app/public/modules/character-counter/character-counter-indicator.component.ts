@@ -1,7 +1,7 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Component
 } from '@angular/core';
 
 @Component({

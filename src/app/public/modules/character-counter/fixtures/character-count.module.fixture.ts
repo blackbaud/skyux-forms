@@ -1,10 +1,15 @@
 import {
-  NgModule
-} from '@angular/core';
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 
 import {
   CommonModule
 } from '@angular/common';
+
+import {
+  NgModule
+} from '@angular/core';
 
 import {
   CharacterCountTestComponent
@@ -13,10 +18,6 @@ import {
 import {
   SkyCharacterCounterModule
 } from '../character-counter.module';
-
-import {
-  FormsModule, ReactiveFormsModule
-} from '@angular/forms';
 
 @NgModule({
   declarations: [

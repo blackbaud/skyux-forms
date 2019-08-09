@@ -26,13 +26,13 @@ import {
 // tslint:disable:no-forward-ref no-use-before-declare
 const SKY_CHARACTER_COUNT_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SkyCharacterCountInputDirective),
+  useExisting: forwardRef(() => SkyCharacterCounterInputDirective),
   multi: true
 };
 
 const SKY_CHARACTER_COUNT_VALIDATOR = {
   provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => SkyCharacterCountInputDirective),
+  useExisting: forwardRef(() => SkyCharacterCounterInputDirective),
   multi: true
 };
 
@@ -44,7 +44,7 @@ const SKY_CHARACTER_COUNT_VALIDATOR = {
     SKY_CHARACTER_COUNT_VALIDATOR
   ]
 })
-export class SkyCharacterCountInputDirective implements
+export class SkyCharacterCounterInputDirective implements
   OnInit, ControlValueAccessor, Validator, OnChanges, AfterViewInit {
 
   @Input()
@@ -53,6 +53,8 @@ export class SkyCharacterCountInputDirective implements
   @Input()
   public skyCharacterCounterLimit: number = 0;
 
+  private control: AbstractControl;
+
   private get modelValue(): string {
     return this._modelValue;
   }
@@ -60,20 +62,19 @@ export class SkyCharacterCountInputDirective implements
   private set modelValue(value: string) {
     if (value !== this._modelValue) {
       this._modelValue = value;
-      this.skyCharacterCounterIndicator.characterCount = value.length;
+      this.skyCharacterCounterIndicator.characterCount = value ? value.length : 0;
       this.setInputValue(value);
       this._validatorChange();
       this._onChange(value);
     }
   }
 
-  private control: AbstractControl;
   private _modelValue: string;
 
   constructor(
-    private renderer: Renderer,
+    private changeDetector: ChangeDetectorRef,
     private elRef: ElementRef,
-    private changeDetector: ChangeDetectorRef
+    private renderer: Renderer
   ) { }
 
   public ngOnInit() {
@@ -90,13 +91,11 @@ export class SkyCharacterCountInputDirective implements
     /* istanbul ignore else */
     if (this.control && this.control.parent) {
       setTimeout(() => {
-        console.log(this.modelValue);
         this.control.setValue(this.modelValue, {
           emitEvent: false
         });
 
         this.changeDetector.markForCheck();
-        console.log(this.modelValue);
       });
     }
   }
@@ -107,13 +106,13 @@ export class SkyCharacterCountInputDirective implements
 
     // Update errors
     if (this.control) {
-      console.log('ping');
       this.control.updateValueAndValidity();
     }
   }
 
   @HostListener('input', ['$event'])
   public onInput(event: any) {
+    this.control.markAsDirty();
     this.skyCharacterCounterIndicator.characterCount = event.target.value.length;
   }
 

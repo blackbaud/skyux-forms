@@ -1,14 +1,20 @@
 import {
   Component,
-  ViewChild,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  ViewChild
 } from '@angular/core';
+
 import {
-  SkyCharacterCountInputDirective
+  FormBuilder,
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+
+import {
+  SkyCharacterCounterInputDirective
 } from '../character-counter.directive';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'character-count-test',
@@ -16,8 +22,8 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CharacterCountTestComponent implements OnInit {
-  @ViewChild(SkyCharacterCountInputDirective)
-  public inputDirective: SkyCharacterCountInputDirective;
+  @ViewChild(SkyCharacterCounterInputDirective)
+  public inputDirective: SkyCharacterCounterInputDirective;
 
   public testForm: FormGroup;
   public firstName: FormControl;

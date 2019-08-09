@@ -1,7 +1,8 @@
 import {
-  TestBed,
+  async,
   ComponentFixture,
   fakeAsync,
+  TestBed,
   tick
 } from '@angular/core/testing';
 
@@ -11,12 +12,18 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
+  CharacterCountTestComponent
+} from './fixtures/character-count.component.fixture';
+
+import {
   CharacterCountTestModule
 } from './fixtures/character-count.module.fixture';
-import { CharacterCountTestComponent } from './fixtures/character-count.component.fixture';
-import { SkyCharacterCounterIndicatorComponent } from './character-counter-indicator.component';
 
-fdescribe('character-count', () => {
+import {
+  SkyCharacterCounterIndicatorComponent
+} from './character-counter-indicator.component';
+
+describe('Character Counter component', () => {
 
   function setInputWithChangeEvent(
     element: HTMLElement,
@@ -46,29 +53,6 @@ fdescribe('character-count', () => {
     tick();
   }
 
-  // function blurInput(
-  //   element: HTMLElement,
-  //   fixture: ComponentFixture<any>
-  // ) {
-  //   const inputEl = element.querySelector('input');
-  //   SkyAppTestUtility.fireDomEvent(inputEl, 'blur');
-
-  //   fixture.detectChanges();
-  //   tick();
-  // }
-
-  // function setLabel(
-  //   element: HTMLElement,
-  //   text: string,
-  //   fixture: ComponentFixture<any>
-  // ) {
-  //   const labelEl = element.querySelector('label');
-  //   labelEl.innerText = text;
-
-  //   fixture.detectChanges();
-  //   tick();
-  // }
-
   beforeEach(function () {
     TestBed.configureTestingModule({
       imports: [
@@ -95,10 +79,10 @@ fdescribe('character-count', () => {
       characterCountLabel = nativeElement.querySelector('.sky-character-count-label') as HTMLLabelElement;
     });
 
-    it('should set the count with the initial length', fakeAsync(() => {
+    it('should set the count with the initial length', () => {
       expect(characterCountComponent.characterCount).toBe(4);
       expect(characterCountLabel.innerText).toBe('4/5');
-    }));
+    });
 
     it('should update the count on input', fakeAsync(() => {
       setInputWithInputEvent(nativeElement, 'abc', fixture);
@@ -157,6 +141,13 @@ fdescribe('character-count', () => {
       fixture.detectChanges();
       expect(component.firstName.valid).toBeTruthy();
       expect(characterCountLabel.classList.contains('sky-error-label')).toBeFalsy();
+    }));
+
+    it('should pass accessibility', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(fixture.nativeElement).toBeAccessible();
+      });
     }));
   });
 });
