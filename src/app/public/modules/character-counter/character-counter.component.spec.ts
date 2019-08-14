@@ -81,19 +81,19 @@ describe('Character Counter component', () => {
 
     it('should set the count with the initial length', () => {
       expect(characterCountComponent.characterCount).toBe(4);
-      expect(characterCountLabel.innerText).toBe('4/5');
+      expect(characterCountLabel.innerText.trim()).toBe('4/5');
     });
 
     it('should update the count on input', fakeAsync(() => {
       setInputWithInputEvent(nativeElement, 'abc', fixture);
 
       expect(characterCountComponent.characterCount).toBe(3);
-      expect(characterCountLabel.innerText).toBe('3/5');
+      expect(characterCountLabel.innerText.trim()).toBe('3/5');
 
       setInputWithInputEvent(nativeElement, 'abcd', fixture);
 
       expect(characterCountComponent.characterCount).toBe(4);
-      expect(characterCountLabel.innerText).toBe('4/5');
+      expect(characterCountLabel.innerText.trim()).toBe('4/5');
     }));
 
     it('should handle undefined input', fakeAsync(() => {
@@ -108,7 +108,7 @@ describe('Character Counter component', () => {
       tick();
 
       expect(characterCountComponent.characterCount).toBe(0);
-      expect(characterCountLabel.innerText).toBe('0/5');
+      expect(characterCountLabel.innerText.trim()).toBe('0/5');
       expect(component.firstName.valid).toBeTruthy();
     }));
 
