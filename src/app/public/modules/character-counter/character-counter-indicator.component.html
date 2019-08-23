@@ -5,3 +5,10 @@
 >
   {{currentCharacterCount + '/' + currentCharacterCountLimit}}
 </label>
+<span
+  aria-live="polite"
+  class="char-count-message"
+>
+  {{ currentCharacterCount }} characters out of {{ currentCharacterCountLimit }}.
+  {{ currentCharacterCount > currentCharacterCountLimit ? 'You are over the character limit.' : '' }}
+</span>
