@@ -44,7 +44,7 @@ export class CharacterCountTestComponent implements OnInit {
 
   }
 
-  public setCharacterCountLimit(limit: number) {
+  public setCharacterCountLimit(limit: number): void {
     this.maxCharacterCount = limit;
     this.changeDetector.markForCheck();
   }

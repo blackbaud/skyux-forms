@@ -100,7 +100,7 @@ export class SkyCharacterCounterInputDirective implements
     }
   }
 
-  public ngOnChanges() {
+  public ngOnChanges(): void {
     // Handle changes to character count limit
     this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
 
@@ -130,7 +130,7 @@ export class SkyCharacterCounterInputDirective implements
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
   public registerOnValidatorChange(fn: () => void): void { this._validatorChange = fn; }
 
-  public writeValue(value: any) {
+  public writeValue(value: any): void {
     this.modelValue = value;
   }
 

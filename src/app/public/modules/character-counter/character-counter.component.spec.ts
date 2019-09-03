@@ -25,16 +25,16 @@ import {
 
 describe('Character Counter component', () => {
 
-  function setInputWithChangeEvent(
+  function setInputWithKeyupEvent(
     element: HTMLElement,
     text: string,
     fixture: ComponentFixture<any>
-  ) {
+  ): void {
     const inputEl = element.querySelector('input');
     inputEl.value = text;
     fixture.detectChanges();
 
-    SkyAppTestUtility.fireDomEvent(inputEl, 'change');
+    SkyAppTestUtility.fireDomEvent(inputEl, 'keyup');
     fixture.detectChanges();
     tick();
   }
@@ -43,7 +43,7 @@ describe('Character Counter component', () => {
     element: HTMLElement,
     text: string,
     fixture: ComponentFixture<any>
-  ) {
+  ): void {
     const inputEl = element.querySelector('input');
     inputEl.value = text;
     fixture.detectChanges();
@@ -103,7 +103,7 @@ describe('Character Counter component', () => {
       /* tslint:enable */
       fixture.detectChanges();
 
-      SkyAppTestUtility.fireDomEvent(inputEl, 'change');
+      SkyAppTestUtility.fireDomEvent(inputEl, 'keyup');
       fixture.detectChanges();
       tick();
 
@@ -121,13 +121,13 @@ describe('Character Counter component', () => {
     }));
 
     it('should show the error detail message when appropriate', fakeAsync(() => {
-      setInputWithChangeEvent(nativeElement, 'abcde', fixture);
+      setInputWithKeyupEvent(nativeElement, 'abcde', fixture);
       expect(component.firstName.valid).toBeTruthy();
 
       setInputWithInputEvent(nativeElement, 'abcdef', fixture);
       expect(component.firstName.valid).toBeTruthy();
 
-      setInputWithChangeEvent(nativeElement, 'abcdef', fixture);
+      setInputWithKeyupEvent(nativeElement, 'abcdef', fixture);
       expect(component.firstName.valid).toBeFalsy();
     }));
 
