@@ -11,6 +11,14 @@ import {
 } from '@angular/core';
 
 import {
+  SkyFormsResourcesModule
+} from '../shared/forms-resources.module';
+
+import {
+  SkyI18nModule
+} from '@skyux/i18n';
+
+import {
   SkyCharacterCounterInputDirective
 } from './character-counter.directive';
 
@@ -25,7 +33,9 @@ import {
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    SkyFormsResourcesModule,
+    SkyI18nModule
   ],
   exports: [
     SkyCharacterCounterInputDirective,

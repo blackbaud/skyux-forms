@@ -8,7 +8,7 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Renderer
+  Renderer2
 } from '@angular/core';
 
 import {
@@ -74,11 +74,11 @@ export class SkyCharacterCounterInputDirective implements
   constructor(
     private changeDetector: ChangeDetectorRef,
     private elRef: ElementRef,
-    private renderer: Renderer
+    private renderer: Renderer2
   ) { }
 
-  public ngOnInit() {
-    this.renderer.setElementClass(this.elRef.nativeElement, 'sky-form-control', true);
+  public ngOnInit(): void {
+    this.renderer.addClass(this.elRef.nativeElement, 'sky-form-control');
     this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
   }
 
@@ -111,18 +111,18 @@ export class SkyCharacterCounterInputDirective implements
   }
 
   @HostListener('input', ['$event'])
-  public onInput(event: any) {
+  public onInput(event: any): void {
     this.control.markAsDirty();
     this.skyCharacterCounterIndicator.characterCount = event.target.value.length;
   }
 
-  @HostListener('change', ['$event'])
-  public onChange(event: any) {
+  @HostListener('keyup', ['$event'])
+  public onChange(event: any): void {
     this.writeValue(event.target.value);
   }
 
   @HostListener('blur')
-  public onBlur /* istanbul ignore next */ () {
+  public onBlur /* istanbul ignore next */ (): void {
     this._onTouched();
   }
 
@@ -159,7 +159,7 @@ export class SkyCharacterCounterInputDirective implements
   }
 
   private setInputValue(value: string): void {
-    this.renderer.setElementProperty(
+    this.renderer.setProperty(
       this.elRef.nativeElement,
       'value',
       value

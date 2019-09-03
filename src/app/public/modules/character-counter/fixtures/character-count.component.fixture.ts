@@ -22,14 +22,13 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CharacterCountTestComponent implements OnInit {
-  @ViewChild(SkyCharacterCounterInputDirective)
-  public inputDirective: SkyCharacterCounterInputDirective;
-
   public testForm: FormGroup;
   public firstName: FormControl;
-
   public firstNameLabel: string = 'Field label';
   public maxCharacterCount: number = 5;
+
+  @ViewChild(SkyCharacterCounterInputDirective)
+  public inputDirective: SkyCharacterCounterInputDirective;
 
   constructor(
     private formBuilder: FormBuilder,
