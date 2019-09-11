@@ -32,10 +32,18 @@
     box-shadow: 0 0 8px rgba(239, 64, 68, 0.6);
     border: 1px solid $sky-highlight-color-danger;
   }
+
+  .sky-file-attachment-none{
+    color: $sky-highlight-color-danger;
+  }
 }
 
 .sky-file-attachment-name {
   padding: 0 5px 0 5px;
+
+  a {
+    cursor: pointer;
+  }
 }
 
 .sky-file-attachment-delete {

@@ -31,6 +31,10 @@ import {
 } from './types/file-attachment-change';
 
 import {
+  SkyFileAttachmentClick
+} from './types/file-attachment-click';
+
+import {
   SkyFileAttachmentLabelComponent
 } from './file-attachment-label.component';
 
@@ -88,6 +92,9 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
   @Output()
   public fileChange = new EventEmitter<SkyFileAttachmentChange>();
 
+  @Output()
+  public fileClick = new EventEmitter<SkyFileAttachmentClick>();
+
   public acceptedOver: boolean = false;
 
   public get hasLabelComponent(): boolean {
@@ -138,13 +145,13 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
   ) { }
 
   public ngAfterViewInit(): void {
-    // This is needed to address a bug in Angular 4.
+    // This is needed to address a bug in Angular 7.
     // When a control value is set intially, its value is not represented on the view.
     // See: https://github.com/angular/angular/issues/13792
     // Of note is the parent check which allows us to determine if the form is reactive.
     // Without this check there is a changed before checked error
     /* istanbul ignore else */
-    if (this.control && this.control.parent) {
+    if (this.control) {
       setTimeout(() => {
         this.control.setValue(this.value, {
           emitEvent: false
@@ -252,7 +259,7 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
     this.emitFileChangeEvent(this.value);
   }
 
-  public getFileName(): string {
+  public getFileName(): string | undefined {
     if (this.value) {
       // tslint:disable-next-line: max-line-length
       let dropName = this.fileItemService.isFile(this.value) && this.value.file.name ? this.value.file.name : this.value.url;
@@ -263,11 +270,11 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
         return dropName;
       }
     } else {
-      return 'No file chosen';
+      return undefined;
     }
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.fileChange.complete();
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
@@ -276,7 +283,7 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
   public registerOnChange(fn: (value: any) => any): void { this._onChange = fn; }
   public registerOnTouched(fn: () => any): void { this._onTouched = fn; }
 
-  public writeValue(value: any) {
+  public writeValue(value: any): void {
     this.value = value;
     this.changeDetector.markForCheck();
   }
@@ -289,30 +296,36 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
     return undefined;
   }
 
-  private emitFileChangeEvent(currentFile: SkyFileItem): void {
-      if (currentFile && !currentFile.errorType) {
-        this.writeValue(currentFile);
-      }
-      this.fileChange.emit({
-        file: currentFile
-      } as SkyFileAttachmentChange);
+  public emitClick(): void {
+    this.fileClick.emit({
+      file: this.value
+    });
+  }
 
-      this.inputEl.nativeElement.value = '';
+  private emitFileChangeEvent(currentFile: SkyFileItem): void {
+    if (currentFile && !currentFile.errorType) {
+      this.writeValue(currentFile);
     }
+    this.fileChange.emit({
+      file: currentFile
+    } as SkyFileAttachmentChange);
+
+    this.inputEl.nativeElement.value = '';
+  }
 
   private loadFile(file: SkyFileItem): void {
     const reader = new FileReader();
 
-    reader.addEventListener('load', (event: any) => {
+    reader.addEventListener('load', (event: any): void => {
       file.url = event.target.result;
       this.emitFileChangeEvent(file);
     });
 
-    reader.addEventListener('error', (event: any) => {
+    reader.addEventListener('error', (event: any): void => {
       this.emitFileChangeEvent(file);
     });
 
-    reader.addEventListener('abort', (event: any) => {
+    reader.addEventListener('abort', (event: any): void => {
       this.emitFileChangeEvent(file);
     });
 

@@ -38,28 +38,31 @@
       ></sky-icon>
       {{ value ? 'Replace File' : 'Choose File' }}
     </button>
-    <span
-      class="sky-file-attachment-name"
-      (click)="onDropClicked()"
-    >
-      <i
-        class="sky-file-attachment-name-text"
-      >
+    <span class="sky-file-attachment-name">
+    <a *ngIf="value; else noFile" (click)="emitClick()">
         {{ getFileName() }}
-      </i>
+    </a>
     </span>
-    <button *ngIf="value"
-      type="button"
-      class="sky-btn sky-file-attachment-delete"
-      [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
-      (click)="deleteFileAttachment()"
+    <ng-template #noFile>
+      <i
+        class="sky-file-attachment-none"
+      >
+        No file chosen
+      </i>
+  </ng-template>
+  <button *ngIf="value"
+    type="button"
+    class="sky-btn sky-file-attachment-delete"
+    [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
+    (click)="deleteFileAttachment()"
+  >
+    <sky-icon
+      icon="trash"
+      size="md"
     >
-        <sky-icon
-          icon="trash"
-          size="md"
-        ></sky-icon>
-    </button>
-  </div>
+    </sky-icon>
+  </button>
+</div>
 
   <div *ngIf="value && isImage()"
   >

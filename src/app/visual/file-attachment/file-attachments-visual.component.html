@@ -98,34 +98,44 @@
 </h1>
 
 <div>
-    <sky-file-attachment
-      [validateFn]="validateFile"
-      [(ngModel)]="fileValue"
-      #foo="ngModel"
+  <sky-file-attachment
+    required
+    [validateFn]="validateFile"
+    [(ngModel)]="fileValue"
+    #file="ngModel"
+  >
+    <sky-file-attachment-label
+      *ngIf="showLabel"
     >
-      <sky-file-attachment-label
-        *ngIf="showLabel"
-      >
-        Field Label
-      </sky-file-attachment-label>
-    </sky-file-attachment>
+      Field Label
+    </sky-file-attachment-label>
+  </sky-file-attachment>
+  <div *ngIf="file?.invalid && file?.dirty"
+    class="sky-error-label"
+  >
+    Attach a file.
+  </div>
 </div>
 
 <table>
   <tr>
     <th>Touched</th>
-    <td>{{ foo.touched }}</td>
+    <td>{{ file.touched }}</td>
   </tr>
   <tr>
     <th>Pristine</th>
-    <td>{{ foo.pristine }}</td>
+    <td>{{ file.pristine }}</td>
   </tr>
   <tr>
     <th>Valid</th>
-    <td>{{ foo.valid }}</td>
+    <td>{{ file.valid }}</td>
   </tr>
   <tr>
     <th>Value</th>
     <td>{{ fileValue?.file.name || 'Nothing selected...' }}</td>
+  </tr>
+  <tr>
+    <th>Errors</th>
+    <td>{{ fileValue?.errorType }}</td>
   </tr>
 </table>
