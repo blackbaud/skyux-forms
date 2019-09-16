@@ -44,11 +44,11 @@
     </a>
     </span>
     <ng-template #noFile>
-      <i
-        class="sky-file-attachment-none"
+      <span
+        class="sky-file-attachment-none sky-deemphasized"
       >
         No file chosen
-      </i>
+      </span>
   </ng-template>
   <button *ngIf="value"
     type="button"
@@ -57,7 +57,7 @@
     (click)="deleteFileAttachment()"
   >
     <sky-icon
-      icon="trash"
+      icon="trash-o"
       size="md"
     >
     </sky-icon>
