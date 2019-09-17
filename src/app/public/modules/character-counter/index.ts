@@ -1,2 +1,2 @@
-export { SkyCharacterCounterIndicatorComponent } from './character-counter-indicator.component';
-export { SkyCharacterCounterModule } from './character-counter.module';
+export * from './character-counter-indicator.component';
+export * from './character-counter.module';

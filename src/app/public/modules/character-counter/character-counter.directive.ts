@@ -16,6 +16,7 @@ import {
   ControlValueAccessor,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  ValidationErrors,
   Validator
 } from '@angular/forms';
 
@@ -134,7 +135,7 @@ export class SkyCharacterCounterInputDirective implements
     this.modelValue = value;
   }
 
-  public validate(control: AbstractControl): { [key: string]: any } {
+  public validate(control: AbstractControl): ValidationErrors {
     if (!this.control) {
       this.control = control;
     }

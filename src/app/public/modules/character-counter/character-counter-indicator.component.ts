@@ -25,12 +25,13 @@ export class SkyCharacterCounterIndicatorComponent implements OnInit {
   public currentCharacterCount: number = 0;
   public characterCountMessage: string;
   public overLimitMessage: string;
+
   private ngUnsubscribe = new Subject<void>();
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private libResources: SkyLibResourcesService
-    ) { }
+  ) { }
 
   public ngOnInit(): void {
     this.getCharacterCountMessage();
