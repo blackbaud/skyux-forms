@@ -16,20 +16,26 @@ import {
 } from './character-count.component.fixture';
 
 import {
+  CharacterCountNoIndicatorTestComponent
+} from './character-count-no-indicator.component.fixture';
+
+import {
   SkyCharacterCounterModule
 } from '../character-counter.module';
 
 @NgModule({
   declarations: [
+    CharacterCountNoIndicatorTestComponent,
     CharacterCountTestComponent
   ],
   imports: [
     CommonModule,
-    SkyCharacterCounterModule,
     FormsModule,
+    SkyCharacterCounterModule,
     ReactiveFormsModule
   ],
   exports: [
+    CharacterCountNoIndicatorTestComponent,
     CharacterCountTestComponent
   ]
 })

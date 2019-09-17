@@ -63,7 +63,11 @@ export class SkyCharacterCounterInputDirective implements
   private set modelValue(value: string) {
     if (value !== this._modelValue) {
       this._modelValue = value;
-      this.skyCharacterCounterIndicator.characterCount = value ? value.length : 0;
+
+      if (this.skyCharacterCounterIndicator) {
+        this.skyCharacterCounterIndicator.characterCount = value ? value.length : 0;
+      }
+
       this.setInputValue(value);
       this._validatorChange();
       this._onChange(value);
@@ -80,7 +84,10 @@ export class SkyCharacterCounterInputDirective implements
 
   public ngOnInit(): void {
     this.renderer.addClass(this.elRef.nativeElement, 'sky-form-control');
-    this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
+
+    if (this.skyCharacterCounterIndicator) {
+      this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -103,7 +110,9 @@ export class SkyCharacterCounterInputDirective implements
 
   public ngOnChanges(): void {
     // Handle changes to character count limit
-    this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
+    if (this.skyCharacterCounterIndicator) {
+      this.skyCharacterCounterIndicator.characterCountLimit = this.skyCharacterCounterLimit;
+    }
 
     // Update errors
     if (this.control) {
@@ -114,7 +123,10 @@ export class SkyCharacterCounterInputDirective implements
   @HostListener('input', ['$event'])
   public onInput(event: any): void {
     this.control.markAsDirty();
-    this.skyCharacterCounterIndicator.characterCount = event.target.value.length;
+
+    if (this.skyCharacterCounterIndicator) {
+      this.skyCharacterCounterIndicator.characterCount = event.target.value.length;
+    }
   }
 
   @HostListener('keyup', ['$event'])

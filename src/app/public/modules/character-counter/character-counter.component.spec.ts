@@ -16,6 +16,10 @@ import {
 } from './fixtures/character-count.component.fixture';
 
 import {
+  CharacterCountNoIndicatorTestComponent
+} from './fixtures/character-count-no-indicator.component.fixture';
+
+import {
   CharacterCountTestModule
 } from './fixtures/character-count.module.fixture';
 
@@ -141,6 +145,62 @@ describe('Character Counter component', () => {
       fixture.detectChanges();
       expect(component.firstName.valid).toBeTruthy();
       expect(characterCountLabel.classList.contains('sky-error-label')).toBeFalsy();
+    }));
+
+    it('should pass accessibility', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(fixture.nativeElement).toBeAccessible();
+      });
+    }));
+  });
+
+  describe('without count indicator', () => {
+    let fixture: ComponentFixture<CharacterCountNoIndicatorTestComponent>;
+    let component: CharacterCountNoIndicatorTestComponent;
+    let nativeElement: HTMLElement;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(CharacterCountNoIndicatorTestComponent);
+      nativeElement = fixture.nativeElement as HTMLElement;
+      component = fixture.componentInstance;
+
+      fixture.detectChanges();
+    });
+
+    it('should handle undefined input', fakeAsync(() => {
+      const inputEl = nativeElement.querySelector('input');
+      /* tslint:disable */
+      inputEl.value = null;
+      /* tslint:enable */
+      fixture.detectChanges();
+
+      SkyAppTestUtility.fireDomEvent(inputEl, 'keyup');
+      fixture.detectChanges();
+      tick();
+
+      expect(component.firstName.valid).toBeTruthy();
+    }));
+
+    it('should show the error detail message when appropriate', fakeAsync(() => {
+      setInputWithKeyupEvent(nativeElement, 'abcde', fixture);
+      expect(component.firstName.valid).toBeTruthy();
+
+      setInputWithInputEvent(nativeElement, 'abcdef', fixture);
+      expect(component.firstName.valid).toBeTruthy();
+
+      setInputWithKeyupEvent(nativeElement, 'abcdef', fixture);
+      expect(component.firstName.valid).toBeFalsy();
+    }));
+
+    it('should handle changes to max character count', fakeAsync(() => {
+      component.setCharacterCountLimit(3);
+      fixture.detectChanges();
+      expect(component.firstName.valid).toBeFalsy();
+
+      component.setCharacterCountLimit(4);
+      fixture.detectChanges();
+      expect(component.firstName.valid).toBeTruthy();
     }));
 
     it('should pass accessibility', async(() => {
