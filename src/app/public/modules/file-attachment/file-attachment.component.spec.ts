@@ -499,7 +499,7 @@ describe('File attachment', () => {
     fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
-    expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
+    expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz...');
 
     // File with no name
     testFile = <SkyFileItem> {
@@ -534,7 +534,7 @@ describe('File attachment', () => {
     fileAttachmentInstance.writeValue(testFile);
     fixture.detectChanges();
 
-    expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz....');
+    expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz...');
   });
 
   it('should emit fileClick even when the uploaded file link is clicked', () => {

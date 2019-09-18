@@ -69,8 +69,6 @@ let uniqueId = 0;
   templateUrl: './file-attachment.component.html',
   styleUrls: ['./file-attachment.component.scss'],
   providers: [
-    SkyFileAttachmentService,
-    SkyFileItemService,
     SKY_FILE_ATTACHMENT_VALUE_ACCESSOR,
     SKY_FILE_ATTACHMENT_VALIDATOR
   ],
@@ -265,7 +263,7 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
       let dropName = this.fileItemService.isFile(this.value) && this.value.file.name ? this.value.file.name : this.value.url;
 
       if (dropName.length > 26) {
-        return dropName.slice(0, 26) + '....';
+        return dropName.slice(0, 26) + '...';
       } else {
         return dropName;
       }

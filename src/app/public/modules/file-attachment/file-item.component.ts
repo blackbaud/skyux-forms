@@ -23,8 +23,7 @@ import {
 @Component({
   selector: 'sky-file-item',
   templateUrl: './file-item.component.html',
-  styleUrls: ['./file-item.component.scss'],
-  providers: [SkyFileItemService]
+  styleUrls: ['./file-item.component.scss']
 })
 export class SkyFileItemComponent implements DoCheck {
   @Input()

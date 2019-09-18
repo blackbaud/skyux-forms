@@ -18,11 +18,10 @@
     (drop)="fileDrop($event)"
   >
     <input
-      aria-hidden="true"
       hidden
       tabindex="-1"
       type="file"
-      [attr.accept]="acceptedTypes ? acceptedTypes: null"
+      [attr.accept]="acceptedTypes || null"
       (change)="fileChangeEvent($event)"
       #fileInput
     >
