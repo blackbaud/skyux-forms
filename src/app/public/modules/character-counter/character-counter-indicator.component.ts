@@ -1,17 +1,8 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  OnInit
+  Component
 } from '@angular/core';
-
-import {
-  SkyLibResourcesService
-} from '@skyux/i18n';
-
-import {
-  Subject
-} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-character-counter-indicator',
@@ -19,23 +10,16 @@ import {
   styleUrls: ['./character-counter-indicator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyCharacterCounterIndicatorComponent implements OnInit {
-
-  public currentCharacterCountLimit: number = 0;
-  public currentCharacterCount: number = 0;
+export class SkyCharacterCounterIndicatorComponent {
   public characterCountMessage: string;
   public overLimitMessage: string;
 
-  private ngUnsubscribe = new Subject<void>();
+  private currentCharacterCountLimit: number = 0;
+  private currentCharacterCount: number = 0;
 
   constructor(
-    private changeDetector: ChangeDetectorRef,
-    private libResources: SkyLibResourcesService
+    private changeDetector: ChangeDetectorRef
   ) { }
-
-  public ngOnInit(): void {
-    this.getCharacterCountMessage();
-  }
 
   public get characterCount(): number {
     return this.currentCharacterCount;
@@ -43,7 +27,6 @@ export class SkyCharacterCounterIndicatorComponent implements OnInit {
 
   public set characterCount(count: number) {
     this.currentCharacterCount = count;
-    this.getCharacterCountMessage();
     this.changeDetector.markForCheck();
   }
 
@@ -53,19 +36,6 @@ export class SkyCharacterCounterIndicatorComponent implements OnInit {
 
   public set characterCountLimit(limit: number) {
     this.currentCharacterCountLimit = limit;
-    this.getCharacterCountMessage();
     this.changeDetector.markForCheck();
-  }
-
-  public getCharacterCountMessage(): void {
-    this.libResources.getString(
-      'skyux_character_count_message',
-      this.characterCount,
-      this.characterCountLimit
-    )
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(label => {
-        this.characterCountMessage = label;
-    });
   }
 }

@@ -1,13 +1,13 @@
 <span
   class="sky-character-count-label"
-  [ngClass]="{ 'sky-error-label': currentCharacterCount > currentCharacterCountLimit }"
+  [ngClass]="{ 'sky-error-label': characterCount > characterCountLimit }"
 >
-  {{currentCharacterCount + '/' + currentCharacterCountLimit}}
+  {{characterCount + '/' + characterCountLimit}}
 </span>
 <span
   aria-live="polite"
   class="sky-screen-reader-only"
 >
-  {{ characterCountMessage }}
-  {{ currentCharacterCount > currentCharacterCountLimit ? ('skyux_character_count_over_limit' | skyLibResources ) : '' }}
+  {{ characterCount }} {{ 'skyux_character_count_message' | skyLibResources }} {{ characterCountLimit }}.
+  {{ characterCount > characterCountLimit ? ('skyux_character_count_over_limit' | skyLibResources ) : '' }}
 </span>
