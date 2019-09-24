@@ -303,6 +303,40 @@ describe('Radio group component', function () {
     expect(radios.item(1).checked).toEqual(false);
   }));
 
+  it('should support resetting form control when fields are added dynamically', fakeAsync(function () {
+    componentInstance.radioForm.patchValue({
+      option: componentInstance.options[0]
+    });
+
+    fixture.detectChanges();
+
+    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Lillith Corharvest', disabled: false } });
+
+    // Toggle the field's generation on and off to make sure the form control's state
+    // isn't directly tied to the template's change detection.
+    componentInstance.radioGroupEnabled = false;
+    fixture.detectChanges();
+    tick();
+
+    componentInstance.radioGroupEnabled = true;
+    fixture.detectChanges();
+    tick();
+
+    componentInstance.radioGroupEnabled = false;
+    fixture.detectChanges();
+    tick();
+
+    componentInstance.radioControl.reset();
+    fixture.detectChanges();
+    tick();
+
+    /* tslint:disable:no-null-keyword */
+    expect(componentInstance.radioForm.value).toEqual({
+      option: null
+    });
+    /* tslint:enable */
+  }));
+
   it('should pass accessibility', async(() => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {

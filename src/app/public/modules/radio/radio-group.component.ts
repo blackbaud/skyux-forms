@@ -131,7 +131,6 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   public writeValue(value: any): void {
     this.value = value;
-    this.updateCheckedRadioFromValue();
   }
 
   public registerOnChange(fn: (value: any) => void): void {
