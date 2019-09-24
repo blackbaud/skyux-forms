@@ -1,3 +1,13 @@
+# 3.4.0 (2019-07-25)
+
+- Added the single file attachment component. [#60](https://github.com/blackbaud/skyux-forms/pull/60)
+
+- Added the character count component. [#61](https://github.com/blackbaud/skyux-forms/pull/61)
+
+- Fixed the file drop component trash icon. [#62](https://github.com/blackbaud/skyux-forms/pull/62)
+
+- Added CONTRIBUTING.md file. [#64](https://github.com/blackbaud/skyux-forms/pull/64)
+
 # 3.3.0 (2019-07-25)
 
 - Added the toggle switch component. [#54](https://github.com/blackbaud/skyux-forms/pull/54) (Thanks @[Blackbaud-JackMcElhinney](https://github.com/Blackbaud-JackMcElhinney)!)
