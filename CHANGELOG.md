@@ -1,4 +1,4 @@
-# 3.4.0 (2019-07-25)
+# 3.4.0 (2019-09-24)
 
 - Added the single file attachment component. [#60](https://github.com/blackbaud/skyux-forms/pull/60)
 
