@@ -275,6 +275,24 @@ describe('Radio group component', function () {
     expect(radioGroupDiv.getAttribute('aria-label')).toBe('radio-group-label-manual');
   }));
 
+  it('should set aria-required to undefined if value is not provided', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+
+    const radioGroupDiv = fixture.nativeElement.querySelector('.sky-radio-group');
+    expect(radioGroupDiv.getAttribute('aria-required')).toBeNull();
+  }));
+
+  it('should set the aria-required property correctly', fakeAsync(() => {
+    componentInstance.ariaRequired = true;
+
+    fixture.detectChanges();
+    tick();
+
+    const radioGroupDiv = fixture.nativeElement.querySelector('.sky-radio-group');
+    expect(radioGroupDiv.getAttribute('aria-required')).toBe('true');
+  }));
+
   it('should support boolean values', fakeAsync(function () {
     const booleanFixture = TestBed.createComponent(SkyRadioGroupBooleanTestComponent);
     const booleanComponent = booleanFixture.componentInstance;

@@ -30,8 +30,10 @@
       type="button"
       [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources"
       [attr.aria-labelledby]="(hasLabelComponent) ? labelElementId : null"
+      [attr.aria-required]="ariaRequired"
       (click)="onDropClicked()"
     >
+    foobar
       <sky-icon
         icon="folder-open-o"
       ></sky-icon>

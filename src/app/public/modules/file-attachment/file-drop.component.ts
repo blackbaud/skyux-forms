@@ -36,6 +36,9 @@ export class SkyFileDropComponent {
   public linkChanged = new EventEmitter<SkyFileLink>();
 
   @Input()
+  public ariaRequired: boolean;
+
+  @Input()
   public minFileSize: number = 0;
 
   @Input()

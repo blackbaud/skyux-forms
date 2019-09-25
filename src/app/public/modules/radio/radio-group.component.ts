@@ -51,6 +51,9 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   public ariaLabel: string;
 
   @Input()
+  public ariaRequired: string;
+
+  @Input()
   public set name(value: string) {
     this._name = value;
     this.updateRadioButtonNames();

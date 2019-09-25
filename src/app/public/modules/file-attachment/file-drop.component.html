@@ -12,7 +12,9 @@
       (dragenter)="fileDragEnter($event)"
       (dragleave)="fileDragLeave($event)"
       (drop)="fileDrop($event)"
-      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources">
+      [attr.aria-label]="'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources"
+      [attr.aria-required]="ariaRequired"
+    >
     </button>
 
     <input

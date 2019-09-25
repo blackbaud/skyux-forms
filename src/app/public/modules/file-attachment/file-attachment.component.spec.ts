@@ -1015,6 +1015,27 @@ describe('File attachment', () => {
     expect(imageEl).toBeFalsy();
   });
 
+  it('should not set aria-required attribute if no value is provided', fakeAsync(() => {
+    fileAttachmentInstance.ngAfterViewInit();
+    fileAttachmentInstance.ngAfterContentInit();
+    tick();
+    fixture.detectChanges();
+    const button = getButtonEl();
+
+    expect(button.getAttribute('aria-required')).toBeNull();
+  }));
+
+  it('should set aria-required attribute to true if true value is provided', fakeAsync(() => {
+    fileAttachmentInstance.ariaRequired = true;
+    fileAttachmentInstance.ngAfterViewInit();
+    fileAttachmentInstance.ngAfterContentInit();
+    tick();
+    fixture.detectChanges();
+    const button = getButtonEl();
+
+    expect(button.getAttribute('aria-required')).toBe('true');
+  }));
+
   it('should pass accessibility', async(() => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {

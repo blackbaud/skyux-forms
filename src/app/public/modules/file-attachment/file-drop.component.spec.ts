@@ -798,6 +798,21 @@ describe('File drop component', () => {
     expect(el.querySelectorAll('button[type="button"]').length).toBe(1);
   });
 
+  it('should not set aria-required attribute if no value is provided', () => {
+    fixture.detectChanges();
+    const fileDrop = getDropEl();
+
+    expect(fileDrop.getAttribute('aria-required')).toBeNull();
+  });
+
+  it('should set aria-required attribute to true if true value is provided', () => {
+    componentInstance.ariaRequired = true;
+    fixture.detectChanges();
+    const fileDrop = getDropEl();
+
+    expect(fileDrop.getAttribute('aria-required')).toBe('true');
+  });
+
   it('should pass accessibility', async(() => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {

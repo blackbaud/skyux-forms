@@ -30,6 +30,8 @@ export class SkyRadioGroupTestComponent {
 
   public ariaLabel: string;
 
+  public ariaRequired: boolean;
+
   public options = [
     { name: 'Lillith Corharvest', disabled: false },
     { name: 'Harima Kenji', disabled: false },
