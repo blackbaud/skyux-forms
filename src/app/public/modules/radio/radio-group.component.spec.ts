@@ -310,7 +310,9 @@ describe('Radio group component', function () {
 
     fixture.detectChanges();
 
-    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Lillith Corharvest', disabled: false } });
+    const expectedValue = { option: { name: 'Lillith Corharvest', disabled: false } };
+
+    expect(componentInstance.radioForm.value).toEqual(expectedValue);
 
     // Toggle the field's generation on and off to make sure the form control's state
     // isn't directly tied to the template's change detection.
@@ -321,6 +323,8 @@ describe('Radio group component', function () {
     componentInstance.radioGroupEnabled = true;
     fixture.detectChanges();
     tick();
+
+    expect(componentInstance.radioForm.value).toEqual(expectedValue);
 
     componentInstance.radioGroupEnabled = false;
     fixture.detectChanges();
