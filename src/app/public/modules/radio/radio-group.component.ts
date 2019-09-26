@@ -61,11 +61,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
 
   @Input()
   public set value(value: any) {
-    // The null check is needed to address a bug in Angular 4.
-    // writeValue is being called twice, first time with a phantom null value
-    // See: https://github.com/angular/angular/issues/14988
-    // tslint:disable-next-line:no-null-keyword
-    const isNewValue = value !== this._value && value !== null;
+    const isNewValue = value !== this._value;
 
     if (isNewValue) {
       this._value = value;
