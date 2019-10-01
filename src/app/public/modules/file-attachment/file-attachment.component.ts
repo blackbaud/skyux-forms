@@ -79,9 +79,6 @@ export class SkyFileAttachmentComponent implements ControlValueAccessor, AfterVi
   public acceptedTypes: string;
 
   @Input()
-  public ariaRequired: boolean;
-
-  @Input()
   public maxFileSize: number = 500000;
 
   @Input()

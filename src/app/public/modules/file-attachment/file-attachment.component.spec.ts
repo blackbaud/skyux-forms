@@ -1016,6 +1016,8 @@ describe('File attachment', () => {
   });
 
   it('should not set aria-required attribute if no value is provided', fakeAsync(() => {
+    // Remove required validation.
+    fixture.componentInstance.fileForm.controls.attachment.setValidators(undefined);
     fileAttachmentInstance.ngAfterViewInit();
     fileAttachmentInstance.ngAfterContentInit();
     tick();
@@ -1025,8 +1027,7 @@ describe('File attachment', () => {
     expect(button.getAttribute('aria-required')).toBeNull();
   }));
 
-  it('should set aria-required attribute to true if true value is provided', fakeAsync(() => {
-    fileAttachmentInstance.ariaRequired = true;
+  it('should set aria-required attribute to true if input is required', fakeAsync(() => {
     fileAttachmentInstance.ngAfterViewInit();
     fileAttachmentInstance.ngAfterContentInit();
     tick();
