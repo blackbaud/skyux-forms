@@ -66,3 +66,70 @@
     [checked]="false">
   </sky-checkbox>
 </div>
+<div>
+  <h3>
+    Template-driven checkbox
+  </h3>
+  <p>
+    <sky-checkbox
+      required
+      ngModel
+      #fooModel="ngModel"
+    >
+      <sky-checkbox-label
+        class="sky-control-label-required"
+      >
+        Checked Checkbox
+      </sky-checkbox-label>
+    </sky-checkbox>
+  </p>
+
+  <table>
+    <tr>
+      <th>Touched</th>
+      <td>{{ fooModel.touched }}</td>
+    </tr>
+    <tr>
+      <th>Pristine</th>
+      <td>{{ fooModel.pristine }}</td>
+    </tr>
+    <tr>
+      <th>Valid</th>
+      <td>{{ fooModel.valid }}</td>
+    </tr>
+  </table>
+
+  <h3>
+    Reactive checkbox
+  </h3>
+
+  <form
+    [formGroup]="reactiveFormGroup"
+    novalidate
+  >
+      <sky-checkbox
+        formControlName="reactiveCheckbox"
+      >
+        <sky-checkbox-label
+          class="sky-control-label-required"
+        >
+          Unchecked Checkbox
+        </sky-checkbox-label>
+      </sky-checkbox>
+  </form>
+
+  <table>
+    <tr>
+      <th>Touched</th>
+      <td>{{ reactiveFormGroup.touched }}</td>
+    </tr>
+    <tr>
+      <th>Pristine</th>
+      <td>{{ reactiveFormGroup.pristine }}</td>
+    </tr>
+    <tr>
+      <th>Valid</th>
+      <td>{{ reactiveFormGroup.valid }}</td>
+    </tr>
+  </table>
+</div>

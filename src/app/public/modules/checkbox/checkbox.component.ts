@@ -1,5 +1,6 @@
 
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   forwardRef,
@@ -10,10 +11,11 @@ import {
 import {
   AbstractControl,
   ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator,
-  NG_VALIDATORS
+  Validator
 } from '@angular/forms';
 
 /**
@@ -37,13 +39,13 @@ const SKY_CHECKBOX_VALIDATOR = {
   useExisting: forwardRef(() => SkyCheckboxComponent),
   multi: true
 };
+// tslint:enable
 
 // A simple change event emitted by the SkyCheckbox component.
 export class SkyCheckboxChange {
   public source: SkyCheckboxComponent;
   public checked: boolean;
 }
-// tslint:enable
 
 @Component({
   selector: 'sky-checkbox',
@@ -53,7 +55,7 @@ export class SkyCheckboxChange {
     SKY_CHECKBOX_VALIDATOR
   ]
 })
-export class SkyCheckboxComponent implements ControlValueAccessor, Validator {
+export class SkyCheckboxComponent implements AfterViewInit, ControlValueAccessor, Validator {
 
   /**
    * Hidden label for screen readers.
@@ -119,10 +121,15 @@ export class SkyCheckboxComponent implements ControlValueAccessor, Validator {
     return this._checked;
   }
 
+  public required: boolean = false;
+
   private control: AbstractControl;
   private isFirstChange = true;
   private _checkboxType: string;
   private _checked: boolean = false;
+
+  public ngAfterViewInit(): void {
+  }
 
   /**
    * Implemented as part of ControlValueAccessor.
@@ -175,6 +182,15 @@ export class SkyCheckboxComponent implements ControlValueAccessor, Validator {
   public validate(control: AbstractControl): ValidationErrors {
     if (!this.control) {
       this.control = control;
+
+      const vf = this.control.validator(new FormControl());
+      this.required = vf ? vf.required : undefined;
+    }
+
+    if (this.required && !control.value) {
+      return {
+        'required': true
+      };
     }
 
     return;

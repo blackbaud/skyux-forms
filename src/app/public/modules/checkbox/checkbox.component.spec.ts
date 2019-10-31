@@ -31,6 +31,7 @@ import {
   SkyCheckboxModule
 } from './';
 
+// #region helpers
 /** Simple component for testing a single checkbox. */
 @Component({
   template: `
@@ -64,7 +65,7 @@ class SingleCheckboxComponent {
   template: `
   <div>
     <form>
-      <sky-checkbox name="cb" [(ngModel)]="isGood" #wut>
+      <sky-checkbox name="cb"  [(ngModel)]="isGood" [attr.required]="(required) ? true : null" #wut>
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>
@@ -75,6 +76,25 @@ class SingleCheckboxComponent {
 })
 class CheckboxWithFormDirectivesComponent {
   public isGood: boolean = false;
+  public required: boolean = false;
+}
+
+/** Simple component for testing a required template-driven checkbox. */
+@Component({
+  template: `
+  <div>
+    <form>
+      <sky-checkbox name="cb" ngModel required>
+        <sky-checkbox-label>
+          Be good
+        </sky-checkbox-label>
+      </sky-checkbox>
+    </form>
+  </div>
+  `
+})
+class CheckboxWithRequiredComponent {
+
 }
 
 /** Simple component for testing an MdCheckbox with ngModel. */
@@ -162,6 +182,7 @@ class CheckboxWithOnPushChangeDetectionComponent {
   public isChecked: boolean = false;
   constructor(public ref: ChangeDetectorRef) {}
 }
+// #endregion
 
 describe('Checkbox component', () => {
   let fixture: ComponentFixture<any>;
@@ -183,6 +204,7 @@ describe('Checkbox component', () => {
         CheckboxWithOnPushChangeDetectionComponent,
         CheckboxWithTabIndexComponent,
         CheckboxWithReactiveFormComponent,
+        CheckboxWithRequiredComponent,
         MultipleCheckboxesComponent,
         SingleCheckboxComponent
       ],
@@ -589,6 +611,40 @@ describe('Checkbox component', () => {
           fixture.detectChanges();
           expect(inputElement.checked).toBe(true);
         });
+      });
+    }));
+
+    fit('should not have required and aria-reqiured attributes', () => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('required')).toBeNull();
+        expect(inputElement.getAttribute('aria-required')).toBeNull();
+      });
+    });
+  });
+
+  describe('with ngModel and required', () => {
+    let checkboxElement: DebugElement;
+    let inputElement: HTMLInputElement;
+    let checkboxNativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(CheckboxWithRequiredComponent);
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+        checkboxNativeElement = checkboxElement.nativeElement;
+        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+      });
+    }));
+
+    fit('should have required and aria-reqiured attributes', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('required')).not.toBeNull();
+        expect(inputElement.getAttribute('aria-required')).toEqual('true');
       });
     }));
   });
