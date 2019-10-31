@@ -18,7 +18,8 @@ import {
   NgModel,
   FormControl,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 
 import {
@@ -65,7 +66,7 @@ class SingleCheckboxComponent {
   template: `
   <div>
     <form>
-      <sky-checkbox name="cb"  [(ngModel)]="isGood" [attr.required]="(required) ? true : null" #wut>
+      <sky-checkbox name="cb" [(ngModel)]="isGood" #wut>
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>
@@ -113,6 +114,26 @@ class CheckboxWithRequiredComponent {
 })
 class CheckboxWithReactiveFormComponent {
   public checkbox1: FormControl = new FormControl(false);
+
+  public checkboxForm = new FormGroup({'checkbox1': this.checkbox1});
+}
+
+/** Simple component for testing a reactive form checkbox with required validator. */
+@Component({
+  template: `
+  <div>
+    <form [formGroup]="checkboxForm">
+      <sky-checkbox name="cb" formControlName="checkbox1" #wut>
+        <sky-checkbox-label>
+          Be good
+        </sky-checkbox-label>
+      </sky-checkbox>
+    </form>
+  </div>
+  `
+})
+class CheckboxWithReactiveFormRequiredComponent {
+  public checkbox1: FormControl = new FormControl(false, Validators.required);
 
   public checkboxForm = new FormGroup({'checkbox1': this.checkbox1});
 }
@@ -204,6 +225,7 @@ describe('Checkbox component', () => {
         CheckboxWithOnPushChangeDetectionComponent,
         CheckboxWithTabIndexComponent,
         CheckboxWithReactiveFormComponent,
+        CheckboxWithReactiveFormRequiredComponent,
         CheckboxWithRequiredComponent,
         MultipleCheckboxesComponent,
         SingleCheckboxComponent
@@ -614,7 +636,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should not have required and aria-reqiured attributes', () => {
+    it('should not have required and aria-reqiured attributes when not required', () => {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
         expect(inputElement.getAttribute('required')).toBeNull();
@@ -737,6 +759,40 @@ describe('Checkbox component', () => {
             expect(inputElement.checked).toBe(false);
           });
         });
+      });
+    }));
+
+    it('should not have required and aria-reqiured attributes when not required', () => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('required')).toBeNull();
+        expect(inputElement.getAttribute('aria-required')).toBeNull();
+      });
+    });
+  });
+
+  describe('with reactive form and required', () => {
+    let checkboxElement: DebugElement;
+    let inputElement: HTMLInputElement;
+    let checkboxNativeElement: HTMLElement;
+
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(CheckboxWithReactiveFormRequiredComponent);
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+        checkboxNativeElement = checkboxElement.nativeElement;
+        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+      });
+    }));
+
+    it('should have required and aria-reqiured attributes', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('required')).not.toBeNull();
+        expect(inputElement.getAttribute('aria-required')).toEqual('true');
       });
     }));
   });
