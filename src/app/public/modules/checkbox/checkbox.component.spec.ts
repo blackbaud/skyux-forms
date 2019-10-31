@@ -649,6 +649,8 @@ describe('Checkbox component', () => {
     let checkboxElement: DebugElement;
     let inputElement: HTMLInputElement;
     let checkboxNativeElement: HTMLElement;
+    let ngModel: NgModel;
+    let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(CheckboxWithRequiredComponent);
@@ -658,6 +660,10 @@ describe('Checkbox component', () => {
         checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        labelElement =
+          <HTMLLabelElement>checkboxElement
+            .nativeElement.querySelector('label.sky-checkbox-wrapper');
       });
     }));
 
@@ -668,6 +674,15 @@ describe('Checkbox component', () => {
         expect(inputElement.getAttribute('required')).not.toBeNull();
         expect(inputElement.getAttribute('aria-required')).toEqual('true');
       });
+    }));
+
+    it('should mark form as invalid when required checkbox is not checked', async(() => {
+      fixture.detectChanges();
+      expect(ngModel.valid).toBe(false);
+      labelElement.click();
+      expect(ngModel.valid).toBe(true);
+      labelElement.click();
+      expect(ngModel.valid).toBe(false);
     }));
   });
 
@@ -773,8 +788,11 @@ describe('Checkbox component', () => {
 
   describe('with reactive form and required', () => {
     let checkboxElement: DebugElement;
+    let testComponent: CheckboxWithReactiveFormComponent;
     let inputElement: HTMLInputElement;
     let checkboxNativeElement: HTMLElement;
+    let formControl: FormControl;
+    let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
       fixture = TestBed.createComponent(CheckboxWithReactiveFormRequiredComponent);
@@ -783,7 +801,12 @@ describe('Checkbox component', () => {
       fixture.whenStable().then(() => {
         checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxElement.nativeElement;
+        testComponent = fixture.debugElement.componentInstance;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+        formControl = testComponent.checkbox1;
+        labelElement =
+          <HTMLLabelElement>checkboxElement
+            .nativeElement.querySelector('label.sky-checkbox-wrapper');
       });
     }));
 
@@ -794,6 +817,15 @@ describe('Checkbox component', () => {
         expect(inputElement.getAttribute('required')).not.toBeNull();
         expect(inputElement.getAttribute('aria-required')).toEqual('true');
       });
+    }));
+
+    it('should mark form as invalid when required checkbox is not checked', async(() => {
+      fixture.detectChanges();
+      expect(formControl.valid).toBe(false);
+      labelElement.click();
+      expect(formControl.valid).toBe(true);
+      labelElement.click();
+      expect(formControl.valid).toBe(false);
     }));
   });
 
