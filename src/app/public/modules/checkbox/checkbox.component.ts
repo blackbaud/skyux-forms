@@ -1,6 +1,5 @@
 
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   forwardRef,
@@ -55,7 +54,7 @@ export class SkyCheckboxChange {
     SKY_CHECKBOX_VALIDATOR
   ]
 })
-export class SkyCheckboxComponent implements AfterViewInit, ControlValueAccessor, Validator {
+export class SkyCheckboxComponent implements ControlValueAccessor, Validator {
 
   /**
    * Hidden label for screen readers.
@@ -127,9 +126,6 @@ export class SkyCheckboxComponent implements AfterViewInit, ControlValueAccessor
   private isFirstChange = true;
   private _checkboxType: string;
   private _checked: boolean = false;
-
-  public ngAfterViewInit(): void {
-  }
 
   /**
    * Implemented as part of ControlValueAccessor.

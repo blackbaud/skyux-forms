@@ -614,7 +614,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    fit('should not have required and aria-reqiured attributes', () => {
+    it('should not have required and aria-reqiured attributes', () => {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
         expect(inputElement.getAttribute('required')).toBeNull();
@@ -639,7 +639,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    fit('should have required and aria-reqiured attributes', async(() => {
+    it('should have required and aria-reqiured attributes', async(() => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
