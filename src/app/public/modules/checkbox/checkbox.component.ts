@@ -179,6 +179,8 @@ export class SkyCheckboxComponent implements ControlValueAccessor, Validator {
     if (!this.control) {
       this.control = control;
 
+      // Get required state from AbstractControl.
+      // https://github.com/angular/components/issues/2574#issuecomment-461185408
       const vf = this.control.validator(new FormControl());
       this.required = vf ? vf.required : undefined;
     }
