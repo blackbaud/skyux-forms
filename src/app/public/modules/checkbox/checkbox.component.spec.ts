@@ -84,7 +84,7 @@ class CheckboxWithFormDirectivesComponent {
   template: `
   <div>
     <form>
-      <sky-checkbox name="cb" ngModel [required]="required">
+      <sky-checkbox name="cb" ngModel [required]="true">
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>
@@ -93,9 +93,7 @@ class CheckboxWithFormDirectivesComponent {
   </div>
   `
 })
-class CheckboxWithRequiredComponent {
-  public required = true;
-}
+class CheckboxWithRequiredComponent {}
 
 /** Simple component for testing an MdCheckbox with ngModel. */
 @Component({

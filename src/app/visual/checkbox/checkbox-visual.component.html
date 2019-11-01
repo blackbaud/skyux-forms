@@ -1,4 +1,4 @@
-<!-- <div id="screenshot-checkbox">
+<div id="screenshot-checkbox">
   <sky-checkbox [checked]="true">
     <sky-checkbox-label>Checked Checkbox</sky-checkbox-label>
   </sky-checkbox>
@@ -65,7 +65,7 @@
     label="wrong"
     [checked]="false">
   </sky-checkbox>
-</div> -->
+</div>
 <div>
   <h3>
     Template-driven checkbox
@@ -73,7 +73,7 @@
   <p>
     <sky-checkbox
       ngModel
-      required
+      [required]="required"
       #fooModel="ngModel"
     >
       <sky-checkbox-label
@@ -99,7 +99,7 @@
     </tr>
   </table>
 
-  <!-- <h3>
+  <h3>
     Reactive checkbox
   </h3>
 
@@ -131,7 +131,7 @@
       <th>Valid</th>
       <td>{{ reactiveFormGroup.valid }}</td>
     </tr>
-  </table> -->
+  </table>
 </div>
 
 <button (click)="toggleRequired()">Toggle required</button>
