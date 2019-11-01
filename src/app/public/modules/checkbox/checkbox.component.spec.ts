@@ -84,7 +84,7 @@ class CheckboxWithFormDirectivesComponent {
   template: `
   <div>
     <form>
-      <sky-checkbox name="cb" ngModel [required]="true">
+      <sky-checkbox name="cb" ngModel [required]="required">
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>
@@ -93,7 +93,25 @@ class CheckboxWithFormDirectivesComponent {
   </div>
   `
 })
-class CheckboxWithRequiredComponent {}
+class CheckboxWithRequiredInputComponent {
+  public required = true;
+}
+
+/** Simple component for testing a required template-driven checkbox. */
+@Component({
+  template: `
+  <div>
+    <form>
+      <sky-checkbox name="cb" ngModel required>
+        <sky-checkbox-label>
+          Be good
+        </sky-checkbox-label>
+      </sky-checkbox>
+    </form>
+  </div>
+  `
+})
+class CheckboxWithRequiredAttributeComponent {}
 
 /** Simple component for testing an MdCheckbox with ngModel. */
 @Component({
@@ -241,7 +259,8 @@ describe('Checkbox component', () => {
         CheckboxWithReactiveFormComponent,
         CheckboxWithReactiveFormRequiredInputComponent,
         CheckboxWithReactiveFormRequiredValidatorComponent,
-        CheckboxWithRequiredComponent,
+        CheckboxWithRequiredAttributeComponent,
+        CheckboxWithRequiredInputComponent,
         MultipleCheckboxesComponent,
         SingleCheckboxComponent
       ],
@@ -660,7 +679,70 @@ describe('Checkbox component', () => {
     });
   });
 
-  describe('with ngModel and required', () => {
+  describe('with ngModel and required input', () => {
+    let checkboxElement: DebugElement;
+    let testComponent: CheckboxWithRequiredInputComponent;
+    let inputElement: HTMLInputElement;
+    let checkboxNativeElement: HTMLElement;
+    let ngModel: NgModel;
+    let labelElement: HTMLLabelElement;
+
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(CheckboxWithRequiredInputComponent);
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
+        testComponent = fixture.componentInstance;
+        checkboxNativeElement = checkboxElement.nativeElement;
+        inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
+        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        labelElement =
+          <HTMLLabelElement>checkboxElement
+            .nativeElement.querySelector('label.sky-checkbox-wrapper');
+      });
+    }));
+
+    it('should have required and aria-reqiured attributes', async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('required')).not.toBeNull();
+        expect(inputElement.getAttribute('aria-required')).toEqual('true');
+      });
+    }));
+
+    it('should not have required and aria-reqiured attributes when input is false', async(() => {
+      fixture.detectChanges();
+      testComponent.required = false;
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('required')).toBeNull();
+        expect(inputElement.getAttribute('aria-required')).not.toEqual('true');
+      });
+    }));
+
+    it('should mark form as invalid when required input is true and checkbox is not checked', async(() => {
+      fixture.detectChanges();
+      expect(ngModel.valid).toBe(false);
+      labelElement.click();
+      expect(ngModel.valid).toBe(true);
+      labelElement.click();
+      expect(ngModel.valid).toBe(false);
+    }));
+
+    it('should not mark form as invalid when required input is false and checkbox is not checked', async(() => {
+      testComponent.required = false;
+      fixture.detectChanges();
+      expect(ngModel.valid).toBe(true);
+      labelElement.click();
+      expect(ngModel.valid).toBe(true);
+      labelElement.click();
+      expect(ngModel.valid).toBe(true);
+    }));
+  });
+
+  describe('with ngModel and required attribute', () => {
     let checkboxElement: DebugElement;
     let inputElement: HTMLInputElement;
     let checkboxNativeElement: HTMLElement;
@@ -668,7 +750,7 @@ describe('Checkbox component', () => {
     let labelElement: HTMLLabelElement;
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(CheckboxWithRequiredComponent);
+      fixture = TestBed.createComponent(CheckboxWithRequiredAttributeComponent);
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {
