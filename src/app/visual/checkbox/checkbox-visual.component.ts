@@ -23,14 +23,27 @@ export class CheckboxVisualComponent implements OnInit {
 
   public reactiveFormGroup: FormGroup;
 
+  public required: boolean = true;
+
   constructor(
     private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
     this.reactiveFormGroup = this.formBuilder.group(
-      { reactiveCheckbox: [ undefined, Validators.required ] }
+      { reactiveCheckbox: [ undefined, Validators.requiredTrue ] }
     );
+  }
+
+  public toggleRequired(): void {
+    this.required = !this.required;
+    if (this.required) {
+      this.reactiveFormGroup.get('reactiveCheckbox').setValidators(Validators.requiredTrue);
+    } else {
+      this.reactiveFormGroup.get('reactiveCheckbox').setValidators(undefined);
+    }
+
+    this.reactiveFormGroup.get('reactiveCheckbox').updateValueAndValidity();
   }
 
 }
