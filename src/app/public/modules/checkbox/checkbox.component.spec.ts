@@ -15,13 +15,12 @@ import {
 } from '@angular/platform-browser';
 import {
   FormsModule,
+  NgForm,
   NgModel,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
-  NgControl,
-  NgForm
+  Validators
 } from '@angular/forms';
 
 import {
