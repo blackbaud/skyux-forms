@@ -8,11 +8,11 @@
     [checked]="checked"
     [disabled]="disabled"
     [name]="name"
+    [required]="required"
     [tabIndex]="tabindex"
     [attr.aria-label]="label"
     [attr.aria-labelledby]="labelledBy"
     [attr.aria-required]="(required) ? true : null"
-    [attr.required]="(required) ? true : null"
     (blur)="onInputBlur()"
     (change)="onInteractionEvent($event)"/>
   <span

@@ -3,19 +3,16 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Optional,
   Output,
-  Self,
-  SimpleChanges
+  Self
 } from '@angular/core';
 
 import {
   AbstractControl,
   ControlValueAccessor,
-  NgControl,
-  Validators
+  NgControl
 } from '@angular/forms';
 
 /**
@@ -33,7 +30,7 @@ export class SkyCheckboxChange {
   selector: 'sky-checkbox',
   templateUrl: './checkbox.component.html'
 })
-export class SkyCheckboxComponent implements ControlValueAccessor, OnChanges, OnInit {
+export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
 
   /**
    * Hidden label for screen readers.
@@ -100,14 +97,24 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnChanges, On
   }
 
   /**
-   * Indicates if the checkbox must be checked to be valid. This property accepts a boolean values.
+   * Indicates if the checkbox must be checked to be valid. This property accepts boolean values.
    */
   @Input()
-  public required: boolean;
+  set required(value: boolean) {
+    this._required = this.coerceBooleanProperty(value);
+  }
+
+  get required(): boolean {
+    return this._required;
+  }
 
   private isFirstChange = true;
+
   private _checkboxType: string;
+
   private _checked: boolean = false;
+
+  private _required: boolean = false;
 
   constructor(
     @Self() @Optional() private ngControl: NgControl
@@ -119,21 +126,8 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnChanges, On
 
   public ngOnInit(): void {
     if (this.ngControl) {
-      this.required = this.hasRequiredValidation(this.ngControl);
-    }
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    // If consumer changes `required` input, update the validators and check for validity.
-    // Check for both true and empty string to capture using `required` attribute alone
-    // vs. assigning a boolean value.
-    if (changes['required'] && this.ngControl && this.ngControl.control) {
-      this.ngControl.control.setValidators(
-        changes['required'].currentValue || changes['required'].currentValue === ''
-        ? Validators.requiredTrue
-        : undefined
-      );
-      this.ngControl.control.updateValueAndValidity();
+      // Backwards compatibility support for anyone still using Validators.Required.
+      this.required = this.required || this.hasRequiredValidation(this.ngControl);
     }
   }
 
@@ -214,14 +208,19 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnChanges, On
    * https://github.com/angular/angular/issues/13461#issuecomment-340368046
    */
   private hasRequiredValidation(ngControl: NgControl): boolean {
-    const validatorFn = ngControl.validator || ngControl.control.validator;
-    if (validatorFn) {
-      const validator = validatorFn({} as AbstractControl);
+    const abstractControl = ngControl.control as AbstractControl;
+    if (abstractControl && abstractControl.validator) {
+      const validator = abstractControl.validator({} as AbstractControl);
       if (validator && validator.required) {
         return true;
       }
     }
     return false;
+  }
+
+  /** Coerces a data-bound value (typically a string) to a boolean. */
+  private coerceBooleanProperty(value: any): boolean {
+    return value !== undefined && `${value}` !== 'false';
   }
 
 }

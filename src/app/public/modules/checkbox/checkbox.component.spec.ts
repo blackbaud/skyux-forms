@@ -19,7 +19,9 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
+  NgControl,
+  NgForm
 } from '@angular/forms';
 
 import {
@@ -137,7 +139,7 @@ class CheckboxWithReactiveFormComponent {
   template: `
   <div>
     <form [formGroup]="checkboxForm">
-      <sky-checkbox name="cb" formControlName="checkbox1" [required]="true" #wut>
+      <sky-checkbox name="cb" formControlName="checkbox1" [required]="required" #wut>
         <sky-checkbox-label>
           Be good
         </sky-checkbox-label>
@@ -149,6 +151,7 @@ class CheckboxWithReactiveFormComponent {
 class CheckboxWithReactiveFormRequiredInputComponent {
   public checkbox1: FormControl = new FormControl(false);
   public checkboxForm = new FormGroup({'checkbox1': this.checkbox1});
+  public required = true;
 }
 
 /** Simple component for testing a reactive form checkbox with required validator. */
@@ -269,6 +272,9 @@ describe('Checkbox component', () => {
         FormsModule,
         ReactiveFormsModule,
         SkyCheckboxModule
+      ],
+      providers: [
+        NgForm
       ]
     });
   });
@@ -957,6 +963,17 @@ describe('Checkbox component', () => {
         expect(inputElement.getAttribute('required')).not.toBeNull();
         expect(inputElement.getAttribute('aria-required')).toEqual('true');
       });
+    }));
+
+    fit('should update validator when required input is changed', async(() => {
+      fixture.detectChanges();
+      expect(formControl.valid).toBe(false);
+      testComponent.required = false;
+      fixture.detectChanges();
+      expect(formControl.valid).toBe(true);
+      testComponent.required = true;
+      fixture.detectChanges();
+      expect(formControl.valid).toBe(false);
     }));
 
     it('should mark form as invalid when required checkbox is not checked', async(() => {

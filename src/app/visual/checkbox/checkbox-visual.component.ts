@@ -5,8 +5,7 @@ import {
 
 import {
   FormBuilder,
-  FormGroup,
-  Validators
+  FormGroup
 } from '@angular/forms';
 
 @Component({
@@ -31,19 +30,12 @@ export class CheckboxVisualComponent implements OnInit {
 
   public ngOnInit(): void {
     this.reactiveFormGroup = this.formBuilder.group(
-      { reactiveCheckbox: [ undefined, Validators.requiredTrue ] }
+      { reactiveCheckbox: [ undefined ] }
     );
   }
 
   public toggleRequired(): void {
     this.required = !this.required;
-    if (this.required) {
-      this.reactiveFormGroup.get('reactiveCheckbox').setValidators(Validators.requiredTrue);
-    } else {
-      this.reactiveFormGroup.get('reactiveCheckbox').setValidators(undefined);
-    }
-
-    this.reactiveFormGroup.get('reactiveCheckbox').updateValueAndValidity();
   }
 
 }
