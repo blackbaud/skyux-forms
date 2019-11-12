@@ -965,7 +965,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    fit('should update validator when required input is changed', async(() => {
+    it('should update validator when required input is changed', async(() => {
       fixture.detectChanges();
       expect(formControl.valid).toBe(false);
       testComponent.required = false;
