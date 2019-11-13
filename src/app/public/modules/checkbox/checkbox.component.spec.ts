@@ -682,6 +682,13 @@ describe('Checkbox component', () => {
         expect(inputElement.getAttribute('aria-required')).toBeNull();
       });
     });
+
+    it('should not have "sky-control-label-required" class', () => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(labelElement).not.toHaveCssClass('sky-control-label-required');
+      });
+    });
   });
 
   describe('with ngModel and required input', () => {
@@ -716,6 +723,13 @@ describe('Checkbox component', () => {
         expect(inputElement.getAttribute('aria-required')).toEqual('true');
       });
     }));
+
+    it('should have "sky-control-label-required" class', () => {
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+        expect(labelElement).toHaveCssClass('sky-control-label-required');
+      });
+    });
 
     it('should not have required and aria-reqiured attributes when input is false', async(() => {
       fixture.detectChanges();
