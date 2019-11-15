@@ -309,9 +309,10 @@ describe('File attachment', () => {
     fileAttachmentInstance.ngAfterViewInit();
     tick();
     fixture.detectChanges();
+    const labelWrapper = getLabelWrapper();
+    const input = getInputDebugEl();
 
-    let labelWrapper = getLabelWrapper();
-    // expect(labelWrapper.getAttribute('required')).toBeNull(); IS THIS RIGHT? Shouldn't it be on the input?
+    expect(input.nativeElement.getAttribute('required')).toBeNull();
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
     expect(labelWrapper.getAttribute('aria-required')).toBeNull();
   }));
@@ -321,10 +322,10 @@ describe('File attachment', () => {
     fileAttachmentInstance.ngAfterViewInit();
     tick();
     fixture.detectChanges();
+    const labelWrapper = getLabelWrapper();
+    const input = getInputDebugEl();
 
-    let labelWrapper = getLabelWrapper();
-
-    // expect(fileAttachmentInstance.required).toBe(true);
+    expect(input.nativeElement.getAttribute('required')).not.toBeNull();
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
     expect(labelWrapper.getAttribute('aria-required')).toBe('true');
   }));
@@ -343,10 +344,10 @@ describe('File attachment', () => {
     fileAttachmentInstance.ngAfterViewInit();
     tick();
     fixture.detectChanges();
+    const labelWrapper = getLabelWrapper();
+    const input = getInputDebugEl();
 
-    let labelWrapper = getLabelWrapper();
-
-    // expect(fileAttachmentInstance.required).toBe(true);
+    expect(input.nativeElement.getAttribute('required')).not.toBeNull();
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
     expect(labelWrapper.getAttribute('aria-required')).toBe('true');
   }));
