@@ -59,6 +59,7 @@ describe('File attachment', () => {
     fileAttachmentInstance = fixture.componentInstance.fileAttachmentComponent;
   });
 
+  //#region helpers
   function getInputDebugEl(): DebugElement {
     return fixture.debugElement.query(By.css('input'));
   }
@@ -304,18 +305,54 @@ describe('File attachment', () => {
   }
   //#endregion
 
-  it('should allow the user to specify if the file is required', fakeAsync(() => {
+  it('should not have required class and aria-reqiured attribute when not required', fakeAsync(() => {
+    fileAttachmentInstance.ngAfterViewInit();
+    tick();
+    fixture.detectChanges();
+
+    let labelWrapper = getLabelWrapper();
+    // expect(labelWrapper.getAttribute('required')).toBeNull(); IS THIS RIGHT? Shouldn't it be on the input?
+    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(false);
+    expect(labelWrapper.getAttribute('aria-required')).toBeNull();
+  }));
+
+  it('should have appropriate classes when file is required', fakeAsync(() => {
+    fixture.componentInstance.required = true;
     fileAttachmentInstance.ngAfterViewInit();
     tick();
     fixture.detectChanges();
 
     let labelWrapper = getLabelWrapper();
 
-    expect(fileAttachmentInstance.required).toBe(true);
+    // expect(fileAttachmentInstance.required).toBe(true);
     expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
+    expect(labelWrapper.getAttribute('aria-required')).toBe('true');
+  }));
+
+  it('should have appropriate classes when file is required and initialized with file', fakeAsync(() => {
+    fixture.componentInstance.required = true;
+    const testFile = <SkyFileItem> {
+      file: {
+        name: 'myFile',
+        type: '',
+        size: 1
+      },
+      url: 'myFile'
+    };
+    fileAttachmentInstance.value = testFile;
+    fileAttachmentInstance.ngAfterViewInit();
+    tick();
+    fixture.detectChanges();
+
+    let labelWrapper = getLabelWrapper();
+
+    // expect(fileAttachmentInstance.required).toBe(true);
+    expect(labelWrapper.classList.contains('sky-control-label-required')).toBe(true);
+    expect(labelWrapper.getAttribute('aria-required')).toBe('true');
   }));
 
   it('should handle removing the label', fakeAsync(() => {
+    fixture.componentInstance.required = true;
     fileAttachmentInstance.ngAfterViewInit();
     fileAttachmentInstance.ngAfterContentInit();
     tick();
