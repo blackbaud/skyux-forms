@@ -94,7 +94,9 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
 
   /**
    * Indicates whether the input is required for form validation.
-   * When you set this property to `true`, the component adds `aria-required` and `required` attributes to the input element so that forms display an invalid state until the input element is complete. This property accepts a `boolean` value.
+   * When you set this property to `true`, the component adds `aria-required` and `required`
+   * attributes to the input element so that forms display an invalid state until the input element
+   * is complete. This property accepts a `boolean` value.
    */
   @Input()
   public required: boolean = false;
