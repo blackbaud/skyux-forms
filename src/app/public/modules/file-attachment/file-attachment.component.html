@@ -23,7 +23,7 @@
       tabindex="-1"
       type="file"
       [attr.accept]="acceptedTypes || null"
-      [required]="required"
+      [required]="(required) ? true : null"
       (change)="fileChangeEvent($event)"
       #fileInput
     >
