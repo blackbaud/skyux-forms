@@ -93,7 +93,9 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   public rejectedOver: boolean = false;
 
   /**
-   * Indicates if the input must have a file to be valid. This property accepts boolean values.
+   * Indicates whether the input is required for form validation.
+   * When you set this property to `true`, the component adds `aria-required` and `required` attributes to the input element,
+   * and will show an invalid state until the input element is complete. This property accepts a boolean value.
    */
   @Input()
   public required: boolean = false;
