@@ -1,17 +1,19 @@
-// #region imports
 import {
   AfterContentInit,
+  AfterViewInit,
   Component,
   ContentChildren,
-  forwardRef,
   Input,
   OnDestroy,
-  QueryList
+  Optional,
+  QueryList,
+  Self,
+  ChangeDetectorRef
 } from '@angular/core';
 
 import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR
+  AbstractControl,
+  NgControl
 } from '@angular/forms';
 
 import {
@@ -25,25 +27,14 @@ import {
 import {
   SkyRadioComponent
 } from './radio.component';
-// #endregion
 
 let nextUniqueId = 0;
 
-const SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-forward-ref no-use-before-declare
-  useExisting: forwardRef(() => SkyRadioGroupComponent),
-  multi: true
-};
-
 @Component({
   selector: 'sky-radio-group',
-  templateUrl: './radio-group.component.html',
-  providers: [
-    SKY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR
-  ]
+  templateUrl: './radio-group.component.html'
 })
-export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAccessor, OnDestroy {
+export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   @Input()
   public ariaLabelledBy: string;
 
@@ -58,6 +49,14 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   public get name(): string {
     return this._name;
   }
+
+  /**
+  * Indicates whether the input is required for form validation.
+  * When you set this property to `true`, the component adds `aria-required` and `required` attributes to the input element,
+  * and will show an invalid state until the input element is complete. This property accepts a boolean value.
+  */
+ @Input()
+ public required: boolean = false;
 
   @Input()
   public set value(value: any) {
@@ -93,6 +92,15 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
   private _value: any;
   private _tabIndex: number;
 
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    @Self() @Optional() private ngControl: NgControl
+  ) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
   public ngAfterContentInit(): void {
     this.resetRadioButtons();
 
@@ -107,6 +115,14 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
         // Subscribe to the new radio buttons
         this.watchForSelections();
       });
+  }
+
+  public ngAfterViewInit(): void {
+    if (this.ngControl) {
+      // Backwards compatibility support for anyone still using Validators.Required.
+      this.required = this.required || this.hasRequiredValidation(this.ngControl);
+      this.changeDetector.detectChanges();
+    }
   }
 
   public watchForSelections() {
@@ -172,5 +188,23 @@ export class SkyRadioGroupComponent implements AfterContentInit, ControlValueAcc
     this.updateCheckedRadioFromValue();
     this.updateRadioButtonNames();
     this.updateRadioButtonTabIndexes();
+  }
+
+  // TODO: replace me with static helper.
+  /**
+   * Gets the required state of the checkbox.
+   * Currently, Angular doesn't offer a way to get this easily, so we have to create an empty
+   * control using the current validator to see if it throws a `required` validation error.
+   * https://github.com/angular/angular/issues/13461#issuecomment-340368046
+   */
+  private hasRequiredValidation(ngControl: NgControl): boolean {
+    const abstractControl = ngControl.control as AbstractControl;
+    if (abstractControl && abstractControl.validator) {
+      const validator = abstractControl.validator({} as AbstractControl);
+      if (validator && validator.required) {
+        return true;
+      }
+    }
+    return false;
   }
 }
