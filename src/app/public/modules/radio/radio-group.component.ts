@@ -55,12 +55,13 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
   }
 
   /**
-  * Indicates whether the input is required for form validation.
-  * When you set this property to `true`, the component adds `aria-required` and `required` attributes to the input element,
-  * and will show an invalid state until the input element is complete. This property accepts a boolean value.
-  */
- @Input()
- public required: boolean = false;
+   * Indicates whether the input is required for form validation.
+   * When you set this property to `true`, the component adds `aria-required` and `required`
+   * attributes to the input element so that forms display an invalid state until the input element
+   * is complete. This property accepts a `boolean` value.
+   */
+  @Input()
+  public required: boolean = false;
 
   @Input()
   public set value(value: any) {
@@ -127,6 +128,8 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
     if (this.ngControl) {
       // Backwards compatibility support for anyone still using Validators.Required.
       this.required = this.required || SkyFormsUtility.hasRequiredValidation(this.ngControl);
+
+      // Avoid an ExpressionChangedAfterItHasBeenCheckedError.
       this.changeDetector.detectChanges();
     }
   }

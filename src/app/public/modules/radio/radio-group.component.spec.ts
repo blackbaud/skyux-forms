@@ -153,7 +153,7 @@ describe('Radio group component', function () {
     expect(radioGroupDiv.getAttribute('aria-required')).toBeNull();
   }));
 
-  fit('should show a required state when required input is set to true', fakeAsync(() => {
+  it('should show a required state when required input is set to true', fakeAsync(() => {
     componentInstance.required = true;
 
     fixture.detectChanges();
