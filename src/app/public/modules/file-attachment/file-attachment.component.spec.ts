@@ -37,7 +37,10 @@ import {
 import {
   FileAttachmentTestModule
 } from './fixtures/file-attachment.module.fixture';
-import { TemplateDrivenFileAttachmentTestComponent } from './fixtures/template-driven-file-attachment.component.fixture';
+
+import {
+  TemplateDrivenFileAttachmentTestComponent
+} from './fixtures/template-driven-file-attachment.component.fixture';
 
 
 function getInputDebugEl(fixture: ComponentFixture<any>): DebugElement {

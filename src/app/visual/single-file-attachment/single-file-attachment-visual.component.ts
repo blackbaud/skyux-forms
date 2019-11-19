@@ -66,6 +66,9 @@ export class SingleFileAttachmentVisualComponent implements OnInit {
     this.removeFromArray(this.filesToUpload, file);
   }
 
+  /**
+   * Toggle both the template-driven and reactive form.
+   */
   public onToggleDisabledClick(): void {
     this.disabled = !this.disabled;
     if (this.disabled) {
