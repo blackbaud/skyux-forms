@@ -41,11 +41,11 @@ import {
 
 @NgModule({
   declarations: [
-    SkyRadioTestComponent,
     SkyRadioGroupBooleanTestComponent,
+    SkyRadioGroupFixtureComponent,
     SkyRadioGroupReactiveFixtureComponent,
     SkyRadioOnPushTestComponent,
-    SkyRadioGroupFixtureComponent,
+    SkyRadioTestComponent,
     SkySingleRadioComponent
   ],
   imports: [
@@ -55,10 +55,10 @@ import {
     SkyRadioModule
   ],
   exports: [
-    SkyRadioTestComponent,
     SkyRadioGroupBooleanTestComponent,
-    SkyRadioGroupReactiveFixtureComponent,
     SkyRadioGroupFixtureComponent,
+    SkyRadioGroupReactiveFixtureComponent,
+    SkyRadioTestComponent,
     SkySingleRadioComponent
   ]
 })

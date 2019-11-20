@@ -45,10 +45,6 @@ export class RadioVisualComponent implements OnInit {
     });
   }
 
-  public onToggleDisabledClick2(): void {
-    this.radioForm.get('favoriteSeason').disable();
-  }
-
   public onToggleDisabledClick(): void {
     this.disabled = !this.disabled;
     if (this.disabled) {

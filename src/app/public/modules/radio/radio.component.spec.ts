@@ -1,7 +1,7 @@
+// #region imports
 import {
   DebugElement
 } from '@angular/core';
-
 import {
   ComponentFixture,
   fakeAsync,
@@ -9,11 +9,9 @@ import {
   tick,
   async
 } from '@angular/core/testing';
-
 import {
   NgModel
 } from '@angular/forms';
-
 import {
   By
 } from '@angular/platform-browser';
@@ -28,24 +26,17 @@ import {
   SkyRadioTestComponent,
   SkySingleRadioComponent
 } from './fixtures';
-
-import {
-  SkyRadioOnPushTestComponent
-} from './fixtures/radio-on-push.component.fixture';
-
 import {
   SkyRadioComponent
 } from './radio.component';
-
 import {
   SkyRadioLabelComponent
 } from './radio-label.component';
 
-//#region helpers
-function getRadioInputs(fixture: ComponentFixture<any>): NodeListOf<HTMLInputElement> {
-  return fixture.nativeElement.querySelectorAll('input');
-}
-//#endregion
+import {
+  SkyRadioOnPushTestComponent
+} from './fixtures/radio-on-push.component.fixture';
+// #endregion
 
 describe('Radio component', function () {
   let fixture: ComponentFixture<any>;
@@ -77,7 +68,7 @@ describe('Radio component', function () {
     it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
       let radioElement = fixture.debugElement.queryAll(By.directive(SkyRadioComponent))[0];
       let ngModel = <NgModel>radioElement.injector.get(NgModel);
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
 
       radios.item(1).click();
       fixture.detectChanges();
@@ -107,7 +98,7 @@ describe('Radio component', function () {
 
       expect(ngModel.touched).toBe(false);
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       SkyAppTestUtility.fireDomEvent(radios.item(1), 'blur');
       fixture.detectChanges();
       tick();
@@ -123,7 +114,7 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(0).checked).toBeFalsy();
       expect(radios.item(1).checked).toBeTruthy();
       expect(radios.item(2).checked).toBeFalsy();
@@ -133,14 +124,14 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      let radios = getRadioInputs(fixture);
+      let radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(0).checked).toBeTruthy();
 
       fixture.componentInstance.value1 = 'abc';
       fixture.detectChanges();
       tick();
 
-      radios = getRadioInputs(fixture);
+      radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(0).checked).toBeTruthy();
       expect(radios.item(1).checked).toBeFalsy();
       expect(radios.item(2).checked).toBeFalsy();
@@ -151,7 +142,7 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       radios.item(1).click();
       fixture.detectChanges();
       tick();
@@ -180,7 +171,7 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(0).getAttribute('aria-label')).toBe('My label');
     }));
 
@@ -189,7 +180,7 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(2).getAttribute('aria-labelledby')).toBe('label-id');
     }));
 
@@ -197,7 +188,7 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(1).getAttribute('tabindex')).toBe('0');
     }));
 
@@ -206,7 +197,7 @@ describe('Radio component', function () {
       fixture.detectChanges();
       tick();
 
-      const radios = getRadioInputs(fixture);
+      const radios = fixture.nativeElement.querySelectorAll('input');
       expect(radios.item(1).getAttribute('tabindex')).toBe('3');
     }));
 
@@ -330,7 +321,7 @@ describe('Radio component', function () {
     it('should update the ngModel properly when radio button is changed', async(function () {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
-        const radios = getRadioInputs(fixture);
+        const radios = fixture.nativeElement.querySelectorAll('input');
 
         expect(radios.item(0).checked).toBeTruthy();
         expect(radios.item(1).checked).toBeFalsy();
