@@ -24,6 +24,8 @@ export class SkyRadioGroupTestComponent {
 
   public ariaLabelledBy: string = 'radio-group-label';
 
+  public disableRadioGroup: boolean;
+
   public options = [
     { name: 'Lillith Corharvest', disabled: false },
     { name: 'Harima Kenji', disabled: false },
@@ -34,7 +36,7 @@ export class SkyRadioGroupTestComponent {
 
   public radioForm: FormGroup;
 
-  public radioGroupEnabled = true;
+  public showRadioGroup = true;
 
   public required: boolean = false;
 

@@ -6,6 +6,22 @@
   Toggle required
 </button>
 
+<button
+  type="button"
+  class="sky-btn sky-btn-primary sky-test-label"
+  (click)="onToggleDisabledClick()"
+>
+  Toggle disabled
+</button>
+
+<button
+  type="button"
+  class="sky-btn sky-btn-primary sky-test-label"
+  (click)="onToggleDisabledClick2()"
+>
+  Toggle asdf
+</button>
+
 <h1>
   Radio buttons (reactive)
 </h1>
@@ -76,6 +92,7 @@
 </h3>
 <div>
   <sky-radio-group
+    [disabled]="disabled"
     [required]="required"
     [(ngModel)]="radioValue"
     #foo="ngModel"

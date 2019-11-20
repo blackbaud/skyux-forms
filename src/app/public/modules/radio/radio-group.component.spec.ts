@@ -17,29 +17,34 @@ import {
 import {
   SkyRadioFixturesModule,
   SkyRadioGroupBooleanTestComponent,
-  SkyRadioGroupTestComponent
+  SkyRadioGroupTestComponent,
+  SkyRadioGroupReactiveFixtureComponent
 } from './fixtures';
+
+//#region helpers
+function getRadios(radioFixture: ComponentFixture<any>): NodeListOf<HTMLInputElement> {
+  return radioFixture.nativeElement.querySelectorAll('.sky-radio-input');
+}
+
+function getRadioGroup(radioFixture: ComponentFixture<any>): HTMLElement {
+  return radioFixture.nativeElement.querySelector('.sky-radio-group');
+}
+
+function getRadioLabels(fixture: ComponentFixture<any>): NodeListOf<HTMLElement> {
+  return fixture.nativeElement.querySelectorAll('.sky-radio-wrapper');
+}
+
+function clickCheckbox(radioFixture: ComponentFixture<any>, index: number) {
+  const radios = getRadios(radioFixture);
+  radios.item(index).click();
+  radioFixture.detectChanges();
+  tick();
+}
+//#endregion
 
 describe('Radio group component', function () {
   let fixture: ComponentFixture<SkyRadioGroupTestComponent>;
   let componentInstance: SkyRadioGroupTestComponent;
-
-  //#region helpers
-  function getRadios(radioFixture: ComponentFixture<any>) {
-    return radioFixture.nativeElement.querySelectorAll('.sky-radio-input');
-  }
-
-  function getRadioGroup(radioFixture: ComponentFixture<any>): HTMLElement {
-    return radioFixture.nativeElement.querySelector('.sky-radio-group');
-  }
-
-  function clickCheckbox(radioFixture: ComponentFixture<any>, index: number) {
-    const radios = getRadios(radioFixture);
-    radios.item(index).click();
-    fixture.detectChanges();
-    tick();
-  }
-  //#endregion
 
   beforeEach(function () {
     TestBed.configureTestingModule({
@@ -123,27 +128,6 @@ describe('Radio group component', function () {
     expect(componentInstance.radioGroupComponent.value.name).toEqual('Harima Kenji');
   }));
 
-  it('should handle disabled state properly', fakeAsync(function (done: Function) {
-    componentInstance.options[1].disabled = true;
-    fixture.detectChanges();
-    clickCheckbox(fixture, 0);
-
-    const radios = getRadios(fixture);
-    clickCheckbox(fixture, 1);
-
-    expect(radios.item(1).checked).toBe(false);
-    expect(componentInstance.radioForm.value.option.name).toBe('Lillith Corharvest');
-
-    componentInstance.options[1].disabled = false;
-    fixture.detectChanges();
-    tick();
-
-    clickCheckbox(fixture, 1);
-
-    expect(radios.item(1).checked).toBe(true);
-    expect(componentInstance.radioForm.value.option.name).toBe('Harima Kenji');
-  }));
-
   it('should not show a required state when not required', fakeAsync(() => {
     fixture.detectChanges();
     tick();
@@ -181,8 +165,8 @@ describe('Radio group component', function () {
     tick();
     fixture.detectChanges();
 
-    const radios = getRadios(fixture);
-    for (let element of radios) {
+    const radioArray = Array.from(getRadios(fixture));
+    for (let element of radioArray) {
       expect(element.getAttribute('tabindex')).toBe('2');
     }
   }));
@@ -198,8 +182,8 @@ describe('Radio group component', function () {
     tick();
     fixture.detectChanges();
 
-    const radios = getRadios(fixture);
-    for (let element of radios) {
+    const radioArray = Array.from(getRadios(fixture));
+    for (let element of radioArray) {
       expect(element.getAttribute('tabindex')).toBe('2');
     }
   }));
@@ -219,8 +203,8 @@ describe('Radio group component', function () {
   it('should set the radio name properties correctly', fakeAsync(() => {
     fixture.detectChanges();
     tick();
-    const radios = getRadios(fixture);
-    for (let element of radios) {
+    const radioArray = Array.from(getRadios(fixture));
+    for (let element of radioArray) {
       expect(element.getAttribute('name')).toBe('option');
     }
   }));
@@ -233,8 +217,8 @@ describe('Radio group component', function () {
     fixture.detectChanges();
     tick();
 
-    const radios = getRadios(fixture);
-    for (let element of radios) {
+    const radioArray = Array.from(getRadios(fixture));
+    for (let element of radioArray) {
       expect(element.getAttribute('name')).toBe('option');
     }
   }));
@@ -353,17 +337,17 @@ describe('Radio group component', function () {
 
     // Toggle the field's generation on and off to make sure the form control's state
     // isn't directly tied to the template's change detection.
-    componentInstance.radioGroupEnabled = false;
+    componentInstance.showRadioGroup = false;
     fixture.detectChanges();
     tick();
 
-    componentInstance.radioGroupEnabled = true;
+    componentInstance.showRadioGroup = true;
     fixture.detectChanges();
     tick();
 
     expect(componentInstance.radioForm.value).toEqual(expectedValue);
 
-    componentInstance.radioGroupEnabled = false;
+    componentInstance.showRadioGroup = false;
     fixture.detectChanges();
     tick();
 
@@ -378,10 +362,106 @@ describe('Radio group component', function () {
     /* tslint:enable */
   }));
 
+  it(`should update disabled attribute and disabled class when disabled input is changed`, fakeAsync(() => {
+    const inputArray = Array.from(getRadios(fixture));
+    const labelArray = Array.from(getRadioLabels(fixture));
+
+    // Initalize with default settings. Expect form to be enabled.
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).not.toHaveCssClass('sky-switch-disabled');
+    }
+
+    // Call form control's disable method. Expect form to be disabled.
+    componentInstance.disableRadioGroup = true;
+    fixture.detectChanges();
+    tick();
+
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).not.toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).toHaveCssClass('sky-switch-disabled');
+    }
+
+    // Call form control's enable method. Expect form to be enabled.
+    componentInstance.disableRadioGroup = false;
+    fixture.detectChanges();
+    tick();
+
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).not.toHaveCssClass('sky-switch-disabled');
+    }
+  }));
+
   it('should pass accessibility', async(() => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement).toBeAccessible();
     });
+  }));
+});
+
+describe('Reactive radio group component', () => {
+  let fixture: ComponentFixture<SkyRadioGroupReactiveFixtureComponent>;
+  let componentInstance: SkyRadioGroupReactiveFixtureComponent;
+
+  beforeEach(fakeAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyRadioFixturesModule
+      ]
+    });
+
+    fixture = TestBed.createComponent(SkyRadioGroupReactiveFixtureComponent);
+    fixture.detectChanges();
+    tick();
+    componentInstance = fixture.componentInstance;
+  }));
+
+  afterEach(() => {
+    fixture.destroy();
+  });
+
+  it(`should update disabled attribute and disabled class when form control's disable method is called`, fakeAsync(() => {
+    const inputArray = Array.from(getRadios(fixture));
+    const labelArray = Array.from(getRadioLabels(fixture));
+
+    // Initalize with default settings. Expect form to be enabled.
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).not.toHaveCssClass('sky-switch-disabled');
+    }
+
+    // Call form control's disable method. Expect form to be disabled.
+    componentInstance.myForm.get('myRadioGroup').disable();
+    fixture.detectChanges();
+    tick();
+
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).not.toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).toHaveCssClass('sky-switch-disabled');
+    }
+
+    // Call form control's enable method. Expect form to be enabled.
+    componentInstance.myForm.get('myRadioGroup').enable();
+    fixture.detectChanges();
+    tick();
+
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).not.toHaveCssClass('sky-switch-disabled');
+    }
   }));
 });
