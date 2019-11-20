@@ -24,16 +24,16 @@ import {
 } from './radio-group-boolean.component.fixture';
 
 import {
-  SkyRadioGroupTestComponent
-} from './radio-group.component.fixture';
+  SkyRadioGroupReactiveFixtureComponent
+} from './radio-group-reactive.component.fixture';
 
 import {
   SkyRadioOnPushTestComponent
 } from './radio-on-push.component.fixture';
 
 import {
-  SkyRadioGroupReactiveFixtureComponent
-} from './radio-group-reactive.component.fixture';
+  SkyRadioGroupFixtureComponent
+} from './radio-group.component.fixture';
 
 import {
   SkySingleRadioComponent
@@ -43,9 +43,9 @@ import {
   declarations: [
     SkyRadioTestComponent,
     SkyRadioGroupBooleanTestComponent,
-    SkyRadioGroupTestComponent,
-    SkyRadioOnPushTestComponent,
     SkyRadioGroupReactiveFixtureComponent,
+    SkyRadioOnPushTestComponent,
+    SkyRadioGroupFixtureComponent,
     SkySingleRadioComponent
   ],
   imports: [
@@ -57,8 +57,8 @@ import {
   exports: [
     SkyRadioTestComponent,
     SkyRadioGroupBooleanTestComponent,
-    SkyRadioGroupTestComponent,
     SkyRadioGroupReactiveFixtureComponent,
+    SkyRadioGroupFixtureComponent,
     SkySingleRadioComponent
   ]
 })

@@ -1,51 +1,60 @@
 import {
   Component,
-  OnInit
+  ViewChild
 } from '@angular/core';
 
 import {
+  FormGroup,
   FormBuilder,
-  FormGroup
+  FormControl
 } from '@angular/forms';
 
-@Component({
-  template: `
-    <form
-      novalidate
-      [formGroup]="myForm"
-    >
-      <sky-radio-group
-        formControlName="myRadioGroup"
-      >
-        <sky-radio *ngFor="let item of items"
-          [disabled]="item.disabled"
-          [value]="item.value"
-        >
-          <sky-radio-label>
-            {{ item.value }}
-          </sky-radio-label>
-        </sky-radio>
-      </sky-radio-group>
-    </form>
-  `
-})
-export class SkyRadioGroupReactiveFixtureComponent implements OnInit {
+import {
+  SkyRadioGroupComponent
+} from '../radio-group.component';
 
-  public items = [
-    { value: '1', disabled: false },
-    { value: '2', disabled: false },
-    { value: '3', disabled: false }
+@Component({
+  templateUrl: './radio-group-reactive.component.fixture.html'
+})
+export class SkyRadioGroupReactiveFixtureComponent {
+
+  public ariaLabel: string;
+
+  public ariaLabelledBy: string = 'radio-group-label';
+
+  public options = [
+    { name: 'Lillith Corharvest', disabled: false },
+    { name: 'Harima Kenji', disabled: false },
+    { name: 'Harry Mckenzie', disabled: false }
   ];
 
-  public myForm: FormGroup;
+  public radioControl = new FormControl();
+
+  public radioForm: FormGroup;
+
+  public required: boolean = false;
+
+  public showRadioGroup = true;
+
+  public tabIndex: number;
+
+  @ViewChild(SkyRadioGroupComponent)
+  public radioGroupComponent: SkyRadioGroupComponent;
 
   constructor(
-    private formBuilder: FormBuilder
-  ) { }
-
-  public ngOnInit(): void {
-    this.myForm = this.formBuilder.group({
-      myRadioGroup: '2'
+    private fb: FormBuilder
+  ) {
+    this.radioForm = this.fb.group({
+      radioGroup: this.radioControl
     });
+  }
+
+  public changeOptions(): void {
+    this.options = [
+      { name: 'Lillith Corharvest', disabled: false },
+      { name: 'Hank Salizar', disabled: false },
+      { name: 'Harima Kenji', disabled: false },
+      { name: 'Harry Mckenzie', disabled: false }
+    ];
   }
 }

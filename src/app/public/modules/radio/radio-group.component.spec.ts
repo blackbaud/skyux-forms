@@ -17,8 +17,8 @@ import {
 import {
   SkyRadioFixturesModule,
   SkyRadioGroupBooleanTestComponent,
-  SkyRadioGroupTestComponent,
-  SkyRadioGroupReactiveFixtureComponent
+  SkyRadioGroupReactiveFixtureComponent,
+  SkyRadioGroupFixtureComponent
 } from './fixtures';
 
 //#region helpers
@@ -42,9 +42,9 @@ function clickCheckbox(radioFixture: ComponentFixture<any>, index: number) {
 }
 //#endregion
 
-describe('Radio group component', function () {
-  let fixture: ComponentFixture<SkyRadioGroupTestComponent>;
-  let componentInstance: SkyRadioGroupTestComponent;
+describe('Radio group component (reactive)', function () {
+  let fixture: ComponentFixture<SkyRadioGroupReactiveFixtureComponent>;
+  let componentInstance: SkyRadioGroupReactiveFixtureComponent;
 
   beforeEach(function () {
     TestBed.configureTestingModule({
@@ -53,7 +53,7 @@ describe('Radio group component', function () {
       ]
     });
 
-    fixture = TestBed.createComponent(SkyRadioGroupTestComponent);
+    fixture = TestBed.createComponent(SkyRadioGroupReactiveFixtureComponent);
     componentInstance = fixture.componentInstance;
   });
 
@@ -65,7 +65,7 @@ describe('Radio group component', function () {
     fixture.detectChanges();
 
     // tslint:disable-next-line:no-null-keyword
-    expect(componentInstance.radioForm.value).toEqual({ option: null });
+    expect(componentInstance.radioForm.value).toEqual({ radioGroup: null });
     expect(componentInstance.radioForm.touched).toEqual(false);
     expect(componentInstance.radioForm.pristine).toEqual(true);
     expect(componentInstance.radioForm.dirty).toEqual(false);
@@ -73,7 +73,7 @@ describe('Radio group component', function () {
 
     clickCheckbox(fixture, 0);
 
-    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Lillith Corharvest', disabled: false } });
+    expect(componentInstance.radioForm.value).toEqual({ radioGroup: { name: 'Lillith Corharvest', disabled: false } });
     expect(componentInstance.radioForm.touched).toEqual(true);
     expect(componentInstance.radioForm.pristine).toEqual(false);
     expect(componentInstance.radioForm.dirty).toEqual(true);
@@ -81,13 +81,13 @@ describe('Radio group component', function () {
 
   it('should update ngModel properly when form is initialized with values', fakeAsync(function () {
     componentInstance.radioForm.patchValue({
-      option: componentInstance.options[0]
+      radioGroup: componentInstance.options[0]
     });
 
     fixture.detectChanges();
 
     // tslint:disable-next-line:no-null-keyword
-    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Lillith Corharvest', disabled: false } });
+    expect(componentInstance.radioForm.value).toEqual({ radioGroup: { name: 'Lillith Corharvest', disabled: false } });
     expect(componentInstance.radioForm.touched).toEqual(false);
     expect(componentInstance.radioForm.pristine).toEqual(true);
     expect(componentInstance.radioForm.dirty).toEqual(false);
@@ -95,7 +95,7 @@ describe('Radio group component', function () {
 
     clickCheckbox(fixture, 1);
 
-    expect(componentInstance.radioForm.value).toEqual({ option: { name: 'Harima Kenji', disabled: false } });
+    expect(componentInstance.radioForm.value).toEqual({ radioGroup: { name: 'Harima Kenji', disabled: false } });
     expect(componentInstance.radioForm.touched).toEqual(true);
     expect(componentInstance.radioForm.pristine).toEqual(false);
     expect(componentInstance.radioForm.dirty).toEqual(true);
@@ -107,7 +107,7 @@ describe('Radio group component', function () {
     const radios = getRadios(fixture);
     clickCheckbox(fixture, 1);
 
-    const value = componentInstance.radioForm.value.option;
+    const value = componentInstance.radioForm.value.radioGroup;
 
     expect(radios.item(1).checked).toBe(true);
     expect(value.name).toEqual('Harima Kenji');
@@ -120,7 +120,7 @@ describe('Radio group component', function () {
     expect(componentInstance.radioGroupComponent.value.name).toEqual('Lillith Corharvest');
 
     componentInstance.radioForm.patchValue({
-      option: componentInstance.options[1]
+      radioGroup: componentInstance.options[1]
     });
     fixture.detectChanges();
     tick();
@@ -205,7 +205,7 @@ describe('Radio group component', function () {
     tick();
     const radioArray = Array.from(getRadios(fixture));
     for (let element of radioArray) {
-      expect(element.getAttribute('name')).toBe('option');
+      expect(element.getAttribute('name')).toBe('radioGroup');
     }
   }));
 
@@ -219,7 +219,7 @@ describe('Radio group component', function () {
 
     const radioArray = Array.from(getRadios(fixture));
     for (let element of radioArray) {
-      expect(element.getAttribute('name')).toBe('option');
+      expect(element.getAttribute('name')).toBe('radioGroup');
     }
   }));
 
@@ -326,12 +326,12 @@ describe('Radio group component', function () {
 
   it('should support resetting form control when fields are added dynamically', fakeAsync(function () {
     componentInstance.radioForm.patchValue({
-      option: componentInstance.options[0]
+      radioGroup: componentInstance.options[0]
     });
 
     fixture.detectChanges();
 
-    const expectedValue = { option: { name: 'Lillith Corharvest', disabled: false } };
+    const expectedValue = { radioGroup: { name: 'Lillith Corharvest', disabled: false } };
 
     expect(componentInstance.radioForm.value).toEqual(expectedValue);
 
@@ -357,10 +357,76 @@ describe('Radio group component', function () {
 
     /* tslint:disable:no-null-keyword */
     expect(componentInstance.radioForm.value).toEqual({
-      option: null
+      radioGroup: null
     });
     /* tslint:enable */
   }));
+
+  it(`should update disabled attribute and disabled class when form control's disable method is called`, fakeAsync(() => {
+    const inputArray = Array.from(getRadios(fixture));
+    const labelArray = Array.from(getRadioLabels(fixture));
+
+    // Initalize with default settings. Expect form to be enabled.
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).not.toHaveCssClass('sky-switch-disabled');
+    }
+
+    // Call form control's disable method. Expect form to be disabled.
+    componentInstance.radioForm.get('radioGroup').disable();
+    fixture.detectChanges();
+    tick();
+
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).not.toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).toHaveCssClass('sky-switch-disabled');
+    }
+
+    // Call form control's enable method. Expect form to be enabled.
+    componentInstance.radioForm.get('radioGroup').enable();
+    fixture.detectChanges();
+    tick();
+
+    for (let input of inputArray) {
+      expect(input.getAttribute('disabled')).toBeNull();
+    }
+    for (let label of labelArray) {
+      expect(label).not.toHaveCssClass('sky-switch-disabled');
+    }
+  }));
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
+});
+
+describe('Radio group component (template-driven)', () => {
+  let fixture: ComponentFixture<SkyRadioGroupFixtureComponent>;
+  let componentInstance: SkyRadioGroupFixtureComponent;
+
+  beforeEach(fakeAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        SkyRadioFixturesModule
+      ]
+    });
+
+    fixture = TestBed.createComponent(SkyRadioGroupFixtureComponent);
+    fixture.detectChanges();
+    tick();
+    componentInstance = fixture.componentInstance;
+  }));
+
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it(`should update disabled attribute and disabled class when disabled input is changed`, fakeAsync(() => {
     const inputArray = Array.from(getRadios(fixture));
@@ -399,69 +465,4 @@ describe('Radio group component', function () {
     }
   }));
 
-  it('should pass accessibility', async(() => {
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(fixture.nativeElement).toBeAccessible();
-    });
-  }));
-});
-
-describe('Reactive radio group component', () => {
-  let fixture: ComponentFixture<SkyRadioGroupReactiveFixtureComponent>;
-  let componentInstance: SkyRadioGroupReactiveFixtureComponent;
-
-  beforeEach(fakeAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        SkyRadioFixturesModule
-      ]
-    });
-
-    fixture = TestBed.createComponent(SkyRadioGroupReactiveFixtureComponent);
-    fixture.detectChanges();
-    tick();
-    componentInstance = fixture.componentInstance;
-  }));
-
-  afterEach(() => {
-    fixture.destroy();
-  });
-
-  it(`should update disabled attribute and disabled class when form control's disable method is called`, fakeAsync(() => {
-    const inputArray = Array.from(getRadios(fixture));
-    const labelArray = Array.from(getRadioLabels(fixture));
-
-    // Initalize with default settings. Expect form to be enabled.
-    for (let input of inputArray) {
-      expect(input.getAttribute('disabled')).toBeNull();
-    }
-    for (let label of labelArray) {
-      expect(label).not.toHaveCssClass('sky-switch-disabled');
-    }
-
-    // Call form control's disable method. Expect form to be disabled.
-    componentInstance.myForm.get('myRadioGroup').disable();
-    fixture.detectChanges();
-    tick();
-
-    for (let input of inputArray) {
-      expect(input.getAttribute('disabled')).not.toBeNull();
-    }
-    for (let label of labelArray) {
-      expect(label).toHaveCssClass('sky-switch-disabled');
-    }
-
-    // Call form control's enable method. Expect form to be enabled.
-    componentInstance.myForm.get('myRadioGroup').enable();
-    fixture.detectChanges();
-    tick();
-
-    for (let input of inputArray) {
-      expect(input.getAttribute('disabled')).toBeNull();
-    }
-    for (let label of labelArray) {
-      expect(label).not.toHaveCssClass('sky-switch-disabled');
-    }
-  }));
 });
