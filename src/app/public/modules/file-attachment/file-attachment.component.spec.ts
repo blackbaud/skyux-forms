@@ -42,7 +42,6 @@ import {
   TemplateDrivenFileAttachmentTestComponent
 } from './fixtures/template-driven-file-attachment.component.fixture';
 
-
 function getInputDebugEl(fixture: ComponentFixture<any>): DebugElement {
   return fixture.debugElement.query(By.css('input'));
 }
