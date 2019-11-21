@@ -33,8 +33,6 @@ export class RadioVisualComponent implements OnInit {
 
   public selectedValue = '3';
 
-  public valueGuy = '2';
-
   constructor(
     private formBuilder: FormBuilder
   ) { }

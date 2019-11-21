@@ -140,33 +140,29 @@
     id="screenshot-icon-radio"
     class="sky-switch-icon-group"
   >
-        <sky-radio
-          icon="thumbs-o-up"
-          label="I like it"
-          name="iconradiotest"
-          value="1"
-          [(ngModel)]="iconSelectedValue"
-          #cb="ngModel"
-        >
-        </sky-radio>
-        <sky-radio
-          disabled="true"
-          icon="balance-scale"
-          label="meh"
-          name="iconradiotest"
-          [ngModel]="iconSelectedValue"
-          [value]="valueGuy"
-          (ngModelChange)="iconSelectedValue = $event"
-        >
-        </sky-radio>
-        <sky-radio
-          icon="thumbs-o-down"
-          label="I hate it"
-          name="iconradiotest"
-          value="3"
-          [ngModel]="iconSelectedValue"
-          (ngModelChange)="iconSelectedValue = $event"
-        >
-        </sky-radio>
+    <sky-radio-group
+      name="iconRadioTest"
+      [(ngModel)]="iconSelectedValue"
+    >
+      <sky-radio
+        icon="thumbs-o-up"
+        label="I like it"
+        value="1"
+      >
+      </sky-radio>
+      <sky-radio
+        disabled
+        icon="balance-scale"
+        label="meh"
+        value="2"
+      >
+      </sky-radio>
+      <sky-radio
+        icon="thumbs-o-down"
+        label="I hate it"
+        value="3"
+      >
+      </sky-radio>
+    </sky-radio-group>
   </div>
 </form>
