@@ -205,8 +205,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
   /**
    * @internal
-   * Sets the disabled state of the control. Implemented as a part of ControlValueAccessor.
-   * @param isDisabled Whether the control should be disabled.
+   * Indicates whether to disable the control. Implemented as a part of ControlValueAccessor.
    */
   public setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
