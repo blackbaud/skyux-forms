@@ -6,6 +6,9 @@
   "plugins": [
     "@skyux-sdk/builder-plugin-skyux"
   ],
+  "host": {
+    "url": "https://developer.blackbaud.com"
+  },
   "omnibar": {
     "experimental": true
   },
