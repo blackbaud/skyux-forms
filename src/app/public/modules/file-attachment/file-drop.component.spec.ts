@@ -33,7 +33,7 @@ import {
   SkyFileLink
 } from './file-link';
 
-fdescribe('File drop component', () => {
+describe('File drop component', () => {
 
   /** Simple test component with tabIndex */
   @Component({
