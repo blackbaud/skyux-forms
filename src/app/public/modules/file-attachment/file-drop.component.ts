@@ -130,7 +130,7 @@ export class SkyFileDropComponent {
     this.acceptedOver = false;
 
     if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
-      if (this.fileAttachmentService.verifyDropFiles(dropEvent.dataTransfer.files)) {
+      if (this.fileAttachmentService.verifyDropFiles(dropEvent.dataTransfer.files, this.multiple)) {
         this.handleFiles(dropEvent.dataTransfer.files);
       }
     }

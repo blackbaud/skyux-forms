@@ -48,8 +48,8 @@ export class SkyFileAttachmentService {
     return fileResults;
   }
 
-  public verifyDropFiles(files: any): boolean {
-    if (files.length > 1) {
+  public verifyDropFiles(files: any, multiple: boolean = false): boolean {
+    if (!multiple && files.length > 1) {
       return false;
     }
 

@@ -33,7 +33,7 @@ import {
   SkyFileLink
 } from './file-link';
 
-describe('File drop component', () => {
+fdescribe('File drop component', () => {
 
   /** Simple test component with tabIndex */
   @Component({
@@ -674,6 +674,33 @@ describe('File drop component', () => {
 
     triggerDrop(invalidFiles, dropDebugEl);
     validateDropClasses(false, false, dropElWrapper);
+  });
+
+  it('should allow loading multiple files on drag and drop when multiple is true', () => {
+    let files = [
+      {
+        name: 'foo.txt',
+        size: 1000,
+        type: 'image/png'
+      },
+      {
+        name: 'goo.txt',
+        size: 1000,
+        type: 'image/png'
+      }
+    ];
+
+    let fileReaderSpy = setupFileReaderSpy();
+
+    componentInstance.multiple = true;
+    fixture.detectChanges();
+
+    let dropDebugEl = getDropDebugEl();
+
+    triggerDragEnter('sky-drop', dropDebugEl);
+    triggerDragOver(files, dropDebugEl);
+    triggerDrop(files, dropDebugEl);
+    expect(fileReaderSpy.loadCallbacks.length).toBe(2);
   });
 
   it('should prevent loading multiple files on drag and drop when multiple is false', () => {
