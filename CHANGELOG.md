@@ -1,3 +1,7 @@
+# 3.6.1 (2020-01-08)
+
+- Fixed the file drop component to accept multiple files when drag and dropped. [#92](https://github.com/blackbaud/skyux-forms/pull/92)
+
 # 3.6.0 (2019-11-22)
 
 - Added the `disabled` property to the radio group component. [#82](https://github.com/blackbaud/skyux-forms/pull/82)
