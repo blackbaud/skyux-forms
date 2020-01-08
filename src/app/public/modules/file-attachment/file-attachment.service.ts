@@ -48,15 +48,14 @@ export class SkyFileAttachmentService {
     return fileResults;
   }
 
-  public verifyDropFiles(files: any, multiple: boolean = false): boolean {
-    if (!multiple && files.length > 1) {
-      return false;
-    }
-
+  public verifyDropFiles(files: FileList): boolean {
     for (let index = 0; index < files.length; index++) {
       const file = files.item(index);
 
-      if (file.webkitGetAsEntry && file.webkitGetAsEntry() && file.webkitGetAsEntry().isDirectory) {
+      // If dragged object is a directory, return false.
+      // TODO: webkitGetAsEntry() is non-standard. Find better directory detection.
+      const fileItem = file as any;
+      if (fileItem.webkitGetAsEntry && fileItem.webkitGetAsEntry() && fileItem.webkitGetAsEntry().isDirectory) {
         return false;
       }
     }

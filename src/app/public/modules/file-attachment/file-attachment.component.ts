@@ -244,7 +244,7 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     }
   }
 
-  public fileDrop(dropEvent: any): void {
+  public fileDrop(dropEvent: DragEvent): void {
     dropEvent.stopPropagation();
     dropEvent.preventDefault();
 
