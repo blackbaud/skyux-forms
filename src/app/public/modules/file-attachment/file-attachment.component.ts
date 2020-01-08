@@ -257,7 +257,7 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
         return;
       }
 
-      if (this.fileAttachmentService.hasFolder(dropEvent.dataTransfer.files)) {
+      if (this.fileAttachmentService.hasDirectory(dropEvent.dataTransfer.files)) {
         return;
       }
 

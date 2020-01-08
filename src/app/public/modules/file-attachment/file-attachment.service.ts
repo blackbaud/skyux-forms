@@ -51,9 +51,9 @@ export class SkyFileAttachmentService {
   /**
    * Returns `true` if a directory is found in the provided `files` parameter.
    */
-  public hasFolder(files: any): boolean {
+  public hasDirectory(files: FileList): boolean {
     for (let index = 0; index < files.length; index++) {
-      const file = files.item(index);
+      const file: any = files.item(index);
       if (file.webkitGetAsEntry && file.webkitGetAsEntry() && file.webkitGetAsEntry().isDirectory) {
         return true;
       }

@@ -130,11 +130,10 @@ export class SkyFileDropComponent {
     this.acceptedOver = false;
 
     if (dropEvent.dataTransfer && dropEvent.dataTransfer.files) {
-      if (!this.multiple && dropEvent.dataTransfer.files.length > 1) {
-        return;
-      }
+      const hasDirectory = this.fileAttachmentService.hasDirectory(dropEvent.dataTransfer.files);
+      const invalidNumberOfFiles = !this.multiple && dropEvent.dataTransfer.files.length > 1;
 
-      if (this.fileAttachmentService.hasFolder(dropEvent.dataTransfer.files)) {
+      if (hasDirectory || invalidNumberOfFiles) {
         return;
       }
 
