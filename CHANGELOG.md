@@ -1,6 +1,6 @@
 # 3.6.1 (2020-01-08)
 
-- Fixed the file drop component to accept multiple files when drag and dropped. [#92](https://github.com/blackbaud/skyux-forms/pull/92)
+- Fixed the file drop component to enable users to drag and drop multiple files. [#92](https://github.com/blackbaud/skyux-forms/pull/92)
 
 # 3.6.0 (2019-11-22)
 
