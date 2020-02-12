@@ -1,6 +1,6 @@
 # 3.6.3 (2020-02-12)
 
-- Fixed an Angular compiler template checking error on the file attachment component HTML template. [#100](https://github.com/blackbaud/skyux-forms/pull/100)
+- Fixed an Angular compiler template checking error on the file attachment component's HTML template. [#100](https://github.com/blackbaud/skyux-forms/pull/100)
 
 # 3.6.2 (2020-01-23)
 
