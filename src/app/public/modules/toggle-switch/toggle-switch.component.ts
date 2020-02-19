@@ -120,8 +120,10 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
   ) { }
 
   public ngAfterContentInit(): void {
-    this.labelComponents.changes.pipe(
-      takeUntil(this.ngUnsubscribe))
+    this.labelComponents.changes
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
       .subscribe(() => {
         // Allow the template to reload any ARIA attributes that are relying on the
         // label component existing in the DOM.

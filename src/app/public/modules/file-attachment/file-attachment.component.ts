@@ -186,11 +186,13 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
 
   public ngAfterContentInit(): void {
     // Handles updating classes when label changes
-    this.labelComponents.changes.pipe(
-    takeUntil(this.ngUnsubscribe))
-    .subscribe(() => {
-      this.changeDetector.detectChanges();
-    });
+    this.labelComponents.changes
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        this.changeDetector.detectChanges();
+      });
   }
 
   public isImage(): boolean {
