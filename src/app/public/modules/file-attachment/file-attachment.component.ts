@@ -25,6 +25,10 @@ import {
 } from 'rxjs';
 
 import {
+  takeUntil
+} from 'rxjs/operators';
+
+import {
   SkyFormsUtility
 } from '../shared/forms-utility';
 
@@ -183,10 +187,12 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   public ngAfterContentInit(): void {
     // Handles updating classes when label changes
     this.labelComponents.changes
-    .takeUntil(this.ngUnsubscribe)
-    .subscribe(() => {
-      this.changeDetector.detectChanges();
-    });
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        this.changeDetector.detectChanges();
+      });
   }
 
   public isImage(): boolean {
