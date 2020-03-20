@@ -25,7 +25,7 @@
   "app": {
     "styles": [
       "@skyux/theme/css/sky.css",
-      "src/app/visual-styles.scss"
+      "@skyux/docs-tools/css/docs-tools.css"
     ]
   }
 }
