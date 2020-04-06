@@ -20,13 +20,13 @@ import {
 } from '../file-attachments.module';
 
 import {
-  TemplateDrivenFileAttachmentTestComponent
-} from './template-driven-file-attachment.component.fixture';
+  FileAttachmentTemplateTestComponent
+} from './file-attachment-template.component.fixture';
 
 @NgModule({
   declarations: [
     FileAttachmentTestComponent,
-    TemplateDrivenFileAttachmentTestComponent
+    FileAttachmentTemplateTestComponent
   ],
   imports: [
     SkyFileAttachmentsModule,
@@ -36,7 +36,7 @@ import {
   ],
   exports: [
     FileAttachmentTestComponent,
-    TemplateDrivenFileAttachmentTestComponent
+    FileAttachmentTemplateTestComponent
   ]
 })
 export class FileAttachmentTestModule { }

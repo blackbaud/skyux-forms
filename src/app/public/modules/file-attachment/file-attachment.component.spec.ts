@@ -39,8 +39,8 @@ import {
 } from './fixtures/file-attachment.module.fixture';
 
 import {
-  TemplateDrivenFileAttachmentTestComponent
-} from './fixtures/template-driven-file-attachment.component.fixture';
+  FileAttachmentTemplateTestComponent
+} from './fixtures/file-attachment-template.component.fixture';
 
 function getInputDebugEl(fixture: ComponentFixture<any>): DebugElement {
   return fixture.debugElement.query(By.css('input'));
@@ -1097,7 +1097,7 @@ describe('File attachment', () => {
 
 describe('File attachment (template-driven)', () => {
 
-  let fixture: ComponentFixture<TemplateDrivenFileAttachmentTestComponent>;
+  let fixture: ComponentFixture<FileAttachmentTemplateTestComponent>;
   let fileAttachmentInstance: SkyFileAttachmentComponent;
   let el: HTMLElement;
 
@@ -1107,7 +1107,7 @@ describe('File attachment (template-driven)', () => {
         FileAttachmentTestModule
       ]
     });
-    fixture = TestBed.createComponent(TemplateDrivenFileAttachmentTestComponent);
+    fixture = TestBed.createComponent(FileAttachmentTemplateTestComponent);
     fixture.detectChanges();
     el = fixture.nativeElement;
     fileAttachmentInstance = fixture.componentInstance.fileAttachmentComponent;
