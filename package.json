@@ -47,7 +47,7 @@
     "@blackbaud/skyux-lib-stache": "3.2.3",
     "@pact-foundation/pact": "9.6.1",
     "@pact-foundation/pact-web": "7.4.0",
-    "@skyux-sdk/builder": "3.14.0",
+    "@skyux-sdk/builder": "3.15.1",
     "@skyux-sdk/builder-plugin-skyux": "1.2.2",
     "@skyux-sdk/e2e": "3.1.2",
     "@skyux-sdk/pact": "3.3.1",

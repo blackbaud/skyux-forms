@@ -29,6 +29,13 @@ import {
   styleUrls: ['./file-drop.component.scss']
 })
 export class SkyFileDropComponent {
+
+  /** @internal
+   * Used by the file drop control component to handle when the drop itself is touched
+   */
+  @Output()
+  public controlsTouched = new EventEmitter<void>();
+
   @Output()
   public filesChanged = new EventEmitter<SkyFileDropChange>();
 
@@ -59,9 +66,9 @@ export class SkyFileDropComponent {
   @ViewChild('fileInput')
   public inputEl: ElementRef;
 
-  public rejectedOver: boolean = false;
   public acceptedOver: boolean = false;
   public linkUrl: string;
+  public rejectedOver: boolean = false;
 
   private enterEventTarget: any;
 
@@ -72,6 +79,7 @@ export class SkyFileDropComponent {
   public dropClicked() {
     if (!this.noClick) {
       this.inputEl.nativeElement.click();
+      this.controlsTouched.emit();
     }
   }
 
@@ -149,7 +157,7 @@ export class SkyFileDropComponent {
   }
 
   public addLinkEnter(event: KeyboardEvent) {
-    if (event.which === 13) {
+    if (event.key.toLowerCase() === 'enter') {
       this.addLink(event);
     }
   }

@@ -1,0 +1,24 @@
+<sky-file-drop
+  [acceptedTypes]="acceptedTypes"
+  [allowLinks]="allowLinks"
+  [maxFileSize]="maxFileSize"
+  [minFileSize]="minFileSize"
+  [multiple]="multiple"
+  [noClick]="noClick"
+  [validateFn]="validateFn"
+  (controlsTouched)="handleControlTouch()"
+  (filesChanged)="filesUpdated($event)"
+  (linkChanged)="linkUpdated($event)"
+>
+  <ng-content></ng-content>
+</sky-file-drop>
+
+<ng-content select="sky-alert"></ng-content>
+
+<div *ngFor="let item of allItems">
+  <sky-file-item
+    [fileItem]="item"
+    (deleteFile)="deleteItem($event)"
+  >
+  </sky-file-item>
+</div>

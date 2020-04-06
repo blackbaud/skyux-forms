@@ -71,6 +71,7 @@
             class="sky-form-control"
             [attr.placeholder]="'skyux_file_attachment_file_upload_link_placeholder' | skyLibResources"
             [(ngModel)]="linkUrl"
+            (blur)="controlsTouched.emit()"
             (keyup)="addLinkEnter($event)"
             [attr.aria-label]="'skyux_file_attachment_file_upload_link_input' | skyLibResources">
         </div>

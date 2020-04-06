@@ -1,0 +1,19 @@
+<form
+  [formGroup]="fileForm"
+>
+  <sky-file-drop-control
+    formControlName="attachment"
+  >
+    <ng-container *ngIf="showCustomContent">
+      <div
+        class="sky-custom-drop"
+      ></div>
+    </ng-container>
+  </sky-file-drop-control>
+
+  <div *ngIf="attachment?.invalid && attachment?.dirty"
+    class="sky-error-label"
+  >
+    Attach a file.
+  </div>
+</form>

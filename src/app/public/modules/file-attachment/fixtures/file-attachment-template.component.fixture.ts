@@ -9,17 +9,9 @@ import {
 
 @Component({
   selector: 'file-attachment-test',
-  template: `
-    <sky-file-attachment
-      [disabled]="disabled"
-    >
-      <sky-file-attachment-label>
-        Field Label
-      </sky-file-attachment-label>
-    </sky-file-attachment>
-  `
+  templateUrl: './file-attachment-template.component.fixture.html'
 })
-export class TemplateDrivenFileAttachmentTestComponent {
+export class FileAttachmentTemplateTestComponent {
 
   public disabled: boolean = false;
 

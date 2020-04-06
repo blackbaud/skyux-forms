@@ -17,6 +17,7 @@ import {
 } from '@angular/core';
 
 import {
+  ControlValueAccessor,
   NgControl
 } from '@angular/forms';
 
@@ -60,7 +61,7 @@ let uniqueId = 0;
   styleUrls: ['./file-attachment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, ControlValueAccessor, OnDestroy {
 
   @Input()
   public acceptedTypes: string;

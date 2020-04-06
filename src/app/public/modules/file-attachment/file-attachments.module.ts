@@ -36,6 +36,10 @@ import {
 } from './file-drop.component';
 
 import {
+  SkyFileDropControlComponent
+} from './file-drop-control.component';
+
+import {
   SkyFileItemComponent
 } from './file-item.component';
 
@@ -56,6 +60,7 @@ import {
     SkyFileAttachmentComponent,
     SkyFileAttachmentLabelComponent,
     SkyFileDropComponent,
+    SkyFileDropControlComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],
@@ -70,6 +75,7 @@ import {
     SkyFileAttachmentComponent,
     SkyFileAttachmentLabelComponent,
     SkyFileDropComponent,
+    SkyFileDropControlComponent,
     SkyFileItemComponent,
     SkyFileSizePipe
   ],
