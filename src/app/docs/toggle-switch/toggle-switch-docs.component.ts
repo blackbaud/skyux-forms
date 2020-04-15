@@ -6,12 +6,6 @@ import {
   SkyDocsDemoControlPanelChange
 } from '@skyux/docs-tools';
 
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup
-} from '@angular/forms';
-
 @Component({
   selector: 'app-toggle-switch-docs',
   templateUrl: './toggle-switch-docs.component.html'
