@@ -8,6 +8,27 @@
     The toggle switch component renders a SKY UX-themed switch for values that can either be "on" or "off." The change takes effect immediately.
   </sky-docs-demo-page-summary>
 
+  <sky-docs-demo>
+    <sky-docs-demo-control-panel
+      (selectionChange)="onDemoSelectionChange($event)"
+    >
+      <sky-docs-demo-control-panel-section>
+        <sky-docs-demo-control-panel-checkbox
+          label="Include text label"
+          propertyName="toggleLabel"
+          [checked]="true"
+        >
+        </sky-docs-demo-control-panel-checkbox>
+      </sky-docs-demo-control-panel-section>
+    </sky-docs-demo-control-panel>
+
+    <sky-toggle-switch [disabled]="disabled" [(ngModel)]="checked"  (toggleChange)="onDemoSelectionChange($event)">
+      <sky-toggle-switch-label>
+        {{ switchLable }}
+      </sky-toggle-switch-label>
+    </sky-toggle-switch>
+  </sky-docs-demo>
+
     <sky-docs-design-guidelines>
 
       <sky-docs-demo-page-section
