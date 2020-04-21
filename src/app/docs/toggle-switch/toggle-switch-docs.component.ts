@@ -13,8 +13,8 @@ import {
 
 export class ToggleSwitchComponent {
   public demoSettings: any = {};
-  public switchLable = 'Inactive';
-  public showLable = true;
+  public switchLabel = 'Inactive';
+  public showLabel = true;
   public checked = false;
 
   public get switchStatus(): 'Active' | 'Inactive' {
@@ -23,14 +23,14 @@ export class ToggleSwitchComponent {
 
   public onDemoSelectionChange(change: SkyDocsDemoControlPanelChange): void {
     if (change.toggleLabel !== undefined) {
-      this.showLable = change.toggleLabel;
+      this.showLabel = change.toggleLabel;
     }
 
-    if (this.showLable === true) {
-      this.switchLable = this.switchStatus;
+    if (this.showLabel === true) {
+      this.switchLabel = this.switchStatus;
     }
-    if (this.showLable === false) {
-      this.switchLable = ' ';
+    if (this.showLabel === false) {
+      this.switchLabel = ' ';
     }
   }
 }
