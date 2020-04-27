@@ -70,6 +70,7 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
 
 /**
  * Indicates whether the toggle switch is selected.
+ * @default false
  */
   @Input()
   public set checked(checked: boolean) {
