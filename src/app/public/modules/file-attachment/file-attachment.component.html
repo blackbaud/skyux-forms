@@ -19,6 +19,9 @@
     (drop)="fileDrop($event)"
   >
     <div
+      aria-hidden="true"
+      class="sky-file-attachment-drop-description"
+      role="tooltip"
       [attr.id]="fileDropDescriptionElementId"
     >
       {{ 'skyux_file_attachment_file_upload_drag_or_click' | skyLibResources }}
