@@ -55,6 +55,13 @@
   margin: 10px;
 }
 
+// Styles taken from:
+// https://webaim.org/techniques/css/invisiblecontent/
 .sky-file-attachment-drop-description {
-  display: none;
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
