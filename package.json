@@ -26,7 +26,6 @@
     "@skyux/i18n": "^4.0.0-rc.0",
     "@skyux/indicators": "^4.0.0-rc.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "@angular/animations": "9.1.4",
     "@angular/common": "9.1.4",

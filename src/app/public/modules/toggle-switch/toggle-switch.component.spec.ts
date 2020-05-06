@@ -491,7 +491,6 @@ describe('Toggle switch component', () => {
       fixture.detectChanges();
 
       expect(buttonElement.disabled).toEqual(true);
-
       expect(buttonElement.classList.contains('sky-toggle-switch-checked')).toEqual(false);
 
       formControl.enable();
