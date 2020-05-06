@@ -134,10 +134,7 @@ describe('Toggle switch component', () => {
       fixture.detectChanges();
 
       expect(toggleInstance.disabled).toEqual(true);
-
-      // For accessibility, toggle switches should not be disabled, only made readonly!
-      expect(buttonElement.disabled).toEqual(false);
-      expect(buttonElement.getAttribute('aria-readonly')).toEqual('true');
+      expect(buttonElement.disabled).toEqual(true);
 
       testComponent.isDisabled = false;
       fixture.detectChanges();
@@ -151,12 +148,13 @@ describe('Toggle switch component', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      SkyAppTestUtility.fireDomEvent(buttonElement, 'click');
+      buttonElement.click();
       fixture.detectChanges();
 
       expect(toggleInstance.checked).toEqual(false);
 
       buttonElement.click();
+      fixture.detectChanges();
 
       expect(toggleInstance.checked).toEqual(false);
     });
@@ -492,8 +490,7 @@ describe('Toggle switch component', () => {
       tick();
       fixture.detectChanges();
 
-      expect(buttonElement.disabled).toEqual(false);
-      expect(buttonElement.getAttribute('aria-readonly')).toEqual('true');
+      expect(buttonElement.disabled).toEqual(true);
 
       expect(buttonElement.classList.contains('sky-toggle-switch-checked')).toEqual(false);
 
