@@ -9,28 +9,27 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'toggle-switch-visual',
-  templateUrl: './toggle-switch-visual.component.html'
+  selector: 'app-toggle-switch-demo',
+  templateUrl: './toggle-switch-demo.component.html'
 })
-export class ToggleSwitchVisualComponent {
+export class ToggleSwitchDemoComponent {
+  public checked: boolean = false;
+  public disabled: boolean = true;
 
   public formGroup: FormGroup;
-  public showLabel = false;
 
   constructor(
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      notifyByEmail: new FormControl(true)
+      dynamicToggle: new FormControl(true)
     });
-
-    setTimeout(() => {
-      this.showLabel = true;
-    }, 2000);
   }
 
-  public onToggleDisabledClick(): void {
-    const control = this.formGroup.get('notifyByEmail');
+  public toggleDisabled(): void {
+    this.disabled = !this.disabled;
+
+    const control = this.formGroup.get('dynamicToggle');
 
     if (control.disabled) {
       control.enable();
@@ -38,5 +37,4 @@ export class ToggleSwitchVisualComponent {
       control.disable();
     }
   }
-
 }
