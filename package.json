@@ -59,7 +59,7 @@
     "@skyux/layout": "4.0.0-rc.4",
     "@skyux/lists": "4.0.0-rc.2",
     "@skyux/lookup": "4.0.0-rc.4",
-    "@skyux/modals": "4.0.0-rc.5",
+    "@skyux/modals": "4.0.0",
     "@skyux/omnibar-interop": "4.0.0",
     "@skyux/popovers": "4.0.0-rc.3",
     "@skyux/router": "4.0.0",
