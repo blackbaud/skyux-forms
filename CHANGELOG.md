@@ -1,3 +1,14 @@
+# 4.0.0 (2020-05-12)
+
+### New features
+
+- Added support for `@angular/core@^9`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+- Updated the pipeline to transpile to the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview). [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+
+### Breaking changes
+
+- Dropped support for `rxjs@5`. Consumers can install `rxjs-compat@^6` to support older versions of `rxjs`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+
 # 4.0.0-rc.1 (2020-05-07)
 
 - Upgraded the development dependencies. [#115](https://github.com/blackbaud/skyux-forms/pull/115)
