@@ -8,6 +8,7 @@ export * from './modules/file-attachment/types/file-attachment-click';
 export * from './modules/file-attachment/types/file-drop-change';
 export * from './modules/file-attachment/file-attachments.module';
 export * from './modules/file-attachment/file-item';
+export * from './modules/file-attachment/file-item-error-type';
 export * from './modules/file-attachment/file-link';
 export * from './modules/file-attachment/file-size.pipe';
 
