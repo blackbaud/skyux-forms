@@ -2,7 +2,7 @@
 
 ### New features
 
-- Added a test fixture for the search component to be used in consumer unit tests. [#115](https://github.com/blackbaud/skyux-forms/pull/115)
+- Added a test fixture for the checkbox component to be used in consumer unit tests. [#115](https://github.com/blackbaud/skyux-forms/pull/115)
 - Added support for `@angular/core@^9`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
 - Updated the pipeline to transpile to the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview). [#102](https://github.com/blackbaud/skyux-forms/pull/102)
 
