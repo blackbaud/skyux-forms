@@ -8,12 +8,17 @@ import {
 } from '@skyux/docs-tools';
 
 import {
+  SkyIconModule
+} from '@skyux/indicators';
+
+import {
   SkyAppLinkModule
 } from '@skyux/router';
 
 import {
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
+  SkyInputBoxModule,
   SkyRadioModule,
   SkyCharacterCounterModule,
   SkyToggleSwitchModule
@@ -25,6 +30,8 @@ import {
     SkyCheckboxModule,
     SkyDocsToolsModule,
     SkyFileAttachmentsModule,
+    SkyIconModule,
+    SkyInputBoxModule,
     SkyRadioModule,
     SkyCharacterCounterModule,
     SkyToggleSwitchModule

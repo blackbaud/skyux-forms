@@ -1,0 +1,140 @@
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+@import "~@skyux/theme/scss/variables";
+
+.sky-theme-modern {
+
+  .sky-input-box {
+    .sky-input-box-group {
+      display: flex;
+      margin-bottom: $sky-margin;
+    }
+
+    .sky-input-box-group-form-control:only-child {
+      .sky-form-group {
+        border-top-right-radius: $sky-theme-modern-box-border-radius-default;
+        border-bottom-right-radius: $sky-theme-modern-box-border-radius-default;
+      }
+    }
+
+    .sky-input-box-group-form-control {
+      flex-grow: 1;
+    }
+
+    .sky-input-group-btn {
+      border-radius: 0;
+      color: $sky-theme-modern-font-deemphasized-color;
+      display: block;
+      margin-left: -1px;
+      padding: 0 22px;
+
+      .sky-icon {
+        font-size: 24px;
+      }
+
+      &:focus {
+        outline: none;
+        border: solid 2px $sky-highlight-color-info;
+        color: $sky-highlight-color-info;
+        padding: 0 21px;
+      }
+
+      &:last-child {
+        border-top-right-radius: $sky-theme-modern-box-border-radius-default;
+        border-bottom-right-radius: $sky-theme-modern-box-border-radius-default;
+      }
+    }
+
+    .sky-input-box-group-form-control-focus + .sky-input-group-btn,
+    .sky-input-group-btn:focus + .sky-input-group-btn {
+      margin-left: 0;
+      border-left: none;
+    }
+
+    .sky-input-box-group-form-control-focus {
+      .sky-form-group {
+        border: solid 2px $sky-highlight-color-info;
+        color: $sky-highlight-color-info;
+
+        label {
+          padding: 5px 14px 0 14px;
+        }
+
+        .sky-form-control {
+          &:not([type="range"]):not([type="radio"]):not([type="checkbox"]):not(select) {
+            padding: 3px 14px 9px 14px;
+          }
+        }
+      }
+    }
+
+    .sky-form-group {
+      background-color: #fff;
+      border: $sky-theme-modern-elevation-0-bordered-border;
+      border-radius: $sky-theme-modern-box-border-radius-default 0 0 $sky-theme-modern-box-border-radius-default;
+      color: $sky-theme-modern-font-field-label-color;
+      display: block;
+      margin-bottom: 0;
+      padding: 0;
+
+      label {
+        display: block;
+        font-size: 15px;
+        padding: 6px 15px 0 15px;
+      }
+
+      .sky-form-control {
+        &:not([type="range"]):not([type="radio"]):not([type="checkbox"]):not(select) {
+          border: none;
+          border-radius: $sky-theme-modern-box-border-radius-default;
+          font-size: $sky-theme-modern-font-body-default-size;
+          padding: 3px 15px 10px 15px;
+
+          &:focus {
+            box-shadow: none;
+            outline: none;
+          }
+        }
+      }
+
+      textarea.sky-form-control {
+        resize: vertical;
+      }
+    }
+  }
+
+  &.sky-theme-mode-dark {
+    .sky-input-box {
+      .sky-form-group {
+        background-color: transparent;
+        border-color: $sky-theme-modern-color-gray-70;
+        color: #c0c2c5;
+
+        .sky-form-control,
+        .sky-input-group-btn {
+          background-color: transparent;
+          color: #fbfcfe;
+        }
+      }
+
+      .sky-input-box-group-form-control-focus {
+        .sky-form-group {
+          border-color: $sky-highlight-color-info;
+          color: $sky-highlight-color-info;
+        }
+      }
+
+      .sky-input-group-btn.sky-btn-default {
+        background-color: transparent;
+        border-color: $sky-theme-modern-color-gray-70;
+        color: #c0c2c5;
+
+        &:focus {
+          border-color: $sky-highlight-color-info;
+          color: $sky-highlight-color-info;
+        }
+      }
+    }
+  }
+
+}

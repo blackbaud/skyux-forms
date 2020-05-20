@@ -1,0 +1,52 @@
+<sky-docs-demo-control-panel-theme
+  (themeSettingsChange)="themeSettingsChange($event)"
+></sky-docs-demo-control-panel-theme>
+
+<div class="input-box-visual" id="screenshot-input-box">
+  <div id="input-box-basic">
+    <sky-input-box>
+      <label for="input1">Input</label>
+      <input type="text" class="sky-form-control" id="input1">
+    </sky-input-box>
+  </div>
+
+  <div id="input-box-textarea">
+    <sky-input-box>
+      <label for="input2">Text area</label>
+      <textarea class="sky-form-control" id="input2"></textarea>
+    </sky-input-box>
+  </div>
+
+  <div id="input-box-button-single">
+    <sky-input-box>
+      <label for="field3">Input with one button</label>
+      <input class="sky-form-control" id="field3" type="text">
+      <button
+        class="sky-btn sky-btn-default sky-input-group-btn"
+        type="button"
+      >
+        <sky-icon icon="calendar"></sky-icon>
+      </button>
+    </sky-input-box>
+  </div>
+
+  <div id="input-box-button-multiple">
+    <sky-input-box>
+      <label for="field4">Input with multiple buttons</label>
+      <input class="sky-form-control" id="field4" type="text">
+      <button
+        class="sky-btn sky-btn-default sky-input-group-btn"
+        type="button"
+      >
+        <sky-icon icon="calendar"></sky-icon>
+      </button>
+      <button
+        class="sky-btn sky-btn-default sky-input-group-btn"
+        type="button"
+      >
+        <sky-icon icon="clock-o"></sky-icon>
+      </button>
+    </sky-input-box>
+  </div>
+
+</div>
