@@ -47,7 +47,7 @@
       <sky-docs-design-guideline
       >
         <p>
-          Don’t use character count indicators on inputs when users are unlikely to exceed character limits. Use <a routerLink="/design/guidelines/form-design" fragment="validation-and-error-handling">normal form validation</a> instead.
+          Don’t use character count indicators on inputs when users are unlikely to exceed character limits. Use <a href="https://developer.blackbaud.com/skyux/design/guidelines/form-design#validation-and-error-handling">normal form validation</a> instead.
         </p>
 
         <sky-docs-design-guideline-thumbnail
@@ -74,7 +74,7 @@
       >
         <sky-docs-anatomy-item>Input field</sky-docs-anatomy-item>
         <sky-docs-anatomy-item>Character count indicator</sky-docs-anatomy-item>
-        <sky-docs-anatomy-item><a routerLink="/components/status-indicator">Status indicator</a> (danger)</sky-docs-anatomy-item>
+        <sky-docs-anatomy-item><a href="https://developer.blackbaud.com/skyux-theme/docs/status-indicator">Status indicator</a> (danger)</sky-docs-anatomy-item>
       </sky-docs-anatomy>
     </sky-docs-demo-page-section>
 
@@ -83,7 +83,7 @@
     >
       <sky-docs-design-guideline>
         <p>
-          The character count indicator component extends the <a routerLink="/components/form">form classes</a> that define styles and the appearance of input field states.
+          The character count indicator component extends the <a href="https://developer.blackbaud.com/skyux/components/form">form classes</a> that define styles and the appearance of input field states.
         </p>
 
         <table class="sky-docs-table">
@@ -143,8 +143,39 @@
             </td>
           </tr>
         </table>
+      </sky-docs-design-guideline>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Content"
+    >
+      <div
+        class="sky-docs-text-block"
+      >
+        <p>
+          For validation messages when users exceed character limits, use the following format:
+        </p>
+        <p>
+          <b>Limit &lt;input field label&gt; to &lt;n&gt; characters.</b>
+        </p>
+      </div>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Layout"
+    >
+      <sky-docs-design-guideline>
+        <p>
+          The character count indicator always appears in the top right above the input field. Long field labels do not displace indicators. The labels wrap to multiple lines instead.
+        </p>
+        <sky-docs-design-guideline-thumbnail
+          imageSource="~/assets/img/guidelines/character-count/character-count-layout-1.png"
+        >
+        </sky-docs-design-guideline-thumbnail>
+      </sky-docs-design-guideline>
 
     </sky-docs-demo-page-section>
+
 
     <sky-docs-demo-page-section
       heading="Related content"
@@ -158,6 +189,7 @@
         </ul>
       </sky-docs-design-guideline>
     </sky-docs-demo-page-section>
+
   </sky-docs-design-guidelines>
 
 </sky-docs-demo-page>
