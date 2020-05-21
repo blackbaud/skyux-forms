@@ -35,7 +35,7 @@
       &:focus {
         outline: none;
         border: solid 2px $sky-highlight-color-info;
-        color: $sky-highlight-color-info;
+        color: $sky-theme-modern-text-color-action-primary;
         padding: 0 21px;
       }
 
@@ -54,7 +54,7 @@
     .sky-input-box-group-form-control-focus {
       .sky-form-group {
         border: solid 2px $sky-highlight-color-info;
-        color: $sky-highlight-color-info;
+        color: $sky-theme-modern-text-color-action-primary;
 
         label {
           padding: 5px 14px 0 14px;
