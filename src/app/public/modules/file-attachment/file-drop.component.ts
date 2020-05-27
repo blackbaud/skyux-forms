@@ -33,6 +33,9 @@ export class SkyFileDropComponent {
   public filesChanged = new EventEmitter<SkyFileDropChange>();
 
   @Output()
+  public linkInputBlurred = new EventEmitter<void>();
+
+  @Output()
   public linkChanged = new EventEmitter<SkyFileLink>();
 
   @Input()
@@ -158,6 +161,10 @@ export class SkyFileDropComponent {
     event.preventDefault();
     this.linkChanged.emit({ url: this.linkUrl } as SkyFileLink);
     this.linkUrl = undefined;
+  }
+
+  public linkBlur(): void {
+    this.linkInputBlurred.emit();
   }
 
   private emitFileChangeEvent(
