@@ -43,9 +43,19 @@ describe('Input box', () => {
     await el.sendKeys(Key.TAB);
   }
 
-  function validateBasic(done: DoneFn): void {
-    expect('#screenshot-input-box').toMatchBaselineScreenshot(done, {
-      screenshotName: getScreenshotName('input-boxes')
+  async function validateBasic(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-basic');
+
+    expect('#input-box-basic').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-basic')
+    });
+  }
+
+  async function validateSideBySide(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-side-by-side');
+
+    expect('#input-box-side-by-side').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-side-by-side')
     });
   }
 
@@ -113,6 +123,61 @@ describe('Input box', () => {
     });
   }
 
+  async function validateErrorFormControl(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-form-control-error');
+
+    expect('#input-box-form-control-error').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-form-control-error')
+    });
+  }
+
+  async function validateErrorFormControlName(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-form-control-name-error');
+
+    expect('#input-box-form-control-name-error').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-form-control-name-error')
+    });
+  }
+
+  async function validateErrorNgModel(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
+
+    expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-ngmodel-error')
+    });
+  }
+
+  async function validateErrorFocused(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
+
+    await clickLabel('input-box-ngmodel-error');
+
+    expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-error-focused')
+    });
+  }
+
+  async function validateFocusedErrorInput(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-form-control-error-button-single');
+
+    await clickLabel('input-box-form-control-error-button-single');
+
+    expect('#input-box-form-control-error-button-single').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-error-focused-input')
+    });
+  }
+
+  async function validateFocusedErrorButton(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-form-control-error-button-single');
+
+    await clickLabel('input-box-form-control-error-button-single');
+    await tabToNextElement();
+
+    expect('#input-box-form-control-error-button-single').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-error-focused-button')
+    });
+  }
+
   beforeEach(async () => {
     currentTheme = undefined;
     currentThemeMode = undefined;
@@ -124,6 +189,10 @@ describe('Input box', () => {
 
   it('should match previous input box screenshot', (done) => {
     validateBasic(done);
+  });
+
+  it('should match previous input box side-by-side screenshot', (done) => {
+    validateSideBySide(done);
   });
 
   it('should match previous basic input box screenshot when focused', (done) => {
@@ -156,6 +225,48 @@ describe('Input box', () => {
     }
   );
 
+  it(
+    'should match previous input box with error when bound to form control',
+    (done) => {
+      validateErrorFormControl(done);
+    }
+  );
+
+  it(
+    'should match previous input box with error when bound to form control name',
+    (done) => {
+      validateErrorFormControlName(done);
+    }
+  );
+
+  it(
+    'should match previous input box with error when bound to ngModel',
+    (done) => {
+      validateErrorNgModel(done);
+    }
+  );
+
+  it(
+    'should match previous input box with error when focused',
+    (done) => {
+      validateErrorFocused(done);
+    }
+  );
+
+  it(
+    'should match previous input box with button and error when input is focused',
+    (done) => {
+      validateFocusedErrorInput(done);
+    }
+  );
+
+  it(
+    'should match previous input box with button and error when button is focused',
+    (done) => {
+      validateFocusedErrorButton(done);
+    }
+  );
+
   describe('when modern theme', () => {
 
     beforeEach(async () => {
@@ -164,6 +275,10 @@ describe('Input box', () => {
 
     it('should match previous input box screenshot', (done) => {
       validateBasic(done);
+    });
+
+    it('should match previous input box side-by-side screenshot', (done) => {
+      validateSideBySide(done);
     });
 
     it('should match previous basic input box screenshot when focused', (done) => {
@@ -196,6 +311,48 @@ describe('Input box', () => {
       'should match previous input box with multiple buttons screenshot when button 2 is focused',
       (done) => {
         validateFocusedButtonMutlipleButton2(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when bound to form control',
+      (done) => {
+        validateErrorFormControl(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when bound to form control name',
+      (done) => {
+        validateErrorFormControlName(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when bound to ngModel',
+      (done) => {
+        validateErrorNgModel(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when focused',
+      (done) => {
+        validateErrorFocused(done);
+      }
+    );
+
+    it(
+      'should match previous input box with button and error when input is focused',
+      (done) => {
+        validateFocusedErrorInput(done);
+      }
+    );
+
+    it(
+      'should match previous input box with button and error when button is focused',
+      (done) => {
+        validateFocusedErrorButton(done);
       }
     );
 
@@ -211,6 +368,10 @@ describe('Input box', () => {
       validateBasic(done);
     });
 
+    it('should match previous input box side-by-side screenshot', (done) => {
+      validateSideBySide(done);
+    });
+
     it('should match previous basic input box screenshot when focused', (done) => {
       validateFocusedBasic(done);
     });
@@ -241,6 +402,48 @@ describe('Input box', () => {
       'should match previous input box with multiple buttons screenshot when button 2 is focused',
       (done) => {
         validateFocusedButtonMutlipleButton2(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when bound to form control',
+      (done) => {
+        validateErrorFormControl(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when bound to form control name',
+      (done) => {
+        validateErrorFormControlName(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when bound to ngModel',
+      (done) => {
+        validateErrorNgModel(done);
+      }
+    );
+
+    it(
+      'should match previous input box with error when focused',
+      (done) => {
+        validateErrorFocused(done);
+      }
+    );
+
+    it(
+      'should match previous input box with button and error when input is focused',
+      (done) => {
+        validateFocusedErrorInput(done);
+      }
+    );
+
+    it(
+      'should match previous input box with button and error when button is focused',
+      (done) => {
+        validateFocusedErrorButton(done);
       }
     );
 

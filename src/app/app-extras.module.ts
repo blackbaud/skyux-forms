@@ -12,6 +12,10 @@ import {
 } from '@skyux/indicators';
 
 import {
+  SkyFluidGridModule
+} from '@skyux/layout';
+
+import {
   SkyAppLinkModule
 } from '@skyux/router';
 
@@ -30,6 +34,7 @@ import {
     SkyCheckboxModule,
     SkyDocsToolsModule,
     SkyFileAttachmentsModule,
+    SkyFluidGridModule,
     SkyIconModule,
     SkyInputBoxModule,
     SkyRadioModule,

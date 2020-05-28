@@ -1,10 +1,18 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ContentChild,
+  Input,
   OnInit,
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
+
+import {
+  FormControlDirective,
+  FormControlName,
+  NgModel
+} from '@angular/forms';
 
 import {
   SkyThemeService
@@ -28,11 +36,23 @@ import {
 })
 export class SkyInputBoxComponent implements OnInit {
 
+  @Input()
+  public hasErrors: boolean;
+
   public hostInputTemplate: TemplateRef<any>;
 
   public hostButtonsTemplate: TemplateRef<any>;
 
   public formControlHasFocus: boolean;
+
+  @ContentChild(FormControlDirective)
+  public formControl: FormControlDirective;
+
+  @ContentChild(FormControlName)
+  public formControlByName: FormControlName;
+
+  @ContentChild(NgModel)
+  public ngModel: NgModel;
 
   constructor(
     public themeSvc: SkyThemeService,
