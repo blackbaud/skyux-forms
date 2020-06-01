@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -132,6 +133,16 @@ describe('Input box component', () => {
     expect(inputGroupEl.children.item(2)).toHaveCssClass('host-service-button-2');
   });
 
+  it('should pass accessibility', async(() => {
+    const fixture = TestBed.createComponent(InputBoxFixtureComponent);
+
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
+
   describe('in modern theme', () => {
 
     beforeEach(() => {
@@ -206,6 +217,16 @@ describe('Input box component', () => {
 
       expect(inputBoxFormControlEl).not.toHaveCssClass(focusCls);
     });
+
+    it('should pass accessibility', async(() => {
+      const fixture = TestBed.createComponent(InputBoxFixtureComponent);
+
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(fixture.nativeElement).toBeAccessible();
+      });
+    }));
 
   });
 
