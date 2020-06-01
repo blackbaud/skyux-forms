@@ -72,7 +72,7 @@
             [attr.aria-label]="'skyux_file_attachment_file_upload_link_input' | skyLibResources"
             [attr.placeholder]="'skyux_file_attachment_file_upload_link_placeholder' | skyLibResources"
             [(ngModel)]="linkUrl"
-            (blur)="linkBlur()"
+            (blur)="onLinkBlur()"
             (keyup)="addLinkEnter($event)"
           >
         </div>

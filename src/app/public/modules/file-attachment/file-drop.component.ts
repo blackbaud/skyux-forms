@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
   ElementRef,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 
@@ -28,12 +29,12 @@ import {
   templateUrl: './file-drop.component.html',
   styleUrls: ['./file-drop.component.scss']
 })
-export class SkyFileDropComponent {
+export class SkyFileDropComponent implements OnDestroy {
   @Output()
   public filesChanged = new EventEmitter<SkyFileDropChange>();
 
   @Output()
-  public linkInputBlurred = new EventEmitter<void>();
+  public linkInputBlur = new EventEmitter<void>();
 
   @Output()
   public linkChanged = new EventEmitter<SkyFileLink>();
@@ -71,6 +72,12 @@ export class SkyFileDropComponent {
   constructor(
     private fileAttachmentService: SkyFileAttachmentService
   ) { }
+
+  public ngOnDestroy() {
+    this.filesChanged.complete();
+    this.linkChanged.complete();
+    this.linkInputBlur.complete();
+  }
 
   public dropClicked() {
     if (!this.noClick) {
@@ -163,8 +170,8 @@ export class SkyFileDropComponent {
     this.linkUrl = undefined;
   }
 
-  public linkBlur(): void {
-    this.linkInputBlurred.emit();
+  public onLinkBlur(): void {
+    this.linkInputBlur.emit();
   }
 
   private emitFileChangeEvent(

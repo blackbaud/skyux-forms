@@ -766,13 +766,13 @@ describe('File drop component', () => {
     expect(linkInput).toBeTruthy();
   });
 
-  it('should emit the `linkInputBlurred` event whenever the link input is blurred', fakeAsync(() => {
+  it('should emit the `linkInputBlur` event whenever the link input is blurred', fakeAsync(() => {
       componentInstance.allowLinks = true;
       fixture.detectChanges();
 
-      const blurEventSpy = spyOn(componentInstance.linkInputBlurred, 'emit');
+      const blurEventSpy = spyOn(componentInstance.linkInputBlur, 'emit');
 
-      componentInstance.linkInputBlurred.subscribe(() => {
+      componentInstance.linkInputBlur.subscribe(() => {
         expect(blurEventSpy).toHaveBeenCalled();
       });
 
