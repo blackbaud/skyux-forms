@@ -65,7 +65,7 @@
     "@skyux/popovers": "4.0.0",
     "@skyux/router": "4.0.0",
     "@skyux/tabs": "4.0.0",
-    "@skyux/theme": "4.1.0",
+    "@skyux/theme": "4.2.1",
     "codelyzer": "5.2.2",
     "rxjs": "6.5.5",
     "ts-node": "8.3.0",
