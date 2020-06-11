@@ -24,17 +24,18 @@
       .sky-btn {
         border-radius: 0;
         color: $sky-theme-modern-font-deemphasized-color;
-        padding: 0 16px;
+        padding: 0 12px;
 
         .sky-icon {
           font-size: 24px;
+          width: 29px;
         }
 
         &:focus {
           outline: none;
           border: solid 2px $sky-highlight-color-info;
           color: $sky-text-color-default;
-          padding: 0 15px;
+          padding: 0 11px;
         }
       }
 
