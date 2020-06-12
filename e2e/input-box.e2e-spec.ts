@@ -178,6 +178,22 @@ describe('Input box', () => {
     });
   }
 
+  async function validateDisabled(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-disabled');
+
+    expect('#input-box-disabled').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-disabled')
+    });
+  }
+
+  async function validateButtonDisabled(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-button-disabled');
+
+    expect('#input-box-disabled').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-button-disabled')
+    });
+  }
+
   beforeEach(async () => {
     currentTheme = undefined;
     currentThemeMode = undefined;
@@ -267,6 +283,14 @@ describe('Input box', () => {
     }
   );
 
+  it('should match previous input box disabled screenshot', (done) => {
+    validateDisabled(done);
+  });
+
+  it('should match previous input box with button disabled screenshot', (done) => {
+    validateButtonDisabled(done);
+  });
+
   describe('when modern theme', () => {
 
     beforeEach(async () => {
@@ -355,6 +379,14 @@ describe('Input box', () => {
         validateFocusedErrorButton(done);
       }
     );
+
+    it('should match previous input box disabled screenshot', (done) => {
+      validateDisabled(done);
+    });
+
+    it('should match previous input box with button disabled screenshot', (done) => {
+      validateButtonDisabled(done);
+    });
 
   });
 
@@ -446,6 +478,14 @@ describe('Input box', () => {
         validateFocusedErrorButton(done);
       }
     );
+
+    it('should match previous input box disabled screenshot', (done) => {
+      validateDisabled(done);
+    });
+
+    it('should match previous input box with button disabled screenshot', (done) => {
+      validateButtonDisabled(done);
+    });
 
   });
 
