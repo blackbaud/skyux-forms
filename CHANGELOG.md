@@ -1,6 +1,6 @@
 # 4.4.0 (2020-06-12)
 
-- Adjusted the `disabled` property to the input box component. [#130](https://github.com/blackbaud/skyux-forms/pull/130)
+- Added the `disabled` property to the input box component. [#130](https://github.com/blackbaud/skyux-forms/pull/130)
 
 # 4.3.0 (2020-06-11)
 
