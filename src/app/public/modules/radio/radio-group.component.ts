@@ -44,7 +44,7 @@ let nextUniqueId = 0;
 export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, OnDestroy {
 
 /**
- * Sets the radio button group's `aria-labelledby` attribute to support 
+ * Sets the radio button group's `aria-labelledby` attribute to support
  * [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility). The value
  * should be the HTML element ID (without the leading #) of the element that labels the radio
  * button group. If the radio button group does not include a visible label on the screen, use the `ariaLabel` property instead.
@@ -122,8 +122,10 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
 /**
  * Specifies an index for all the radio buttons in the group. If the index is not defined,
  * the indices for individual radio buttons are set to their positions on load.
- * This property supports [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility) by ensuring that focus is placed on the currently selected radio button or 
- * on the first or last button when no radio button is selected depending on how users navigate to the radio button group.
+ * This property supports
+ * [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility)
+ * by ensuring that focus is placed on the currently selected radio button or on the
+ * first or last button when no radio button is selected depending on how users navigate to the radio button group.
  */
   @Input()
   public set tabIndex(value: number) {
