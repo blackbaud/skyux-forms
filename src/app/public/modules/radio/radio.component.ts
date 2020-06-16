@@ -118,7 +118,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
  * should be the HTML element ID (without the leading #) of the element that labels the radio
  * button. If the radio button does not include a visible label on the screen, use the `label` property instead.
  */
-  @Input()
+  @Input()z
   public labelledBy: string;
 
 /**
