@@ -1,3 +1,48 @@
+# 4.4.0 (2020-06-12)
+
+- Added the `disabled` property to the input box component. [#130](https://github.com/blackbaud/skyux-forms/pull/130)
+
+# 4.3.0 (2020-06-11)
+
+- Adjusted the input box component's proportions for the modern theme. [#127](https://github.com/blackbaud/skyux-forms/pull/127)
+
+# 4.2.0 (2020-06-08)
+
+- Added an event listener for when the link text box is blurred within the file drop component. [#122](https://github.com/blackbaud/skyux-forms/pull/122)
+- Updated the input box component to support the intended DOM structure of input group buttons. [#125](https://github.com/blackbaud/skyux-forms/pull/125)
+
+# 4.1.0 (2020-06-01)
+
+- Added the input box component to support the modern theme form field design. [#121](https://github.com/blackbaud/skyux-forms/pull/121)
+
+# 4.0.0 (2020-05-13)
+
+### New features
+
+- Added a test fixture for the checkbox component to use in consumer unit tests. [#115](https://github.com/blackbaud/skyux-forms/pull/115)
+- Added support for `@angular/core@^9`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+- Updated the pipeline to transpile to the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview). [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+
+### Breaking changes
+
+- Dropped support for `rxjs@5`. Consumers can install `rxjs-compat@^6` to support older versions of `rxjs`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+
+# 4.0.0-rc.1 (2020-05-07)
+
+- Upgraded the development dependencies. [#115](https://github.com/blackbaud/skyux-forms/pull/115)
+- Added bug fixes and features from the `master` branch. [#115](https://github.com/blackbaud/skyux-forms/pull/115)
+
+# 4.0.0-rc.0 (2020-02-19)
+
+### New features
+
+- Added support for `@angular/core@^9`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+- Updated the pipeline to transpile to the [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview). [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+
+### Breaking changes
+
+- Dropped support for `rxjs@5`. Consumers can install `rxjs-compat@^6` to support older versions of `rxjs`. [#102](https://github.com/blackbaud/skyux-forms/pull/102)
+
 # 3.6.3 (2020-02-12)
 
 - Fixed an Angular compiler template checking error on the file attachment component's HTML template. [#100](https://github.com/blackbaud/skyux-forms/pull/100)

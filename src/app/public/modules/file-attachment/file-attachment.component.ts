@@ -25,6 +25,10 @@ import {
 } from 'rxjs';
 
 import {
+  takeUntil
+} from 'rxjs/operators';
+
+import {
   SkyFormsUtility
 } from '../shared/forms-utility';
 
@@ -101,9 +105,9 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     return this.labelComponents.length > 0;
   }
 
-  public get labelElementId(): string {
-    return `sky-file-attachment-label-${this.fileAttachmentId}`;
-  }
+  public fileDropDescriptionElementId: string;
+
+  public labelElementId: string;
 
   public rejectedOver: boolean = false;
 
@@ -155,6 +159,8 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     private fileItemService: SkyFileItemService,
     @Self() @Optional() private ngControl: NgControl
   ) {
+    this.labelElementId = `sky-file-attachment-label-${this.fileAttachmentId}`;
+    this.fileDropDescriptionElementId = `sky-file-attachment-drop-description-${this.fileAttachmentId}`;
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -183,10 +189,12 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   public ngAfterContentInit(): void {
     // Handles updating classes when label changes
     this.labelComponents.changes
-    .takeUntil(this.ngUnsubscribe)
-    .subscribe(() => {
-      this.changeDetector.detectChanges();
-    });
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(() => {
+        this.changeDetector.detectChanges();
+      });
   }
 
   public isImage(): boolean {

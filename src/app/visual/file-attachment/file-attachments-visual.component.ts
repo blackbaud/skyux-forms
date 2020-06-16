@@ -14,7 +14,7 @@ import {
   SkyFileDropChange,
   SkyFileItem,
   SkyFileLink
-} from '../../public';
+} from '../../public/public_api';
 
 @Component({
   selector: 'file-attachments-visual',
@@ -88,6 +88,10 @@ export class FileAttachmentsVisualComponent implements OnInit {
     this.removeFromArray(this.allItems, file);
     this.removeFromArray(this.filesToUpload, file);
     this.removeFromArray(this.linksToUpload, file);
+  }
+
+  public linkInputBlur(): void {
+    console.log('Link input blurred');
   }
 
   private removeFromArray(items: Array<any>, obj: SkyFileItem | SkyFileLink): void {

@@ -85,11 +85,6 @@ describe('File item component', () => {
 
     let otherEl = getOtherPreview();
     expect(otherEl).toBeFalsy();
-
-    // Test Accessibility
-    fixture.whenStable().then(() => {
-      expect(fixture.nativeElement).toBeAccessible();
-    });
   }
 
   function testOtherPreview(extension: string, type: string) {
@@ -122,11 +117,6 @@ describe('File item component', () => {
 
     let imageEl = getImage();
     expect(imageEl).toBeFalsy();
-
-    // Test Accessibility
-    fixture.whenStable().then(() => {
-      expect(fixture.nativeElement).toBeAccessible();
-    });
   }
   //#endregion
 
@@ -148,7 +138,7 @@ describe('File item component', () => {
     expect(sizeEl.nativeElement.textContent).toContain('(1 KB)');
   });
 
-  it('shows the url if the item is a link', () => {
+  it('shows the url if the item is a link', async(() => {
 
     componentInstance.fileItem = <SkyFileLink>{
       url: 'myFile.txt'
@@ -167,7 +157,7 @@ describe('File item component', () => {
     fixture.whenStable().then(() => {
       expect(fixture.nativeElement).toBeAccessible();
     });
-  });
+  }));
 
   it('emits the delete event when the delete button is clicked', () => {
     componentInstance.fileItem = <SkyFileLink>{
@@ -203,14 +193,14 @@ describe('File item component', () => {
     expect(deletedFile.file.size).toBe(1000);
   });
 
-  it('shows an image if the item is an image', () => {
+  it('shows an image if the item is an image', async(() => {
     testImage('png');
     testImage('bmp');
     testImage('jpeg');
     testImage('gif');
-  });
+  }));
 
-  it('shows a file icon with the proper extension if it is not an image', () => {
+  it('shows a file icon with the proper extension if it is not an image', async(() => {
     testOtherPreview('pdf', 'pdf');
     testOtherPreview('gz', 'gz');
     testOtherPreview('rar', 'rar');
@@ -229,7 +219,7 @@ describe('File item component', () => {
     testOtherPreview('tiff', 'image');
     testOtherPreview('other', 'text');
     testOtherPreview('mp4', 'video');
-  });
+  }));
 
   it('should pass accessibility', async(() => {
     componentInstance.fileItem = <SkyFileItem>{

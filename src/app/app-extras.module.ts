@@ -12,16 +12,25 @@ import {
 } from '@skyux/docs-tools';
 
 import {
+  SkyIconModule
+} from '@skyux/indicators';
+
+import {
+  SkyFluidGridModule
+} from '@skyux/layout';
+
+import {
   SkyAppLinkModule
 } from '@skyux/router';
 
 import {
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
+  SkyInputBoxModule,
   SkyRadioModule,
   SkyCharacterCounterModule,
   SkyToggleSwitchModule
-} from './public';
+} from './public/public_api';
 
 @NgModule({
   exports: [
@@ -30,6 +39,9 @@ import {
     SkyCheckboxModule,
     SkyDocsToolsModule,
     SkyFileAttachmentsModule,
+    SkyFluidGridModule,
+    SkyIconModule,
+    SkyInputBoxModule,
     SkyRadioModule,
     SkyCharacterCounterModule,
     SkyToggleSwitchModule
