@@ -121,14 +121,16 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   @Input()
   public labelledBy: string;
 
+// tslint:disable: max-line-length
 /**
  * This property is deprecated in favor of
- * [the `name` property on the `sky-radio-group element`](https://developer.blackbaud.com/skyux/components/radio#radio-button-group-properties). 
+ * [the `name` property on the `sky-radio-group element`](https://developer.blackbaud.com/skyux/components/radio#radio-button-group-properties).
  * We recommend using the `sky-radio-group` element with all radio buttons, but if you opt not to,
  * then this property specifies a name for a group of radio buttons.
  * @deprecated
  * @required
  */
+// tslint:enable: max-line-length
   @Input()
   public set name(value: string) {
     this._name = value;
@@ -139,6 +141,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
     return this._name;
   }
 
+ // tslint:disable: max-line-length
 /**
  * This property is deprecated in favor of
  * [the `tabIndex` property on the `sky-radio-group` element](https://developer.blackbaud.com/skyux/components/radio#radio-button-group-properties). It specifies an index for the radio button.
@@ -146,6 +149,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
  * @default "0"
  * @deprecated
  */
+// tslint:enable: max-line-length
   @Input()
   public set tabindex(value: number) {
     console.warn('The sky-radio `tabindex` property is deprecated. Please use the `tabindex` property on the sky-radio-group component.');
