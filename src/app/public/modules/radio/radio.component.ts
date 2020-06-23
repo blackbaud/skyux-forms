@@ -98,7 +98,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Specifies an ID for the radio button.
- * @default a unique, auto-incrementing integer
+ * @default a unique, auto-incrementing integer. For example: `sky-radio-1`
  */
   @Input()
   public id = `sky-radio-${++nextUniqueId}`;
@@ -168,8 +168,8 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
 /**
- * Specifies a value for the radio button. The value usually corresponds to the radio button's
- * label, which you specify with the `sky-radio-label` component.
+ * Specifies and binds a value to the radio button's value property. The value usually corresponds
+ * to the radio button's label, which you specify with the `sky-radio-label` component.
  * @required
  */
   @Input()
@@ -237,9 +237,6 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
     return this._selectedValue;
   }
 
-  /**
-   * specifies the radio component that triggered the change event.
-   */
   private _change = new EventEmitter<SkyRadioChange>();
   private _checked = false;
   private _disabled: boolean = false;
@@ -247,9 +244,6 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   private _radioType: string;
   private _selectedValue: any;
   private _tabindex: number;
-  /**
-   * Specifies the value from the radio component.
-   */
   private _value: any;
 
   constructor(
