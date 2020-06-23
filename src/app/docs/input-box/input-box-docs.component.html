@@ -1,0 +1,213 @@
+<sky-docs-demo-page
+  moduleName="SkyInputBoxModule"
+  moduleSourceCodePath="src/app/public/modules/input-box/"
+  pageTitle="Input box"
+>
+  <sky-docs-demo-page-summary>
+    The Input box component provides styling for most prompts to enter data in forms. While this component is compatible with SKY UX's default theme, it provides more styling in modern theme.
+  </sky-docs-demo-page-summary>
+
+  <sky-docs-demo
+    [skyTheme]="modernLightTheme"
+  >
+    <sky-input-box>
+      <label
+        class="sky-control-label"
+        for="myField"
+      >
+        Input label
+      </label>
+      <input
+        class="sky-form-control"
+        id="myField"
+        type="text"
+      >
+    </sky-input-box>
+  </sky-docs-demo>
+
+  <sky-docs-design-guidelines>
+
+    <sky-docs-demo-page-section
+      heading="Usage"
+    >
+      <sky-docs-design-guideline
+        heading="Use when"
+        headingStyle="success"
+      >
+        <p>
+          Use input box when users need to enter data in forms. The Input box component provides styling for many types of data entry, from basic single-line text, to text areas, to other SKY UX inputs like <a href="https://developer.blackbaud.com/skyux-datetime/docs/datepicker">Datepicker</a>.
+        </p>
+        <sky-docs-design-guideline-thumbnail
+          caption="Do use input box for data entry on forms."
+          captionType="success"
+          imageSource="~/assets/img/guidelines/input-box/input-box-usage-1.png"
+        >
+        </sky-docs-design-guideline-thumbnail>
+      </sky-docs-design-guideline>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Anatomy"
+    >
+      <sky-docs-anatomy
+        imagePath="~/assets/img/guidelines/input-box/input-box-anatomy.png"
+      >
+        <sky-docs-anatomy-item>Input container</sky-docs-anatomy-item>
+        <sky-docs-anatomy-item>Input label</sky-docs-anatomy-item>
+        <sky-docs-anatomy-item>Text value</sky-docs-anatomy-item>
+      </sky-docs-anatomy>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Behavior and states"
+    >
+      <table class="sky-docs-table">
+        <tr>
+          <td class="sky-docs-table-cell sky-docs-table-cell-primary">
+            Base
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-base.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+        <tr>
+          <td class="sky-docs-table-cell">
+            Hover
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-hover.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+        <tr>
+          <td class="sky-docs-table-cell">
+            Focus
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-focus.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+        <tr>
+          <td class="sky-docs-table-cell sky-docs-table-cell-primary">
+            Click
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-click.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+        <tr>
+          <td class="sky-docs-table-cell">
+            Disabled
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-disabled.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+        <tr>
+          <td class="sky-docs-table-cell">
+            Required
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-required.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+        <tr>
+          <td class="sky-docs-table-cell">
+            Error
+          </td>
+          <td class="sky-docs-table-cell">
+            <sky-docs-design-guideline-thumbnail
+              imageSource="~/assets/img/guidelines/input-box/input-box-states-error.png"
+            >
+            </sky-docs-design-guideline-thumbnail>
+          </td>
+        </tr>
+      </table>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Content"
+    >
+      <sky-docs-design-guideline>
+        <p>
+          Input boxes are most common inside Modals and follow <a href="https://developer.blackbaud.com/skyux/design/guidelines/form-design">Form design</a> guidelines. When using 2-column or 3-column layouts for Input Boxes, use the narrow spacing option of Fluid grid to maintain even vertical and horizontal padding.
+        </p>
+        <sky-docs-design-guideline-thumbnail
+          caption="Do use section headers outisde of Input box to supply conversational form design."
+          captionType="success"
+          imageSource="~/assets/img/guidelines/input-box/input-box-content-1.png"
+        >
+        </sky-docs-design-guideline-thumbnail>
+      </sky-docs-design-guideline>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Layout"
+    >
+      <div
+        class="sky-docs-text-block"
+      >
+        <sky-docs-design-guideline>
+          <p>
+            Input boxes are most common inside Modals and follow <a href="https://developer.blackbaud.com/skyux/design/guidelines/form-design">Form design</a> guidelines. When using 2-coumn or 3-column layouts for Input boxes, use the narrow spacing option of Fluid grid to maintain even vertical and horizontal padding.
+          </p>
+        </sky-docs-design-guideline>
+      </div>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
+      heading="Related content"
+    >
+      <sky-docs-design-guideline
+        heading="Components"
+      >
+        <ul>
+          <li><a href="https://developer.blackbaud.com/skyux/components/modal">Modal</a></li>
+        </ul>
+      </sky-docs-design-guideline>
+      <sky-docs-design-guideline
+        heading="Guidelines"
+      >
+        <ul>
+          <li>
+            <a href="https://developer.blackbaud.com/skyux/design/guidelines/error-handling">Error handling</a>
+          </li>
+          <li>
+            <a href="https://developer.blackbaud.com/skyux/design/guidelines/form-design">Form design</a>
+          </li>
+        </ul>
+      </sky-docs-design-guideline>
+    </sky-docs-demo-page-section>
+
+  </sky-docs-design-guidelines>
+
+  <sky-docs-code-examples
+    [packageDependencies]="{
+      '@skyux/theme': '*'
+    }"
+  >
+    <sky-docs-code-example
+      heading="Input box"
+      sourceCodePath="src/app/public/plugin-resources/code-examples/input-box/basic"
+    >
+    </sky-docs-code-example>
+  </sky-docs-code-examples>
+
+</sky-docs-demo-page>

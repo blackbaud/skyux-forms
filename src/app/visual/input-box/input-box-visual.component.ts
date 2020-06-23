@@ -44,9 +44,7 @@ export class InputBoxVisualComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.errorField = new FormControl(
       '',
-      [
-        Validators.required
-      ]
+      []
     );
 
     this.errorField.markAsTouched();

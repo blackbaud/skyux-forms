@@ -26,6 +26,10 @@ import {
   SkyInputBoxPopulateArgs
 } from './input-box-populate-args';
 
+/**
+ * Creates a wrapper for the input box.
+ * You must wrap this component around an `input` and `label` element.
+ */
 @Component({
   selector: 'sky-input-box',
   templateUrl: './input-box.component.html',
@@ -36,9 +40,20 @@ import {
 })
 export class SkyInputBoxComponent implements OnInit {
 
+  /**
+   * Indicates whether to display the input box in an error state. The input box component will
+   * also display an error state if the `ngModel` or Angular `FormControl` contains an error.
+   * @default false
+   */
   @Input()
   public hasErrors: boolean;
 
+  /**
+   * Indicates whether to display the input box as disabled. You must also disable
+   * the `input` element with an HTML `disabled` attribute or with
+   * Angular's `FormControl.disabled` property.
+   * @default false
+   */
   @Input()
   public disabled: boolean;
 
