@@ -58,7 +58,7 @@ const SKY_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
 export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 /**
  * Indicates whether the radio button is selected.
- * @default "false"
+ * @default false
  */
   @Input()
   public set checked(value: boolean) {
@@ -81,7 +81,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
   /**
    * Indicates whether to disable the input.
-   * @default "false"
+   * @default false
    */
   @Input()
   public set disabled(value: boolean) {
@@ -97,14 +97,15 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
 /**
- * Specifies an ID for the radio button. If you do not specify an ID, an auto-incrementing integer generates unique IDs.
+ * Specifies an ID for the radio button.
+ * @default a unique, auto-incrementing integer
  */
   @Input()
   public id = `sky-radio-${++nextUniqueId}`;
 
 /**
  * Defines an ARIA label for the radio button to support
- * [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility) when the
+ * [accessibility](https://developer.blackbaud.com/skyux-forms/docs/radio#accessibility) when the
  * radio button does not include a visible label. This property must be set if you are using an
  * icon radio button. If the radio button includes a visible label on the screen, use the
  * `labelledBy` property instead.
@@ -114,7 +115,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Sets the radio button's `aria-labelledby` attribute to support
- * [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility). The value
+ * [accessibility](https://developer.blackbaud.com/skyux-forms/docs/radio#accessibility). The value
  * should be the HTML element ID (without the leading #) of the element that labels the radio
  * button. If the radio button does not include a visible label on the screen, use the `label` property instead.
  */
@@ -124,7 +125,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 // tslint:disable: max-line-length
 /**
  * This property is deprecated in favor of
- * [the `name` property on the `sky-radio-group element`](https://developer.blackbaud.com/skyux/components/radio#radio-button-group-properties).
+ * [the `name` property on the `sky-radio-group element`](https://developer.blackbaud.com/skyux-forms/docs/radio#skyradiogroupcomponent).
  * We recommend using the `sky-radio-group` element with all radio buttons, but if you opt not to,
  * then this property specifies a name for a group of radio buttons.
  * @deprecated
@@ -144,9 +145,9 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
  // tslint:disable: max-line-length
 /**
  * This property is deprecated in favor of
- * [the `tabIndex` property on the `sky-radio-group` element](https://developer.blackbaud.com/skyux/components/radio#radio-button-group-properties). It specifies an index for the radio button.
+ * [the `tabIndex` property on the `sky-radio-group` element](https://developer.blackbaud.com/skyux-forms/docs/radio#radio-button-group-properties). It specifies an index for the radio button.
  * If the index is not defined, it is set to the position of the radio button on load.
- * @default "0"
+ * @default 0
  * @deprecated
  */
 // tslint:enable: max-line-length
@@ -192,7 +193,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Specifies an icon to display in place of the radio button. To group radio buttons like in
- * [the demo above](https://developer.blackbaud.com/skyux/components/radio#demo) place the
+ * [the demo above](https://developer.blackbaud.com/skyux-forms/docs/radio#demo) place the
  * `sky-switch-icon-group` class on the direct parent element of the radio buttons.
  */
   @Input()
@@ -236,6 +237,9 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
     return this._selectedValue;
   }
 
+  /**
+   * specifies the radio component that triggered the change event.
+   */
   private _change = new EventEmitter<SkyRadioChange>();
   private _checked = false;
   private _disabled: boolean = false;
@@ -243,6 +247,9 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   private _radioType: string;
   private _selectedValue: any;
   private _tabindex: number;
+  /**
+   * Specifies the value from the radio component.
+   */
   private _value: any;
 
   constructor(
