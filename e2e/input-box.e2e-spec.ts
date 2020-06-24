@@ -36,6 +36,17 @@ describe('Input box', () => {
 
   async function clickLabel(wrapperId: string): Promise<void> {
     await element(by.css(`#${wrapperId} label`)).click();
+
+    // Move the cursor so the hover state isn't activated.
+    await SkyHostBrowser.moveCursorOffScreen();
+  }
+
+  async function hoverElement(selector: string): Promise<void> {
+    await browser.actions().mouseMove(element(by.css(selector))).perform();
+  }
+
+  async function mouseDownElement(selector: string): Promise<void> {
+    await browser.actions().mouseDown(element(by.css(selector))).perform();
   }
 
   async function tabToNextElement(): Promise<void> {
@@ -62,7 +73,7 @@ describe('Input box', () => {
   async function validateFocusedBasic(done: DoneFn): Promise<void> {
     await SkyHostBrowser.scrollTo('#input-box-basic');
 
-    await element(by.css('#input-box-basic label')).click();
+    await clickLabel('input-box-basic');
 
     expect('#input-box-basic').toMatchBaselineScreenshot(done, {
       screenshotName: getScreenshotName('input-box-basic-focused')
@@ -72,7 +83,7 @@ describe('Input box', () => {
   async function validateFocusedTextarea(done: DoneFn): Promise<void> {
     await SkyHostBrowser.scrollTo('#input-box-textarea');
 
-    await element(by.css('#input-box-textarea label')).click();
+    await clickLabel('input-box-textarea');
 
     expect('#input-box-textarea').toMatchBaselineScreenshot(done, {
       screenshotName: getScreenshotName('input-box-textarea-focused')
@@ -123,6 +134,46 @@ describe('Input box', () => {
     });
   }
 
+  async function validateHoverBasic(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-basic');
+
+    await hoverElement('#input-box-basic input');
+
+    expect('#input-box-basic').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-basic-hover')
+    });
+  }
+
+  async function validateActiveBasic(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-basic');
+
+    await mouseDownElement('#input-box-basic input');
+
+    expect('#input-box-basic').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-basic-hover')
+    });
+  }
+
+  async function validateHoverButtonSingleInput(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-button-single');
+
+    await hoverElement('#input-box-button-single input');
+
+    expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-button-hover-single-input')
+    });
+  }
+
+  async function validateHoverButtonSingleButton(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-button-single');
+
+    await hoverElement('#input-box-button-single button');
+
+    expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-button-hover-single-button')
+    });
+  }
+
   async function validateErrorFormControl(done: DoneFn): Promise<void> {
     await SkyHostBrowser.scrollTo('#input-box-form-control-error');
 
@@ -154,6 +205,16 @@ describe('Input box', () => {
 
     expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
       screenshotName: getScreenshotName('input-box-error-focused')
+    });
+  }
+
+  async function validateErrorHover(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
+
+    await hoverElement('#input-box-ngmodel-error');
+
+    expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-error-hover')
     });
   }
 
@@ -194,6 +255,16 @@ describe('Input box', () => {
     });
   }
 
+  async function validateDisabledHover(done: DoneFn): Promise<void> {
+    await SkyHostBrowser.scrollTo('#input-box-disabled');
+
+    await hoverElement('#input-box-disabled');
+
+    expect('#input-box-disabled').toMatchBaselineScreenshot(done, {
+      screenshotName: getScreenshotName('input-box-disabled-hover')
+    });
+  }
+
   beforeEach(async () => {
     currentTheme = undefined;
     currentThemeMode = undefined;
@@ -201,6 +272,7 @@ describe('Input box', () => {
     await SkyHostBrowser.get('visual/input-box');
     await SkyHostBrowser.setWindowBreakpoint('lg');
     await SkyHostBrowser.scrollTo('#screenshot-input-box');
+    await SkyHostBrowser.moveCursorOffScreen();
   });
 
   it('should match previous input box screenshot', (done) => {
@@ -213,6 +285,14 @@ describe('Input box', () => {
 
   it('should match previous basic input box screenshot when focused', (done) => {
     validateFocusedBasic(done);
+  });
+
+  it('should match previous basic input box screenshot when hovered', (done) => {
+    validateHoverBasic(done);
+  });
+
+  it('should match previous basic input box screenshot when active', (done) => {
+    validateActiveBasic(done);
   });
 
   it('should match previous textarea input box screenshot when focused', (done) => {
@@ -238,6 +318,20 @@ describe('Input box', () => {
     'should match previous input box with multiple buttons screenshot when button 2 is focused',
     (done) => {
       validateFocusedButtonMutlipleButton2(done);
+    }
+  );
+
+  it(
+    'should match previous input box with single button screenshot when input is hovered',
+    (done) => {
+      validateHoverButtonSingleInput(done);
+    }
+  );
+
+  it(
+    'should match previous input box with single button screenshot when button is hovered',
+    (done) => {
+      validateHoverButtonSingleButton(done);
     }
   );
 
@@ -283,11 +377,22 @@ describe('Input box', () => {
     }
   );
 
-  it('should match previous input box disabled screenshot', (done) => {
+  it(
+    'should match previous input box with error when hovered',
+    (done) => {
+      validateErrorHover(done);
+    }
+  );
+
+  it('should match previous input box when disabled', (done) => {
     validateDisabled(done);
   });
 
-  it('should match previous input box with button disabled screenshot', (done) => {
+  it('should match previous input box when disabled and hovered', (done) => {
+    validateDisabledHover(done);
+  });
+
+  it('should match previous input box with button when disabled', (done) => {
     validateButtonDisabled(done);
   });
 
@@ -307,6 +412,14 @@ describe('Input box', () => {
 
     it('should match previous basic input box screenshot when focused', (done) => {
       validateFocusedBasic(done);
+    });
+
+    it('should match previous basic input box screenshot when hovered', (done) => {
+      validateHoverBasic(done);
+    });
+
+    it('should match previous basic input box screenshot when active', (done) => {
+      validateActiveBasic(done);
     });
 
     it('should match previous textarea input box screenshot when focused', (done) => {
@@ -335,6 +448,20 @@ describe('Input box', () => {
       'should match previous input box with multiple buttons screenshot when button 2 is focused',
       (done) => {
         validateFocusedButtonMutlipleButton2(done);
+      }
+    );
+
+    it(
+      'should match previous input box with single button screenshot when input is hovered',
+      (done) => {
+        validateHoverButtonSingleInput(done);
+      }
+    );
+
+    it(
+      'should match previous input box with single button screenshot when button is hovered',
+      (done) => {
+        validateHoverButtonSingleButton(done);
       }
     );
 
@@ -380,11 +507,22 @@ describe('Input box', () => {
       }
     );
 
-    it('should match previous input box disabled screenshot', (done) => {
+    it(
+      'should match previous input box with error when hovered',
+      (done) => {
+        validateErrorHover(done);
+      }
+    );
+
+    it('should match previous input box when disabled', (done) => {
       validateDisabled(done);
     });
 
-    it('should match previous input box with button disabled screenshot', (done) => {
+    it('should match previous input box when disabled and hovered', (done) => {
+      validateDisabledHover(done);
+    });
+
+    it('should match previous input box with button when disabled', (done) => {
       validateButtonDisabled(done);
     });
 
@@ -408,6 +546,14 @@ describe('Input box', () => {
       validateFocusedBasic(done);
     });
 
+    it('should match previous basic input box screenshot when hovered', (done) => {
+      validateHoverBasic(done);
+    });
+
+    it('should match previous basic input box screenshot when active', (done) => {
+      validateActiveBasic(done);
+    });
+
     it('should match previous textarea input box screenshot when focused', (done) => {
       validateFocusedTextarea(done);
     });
@@ -434,6 +580,20 @@ describe('Input box', () => {
       'should match previous input box with multiple buttons screenshot when button 2 is focused',
       (done) => {
         validateFocusedButtonMutlipleButton2(done);
+      }
+    );
+
+    it(
+      'should match previous input box with single button screenshot when input is hovered',
+      (done) => {
+        validateHoverButtonSingleInput(done);
+      }
+    );
+
+    it(
+      'should match previous input box with single button screenshot when button is hovered',
+      (done) => {
+        validateHoverButtonSingleButton(done);
       }
     );
 
@@ -479,11 +639,22 @@ describe('Input box', () => {
       }
     );
 
-    it('should match previous input box disabled screenshot', (done) => {
+    it(
+      'should match previous input box with error when hovered',
+      (done) => {
+        validateErrorHover(done);
+      }
+    );
+
+    it('should match previous input box when disabled', (done) => {
       validateDisabled(done);
     });
 
-    it('should match previous input box with button disabled screenshot', (done) => {
+    it('should match previous input box when disabled and hovered', (done) => {
+      validateDisabledHover(done);
+    });
+
+    it('should match previous input box with button when disabled', (done) => {
       validateButtonDisabled(done);
     });
 
