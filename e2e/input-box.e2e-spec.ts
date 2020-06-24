@@ -150,7 +150,7 @@ describe('Input box', () => {
     await mouseDownElement('#input-box-basic input');
 
     expect('#input-box-basic').toMatchBaselineScreenshot(done, {
-      screenshotName: getScreenshotName('input-box-basic-hover')
+      screenshotName: getScreenshotName('input-box-basic-active')
     });
   }
 
