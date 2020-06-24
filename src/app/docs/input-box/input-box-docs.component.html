@@ -10,19 +10,25 @@
   <sky-docs-demo
     [skyTheme]="modernLightTheme"
   >
-    <sky-input-box>
-      <label
-        class="sky-control-label"
-        for="myField"
-      >
-        Input label
-      </label>
-      <input
-        class="sky-form-control"
-        id="myField"
-        type="text"
-      >
-    </sky-input-box>
+    <sky-fluid-grid>
+      <sky-row>
+        <sky-column screenSmall="6">
+          <sky-input-box>
+            <label
+              class="sky-control-label"
+              for="myField"
+            >
+              Input label
+            </label>
+            <input
+              class="sky-form-control"
+              id="myField"
+              type="text"
+            >
+          </sky-input-box>
+        </sky-column>
+      </sky-row>
+    </sky-fluid-grid>
   </sky-docs-demo>
 
   <sky-docs-design-guidelines>
@@ -200,6 +206,7 @@
 
   <sky-docs-code-examples
     [packageDependencies]="{
+      '@skyux/datetime': '*',
       '@skyux/theme': '*'
     }"
   >
