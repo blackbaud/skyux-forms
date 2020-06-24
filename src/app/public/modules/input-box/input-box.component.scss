@@ -2,6 +2,8 @@
 @import "~@skyux/theme/scss/_compat/mixins";
 @import "~@skyux/theme/scss/variables";
 
+$input-box-transitions: border-color 125ms, box-shadow 125ms, color 125ms;
+
 sky-input-box {
   display: block;
 }
@@ -37,6 +39,7 @@ sky-input-box {
         color: $sky-theme-modern-font-deemphasized-color;
         padding: 0 12px;
         position: relative;
+        transition: $input-box-transitions;
 
         .sky-icon {
           font-size: 24px;
@@ -227,12 +230,14 @@ sky-input-box {
       display: block;
       margin-bottom: 0;
       padding: 0;
+      transition: $input-box-transitions;
 
       .sky-control-label {
         display: block;
         font-size: 13px;
         margin-bottom: 0;
         padding: 6px 15px 0 15px;
+        transition: $input-box-transitions;
       }
 
       .sky-form-control {
