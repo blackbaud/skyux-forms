@@ -250,7 +250,7 @@ describe('Input box', () => {
   async function validateButtonDisabled(done: DoneFn): Promise<void> {
     await SkyHostBrowser.scrollTo('#input-box-button-disabled');
 
-    expect('#input-box-disabled').toMatchBaselineScreenshot(done, {
+    expect('#input-box-button-disabled').toMatchBaselineScreenshot(done, {
       screenshotName: getScreenshotName('input-box-button-disabled')
     });
   }
