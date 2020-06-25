@@ -46,6 +46,11 @@ const SKY_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
 };
 // tslint:enable
 
+/**
+ * The radio button component renders a SKY UX-themed replacement for an HTML `input` element
+ * with `type="radio"`. When users select a radio button, its value is driven through an
+ * `ngModel` attribute that you specify on the `sky-radio` element or the parent `sky-radio-group` element.
+ */
 @Component({
   selector: 'sky-radio',
   templateUrl: './radio.component.html',

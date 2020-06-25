@@ -37,6 +37,12 @@ import {
 
 let nextUniqueId = 0;
 
+/**
+ * The `sky-radio-group` component organizes radio buttons into a group. It is required for radio
+ * buttons on Angular reactive forms, and we recommend using it with all radio buttons.
+ * On Angular forms, the component manages the selected values and keeps the forms up-to-date.
+ * When users select a radio button, its value is driven through an `ngModel` attribute that you specify on the `sky-radio-group` element.
+ */
 @Component({
   selector: 'sky-radio-group',
   templateUrl: './radio-group.component.html'
