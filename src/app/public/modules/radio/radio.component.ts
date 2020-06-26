@@ -195,7 +195,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Specifies an icon to display in place of the radio button. To group radio buttons like in
- * the demo above place the  * `sky-switch-icon-group` class on the direct parent element of the radio buttons.
+ * the demo above, place the  * `sky-switch-icon-group` class on the direct parent element of the radio buttons.
  */
   @Input()
   public icon: string;
