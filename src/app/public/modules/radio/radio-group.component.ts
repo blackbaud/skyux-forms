@@ -127,10 +127,9 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
 /**
  * Specifies an index for all the radio buttons in the group. If the index is not defined,
  * the indices for individual radio buttons are set to their positions on load.
- * This property supports
- * [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility)
- * by ensuring that focus is placed on the currently selected radio button or on the
- * first or last button when no radio button is selected depending on how users navigate to the radio button group.
+ * This property supports accessibility by placing focus on the currently selected radio
+ * button. If no radio button is selected, it places focus on the first or last button
+ * depending on how users navigate to the radio button group.
  */
   @Input()
   public set tabIndex(value: number) {
