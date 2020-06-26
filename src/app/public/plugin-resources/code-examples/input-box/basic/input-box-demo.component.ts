@@ -15,7 +15,8 @@ import {
 export class InputBoxDemoComponent {
 
   /**
-   * The Input box component works best in modern theme. This is purely for demonstration purposes.
+   * The input box component is designed for the modern theme.
+   * This is purely for demonstration purposes.
    */
   public modernLightTheme = new SkyThemeSettings(
     SkyTheme.presets.modern,

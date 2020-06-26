@@ -27,8 +27,7 @@ import {
 } from './input-box-populate-args';
 
 /**
- * Creates a wrapper for the input box.
- * You must wrap this component around an `input` and `label` element.
+ * Creates a wrapper for `input` and `label` elements to provide styling.
  */
 @Component({
   selector: 'sky-input-box',
