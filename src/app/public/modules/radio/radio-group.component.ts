@@ -50,8 +50,7 @@ let nextUniqueId = 0;
 export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, OnDestroy {
 
 /**
- * Sets the radio button group's `aria-labelledby` attribute to support
- * [accessibility](https://developer.blackbaud.com/skyux/components/radio#accessibility). The value
+ * Sets the radio button group's `aria-labelledby` attribute to support accessibility. The value
  * should be the HTML element ID (without the leading #) of the element that labels the radio
  * button group. If the radio button group does not include a visible label on the screen, use the `ariaLabel` property instead.
  */
