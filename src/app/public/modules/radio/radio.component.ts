@@ -120,21 +120,19 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Sets the radio button's `aria-labelledby` attribute to support
- * [accessibility](https://developer.blackbaud.com/skyux-forms/docs/radio#accessibility). The value
- * should be the HTML element ID (without the leading #) of the element that labels the radio
- * button. If the radio button does not include a visible label on the screen, use the `label` property instead.
+ * accessibility. The value should be the HTML element ID (without the leading #) of the
+ * element that labels the radio button. If the radio button does not include a visible label
+ * on the screen, use the `label` property instead.
  */
   @Input()
   public labelledBy: string;
 
 // tslint:disable: max-line-length
 /**
- * This property is deprecated in favor of
- * [the `name` property on the `sky-radio-group element`](https://developer.blackbaud.com/skyux-forms/docs/radio#skyradiogroupcomponent).
+ * This property is deprecated in favor of the `name` property on the `sky-radio-group element`.
  * We recommend using the `sky-radio-group` element with all radio buttons, but if you opt not to,
  * then this property specifies a name for a group of radio buttons.
  * @deprecated
- * @required
  */
 // tslint:enable: max-line-length
   @Input()
@@ -150,9 +148,8 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
  // tslint:disable: max-line-length
 /**
  * This property is deprecated in favor of
- * [the `tabIndex` property on the `sky-radio-group` element](https://developer.blackbaud.com/skyux-forms/docs/radio#radio-button-group-properties). It specifies an index for the radio button.
+ * the `tabIndex` property on the `sky-radio-group` element. It specifies an index for the radio button.
  * If the index is not defined, it is set to the position of the radio button on load.
- * @default 0
  * @deprecated
  */
 // tslint:enable: max-line-length
@@ -173,7 +170,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
 /**
- * Specifies and binds a value to the radio button's value property. The value usually corresponds
+ * Specifies and binds a value to the radio button's `value` property. The value usually corresponds
  * to the radio button's label, which you specify with the `sky-radio-label` component.
  * @required
  */
@@ -198,8 +195,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Specifies an icon to display in place of the radio button. To group radio buttons like in
- * [the demo above](https://developer.blackbaud.com/skyux-forms/docs/radio#demo) place the
- * `sky-switch-icon-group` class on the direct parent element of the radio buttons.
+ * the demo above place the  * `sky-switch-icon-group` class on the direct parent element of the radio buttons.
  */
   @Input()
   public icon: string;
