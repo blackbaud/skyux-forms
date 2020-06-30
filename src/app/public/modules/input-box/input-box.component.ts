@@ -48,9 +48,10 @@ export class SkyInputBoxComponent implements OnInit {
   public hasErrors: boolean;
 
   /**
-   * Indicates whether to display the input box as disabled. You must also disable
-   * the `input` element with an HTML `disabled` attribute or with
-   * Angular's `FormControl.disabled` property.
+   * Indicates whether to visually display the input box as disabled. To disable the input box's
+   * `input` element, use the HTML `disabled` attribute or the Angular `FormControl.disabled`
+   * property. You must set both properties to disable an `input` element and visually indicate
+   * the disabled state on the input box.
    * @default false
    */
   @Input()
