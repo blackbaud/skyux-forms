@@ -109,11 +109,10 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   public id = `sky-radio-${++nextUniqueId}`;
 
 /**
- * Defines an ARIA label for the radio button to support
- * [accessibility](https://developer.blackbaud.com/skyux-forms/docs/radio#accessibility) when the
- * radio button does not include a visible label. This property must be set if you are using an
- * icon radio button. If the radio button includes a visible label on the screen, use the
- * `labelledBy` property instead.
+ * Defines an ARIA label for the radio button to support accessibility when the
+ * radio button does not include a visible label. This property must be set if you
+ * are using an icon radio button. If the radio button includes a visible label on
+ * the screen, use the `labelledBy` property instead.
  */
   @Input()
   public label: string;
@@ -195,7 +194,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Specifies an icon to display in place of the radio button. To group radio buttons like in
- * the demo above, place the  * `sky-switch-icon-group` class on the direct parent element of the radio buttons.
+ * the demo above, place the `sky-switch-icon-group` class on the direct parent element of the radio buttons.
  */
   @Input()
   public icon: string;

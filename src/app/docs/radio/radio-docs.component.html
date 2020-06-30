@@ -305,6 +305,22 @@
     </sky-docs-demo-page-section>
 
     <sky-docs-demo-page-section
+      heading="Accessibility"
+    >
+      <p>
+        For a group of radio buttons, use the <sky-code>fieldset</sky-code> and <sky-code>legend</sky-code> elements to provide semantic structure. For people using assistive technology, the <sky-code>fieldset</sky-code> element groups the radio buttons to indicate the number of items in the group, and the <sky-code>legend</sky-code> element provides a description for the group. For more information about how to use <sky-code>fieldset</sky-code> and <sky-code>legend</sky-code>, see <a href="http://webaim.org/techniques/forms/controls#radio">WebAIM examples and guidance</a>.
+      </p>
+
+      <p>
+        Also for a group of radio buttons, use the <sky-code>tabIndex</sky-code> property to specify an index for all radio buttons in the group. This places focus on the currently selected radio button. If no radio button is selected, it places focus on the first or last button depending on how users navigate to the radio button group.
+      </p>
+
+      <p>
+        For icon radio buttons, use the <sky-code>label</sky-code> or <sky-code>labelledby</sky-code> input. For people using assistive technology, the visible icon may not convey sufficient information.
+      </p>
+    </sky-docs-demo-page-section>
+
+    <sky-docs-demo-page-section
       heading="Related information"
     >
       <sky-docs-design-guideline
