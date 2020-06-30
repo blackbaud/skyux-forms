@@ -47,7 +47,7 @@ const SKY_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
 // tslint:enable
 
 /**
- * The radio button component renders a SKY UX-themed replacement for an HTML `input` element
+ * Renders a SKY UX-themed replacement for an HTML `input` element
  * with `type="radio"`. When users select a radio button, its value is driven through an
  * `ngModel` attribute that you specify on the `sky-radio` element or the parent `sky-radio-group` element.
  */
@@ -110,18 +110,18 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
 /**
  * Defines an ARIA label for the radio button to support accessibility when the
- * radio button does not include a visible label. This property must be set if you
- * are using an icon radio button. If the radio button includes a visible label on
- * the screen, use the `labelledBy` property instead.
+ * radio button does not include a visible label. You must set this property if you
+ * are using an icon radio button. If the radio button includes a visible label,
+ * use the `labelledBy` property instead.
  */
   @Input()
   public label: string;
 
 /**
  * Sets the radio button's `aria-labelledby` attribute to support
- * accessibility. The value should be the HTML element ID (without the leading #) of the
- * element that labels the radio button. If the radio button does not include a visible label
- * on the screen, use the `label` property instead.
+ * accessibility. The value should be the HTML element ID (without the leading `#`) of the
+ * element that labels the radio button. If the radio button does not include a visible label,
+ * use the `label` property instead.
  */
   @Input()
   public labelledBy: string;
@@ -200,11 +200,11 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   public icon: string;
 
 /**
- * Specifies a type to set the background color after users select a radio button where the icon
- * property displays an icon in place of the radio button. The valid options correspond
- * [the label component's](https://developer.blackbaud.com/skyux/components/label) label types.
- * `info` creates a blue background, `success` creates a green background, `warning` creates an
- * orange background, and `danger` creates a red background.
+ * Specifies a type to set the background color after users select an icon radio button.
+ * The valid options correspond
+ * [the label component's](https://developer.blackbaud.com/skyux/components/label)
+ * label types. `danger` creates a red background, `info` creates a blue background,
+ * `success` creates a green background, and `warning` creates an orange background.
  * @default "info"
  */
   @Input()

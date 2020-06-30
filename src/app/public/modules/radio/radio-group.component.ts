@@ -38,7 +38,7 @@ import {
 let nextUniqueId = 0;
 
 /**
- * The `sky-radio-group` component organizes radio buttons into a group. It is required for radio
+ * Organizes radio buttons into a group. It is required for radio
  * buttons on Angular reactive forms, and we recommend using it with all radio buttons.
  * On Angular forms, the component manages the selected values and keeps the forms up-to-date.
  * When users select a radio button, its value is driven through an `ngModel` attribute that you specify on the `sky-radio-group` element.
@@ -51,8 +51,8 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
 
 /**
  * Sets the radio button group's `aria-labelledby` attribute to support accessibility. The value
- * should be the HTML element ID (without the leading #) of the element that labels the radio
- * button group. If the radio button group does not include a visible label on the screen, use the `ariaLabel` property instead.
+ * should be the HTML element ID (without the leading `#`) of the element that labels the radio
+ * button group. If the radio button group does not include a visible label, use the `ariaLabel` property instead.
  */
   @Input()
   public ariaLabelledBy: string;
@@ -60,7 +60,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
 /**
  * Defines a string value to label the radio button group and set the `aria-label`
  * attribute to support accessibility. If the radio button group includes a visible
- * label on the screen, use the `ariaLabelledBy` property instead.
+ * label, use the `ariaLabelledBy` property instead.
  */
   @Input()
   public ariaLabel: string;
