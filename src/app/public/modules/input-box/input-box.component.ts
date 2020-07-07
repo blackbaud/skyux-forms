@@ -40,7 +40,7 @@ import {
 export class SkyInputBoxComponent implements OnInit {
 
   /**
-   * Indicates whether to display the input box in an error state. The input box also displays
+   * Indicates whether to visually highlight the input box in an error state. The input box also displays
    * an error state if the `ngModel` or Angular `FormControl` contains an error.
    * @default false
    */
@@ -48,7 +48,7 @@ export class SkyInputBoxComponent implements OnInit {
   public hasErrors: boolean;
 
   /**
-   * Indicates whether to visually display the input box as disabled. To disable the input box's
+   * Indicates whether to visually highlight the input box as disabled. To disable the input box's
    * `input` element, use the HTML `disabled` attribute or the Angular `FormControl.disabled`
    * property. You must set both properties to disable an `input` element and visually indicate
    * the disabled state on the input box.
