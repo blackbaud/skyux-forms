@@ -115,10 +115,17 @@ sky-input-box {
       }
 
       .sky-form-control {
-        &:not([type="range"]):not([type="radio"]):not([type="checkbox"]):not(select) {
+        &:not([type="range"]):not([type="radio"]):not([type="checkbox"]) {
           border: none;
           border-radius: $sky-theme-modern-box-border-radius-default;
           font-size: $sky-theme-modern-font-body-default-size;
+          /*
+            Allow the height of the control to be determined by the line height instead of the
+            browser's pre-defined height for the element. This is particularly important for the
+            select element since its height is normally larger than desired for controls in
+            an input box.
+          */
+          height: auto;
           line-height: 1.15;
           padding: 3px 15px 10px 15px;
 
@@ -184,7 +191,7 @@ sky-input-box {
         }
 
         .sky-form-control {
-          &:not([type="range"]):not([type="radio"]):not([type="checkbox"]):not(select) {
+          &:not([type="range"]):not([type="radio"]):not([type="checkbox"]) {
             padding: 3px 14px 9px 14px;
           }
         }
@@ -241,7 +248,7 @@ sky-input-box {
       }
 
       .sky-form-control {
-        &:not([type="range"]):not([type="radio"]):not([type="checkbox"]):not(select) {
+        &:not([type="range"]):not([type="radio"]):not([type="checkbox"]) {
           border: none;
           border-radius: $sky-theme-modern-box-border-radius-default;
           font-size: $sky-theme-modern-font-body-default-size;
