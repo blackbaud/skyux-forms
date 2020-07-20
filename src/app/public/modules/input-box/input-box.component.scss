@@ -137,6 +137,19 @@ sky-input-box {
         }
       }
 
+      /* Firefox puts an extra 5px left padding on select elements. This removes it. */
+      @-moz-document url-prefix() {
+        select.sky-form-control {
+          &:not([type="range"]):not([type="radio"]):not([type="checkbox"]) {
+            padding-left: 10px;
+          }
+        }
+      }
+
+      select.sky-form-control {
+        background-position: calc(100% - 10px) -10px;
+      }
+
       textarea.sky-form-control {
         resize: vertical;
       }
@@ -195,6 +208,15 @@ sky-input-box {
             padding: 3px 14px 9px 14px;
           }
         }
+
+        /* Firefox puts an extra 5px left padding on select elements. This removes it. */
+        @-moz-document url-prefix() {
+          select.sky-form-control {
+            &:not([type="range"]):not([type="radio"]):not([type="checkbox"]) {
+              padding-left: 9px;
+            }
+          }
+        }
       }
     }
 
@@ -230,41 +252,10 @@ sky-input-box {
     }
 
     .sky-form-group {
-      background-color: #fff;
-      border: $sky-theme-modern-elevation-0-bordered-border;
-      border-radius: $sky-theme-modern-box-border-radius-default 0 0 $sky-theme-modern-box-border-radius-default;
-      color: $sky-theme-modern-font-field-label-color;
-      display: block;
-      margin-bottom: 0;
-      padding: 0;
       transition: $input-box-transitions;
 
       .sky-control-label {
-        display: block;
-        font-size: 13px;
-        margin-bottom: 0;
-        padding: 6px 15px 0 15px;
         transition: $input-box-transitions;
-      }
-
-      .sky-form-control {
-        &:not([type="range"]):not([type="radio"]):not([type="checkbox"]) {
-          border: none;
-          border-radius: $sky-theme-modern-box-border-radius-default;
-          font-size: $sky-theme-modern-font-body-default-size;
-          line-height: 1.15;
-          padding: 3px 15px 10px 15px;
-
-          &:focus,
-          &.ng-invalid {
-            box-shadow: none;
-            outline: none;
-          }
-        }
-      }
-
-      textarea.sky-form-control {
-        resize: vertical;
       }
     }
   }
@@ -337,5 +328,4 @@ sky-input-box {
       }
     }
   }
-
 }
