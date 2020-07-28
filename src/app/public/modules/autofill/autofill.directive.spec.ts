@@ -18,7 +18,10 @@ import {
 import {
   SkyAutofillModule
 } from './autofill.module';
-import { SkyBrowserDetector } from './browser-detector';
+
+import {
+  SkyBrowserDetector
+} from './browser-detector';
 
 describe('Autofill directive', () => {
   let fixture: ComponentFixture<AutofillDirectiveFixtureComponent>;

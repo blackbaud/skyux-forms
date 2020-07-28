@@ -5,14 +5,10 @@
  */
 export class SkyBrowserDetector {
 
-  private static get skyNavigator(): any {
-    return navigator;
-  }
-
   public static isChromeDesktop = (
-    SkyBrowserDetector.skyNavigator.userAgent.indexOf('Chrome') > -1 &&
-      SkyBrowserDetector.skyNavigator.userAgent.indexOf('Mobile Safari') === -1 &&
-      SkyBrowserDetector.skyNavigator.userAgent.indexOf('Edge') === -1
+    navigator.userAgent.indexOf('Chrome') > -1 &&
+      navigator.userAgent.indexOf('Mobile Safari') === -1 &&
+      navigator.userAgent.indexOf('Edge') === -1
   );
 
 }

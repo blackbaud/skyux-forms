@@ -1,9 +1,9 @@
 import {
   Directive,
   ElementRef,
+  Input,
   OnInit,
-  Renderer2,
-  Input
+  Renderer2
 } from '@angular/core';
 
 import {
@@ -30,9 +30,7 @@ export class SkyAutofillDirective implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2
-  ) {
-    console.log('foo');
-  }
+  ) {}
 
   /**
    * Implementation for Angular's OnInit lifecycle hook.
