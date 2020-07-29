@@ -48,11 +48,29 @@ describe('Autofill directive', () => {
     expect(inputElement.attributes['autocomplete']).not.toBeTruthy();
   });
 
-  it('should remove autocomplete attribute when autofill value is on', () => {
+  it('should not add autocomplete attribute when autofill value is an empty string', () => {
+    fixture.componentInstance.autofill = '';
+    fixture.detectChanges();
+
+    expect(inputElement).toBeTruthy();
+    expect(inputElement.attributes['autocomplete']).not.toBeTruthy();
+  });
+
+  it('should pass along values to autocomplete attribute', () => {
     fixture.componentInstance.autofill = 'on';
     fixture.detectChanges();
 
-    expect(inputElement.attributes['autocomplete']).not.toBeTruthy();
+    expect(inputElement.attributes['autocomplete']).toEqual('on');
+
+    fixture.componentInstance.autofill = 'name';
+    fixture.detectChanges();
+
+    expect(inputElement.attributes['autocomplete']).toEqual('name');
+
+    fixture.componentInstance.autofill = 'email';
+    fixture.detectChanges();
+
+    expect(inputElement.attributes['autocomplete']).toEqual('email');
   });
 
   describe('Chrome browser', () => {

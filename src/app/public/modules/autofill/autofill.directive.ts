@@ -16,13 +16,22 @@ import {
 export class SkyAutofillDirective implements OnInit {
 
   /**
-   * Prevents the browser's native autofill from displaying for an input element.
+   * Specifies what permission the browser has to provide automated assistance
+   * in filling out form field values, as well as guidance as to the
+   * type of information expected in the field. For a list of suggested values,
+   * refer to [the W3C](https://www.w3.org/TR/html52/sec-forms.html#sec-autofill).
+   * The `skyAutofill` directive will attempt to assist with the inconsistencies between browsers
+   * when handling the "off" value, by providing different values based on the user agent.
    * @required
    */
   @Input()
   public set skyAutofill(value: string) {
     this._autofill = value;
-    this.setAutocomplete(this.elementRef, this._autofill);
+    this.setAutocomplete();
+  }
+
+  public get skyAutofill(): string {
+    return this._autofill;
   }
 
   private _autofill: string;
@@ -37,25 +46,28 @@ export class SkyAutofillDirective implements OnInit {
    * @internal
    */
   public ngOnInit(): void {
-    this.setAutocomplete(this.elementRef, this._autofill);
+    this.setAutocomplete();
   }
 
-  private setAutocomplete(element: ElementRef, value: string): void {
-    if (value === 'on') {
-      this.renderer.removeAttribute(element.nativeElement, 'autocomplete');
-      return;
-    }
+  private setAutocomplete(): void {
+    switch (this.skyAutofill) {
+      case 'off':
+        let value: string;
+        if (SkyBrowserDetector.isChromeDesktop) {
+          const name = this.elementRef.nativeElement.getAttribute('name') || 'sky-input';
+          value = `new-${name}`;
+        } else {
+          value = 'off';
+        }
+        this.renderer.setAttribute(this.elementRef.nativeElement, 'autocomplete', value);
+        break;
 
-    if (value === 'off') {
-      const isChrome = SkyBrowserDetector.isChromeDesktop;
+      case undefined || '':
+        this.renderer.removeAttribute(this.elementRef.nativeElement, 'autocomplete');
+        break;
 
-      if (isChrome) {
-        const name = element.nativeElement.getAttribute('name') || 'sky-input';
-        this.renderer.setAttribute(element.nativeElement, 'autocomplete', `new-${name}`);
-      } else {
-        this.renderer.setAttribute(element.nativeElement, 'autocomplete', 'off');
-      }
-      return;
+      default:
+        this.renderer.setAttribute(this.elementRef.nativeElement, 'autocomplete', this.skyAutofill);
     }
   }
 }
