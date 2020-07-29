@@ -62,7 +62,8 @@ export class SkyAutofillDirective implements OnInit {
         this.renderer.setAttribute(this.elementRef.nativeElement, 'autocomplete', value);
         break;
 
-      case undefined || '':
+      case undefined:
+      case '':
         this.renderer.removeAttribute(this.elementRef.nativeElement, 'autocomplete');
         break;
 
