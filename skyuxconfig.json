@@ -20,6 +20,18 @@
       "browserSet": "paranoid"
     }
   },
+  "pipelineSettings": {
+    "vsts": {
+      "testSettings": {
+        "e2e": {
+          "browserSet": false
+        },
+        "unit": {
+          "browserSet": false
+        }
+      }
+    }
+  },
   "app": {
     "styles": [
       "@skyux/docs-tools/css/docs-tools.css"
