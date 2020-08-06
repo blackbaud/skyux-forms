@@ -338,11 +338,7 @@ describe('Input box', () => {
   describe('when modern theme', () => {
 
     beforeEach(async () => {
-      await selectTheme('modern', 'light').then(() => {
-        setTimeout(() => {
-          // wait for theme to load
-        }, 2);
-      });
+      await selectTheme('modern', 'light');
     });
 
     runTests();
