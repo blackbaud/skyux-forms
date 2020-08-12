@@ -34,35 +34,68 @@ let nextId = 0;
 export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
 
   /**
-   * Hidden label for screen readers.
+   * Defines an ARIA label for the checkbox to support
+   * [accessibility](https://developer.blackbaud.com/skyux/components/checkbox#accessibility)
+   * when the checkbox does not include a visible label. This property must be set if
+   * you are using an icon checkbox. If the checkbox includes a visible label on the screen, use the `labelledBy` property instead.
    */
   @Input()
   public label: string;
 
   /**
-   * Id of label for the checkbox.
+   * Sets the checkbox's `aria-labelledby` attribute to support
+   * [accessibility](https://developer.blackbaud.com/skyux/components/checkbox#accessibility).
+   * The value should be the HTML element ID (without the leading `#`) of the element
+   * that labels the checkbox. If the checkbox does not include a visible label on the screen, use the `label` property instead.
    */
   @Input()
   public labelledBy: string;
 
+/**
+ * Specifies an ID for the checkbox.
+ * @default a unique, auto-incrementing integer. For example: `sky-checkbox-1`
+ */
   @Input()
   public id: string = `sky-checkbox-${++nextId}`;
 
+/**
+ * Indicates whether to disable the checkbox.
+ */
   @Input()
   public disabled: boolean = false;
 
+/**
+ * Specifies an index for the checkbox. If not defined, the index is set to the position of the checkbox on load.
+ */
   @Input()
   public tabindex: number = 0;
 
+/**
+ * Specifies a name for a group of checkboxes.
+ * @default a unique, auto-incrementing integer. For example: `sky-checkbox-1`
+ */
   @Input()
   public name: string = `sky-checkbox-${++nextId}`;
 
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
+/**
+ * Specifies an icon to display in place of the checkbox. To group icon checkboxes
+ * like in the demo below, place the `sky-switch-icon-group` class on the direct parent
+ * element of the checkboxes.
+ */
   @Input()
   public icon: String;
 
+/**
+ * Specifies a type to set the background color after users select a checkbox where the
+ * `icon` property displays an icon in place of the checkbox. The valid options correspond to
+ * [the label component's](https://developer.blackbaud.com/skyux/components/label)
+ * label types. `info` creates a blue background, `success`creates a green background, `warning`
+ * creates an orange background, and `danger` creates a red background.
+ * @default info
+ */
   @Input()
   public set checkboxType(value: string) {
     if (value) {
@@ -77,7 +110,10 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   public get inputId(): string {
     return `input-${this.id}`;
   }
-
+/**
+ * Indicates whether the checkbox is selected.
+ * @default false
+ */
   @Input()
   public set checked(checked: boolean) {
     if (checked !== this.checked) {
@@ -102,6 +138,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
    * When you set this property to `true`, the component adds `aria-required` and `required`
    * attributes to the input element so that forms display an invalid state until the input element
    * is complete. This property accepts a `boolean` value.
+   * @default false
    */
   @Input()
   set required(value: boolean) {
