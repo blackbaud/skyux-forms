@@ -66,6 +66,11 @@ let uniqueId = 0;
 })
 export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnDestroy {
 
+/**
+ * Specifies a comma-delimited string literal of MIME types that users can attach:
+ * `[acceptedTypes]="validFileTypes"` or `acceptedTypes="image/png,image/jpeg"`. By default, all file types are allowed.
+ * @required
+ */
   @Input()
   public acceptedTypes: string;
 
@@ -84,12 +89,21 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     return this._disabled;
   }
 
+/**
+ * Specifies the maximum size in bytes for valid files.
+ */
   @Input()
   public maxFileSize: number = 500000;
 
+/**
+ * Specifies the minimum size in bytes for valid files.
+ */
   @Input()
   public minFileSize: number = 0;
 
+/**
+ * Specifies a custom validation function: `validateFn]="validateFile"`.
+ */
   @Input()
   public validateFn: Function;
 

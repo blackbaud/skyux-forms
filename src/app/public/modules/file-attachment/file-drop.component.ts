@@ -30,33 +30,57 @@ import {
   styleUrls: ['./file-drop.component.scss']
 })
 export class SkyFileDropComponent implements OnDestroy {
+  /**
+   * Fires when users add or remove files.
+   */
   @Output()
   public filesChanged = new EventEmitter<SkyFileDropChange>();
 
   @Output()
   public linkInputBlur = new EventEmitter<void>();
 
+/**
+ * Fires when users add or remove links.
+ */
   @Output()
   public linkChanged = new EventEmitter<SkyFileLink>();
 
+/**
+ * Specifies the minimum size in bytes for valid files.
+ */
   @Input()
   public minFileSize: number = 0;
 
+/**
+ * Specifies the maximum size in bytes for valid files.
+ */
   @Input()
   public maxFileSize: number = 500000;
 
+/**
+ * Indicates whether users can drag and drop multiple files at the same time.
+ */
   @Input()
   public multiple: boolean = true;
 
+/**
+ * Specifies a custom validation function: `[validateFn]="validateFile"`.
+ */
   @Input()
   public validateFn: Function;
 
   @Input()
   public acceptedTypes: string;
 
+/**
+ * Indicates whether to disable the option to browse for files to attach.
+ */
   @Input()
   public noClick: boolean = false;
 
+/**
+ * Indicates whether to display the option to attach files from URLs rather than from local devices.
+ */
   @Input()
   public allowLinks: boolean = false;
 
