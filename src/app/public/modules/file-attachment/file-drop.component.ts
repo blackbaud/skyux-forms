@@ -24,6 +24,13 @@ import {
   SkyFileAttachmentService
 } from './file-attachment.service';
 
+/**
+ * When the SKY UX module initializes, it disables the ability to drag and drop files
+ * for the entire window. This prevents the browser from opening files that are accidentally
+ * dropped outside the target zone. If you implement your own file drop functionality
+ * outside of the file drop component, you can place the sky-file-drop-target CSS class
+ * on the element that receives drop events to exempt it from the drop exclusion rule.
+ */
 @Component({
   selector: 'sky-file-drop',
   templateUrl: './file-drop.component.html',
@@ -40,7 +47,7 @@ export class SkyFileDropComponent implements OnDestroy {
   public linkInputBlur = new EventEmitter<void>();
 
 /**
- * Fires when users add or remove links.
+ * Fires when users add or remove links. 
  */
   @Output()
   public linkChanged = new EventEmitter<SkyFileLink>();

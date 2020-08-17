@@ -27,6 +27,10 @@ import {
  */
 let nextId = 0;
 
+/**
+ * Replaces the HTML input element with `type="checkbox"`. When users select a checkbox, its value
+ * is driven through an `ngModel` attribute that you specify on the `sky-checkbox` element.
+ */
 @Component({
   selector: 'sky-checkbox',
   templateUrl: './checkbox.component.html'
@@ -77,12 +81,15 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   @Input()
   public name: string = `sky-checkbox-${++nextId}`;
 
+/**
+ * Fires when users select or deselect the checkbox.
+ */
   @Output()
   public change: EventEmitter<SkyCheckboxChange> = new EventEmitter<SkyCheckboxChange>();
 
 /**
  * Specifies an icon to display in place of the checkbox. To group icon checkboxes
- * like in the demo below, place the `sky-switch-icon-group` class on the direct parent
+ * like in the demo, place the `sky-switch-icon-group` class on the direct parent
  * element of the checkboxes.
  */
   @Input()
@@ -92,8 +99,8 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
  * Specifies a type to set the background color after users select a checkbox where the
  * `icon` property displays an icon in place of the checkbox. The valid options correspond to
  * [the label component's](https://developer.blackbaud.com/skyux/components/label)
- * label types. `'info'` creates a blue background, `'success'`creates a green
- * background,`'warning'`creates an orange background, and `'danger'` creates a red background.
+ * label types. `'info'` creates a blue background, `'success'` reates a green
+ * background,`'warning'` creates an orange background, and `'danger'` creates a red background.
  * @default 'info'
  */
   @Input()
@@ -137,7 +144,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
    * Indicates whether the input is required for form validation.
    * When you set this property to `true`, the component adds `aria-required` and `required`
    * attributes to the input element so that forms display an invalid state until the input element
-   * is complete. This property accepts a `boolean` value.
+   * is complete.
    * @default false
    */
   @Input()
