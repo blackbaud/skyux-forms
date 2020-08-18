@@ -47,7 +47,7 @@ export class SkyFileDropComponent implements OnDestroy {
   public linkInputBlur = new EventEmitter<void>();
 
 /**
- * Fires when users add or remove links. 
+ * Fires when users add or remove links.
  */
   @Output()
   public linkChanged = new EventEmitter<SkyFileLink>();
