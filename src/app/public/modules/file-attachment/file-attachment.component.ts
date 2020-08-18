@@ -101,9 +101,6 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   @Input()
   public minFileSize: number = 0;
 
-/**
- * Specifies a custom validation function: `[validateFn]="validateFile"`.
- */
   @Input()
   public validateFn: Function;
 
