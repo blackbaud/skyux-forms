@@ -67,12 +67,6 @@ describe('Checkbox', () => {
 
   validateAll();
 
-  beforeEach(async () => {
-    await SkyHostBrowser.get('visual/radio');
-  });
-
-  validateAll();
-
   describe('when modern theme', () => {
 
     beforeEach(async () => {
