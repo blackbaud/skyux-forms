@@ -1,6 +1,6 @@
 # 4.8.0 (2020-08-24)
 
-- Added modern theme styles to raido buttons and checkboxes. [#173](https://github.com/blackbaud/skyux-forms/pull/173)
+- Added modern theme styles to radio buttons and checkboxes. [#173](https://github.com/blackbaud/skyux-forms/pull/173)
 
 # 4.7.1 (2020-08-20)
 
