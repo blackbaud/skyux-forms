@@ -35,7 +35,11 @@ describe('Input box', () => {
   }
 
   async function clickLabel(wrapperId: string): Promise<void> {
-    await element(by.css(`#${wrapperId} label`)).click();
+    const inputId = await element(
+      by.css(`#${wrapperId} input, #${wrapperId} textarea`)
+    ).getAttribute('id');
+
+    await element(by.css(`label[for="${inputId}"]`)).click();
 
     // Move the cursor so the hover state isn't activated.
     await SkyHostBrowser.moveCursorOffScreen();
@@ -321,6 +325,109 @@ describe('Input box', () => {
         screenshotName: getScreenshotName('input-box-select-disabled')
       });
     });
+
+    // Basic no label
+    it('should match previous input box no label screenshot', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-basic-no-label');
+
+      expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-basic-no-label')
+      });
+    });
+
+    it('should match previous basic input box no label screenshot when focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-basic-no-label');
+
+      await clickLabel('input-box-basic-no-label');
+
+      expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-basic-no-label-focused')
+      });
+    });
+
+    it('should match previous basic input box no label screenshot when hovered', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-basic-no-label');
+
+      await hoverElement('#input-box-basic-no-label input');
+
+      expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-basic-no-label-hover')
+      });
+    });
+
+    it('should match previous basic input box no label screenshot when active', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-basic-no-label');
+
+      await mouseDownElement('#input-box-basic-no-label input');
+
+      expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-basic-no-label-active')
+      });
+    });
+
+    // Single button no label
+    it(
+      'should match previous input box with a button no label screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+
+        await clickLabel('input-box-button-single-no-label');
+
+        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-no-label-focused-single-input')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a button no label screenshot when button is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+
+        await clickLabel('input-box-button-single-no-label');
+        await tabToNextElement();
+
+        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-no-label-focused-single-button')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with single button no label screenshot when input is hovered',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+
+        await hoverElement('#input-box-button-single-no-label input');
+
+        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-no-label-hover-single-input')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with single button no label screenshot when button is hovered',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+
+        await hoverElement('#input-box-button-single-no-label button');
+
+        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-no-label-hover-single-button')
+        });
+      }
+    );
+
+    // Select no label
+    it('should match previous input box with select no label', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-select-no-label');
+
+      expect('#input-box-select-no-label').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-select-no-label')
+      });
+    });
+
   }
 
   beforeEach(async () => {
