@@ -7,6 +7,7 @@ import {
 } from '@blackbaud/skyux-lib-code-block';
 
 import {
+  SkyDocsThumbnailModule,
   SkyDocsToolsModule,
   SkyDocsToolsOptions
 } from '@skyux/docs-tools';
@@ -42,6 +43,7 @@ import {
     SkyAuthHttpClientModule,
     SkyCodeModule,
     SkyCheckboxModule,
+    SkyDocsThumbnailModule,
     SkyDocsToolsModule,
     SkyFileAttachmentsModule,
     SkyFluidGridModule,
