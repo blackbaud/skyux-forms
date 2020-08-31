@@ -69,7 +69,7 @@ $indicator-size: 22px;
 
 @include sky-theme-modern {
   .sky-toggle-switch-button {
-    background-color: #fff;
+    background-color: $sky-color-white;
     border-width: 1px;
     flex-basis: 48px;
     transition: border-color $sky-transition-time-short, box-shadow $sky-transition-time-short;
