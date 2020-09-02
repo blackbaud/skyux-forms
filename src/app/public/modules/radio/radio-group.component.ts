@@ -112,6 +112,8 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
  */
   @Input()
   public set value(value: any) {
+    console.log('WHAT THE ACTUAL fuck');
+    console.log(value);
     const isNewValue = value !== this._value;
 
     if (isNewValue) {
