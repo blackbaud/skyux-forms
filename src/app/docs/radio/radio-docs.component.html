@@ -11,9 +11,13 @@
     <sky-fluid-grid>
       <sky-row>
         <sky-column screenSmall="6">
-          <h4>Standard radio button</h4>
+          <h4
+            id="standardLabel"
+          >
+            Standard radio buttons
+          </h4>
           <sky-radio-group
-            ariaLabel="Demo for radio button component"
+            ariaLabelledBy="standardLabel"
             name="radioDemo"
             value="selected"
           >
@@ -25,7 +29,7 @@
                   value="selected"
                 >
                   <sky-radio-label>
-                    A selected option
+                    Option 1
                   </sky-radio-label>
                 </sky-radio>
               </li>
@@ -34,7 +38,7 @@
                   value="unselected"
                 >
                   <sky-radio-label>
-                    An unselected option
+                    Option 2
                   </sky-radio-label>
                 </sky-radio>
               </li>
@@ -44,7 +48,7 @@
                   [disabled]="true"
                 >
                   <sky-radio-label>
-                    This option cannot be selected right now
+                    Option 3 is disabled
                   </sky-radio-label>
                 </sky-radio>
               </li>
@@ -52,32 +56,38 @@
           </sky-radio-group>
         </sky-column>
         <sky-column screenSmall="6">
-          <h4>Icon radio group</h4>
-          <div
-            class="sky-switch-icon-group"
+          <h4
+            id="iconLabel"
           >
-            <sky-radio
-              icon="table"
-              label="Table"
-              name="iconRadioDemo"
-              value="table"
+            Icon radio group
+          </h4>
+          <sky-radio-group
+            ariaLabelledBy="iconLabel"
+            name="iconRadioDemo"
+          >
+            <div
+              class="sky-switch-icon-group"
             >
-            </sky-radio>
-            <sky-radio
-              icon="list"
-              label="List"
-              name="iconRadioDemo"
-              value="list"
-            >
-            </sky-radio>
-            <sky-radio
-              icon="map-marker"
-              label="Map"
-              name="iconRadioDemo"
-              value="map"
-            >
-            </sky-radio>
-          </div>
+              <sky-radio
+                icon="table"
+                label="Table"
+                value="table"
+              >
+              </sky-radio>
+              <sky-radio
+                icon="list"
+                label="List"
+                value="list"
+              >
+              </sky-radio>
+              <sky-radio
+                icon="map-marker"
+                label="Map"
+                value="map"
+              >
+              </sky-radio>
+            </div>
+          </sky-radio-group>
         </sky-column>
       </sky-row>
     </sky-fluid-grid>
