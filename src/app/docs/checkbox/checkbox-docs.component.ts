@@ -10,17 +10,17 @@ export class CheckboxDocsComponent {
 
   public checkboxItems: any[] = [
     {
-      label: 'Selected checkbox',
+      label: 'Checkbox 1',
       checked: true,
       disabled: false
     },
     {
-      label: 'Unselected checkbox',
+      label: 'Checkbox 2',
       checked: false,
       disabled: false
     },
     {
-      label: 'This checkbox cannot be selected right now',
+      label: 'Checkbox 3 is disabled',
       disabled: true
     }
   ];

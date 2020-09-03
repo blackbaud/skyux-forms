@@ -3,26 +3,24 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'sky-checkbox-demo',
+  selector: 'app-checkbox-demo',
   templateUrl: './checkbox-demo.component.html'
 })
 export class CheckboxDemoComponent {
 
   public checkboxItems: any[] = [
     {
-      label: 'Checkbox 1'
+      label: 'Checkbox 1',
+      checked: true,
+      disabled: false
     },
     {
       label: 'Checkbox 2',
-      checked: true
+      checked: false,
+      disabled: false
     },
     {
-      label: 'Disabled',
-      disabled: true
-    },
-    {
-      label: 'Disabled and selected',
-      checked: true,
+      label: 'Checkbox 3 is disabled',
       disabled: true
     }
   ];
