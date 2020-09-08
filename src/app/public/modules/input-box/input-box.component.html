@@ -88,7 +88,7 @@
   #inputTemplate
 >
   <ng-content
-    select=".sky-form-control"
+    select=".sky-input-box-input-container, .sky-form-control"
   ></ng-content>
   <ng-container
     *ngTemplateOutlet="hostInputTemplate"
@@ -99,7 +99,7 @@
   #buttonsTemplate
 >
   <ng-content
-    select=".sky-input-group-btn"
+    select=".sky-input-box-btn-container, .sky-input-group-btn"
   ></ng-content>
   <ng-container
     *ngTemplateOutlet="hostButtonsTemplate"

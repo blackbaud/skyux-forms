@@ -554,6 +554,62 @@
       </sky-column>
     </sky-row>
 
+    <sky-row>
+      <sky-column>
+        <div
+          id="input-box-basic-warpper"
+        >
+          <sky-input-box
+            class="sky-margin-stacked-lg"
+          >
+            <label
+              class="sky-control-label"
+              [for]="inputBoxBasicWrapper.id"
+            >
+              Wrapper
+            </label>
+            <div class="sky-input-box-input-container">
+              <div>
+                <input
+                  class="sky-form-control"
+                  skyId
+                  type="text"
+                  #inputBoxBasicWrapper="skyId"
+                >
+              </div>
+            </div>
+          </sky-input-box>
+        </div>
+      </sky-column>
+    </sky-row>
+
+    <sky-row>
+      <sky-column>
+        <!-- For automation to click to set focus -->
+        <label
+          class="test-label"
+          [for]="inputBoxBasicWrapperNoLabel.id"
+        ></label>
+        <div
+          id="input-box-basic-warpper-no-label"
+        >
+          <sky-input-box
+            class="sky-margin-stacked-lg"
+          >
+            <div class="sky-input-box-input-container">
+              <input
+                class="sky-form-control"
+                skyId
+                type="text"
+                value="Wrapper and no label"
+                #inputBoxBasicWrapperNoLabel="skyId"
+              >
+            </div>
+          </sky-input-box>
+        </div>
+      </sky-column>
+    </sky-row>
+
   </sky-fluid-grid>
 
 </div>
