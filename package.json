@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "4.9.0",
+  "version": "4.10.0",
   "description": "SKY UX Forms",
   "scripts": {
     "build": "skyux build-public-library",
@@ -52,7 +52,7 @@
     "@skyux/config": "4.0.3",
     "@skyux/core": "4.3.0",
     "@skyux/datetime": "4.5.0",
-    "@skyux/docs-tools": "4.4.3",
+    "@skyux/docs-tools": "4.4.4",
     "@skyux/forms": "4.9.0",
     "@skyux/http": "4.0.1",
     "@skyux/i18n": "4.0.1",
