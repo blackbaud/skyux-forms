@@ -62,6 +62,8 @@ export class SkyInputBoxComponent implements OnInit {
 
   public hostButtonsTemplate: TemplateRef<any>;
 
+  public hostButtonsLeftTemplate: TemplateRef<any>;
+
   public formControlHasFocus: boolean;
 
   @ContentChild(FormControlDirective)
@@ -93,16 +95,21 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   public formControlFocusIn(): void {
-    this.formControlHasFocus = true;
+    setTimeout(() => {
+      this.formControlHasFocus = true;
+    });
   }
 
   public formControlFocusOut(): void {
-    this.formControlHasFocus = false;
+    setTimeout(() => {
+      this.formControlHasFocus = false;
+    });
   }
 
   public populate(args: SkyInputBoxPopulateArgs): void {
     this.hostInputTemplate = args.inputTemplate;
     this.hostButtonsTemplate = args.buttonsTemplate;
+    this.hostButtonsLeftTemplate = args.buttonsLeftTemplate;
   }
 
   private controlHasErrors(control: AbstractControlDirective) {
