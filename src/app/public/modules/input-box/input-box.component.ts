@@ -97,15 +97,11 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   public formControlFocusIn(): void {
-    setTimeout(() => {
-      this.formControlHasFocus = true;
-    });
+    this.formControlHasFocus = true;
   }
 
   public formControlFocusOut(): void {
-    setTimeout(() => {
-      this.formControlHasFocus = false;
-    });
+    this.formControlHasFocus = false;
   }
 
   public populate(args: SkyInputBoxPopulateArgs): void {
