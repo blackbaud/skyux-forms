@@ -428,6 +428,54 @@ describe('Input box', () => {
       });
     });
 
+    // Basic with wrapper
+    it('should match previous input box with wrapper element screenshot', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-basic-wrapper');
+
+      expect('#input-box-basic-wrapper').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-basic-wrapper')
+      });
+    });
+
+    // Single button on left
+    it(
+      'should match previous input box with a button on left',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+
+        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-single-left')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a button on left screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+
+        await clickLabel('input-box-button-single-left');
+
+        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-focused-single-left-input')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a button on left screenshot when button is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+
+        await clickLabel('input-box-button-single-left');
+        await tabToNextElement();
+
+        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-focused-single-left-button')
+        });
+      }
+    );
+
   }
 
   beforeEach(async () => {
