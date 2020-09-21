@@ -153,7 +153,7 @@ describe('Input box component', () => {
 
     const formGroupEl = inputBoxEl.querySelector('.sky-form-group');
 
-    const labelEl = formGroupEl.children.item(0).children.item(0) as HTMLLabelElement;
+    const labelEl = formGroupEl.children.item(0) as HTMLLabelElement;
     const inputGroupEl = formGroupEl.children.item(1);
     const inputEl = inputGroupEl.children.item(0);
 
@@ -194,7 +194,7 @@ describe('Input box component', () => {
 
     const formGroupEl = inputBoxEl.querySelector('.sky-form-group');
 
-    const characterCountEl = formGroupEl.children.item(0).children.item(1) as HTMLElement;
+    const characterCountEl = formGroupEl.children.item(1) as HTMLElement;
 
     expect(characterCountEl).toExist();
     expect(characterCountEl.tagName).toBe('SKY-CHARACTER-COUNTER-INDICATOR');
@@ -256,7 +256,7 @@ describe('Input box component', () => {
 
       expect(formGroupEl).toExist();
 
-      const labelEl = formGroupEl.children.item(0).children.item(0) as HTMLLabelElement;
+      const labelEl = formGroupEl.children.item(0) as HTMLLabelElement;
       const inputEl = formGroupEl.children.item(1);
 
       expect(labelEl).toExist();
@@ -277,7 +277,7 @@ describe('Input box component', () => {
         '.sky-input-box-group > .sky-input-box-group-form-control > .sky-form-group'
       );
 
-      const characterCountEl = formGroupEl.children.item(0).children.item(1) as HTMLElement;
+      const characterCountEl = formGroupEl.children.item(1) as HTMLElement;
 
       expect(characterCountEl).toExist();
       expect(characterCountEl.tagName).toBe('SKY-CHARACTER-COUNTER-INDICATOR');
