@@ -58,6 +58,11 @@ describe('Input box', () => {
     await el.sendKeys(Key.TAB);
   }
 
+  async function tabToPreviousElement(): Promise<void> {
+    const el = await browser.driver.switchTo().activeElement();
+    await el.sendKeys(Key.chord(Key.SHIFT, Key.TAB));
+  }
+
   function runTests(): void {
     it('should match previous input box screenshot', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-basic');
@@ -468,7 +473,7 @@ describe('Input box', () => {
         await SkyHostBrowser.scrollTo('#input-box-button-single-left');
 
         await clickLabel('input-box-button-single-left');
-        await tabToNextElement();
+        await tabToPreviousElement();
 
         expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('input-box-button-focused-single-left-button')
