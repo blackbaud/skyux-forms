@@ -7,18 +7,12 @@ import {
 } from '@angular/core/testing';
 
 import {
-  AbstractControl,
-  FormsModule,
-  ReactiveFormsModule
+  AbstractControl
 } from '@angular/forms';
 
 import {
   BehaviorSubject
 } from 'rxjs';
-
-import {
-  SkyIdModule
-} from '@skyux/core';
 
 import {
   SkyTheme,
@@ -34,20 +28,12 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCharacterCounterModule
-} from '../character-counter/character-counter.module';
-
-import {
-  SkyInputBoxModule
-} from './input-box.module';
-
-import {
-  InputBoxHostServiceFixtureComponent
-} from './fixtures/input-box-host-service.component.fixture';
-
-import {
   InputBoxFixtureComponent
 } from './fixtures/input-box.component.fixture';
+
+import {
+  InputBoxFixturesModule
+} from './fixtures/input-box.module.fixture';
 
 describe('Input box component', () => {
   let mockThemeSvc: {
@@ -55,7 +41,7 @@ describe('Input box component', () => {
   };
 
   function getInputBoxEl(
-    fixture: ComponentFixture<SkyInputBoxModule>,
+    fixture: ComponentFixture<InputBoxFixtureComponent>,
     parentCls: string
   ): HTMLDivElement {
     return fixture.nativeElement.querySelector(`.${parentCls} sky-input-box`);
@@ -114,16 +100,8 @@ describe('Input box component', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        declarations: [
-          InputBoxHostServiceFixtureComponent,
-          InputBoxFixtureComponent
-        ],
         imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          SkyCharacterCounterModule,
-          SkyIdModule,
-          SkyInputBoxModule
+          InputBoxFixturesModule
         ]
       });
     });
@@ -231,16 +209,8 @@ describe('Input box component', () => {
       };
 
       TestBed.configureTestingModule({
-        declarations: [
-          InputBoxHostServiceFixtureComponent,
-          InputBoxFixtureComponent
-        ],
         imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          SkyCharacterCounterModule,
-          SkyIdModule,
-          SkyInputBoxModule
+          InputBoxFixturesModule
         ],
         providers: [
           {
