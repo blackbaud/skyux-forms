@@ -15,7 +15,8 @@ import {
 } from '@skyux/forms';
 
 import {
-  SkyThemeModule
+  SkyThemeModule,
+  SkyThemeService
 } from '@skyux/theme';
 
 import {
@@ -34,6 +35,9 @@ import {
   ],
   exports: [
     InputBoxDemoComponent
+  ],
+  providers: [
+    SkyThemeService
   ]
 })
 
