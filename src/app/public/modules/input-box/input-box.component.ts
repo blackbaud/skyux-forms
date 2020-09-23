@@ -89,8 +89,8 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   constructor(
-    private inputBoxHostSvc: SkyInputBoxHostService,
-    @Optional() public themeSvc?: SkyThemeService
+    @Optional() public themeSvc: SkyThemeService,
+    private inputBoxHostSvc: SkyInputBoxHostService
   ) { }
 
   public ngOnInit(): void {
