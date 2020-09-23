@@ -1,5 +1,8 @@
 <ng-container
-  *ngIf="isModernTheme then modernTemplate else defaultTemplate"
+  *ngIf="
+    (themeSvc?.settingsChange | async)?.currentSettings?.theme?.name === 'modern';
+    then modernTemplate else defaultTemplate
+  "
 ></ng-container>
 
 <ng-template
