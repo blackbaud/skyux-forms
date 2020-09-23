@@ -2,7 +2,9 @@ import {
   Component,
   ContentChild,
   Input,
+  OnDestroy,
   OnInit,
+  Optional,
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
@@ -17,6 +19,14 @@ import {
 import {
   SkyThemeService
 } from '@skyux/theme';
+
+import {
+  Subject
+} from 'rxjs';
+
+import {
+  takeUntil
+} from 'rxjs/operators';
 
 import {
   SkyInputBoxHostService
@@ -40,7 +50,7 @@ import {
   // invalid CSS class to be added when the content control's invalid/dirty state changes.
   encapsulation: ViewEncapsulation.None
 })
-export class SkyInputBoxComponent implements OnInit {
+export class SkyInputBoxComponent implements OnInit, OnDestroy {
 
   /**
    * Indicates whether to visually highlight the input box in an error state. The input box also displays
@@ -66,6 +76,8 @@ export class SkyInputBoxComponent implements OnInit {
 
   public hostButtonsLeftTemplate: TemplateRef<any>;
 
+  public isModernTheme: boolean;
+
   public formControlHasFocus: boolean;
 
   @ContentChild(FormControlDirective)
@@ -87,13 +99,26 @@ export class SkyInputBoxComponent implements OnInit {
     return this.hasErrors;
   }
 
+  private ngUnsubscribe = new Subject<void>();
+
   constructor(
-    public themeSvc: SkyThemeService,
-    private inputBoxHostSvc: SkyInputBoxHostService
-  ) { }
+    private inputBoxHostSvc: SkyInputBoxHostService,
+    @Optional() themeSvc?: SkyThemeService
+  ) {
+    themeSvc?.settingsChange
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(change => {
+        this.isModernTheme = (change.currentSettings.theme.name === 'modern');
+      });
+  }
 
   public ngOnInit(): void {
     this.inputBoxHostSvc.init(this);
+  }
+
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   public formControlFocusIn(): void {

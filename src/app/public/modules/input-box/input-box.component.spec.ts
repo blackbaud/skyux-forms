@@ -110,6 +110,24 @@ describe('Input box component', () => {
     );
   }
 
+  function verifyInputBoxElementsExist(fixture: ComponentFixture<InputBoxFixtureComponent>): void {
+    const inputBoxEl = getInputBoxEl(fixture, 'input-basic');
+
+    const formGroupEl = inputBoxEl.querySelector('.sky-form-group');
+
+    const labelEl = formGroupEl.children.item(0) as HTMLLabelElement;
+    const inputGroupEl = formGroupEl.children.item(1);
+    const inputEl = inputGroupEl.children.item(0);
+
+    expect(labelEl).toExist();
+    expect(labelEl.htmlFor).toBe(inputEl.id);
+
+    expect(inputGroupEl).toExist();
+
+    expect(inputEl).toExist();
+    expect(inputEl.tagName).toBe('INPUT');
+  }
+
   beforeEach(() => {
     mockThemeSvc = {
       settingsChange: new BehaviorSubject<SkyThemeSettingsChange>(
@@ -144,26 +162,24 @@ describe('Input box component', () => {
     });
   });
 
+  it('should handle unprovided SkyThemeService', () => {
+    TestBed.overrideProvider(SkyThemeService, {
+      useValue: undefined
+    });
+
+    const fixture = TestBed.createComponent(InputBoxFixtureComponent);
+
+    fixture.detectChanges();
+
+    verifyInputBoxElementsExist(fixture);
+  });
+
   it('should render the label and input elements in the expected locations', () => {
     const fixture = TestBed.createComponent(InputBoxFixtureComponent);
 
     fixture.detectChanges();
 
-    const inputBoxEl = getInputBoxEl(fixture, 'input-basic');
-
-    const formGroupEl = inputBoxEl.querySelector('.sky-form-group');
-
-    const labelEl = formGroupEl.children.item(0) as HTMLLabelElement;
-    const inputGroupEl = formGroupEl.children.item(1);
-    const inputEl = inputGroupEl.children.item(0);
-
-    expect(labelEl).toExist();
-    expect(labelEl.htmlFor).toBe(inputEl.id);
-
-    expect(inputGroupEl).toExist();
-
-    expect(inputEl).toExist();
-    expect(inputEl.tagName).toBe('INPUT');
+    verifyInputBoxElementsExist(fixture);
   });
 
   it('should render the input group button elements in the expected locations', () => {
