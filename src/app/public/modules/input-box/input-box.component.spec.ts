@@ -162,7 +162,7 @@ describe('Input box component', () => {
     });
   });
 
-  it('should handle unprovided SkyThemeService', () => {
+  it('should handle SkyThemeService not provided', () => {
     TestBed.overrideProvider(SkyThemeService, {
       useValue: undefined
     });
