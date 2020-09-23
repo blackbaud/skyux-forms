@@ -220,10 +220,7 @@ describe('Input box component', () => {
         ]
       });
 
-      TestBed.overrideProvider(SkyThemeService, {
-        useValue: mockThemeSvc
-      });
-
+      // Trigger the modern theme.
       mockThemeSvc.settingsChange.next(
         {
           currentSettings: new SkyThemeSettings(
