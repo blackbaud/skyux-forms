@@ -481,6 +481,44 @@ describe('Input box', () => {
       }
     );
 
+    // Inset button
+    it(
+      'should match previous input box with an inset button',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+
+        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with an inset button screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+
+        await clickLabel('input-box-button-inset');
+
+        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset-input')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with an inset button screenshot when button is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+
+        await clickLabel('input-box-button-inset');
+        await tabToNextElement();
+
+        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset-button')
+        });
+      }
+    );
   }
 
   beforeEach(async () => {
