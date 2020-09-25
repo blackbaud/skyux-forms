@@ -3,6 +3,7 @@ import {
   ContentChild,
   Input,
   OnInit,
+  Optional,
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
@@ -90,7 +91,7 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   constructor(
-    public themeSvc: SkyThemeService,
+    @Optional() public themeSvc: SkyThemeService,
     private inputBoxHostSvc: SkyInputBoxHostService
   ) { }
 
