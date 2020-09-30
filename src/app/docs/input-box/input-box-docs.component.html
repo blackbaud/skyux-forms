@@ -5,6 +5,13 @@
 >
   <sky-docs-demo-page-summary>
     Input boxes provide styling for prompts to enter data in forms. They are designed for SKY UX's modern theme but are compatible with default theme.
+
+    <ng-container
+      *ngIf="(themeSvc?.settingsChange | async)?.currentSettings?.theme?.name === 'default';"
+    >
+      COPY FOR DEFAULT-THEME GOES HERE
+    </ng-container>
+
   </sky-docs-demo-page-summary>
 
   <sky-docs-demo
