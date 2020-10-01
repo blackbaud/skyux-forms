@@ -326,7 +326,7 @@ describe('Input box', () => {
     it('should match previous input box with select when disabled', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-select-disabled');
 
-      expect('#input-box-select').toMatchBaselineScreenshot(done, {
+      expect('#input-box-select-disabled').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('input-box-select-disabled')
       });
     });
