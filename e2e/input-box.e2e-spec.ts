@@ -519,6 +519,17 @@ describe('Input box', () => {
         });
       }
     );
+
+    it(
+      'should match previous narrow input box with an inset button',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset-narrow');
+
+        expect('#input-box-button-inset-narrow').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset-narrow')
+        });
+      }
+    );
   }
 
   beforeEach(async () => {
