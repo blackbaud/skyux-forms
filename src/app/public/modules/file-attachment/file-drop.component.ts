@@ -25,6 +25,12 @@ import {
 } from './file-attachment.service';
 
 /**
+ * Provides an element to attach multiple files. It includes an option that users can select to
+ * browse for local files or use as a drop zone to drag and drop files. It also includes an option
+ * to provide hyperlinks to attach external files. You can leave the contents of the component
+ * blank to display the drop zone's default UI, or you can specify custom content to
+ * display instead.
+ *
  * When the SKY UX module initializes, it disables the ability to drag and drop files
  * for the entire window. This prevents the browser from opening files that are accidentally
  * dropped outside the target zone. If you implement your own file drop functionality
@@ -43,6 +49,9 @@ export class SkyFileDropComponent implements OnDestroy {
   @Output()
   public filesChanged = new EventEmitter<SkyFileDropChange>();
 
+  /**
+   * Fires when the link input box triggers a blur event.
+   */
   @Output()
   public linkInputBlur = new EventEmitter<void>();
 
@@ -53,13 +62,13 @@ export class SkyFileDropComponent implements OnDestroy {
   public linkChanged = new EventEmitter<SkyFileLink>();
 
   /**
-   * 	Specifies an accessibility label to provide a text equivalent for screen readers for the file upload button.
+   * Specifies an accessibility label to provide a text equivalent for screen readers for the file upload button.
    */
   @Input()
   public fileUploadAriaLabel: string;
 
   /**
-   * 	Specifies an accessibility label to provide a text equivalent for screen readers for the link upload input.
+   * Specifies an accessibility label to provide a text equivalent for screen readers for the link upload input.
    */
   @Input()
   public linkUploadAriaLabel: string;
@@ -88,6 +97,11 @@ export class SkyFileDropComponent implements OnDestroy {
   @Input()
   public validateFn: Function;
 
+  /**
+   * Specifies a comma-delimited string literal of MIME types that users can attach:
+   * `[acceptedTypes]="validFileTypes"` or `acceptedTypes="image/png,image/jpeg"`. By default, all file types are allowed.
+   * @required
+   */
   @Input()
   public acceptedTypes: string;
 
