@@ -4,7 +4,7 @@ import {
 
 export interface SkyFileItem {
   /**
-   * The object which has been added or removed.
+   * The object that was added or removed.
    */
   file: File;
   /**
@@ -12,11 +12,11 @@ export interface SkyFileItem {
    */
   url: string;
   /**
-   * The type of error which caused the file to be rejected.
+   * The type of error that caused the file to be rejected.
    */
   errorType: SkyFileItemErrorType;
   /**
-   * Additional paramaters regarding the error which caused the file to be rejected.
+   * Additional parameters about the error that caused the file to be rejected.
    */
   errorParam: string;
 }

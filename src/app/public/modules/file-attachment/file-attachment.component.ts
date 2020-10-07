@@ -59,7 +59,7 @@ import {
 let uniqueId = 0;
 
 /**
- * Provides an element to attach a single local file
+ * Provides an element to attach a single local file.
  */
 @Component({
   selector: 'sky-file-attachment',
@@ -70,15 +70,16 @@ let uniqueId = 0;
 export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnDestroy {
 
   /**
-   * Specifies a comma-delimited string literal of MIME types that users can attach:
-   * `[acceptedTypes]="validFileTypes"` or `acceptedTypes="image/png,image/jpeg"`. By default, all file types are allowed.
+   * Specifies a comma-delimited string literal of MIME types that users can attach.
+   * By default, all file types are allowed.
    * @required
    */
   @Input()
   public acceptedTypes: string;
 
   /**
-   * Indicates whether to disable the input. This property accepts `boolean` values.
+   * Indicates whether to disable the input.
+   * @default false
    */
   @Input()
   public set disabled(value: boolean) {
@@ -105,7 +106,8 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   public minFileSize: number = 0;
 
   /**
-   * Specifies a custom validation function: `[validateFn]="validateFile"`.
+   * Specifies a custom validation function. This validation is ran along with all internal
+   * file validation. This function should take a `SkyFileItem` in as a parameter.
    */
   @Input()
   public validateFn: Function;

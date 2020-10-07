@@ -25,15 +25,12 @@ import {
 } from './file-attachment.service';
 
 /**
- * Provides an element to attach multiple files. It includes an option that users can select to
- * browse for local files or use as a drop zone to drag and drop files. It also includes an option
- * to provide hyperlinks to attach external files. You can leave the contents of the component
+ * Provides an element to attach multiple files where users can browse or drag and drop local files
+ * or provide hyperlinks to external files. You can leave the contents of the component
  * blank to display the drop zone's default UI, or you can specify custom content to
- * display instead.
- *
- * When the SKY UX module initializes, it disables the ability to drag and drop files
- * for the entire window. This prevents the browser from opening files that are accidentally
- * dropped outside the target zone. If you implement your own file drop functionality
+ * display instead. When the module initializes, it disables the ability to drag and
+ * drop files for the entire window to prevent the browser from opening files that are
+ * accidentally dropped outside the target zone. If you implement your own file drop functionality
  * outside of the file drop component, you can place the `sky-file-drop-target` CSS class
  * on the element that receives drop events to exempt it from the drop exclusion rule.
  */
@@ -62,13 +59,15 @@ export class SkyFileDropComponent implements OnDestroy {
   public linkChanged = new EventEmitter<SkyFileLink>();
 
   /**
-   * Specifies an accessibility label to provide a text equivalent for screen readers for the file upload button.
+   * Specifies an accessibility label for the file upload button to provide a text equivalent for
+   * screen readers.
    */
   @Input()
   public fileUploadAriaLabel: string;
 
   /**
-   * Specifies an accessibility label to provide a text equivalent for screen readers for the link upload input.
+   * Specifies an accessibility label for the link upload input to provide a text equivalent for
+   * screen readers.
    */
   @Input()
   public linkUploadAriaLabel: string;
@@ -92,14 +91,15 @@ export class SkyFileDropComponent implements OnDestroy {
   public multiple: boolean = true;
 
   /**
-   * Specifies a custom validation function: `[validateFn]="validateFile"`.
+   * Specifies a custom validation function. This validation is ran along with all internal
+   * file validation. This function should take a `SkyFileItem` in as a parameter.
    */
   @Input()
   public validateFn: Function;
 
   /**
-   * Specifies a comma-delimited string literal of MIME types that users can attach:
-   * `[acceptedTypes]="validFileTypes"` or `acceptedTypes="image/png,image/jpeg"`. By default, all file types are allowed.
+   * Specifies a comma-delimited string literal of MIME types that users can attach.
+   * By default, all file types are allowed.
    * @required
    */
   @Input()

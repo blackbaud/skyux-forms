@@ -4,7 +4,7 @@ import {
 
 export interface SkyFileAttachmentChange {
   /**
-   * Specifies the file which has been added or removed.
+   * Specifies the file that was added or removed.
    */
   file: SkyFileItem;
 }

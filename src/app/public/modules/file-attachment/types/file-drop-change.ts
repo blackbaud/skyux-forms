@@ -4,11 +4,11 @@ import {
 
 export interface SkyFileDropChange {
   /**
-   * Specifies an array of files which have been added or removed.
+   * Specifies an array of files that were added or removed.
    */
   files: Array<SkyFileItem>;
   /**
-   * Specifies an array of files which have been rejected.
+   * Specifies an array of files that were rejected.
    */
   rejectedFiles: Array<SkyFileItem>;
 }
