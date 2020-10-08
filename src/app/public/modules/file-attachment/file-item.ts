@@ -8,7 +8,8 @@ export interface SkyFileItem {
    */
   file: File;
   /**
-   * The data URL for the file which has been added or removed.
+   * The [data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)
+   * for the file that was added or removed.
    */
   url: string;
   /**
