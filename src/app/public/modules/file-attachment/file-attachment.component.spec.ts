@@ -1083,6 +1083,14 @@ describe('File attachment', () => {
       expect(fixture.nativeElement).toBeAccessible();
     });
   }));
+
+  it('should pass accessibility when label changes', async(() => {
+    fixture.componentInstance.labelText = 'Something different';
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(fixture.nativeElement).toBeAccessible();
+    });
+  }));
 });
 
 describe('File attachment (template-driven)', () => {

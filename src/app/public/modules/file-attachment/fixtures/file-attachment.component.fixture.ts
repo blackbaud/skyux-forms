@@ -24,6 +24,8 @@ export class FileAttachmentTestComponent implements OnInit {
 
   public fileForm: FormGroup;
 
+  public labelText: string = 'Choose File';
+
   public required: boolean = false;
 
   public showLabel: boolean = true;
