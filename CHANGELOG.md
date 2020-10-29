@@ -1,6 +1,6 @@
 # 4.13.4 (2020-10-29)
 
-- Fixed the single file attachment component to have consistent aria labels.  [#223](https://github.com/blackbaud/skyux-forms/pull/223)
+- Fixed the single file attachment component to use ARIA labels consistently.  [#223](https://github.com/blackbaud/skyux-forms/pull/223)
 
 # 4.13.3 (2020-10-23)
 
