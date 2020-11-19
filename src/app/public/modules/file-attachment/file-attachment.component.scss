@@ -65,3 +65,53 @@
   height: 1px;
   overflow: hidden;
 }
+
+@include sky-theme-modern {
+  .sky-file-attachment-none {
+    font-size: 13px;
+  }
+
+  .sky-file-attachment-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    .sky-file-attachment-label-wrapper {
+      width: 100%;
+    }
+
+    .sky-file-attachment-preview-img {
+      @include sky-border(dark, top, bottom, left, right);
+      box-shadow: none;
+      margin: 0 10px 0 0;
+      max-width: 100px;
+      flex: 1;
+      order: 1;
+    }
+
+    .sky-file-attachment-btn {
+      margin: 0 10px 0 0;
+    }
+
+    .sky-file-attachment-icon {
+      margin: 5px 10px 5px 5px;
+    }
+
+    .sky-file-attachment-upload {
+      flex: 1;
+      order: 2;
+      display: flex;
+      align-items: flex-start;
+
+      .sky-file-attachment-name {
+        margin: 10px 10px 0 0;
+        padding: 0;
+      }
+    }
+
+    .sky-file-attachment-delete {
+      width: 40px;
+      height: 40px;
+      color: $sky-text-color-default !important;
+    }
+  }
+}

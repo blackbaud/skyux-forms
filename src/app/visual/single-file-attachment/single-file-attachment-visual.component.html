@@ -1,6 +1,10 @@
 <div
   style="margin-top: 10px"
 >
+  <sky-docs-demo-control-panel-theme
+    (themeSettingsChange)="themeSettingsChange($event)"
+  ></sky-docs-demo-control-panel-theme>
+
   <button
     type="button"
     class="sky-btn sky-btn-primary sky-test-label"
@@ -33,6 +37,7 @@
   [formGroup]="fileForm"
 >
   <div
+    class="app-screenshot"
     id="screenshot-file-attachment"
   >
     <sky-file-attachment
