@@ -168,6 +168,8 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     return this._value;
   }
 
+  public currentThemeName: string;
+
   public showFileAttachmentButton: boolean;
 
   @ViewChild('fileInput')
@@ -175,8 +177,6 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
 
   @ContentChildren(SkyFileAttachmentLabelComponent)
   private labelComponents: QueryList<SkyFileAttachmentLabelComponent>;
-
-  private currentThemeName: string;
 
   private enterEventTarget: any;
 

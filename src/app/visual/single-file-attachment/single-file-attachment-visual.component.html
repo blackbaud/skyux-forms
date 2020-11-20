@@ -1,49 +1,170 @@
 <div
-  style="margin-top: 10px"
+  id="app-visual-test-single-file-attachment"
+  class="sky-padding-even-large"
 >
-  <sky-docs-demo-control-panel-theme
-    (themeSettingsChange)="themeSettingsChange($event)"
-  ></sky-docs-demo-control-panel-theme>
-
-  <button
-    type="button"
-    class="sky-btn sky-btn-primary sky-test-label"
-    (click)="showLabel = !showLabel"
+  <h1>
+    Single file attachment visual tests
+  </h1>
+  <div
+    class="sky-margin-stacked-default sky-border-bottom-dark"
   >
-    Toggle showLabel
-  </button>
-  <button
-    type="button"
-    class="sky-btn sky-btn-primary sky-test-label"
-    (click)="required = !required"
-  >
-    Toggle required
-  </button>
-  <button
-    type="button"
-    class="sky-btn sky-btn-primary sky-test-label"
-    (click)="onToggleDisabledClick()"
-  >
-    Toggle disabled
-  </button>
-</div>
+    <h3>Options</h3>
+    <div
+      class="sky-margin-stacked-default"
+    >
+      <sky-docs-demo-control-panel-theme
+        (themeSettingsChange)="themeSettingsChange($event)"
+      ></sky-docs-demo-control-panel-theme>
+    </div>
+    <div
+      class="sky-margin-stacked-default"
+    >
+      <p
+        class="sky-emphasized"
+      >
+        Form control states
+      </p>
+      <button
+        class="sky-btn sky-btn-default sky-margin-inline-default"
+        id="toggleLabel"
+        type="button"
+        (click)="showLabel = !showLabel"
+      >
+        Toggle label
+      </button>
+      <button
+        type="button"
+        class="sky-btn sky-btn-default sky-margin-inline-default"
+        (click)="required = !required"
+      >
+        Toggle required
+      </button>
+      <button
+        type="button"
+        class="sky-btn sky-btn-default"
+        (click)="onToggleDisabledClick()"
+      >
+        Toggle disabled
+      </button>
+    </div>
+  </div>
 
-<h1 style="margin: 0.75em 0;">
-  File attachment (reactive)
-</h1>
+  <form
+    novalidate
+    [formGroup]="singleFileAttachmentForm"
+  >
+    <h2>Default state</h2>
+    <div
+      class="app-screenshot"
+      id="screenshot-single-file-attachment"
+    >
+      <sky-file-attachment
+        formControlName="attachment"
+        [required]="required"
+        [validateFn]="validateFile"
+      >
+        <sky-file-attachment-label
+          *ngIf="showLabel"
+        >
+          Field Label
+        </sky-file-attachment-label>
+      </sky-file-attachment>
+      <div *ngIf="attachment?.invalid && attachment?.dirty"
+        class="sky-error-label"
+      >
+        Attach a file.
+      </div>
+    </div>
 
-<form
-  novalidate
-  [formGroup]="fileForm"
->
+    <div
+      class="app-test-output"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th
+              colspan="2"
+            >
+              Form control values
+            </th>
+          </tr>
+        </thead>
+        <tr>
+          <th>Touched</th>
+          <td>{{ singleFileAttachmentForm.touched }}</td>
+        </tr>
+        <tr>
+          <th>Pristine</th>
+          <td>{{ singleFileAttachmentForm.pristine }}</td>
+        </tr>
+        <tr>
+          <th>Valid</th>
+          <td>{{ singleFileAttachmentForm.valid }}</td>
+        </tr>
+        <tr>
+          <th>Value</th>
+          <td>{{ singleFileAttachmentForm.value.attachment?.file.name || 'Nothing selected...' }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>Image uploaded</h2>
+    <div
+      class="app-screenshot"
+      id="screenshot-single-file-attachment-image"
+    >
+      <sky-file-attachment
+        formControlName="attachmentImageUploaded"
+        [required]="required"
+      >
+        <sky-file-attachment-label
+          *ngIf="showLabel"
+        >
+          Upload image
+        </sky-file-attachment-label>
+      </sky-file-attachment>
+      <div *ngIf="attachment?.invalid && attachment?.dirty"
+        class="sky-error-label"
+      >
+        Attach a file.
+      </div>
+    </div>
+
+    <h2>File uploaded</h2>
+    <div
+      class="app-screenshot"
+      id="screenshot-single-file-attachment-file"
+    >
+      <sky-file-attachment
+        formControlName="attachmentFileUploaded"
+        [required]="required"
+      >
+        <sky-file-attachment-label
+          *ngIf="showLabel"
+        >
+          Upload file
+        </sky-file-attachment-label>
+      </sky-file-attachment>
+      <div *ngIf="attachment?.invalid && attachment?.dirty"
+        class="sky-error-label"
+      >
+        Attach a file.
+      </div>
+    </div>
+  </form>
+
+  <h2>
+    Template-driven
+  </h2>
   <div
     class="app-screenshot"
-    id="screenshot-file-attachment"
   >
     <sky-file-attachment
-      formControlName="attachment"
+      [disabled]="disabled"
       [required]="required"
       [validateFn]="validateFile"
+      [(ngModel)]="fileValue"
+      #file="ngModel"
     >
       <sky-file-attachment-label
         *ngIf="showLabel"
@@ -51,79 +172,46 @@
         Field Label
       </sky-file-attachment-label>
     </sky-file-attachment>
-
-    <div *ngIf="attachment?.invalid && attachment?.dirty"
+    <div *ngIf="file?.invalid && file?.dirty"
       class="sky-error-label"
     >
       Attach a file.
     </div>
   </div>
 
-  <table>
-    <tr>
-      <th>Touched</th>
-      <td>{{ fileForm.touched }}</td>
-    </tr>
-    <tr>
-      <th>Pristine</th>
-      <td>{{ fileForm.pristine }}</td>
-    </tr>
-    <tr>
-      <th>Valid</th>
-      <td>{{ fileForm.valid }}</td>
-    </tr>
-    <tr>
-      <th>Value</th>
-      <td>{{ fileForm.value.attachment?.file.name || 'Nothing selected...' }}</td>
-    </tr>
-  </table>
-
-</form>
-
-<h1>
-  File attachment (template-driven)
-</h1>
-
-<div>
-  <sky-file-attachment
-    [disabled]="disabled"
-    [required]="required"
-    [validateFn]="validateFile"
-    [(ngModel)]="fileValue"
-    #file="ngModel"
+  <div
+    class="app-test-output"
   >
-    <sky-file-attachment-label
-      *ngIf="showLabel"
-    >
-      Field Label
-    </sky-file-attachment-label>
-  </sky-file-attachment>
-  <div *ngIf="file?.invalid && file?.dirty"
-    class="sky-error-label"
-  >
-    Attach a file.
+    <table>
+      <thead>
+        <tr>
+          <th
+            colspan="2"
+          >
+            Form control values
+          </th>
+        </tr>
+      </thead>
+      <tr>
+        <th>Touched</th>
+        <td>{{ file.touched }}</td>
+      </tr>
+      <tr>
+        <th>Pristine</th>
+        <td>{{ file.pristine }}</td>
+      </tr>
+      <tr>
+        <th>Valid</th>
+        <td>{{ file.valid }}</td>
+      </tr>
+      <tr>
+        <th>Value</th>
+        <td>{{ fileValue?.file.name || 'Nothing selected...' }}</td>
+      </tr>
+      <tr>
+        <th>Errors</th>
+        <td>{{ fileValue?.errorType }}</td>
+      </tr>
+    </table>
   </div>
 </div>
-
-<table>
-  <tr>
-    <th>Touched</th>
-    <td>{{ file.touched }}</td>
-  </tr>
-  <tr>
-    <th>Pristine</th>
-    <td>{{ file.pristine }}</td>
-  </tr>
-  <tr>
-    <th>Valid</th>
-    <td>{{ file.valid }}</td>
-  </tr>
-  <tr>
-    <th>Value</th>
-    <td>{{ fileValue?.file.name || 'Nothing selected...' }}</td>
-  </tr>
-  <tr>
-    <th>Errors</th>
-    <td>{{ fileValue?.errorType }}</td>
-  </tr>
-</table>

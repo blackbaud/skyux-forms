@@ -1,5 +1,6 @@
 @import "~@skyux/theme/scss/mixins";
 @import "~@skyux/theme/scss/_compat/mixins";
+@import "~@skyux/theme/scss/variables";
 
 .sky-file-attachment-wrapper {
   display: inline-block;
@@ -111,7 +112,7 @@
     .sky-file-attachment-delete {
       width: 40px;
       height: 40px;
-      color: $sky-text-color-default !important;
+      color: $sky-theme-modern-color-gray-70 !important;
     }
   }
 }
