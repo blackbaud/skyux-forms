@@ -21,7 +21,10 @@ import {
 
 @Component({
   selector: 'single-file-attachment-visual',
-  templateUrl: './single-file-attachment-visual.component.html'
+  templateUrl: './single-file-attachment-visual.component.html',
+  styleUrls: [
+    './single-file-attachment-visual.component.scss'
+  ]
 })
 export class SingleFileAttachmentVisualComponent implements OnInit {
 
