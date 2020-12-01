@@ -1,3 +1,7 @@
+# 4.13.5 (2020-12-01)
+
+- Fixed the input box component to properly show focussed state when used inside other components. [#227](https://github.com/blackbaud/skyux-forms/pull/227)
+
 # 4.13.4 (2020-10-29)
 
 - Fixed the single file attachment component to use ARIA labels consistently.  [#223](https://github.com/blackbaud/skyux-forms/pull/223)
