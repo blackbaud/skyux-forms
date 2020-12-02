@@ -1,4 +1,4 @@
-# 4.14.0 (2020-12-01)
+# 4.14.0 (2020-12-02)
 
 - Added modern theme styles to the single file attachment component. [#225](https://github.com/blackbaud/skyux-forms/pull/225)
 - Fixed the input box component to properly handle the focused state within other components. [#227](https://github.com/blackbaud/skyux-forms/pull/227)
