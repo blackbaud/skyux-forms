@@ -44,7 +44,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
    * when the checkbox does not include a visible label. You must set this property for icon
    * checkboxes. If the checkbox includes a visible label, use `labelledBy` instead.
    */
-@Input()
+  @Input()
   public label: string;
 
   /**
