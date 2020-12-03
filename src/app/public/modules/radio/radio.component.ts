@@ -123,7 +123,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
  * [to support accessibility](https://developer.blackbaud.com/skyux/learn/accessibility).
  * If the radio button does not include a visible label, use `label` instead.
  */
-@Input()
+  @Input()
   public labelledBy: string;
 
 // tslint:disable: max-line-length
