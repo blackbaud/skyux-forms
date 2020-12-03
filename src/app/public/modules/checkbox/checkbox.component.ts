@@ -53,7 +53,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
    * [to support accessibility](https://developer.blackbaud.com/skyux/components/checkbox#accessibility).
    * If the checkbox does not include a visible label, use `label` instead.
    */
-@Input()
+  @Input()
   public labelledBy: string;
 
 /**
