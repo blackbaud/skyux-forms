@@ -55,7 +55,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
  * [to support accessibility](https://developer.blackbaud.com/skyux/learn/accessibility).
  * If the radio button group does not include a visible label, use `ariaLabel` instead.
  */
-@Input()
+  @Input()
   public ariaLabelledBy: string;
 
 /**
