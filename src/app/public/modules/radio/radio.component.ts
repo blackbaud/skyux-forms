@@ -114,7 +114,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
  * when the radio button does not include a visible label. You must set this property for icon
  * radio buttons. If the radio button includes a visible label, use `labelledBy` instead.
  */
-@Input()
+  @Input()
   public label: string;
 
 /**
