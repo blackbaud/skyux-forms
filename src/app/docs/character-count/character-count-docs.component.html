@@ -4,8 +4,53 @@
   pageTitle="Character count"
 >
   <sky-docs-demo-page-summary>
-    The character count indicator component extends a text input to apply a character limit and display an indicator with the number of characters entered and the character limit.
+    The character count indicator extends a text input to apply a character limit and display the number of characters entered and the character limit.
   </sky-docs-demo-page-summary>
+
+  <sky-docs-demo>
+    <div
+      style="width: 50%;"
+    >
+      <form
+        novalidate
+        [formGroup]="characterCountForm"
+      >
+        <div
+          class="sky-form-group"
+        >
+          <sky-input-box>
+            <label
+              class="sky-control-label"
+              [for]="descriptionInput.id"
+            >
+              Transaction description
+            </label>
+
+            <sky-character-counter-indicator
+              #descriptionIndicator
+            ></sky-character-counter-indicator>
+
+            <input
+              class="sky-form-control"
+              formControlName="description"
+              type="text"
+              skyCharacterCounter
+              skyId
+              [skyCharacterCounterIndicator]="descriptionIndicator"
+              [skyCharacterCounterLimit]="maxDescriptionCharacterCount"
+              #descriptionInput="skyId"
+            >
+
+            <div *ngIf="description.errors?.skyCharacterCounter"
+              class="sky-error-label"
+            >
+              Limit Transaction description to {{ maxDescriptionCharacterCount }} characters.
+            </div>
+          </sky-input-box>
+        </div>
+      </form>
+    </div>
+  </sky-docs-demo>
 
   <sky-docs-design-guidelines>
 
@@ -79,7 +124,7 @@
     </sky-docs-demo-page-section>
 
     <sky-docs-demo-page-section
-      heading="Behavior & states"
+      heading="Behavior and states"
     >
       <sky-docs-design-guideline>
         <p>
@@ -178,7 +223,7 @@
 
 
     <sky-docs-demo-page-section
-      heading="Related content"
+      heading="Related information"
     >
       <sky-docs-design-guideline
         heading="Components"
@@ -191,5 +236,12 @@
     </sky-docs-demo-page-section>
 
   </sky-docs-design-guidelines>
+
+  <sky-docs-code-examples>
+    <sky-docs-code-example
+      sourceCodePath="src/app/public/plugin-resources/code-examples/character-count"
+    >
+    </sky-docs-code-example>
+  </sky-docs-code-examples>
 
 </sky-docs-demo-page>

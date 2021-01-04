@@ -1,6 +1,6 @@
 <ng-container
   *ngIf="
-    (themeSvc.settingsChange | async)?.currentSettings?.theme?.name === 'modern';
+    (themeSvc?.settingsChange | async)?.currentSettings?.theme?.name === 'modern';
     then modernTemplate else defaultTemplate
   "
 ></ng-container>
@@ -21,8 +21,24 @@
         class="sky-input-group"
       >
         <ng-container
-          *ngTemplateOutlet="inputTemplate"
+          *ngTemplateOutlet="buttonsLeftTemplate"
         ></ng-container>
+        <div
+          class="sky-input-box-input-group-inner"
+          [ngClass]="{
+            'sky-field-status-active': formControlHasFocus,
+            'sky-field-status-invalid': hasErrorsComputed
+          }"
+          (focusin)="formControlFocusIn()"
+          (focusout)="formControlFocusOut()"
+        >
+          <ng-container
+            *ngTemplateOutlet="inputTemplate"
+          ></ng-container>
+          <ng-container
+            *ngTemplateOutlet="buttonsInsetTemplate"
+          ></ng-container>
+        </div>
         <ng-container
           *ngTemplateOutlet="buttonsTemplate"
         ></ng-container>
@@ -46,6 +62,9 @@
     <div
       class="sky-input-box-group"
     >
+      <ng-container
+        *ngTemplateOutlet="buttonsLeftTemplate"
+      ></ng-container>
       <div
         class="sky-input-box-group-form-control"
         [ngClass]="{
@@ -58,11 +77,18 @@
         <div
           class="sky-form-group"
         >
+          <div
+            class="sky-input-box-form-group-inner"
+          >
+            <ng-container
+              *ngTemplateOutlet="labelTemplate"
+            ></ng-container>
+            <ng-container
+              *ngTemplateOutlet="inputTemplate"
+            ></ng-container>
+          </div>
           <ng-container
-            *ngTemplateOutlet="labelTemplate"
-          ></ng-container>
-          <ng-container
-            *ngTemplateOutlet="inputTemplate"
+            *ngTemplateOutlet="buttonsInsetTemplate"
           ></ng-container>
         </div>
       </div>
@@ -82,6 +108,9 @@
   <ng-content
     select=".sky-control-label"
   ></ng-content>
+  <ng-content
+    select="sky-character-counter-indicator"
+  ></ng-content>
 </ng-template>
 
 <ng-template
@@ -96,13 +125,35 @@
 </ng-template>
 
 <ng-template
+  #buttonsLeftTemplate
+>
+  <ng-content
+    select=".sky-input-group-btn.sky-input-box-btn-left"
+  ></ng-content>
+  <ng-container
+    *ngTemplateOutlet="hostButtonsLeftTemplate"
+  ></ng-container>
+</ng-template>
+
+<ng-template
   #buttonsTemplate
 >
   <ng-content
-    select=".sky-input-group-btn"
+    select=".sky-input-group-btn:not(.sky-input-box-btn-left):not(.sky-input-box-btn-inset)"
   ></ng-content>
   <ng-container
     *ngTemplateOutlet="hostButtonsTemplate"
+  ></ng-container>
+</ng-template>
+
+<ng-template
+  #buttonsInsetTemplate
+>
+  <ng-content
+    select=".sky-input-group-btn.sky-input-box-btn-inset"
+  ></ng-content>
+  <ng-container
+    *ngTemplateOutlet="hostButtonsInsetTemplate"
   ></ng-container>
 </ng-template>
 

@@ -9,6 +9,7 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Optional,
   Output,
   QueryList,
@@ -19,6 +20,10 @@ import {
 import {
   NgControl
 } from '@angular/forms';
+
+import {
+  SkyThemeService
+} from '@skyux/theme';
 
 import {
   Subject
@@ -58,24 +63,28 @@ import {
 
 let uniqueId = 0;
 
+/**
+ * Provides an element to attach a single local file.
+ */
 @Component({
   selector: 'sky-file-attachment',
   templateUrl: './file-attachment.component.html',
   styleUrls: ['./file-attachment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnInit, OnDestroy {
 
-/**
- * Specifies a comma-delimited string literal of MIME types that users can attach:
- * `[acceptedTypes]="validFileTypes"` or `acceptedTypes="image/png,image/jpeg"`. By default, all file types are allowed.
- * @required
- */
+  /**
+   * Specifies a comma-delimited string literal of MIME types that users can attach.
+   * By default, all file types are allowed.
+   * @required
+   */
   @Input()
   public acceptedTypes: string;
 
   /**
-   * Indicates whether to disable the input. This property accepts `boolean` values.
+   * Indicates whether to disable the input.
+   * @default false
    */
   @Input()
   public set disabled(value: boolean) {
@@ -89,24 +98,34 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     return this._disabled;
   }
 
-/**
- * Specifies the maximum size in bytes for valid files.
- */
+  /**
+   * Specifies the maximum size in bytes for valid files.
+   */
   @Input()
   public maxFileSize: number = 500000;
 
-/**
- * Specifies the minimum size in bytes for valid files.
- */
+  /**
+   * Specifies the minimum size in bytes for valid files.
+   */
   @Input()
   public minFileSize: number = 0;
 
+  /**
+   * Specifies a custom validation function. This validation runs alongside the internal
+   * file validation. This function takes a `SkyFileItem` object as a parameter.
+   */
   @Input()
   public validateFn: Function;
 
+  /**
+   * Fires when users add or remove files.
+   */
   @Output()
   public fileChange = new EventEmitter<SkyFileAttachmentChange>();
 
+  /**
+   * Fires when users select the file link.
+   */
   @Output()
   public fileClick = new EventEmitter<SkyFileAttachmentClick>();
 
@@ -141,12 +160,17 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     if (isNewValue) {
       this._value = value;
       this._onChange(value);
+      this.updateFileAttachmentButton();
     }
   }
 
   public get value(): SkyFileItem {
     return this._value;
   }
+
+  public currentThemeName: string;
+
+  public showFileAttachmentButton: boolean;
 
   @ViewChild('fileInput')
   private inputEl: ElementRef;
@@ -165,6 +189,7 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   private _value: any;
 
   constructor(
+    public themeSvc: SkyThemeService,
     private changeDetector: ChangeDetectorRef,
     private fileAttachmentService: SkyFileAttachmentService,
     private fileItemService: SkyFileItemService,
@@ -175,6 +200,17 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+  }
+
+  public ngOnInit(): void {
+    this.themeSvc.settingsChange
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe((themeSettings) => {
+        this.currentThemeName = themeSettings.currentSettings?.theme?.name;
+        this.updateFileAttachmentButton();
+      });
   }
 
   public ngAfterViewInit(): void {
@@ -383,6 +419,11 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
         this.loadFile(file);
       }
     }
+  }
+
+  private updateFileAttachmentButton(): void {
+    this.showFileAttachmentButton = !(this.value && this.currentThemeName === 'modern');
+    this.changeDetector.markForCheck();
   }
 
   /*istanbul ignore next */

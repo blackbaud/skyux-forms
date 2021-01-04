@@ -1,8 +1,10 @@
 import {
+  ChangeDetectorRef,
   Component,
   ContentChild,
   Input,
   OnInit,
+  Optional,
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
@@ -64,6 +66,10 @@ export class SkyInputBoxComponent implements OnInit {
 
   public hostButtonsTemplate: TemplateRef<any>;
 
+  public hostButtonsInsetTemplate: TemplateRef<any>;
+
+  public hostButtonsLeftTemplate: TemplateRef<any>;
+
   public formControlHasFocus: boolean;
 
   @ContentChild(FormControlDirective)
@@ -86,7 +92,8 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   constructor(
-    public themeSvc: SkyThemeService,
+    @Optional() public themeSvc: SkyThemeService,
+    private changeRef: ChangeDetectorRef,
     private inputBoxHostSvc: SkyInputBoxHostService
   ) { }
 
@@ -95,16 +102,28 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   public formControlFocusIn(): void {
-    this.formControlHasFocus = true;
+    this.updateHasFocus(true);
   }
 
   public formControlFocusOut(): void {
-    this.formControlHasFocus = false;
+    this.updateHasFocus(false);
   }
 
   public populate(args: SkyInputBoxPopulateArgs): void {
     this.hostInputTemplate = args.inputTemplate;
     this.hostButtonsTemplate = args.buttonsTemplate;
+    this.hostButtonsLeftTemplate = args.buttonsLeftTemplate;
+    this.hostButtonsInsetTemplate = args.buttonsInsetTemplate;
+  }
+
+  private updateHasFocus(hasFocus: boolean): void {
+    // Some components manipulate the focus of elements inside an input box programmatically,
+    // which can cause an `ExpressionChangedAfterItHasBeenCheckedError` if focus was set after
+    // initial change detection. Using `setTimeout()` here fixes it.
+    setTimeout(() => {
+      this.formControlHasFocus = hasFocus;
+      this.changeRef.markForCheck();
+    });
   }
 
   private controlHasErrors(control: AbstractControlDirective) {

@@ -58,6 +58,11 @@ describe('Input box', () => {
     await el.sendKeys(Key.TAB);
   }
 
+  async function tabToPreviousElement(): Promise<void> {
+    const el = await browser.driver.switchTo().activeElement();
+    await el.sendKeys(Key.chord(Key.SHIFT, Key.TAB));
+  }
+
   function runTests(): void {
     it('should match previous input box screenshot', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-basic');
@@ -321,7 +326,7 @@ describe('Input box', () => {
     it('should match previous input box with select when disabled', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-select-disabled');
 
-      expect('#input-box-select').toMatchBaselineScreenshot(done, {
+      expect('#input-box-select-disabled').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('input-box-select-disabled')
       });
     });
@@ -428,6 +433,103 @@ describe('Input box', () => {
       });
     });
 
+    // Basic with wrapper
+    it('should match previous input box with wrapper element screenshot', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-basic-wrapper');
+
+      expect('#input-box-basic-wrapper').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-basic-wrapper')
+      });
+    });
+
+    // Single button on left
+    it(
+      'should match previous input box with a button on left',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+
+        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-single-left')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a button on left screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+
+        await clickLabel('input-box-button-single-left');
+
+        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-focused-single-left-input')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a button on left screenshot when button is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+
+        await clickLabel('input-box-button-single-left');
+        await tabToPreviousElement();
+
+        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-focused-single-left-button')
+        });
+      }
+    );
+
+    // Inset button
+    it(
+      'should match previous input box with an inset button',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+
+        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with an inset button screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+
+        await clickLabel('input-box-button-inset');
+
+        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset-input')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with an inset button screenshot when button is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+
+        await clickLabel('input-box-button-inset');
+        await tabToNextElement();
+
+        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset-button')
+        });
+      }
+    );
+
+    it(
+      'should match previous narrow input box with an inset button',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-button-inset-narrow');
+
+        expect('#input-box-button-inset-narrow').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-button-inset-narrow')
+        });
+      }
+    );
   }
 
   beforeEach(async () => {

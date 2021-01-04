@@ -1,3 +1,37 @@
+# 4.14.0 (2020-12-02)
+
+- Added modern theme styles to the single file attachment component. [#225](https://github.com/blackbaud/skyux-forms/pull/225)
+- Fixed the input box component to properly handle the focused state within other components. [#227](https://github.com/blackbaud/skyux-forms/pull/227)
+
+# 4.13.4 (2020-10-29)
+
+- Fixed the single file attachment component to use ARIA labels consistently.  [#223](https://github.com/blackbaud/skyux-forms/pull/223)
+
+# 4.13.3 (2020-10-23)
+
+- Fixed the vertical position of the input box label in the modern theme. [#218](https://github.com/blackbaud/skyux-forms/pull/218)
+
+# 4.13.2 (2020-10-01)
+
+- Fixed a bug where an input box inset button would wrap if the input box was too narrow. [#211](https://github.com/blackbaud/skyux-forms/pull/211)
+
+# 4.13.1 (2020-09-29)
+
+- Fixed an error when programmatically setting focus to a form control inside an input box. [#208](https://github.com/blackbaud/skyux-forms/pull/208)
+
+# 4.13.0 (2020-09-25)
+
+- Made `SkyThemeService` an optional depependency of the input box component. [#203](https://github.com/blackbaud/skyux-forms/pull/203)
+- Added inset button support to the input box component. [#204](https://github.com/blackbaud/skyux-forms/pull/204)
+
+# 4.12.0 (2020-09-22)
+
+- Added character count component support to the input box component. [#201](https://github.com/blackbaud/skyux-forms/pull/201)
+
+# 4.11.0 (2020-09-15)
+
+- Updated the input box component to support additional SKY UX components. [#195](https://github.com/blackbaud/skyux-forms/pull/195)
+
 # 4.10.0 (2020-09-04)
 
 - Added support for setting custom `aria-label` properties on the file attachment component. [#187](https://github.com/blackbaud/skyux-forms/pull/187)
