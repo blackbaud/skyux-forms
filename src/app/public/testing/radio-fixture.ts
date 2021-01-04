@@ -31,7 +31,7 @@ export class SkyRadioFixture {
   /**
    * The selected radio button value.
    */
-  public get value(): any {
+  public get value(): string {
     const selectedRadio = this.debugEl.query(By.css('sky-radio input:checked'));
     const selectedValue = selectedRadio && selectedRadio.nativeElement.value;
 
@@ -39,36 +39,24 @@ export class SkyRadioFixture {
   }
 
   /**
-   * The selected radio button label.
+   * Set the selected radio button value.
    */
-  public get selectedLabel(): string {
-    const allRadioButtons = this.getAllSkyRadioButtonEls();
-    const selectedRadioInputValue = this.value;
+  public set value(value: string) {
+    const allRadioInputs = this.getAllRadioInputEls();
 
-    for (let i = 0; i < allRadioButtons.length; i++) {
-      const skyRadio = allRadioButtons[i];
-      const inputEl = skyRadio.query(By.css('input'));
-
-      if (inputEl.nativeElement && inputEl.nativeElement.value === selectedRadioInputValue) {
-        return this.getRadioButtonLabelText(i);
+    allRadioInputs.forEach((input, index) => {
+      if (input.nativeElement.value === value) {
+        input.nativeElement.checked = true;
+      } else {
+        input.nativeElement.checked = false;
       }
-    }
-  }
-
-  /**
-   * Get the value of the radio button at the given index.
-   * @param index The index of the radio button.
-   */
-  public getRadioButtonValue(index: number): any {
-    const radioButton = this.getRadioButtonInputEl(index);
-
-    return radioButton && radioButton.nativeElement.value;
+    });
   }
 
   /**
    * A flag indicating if every radio button in the radio group is disabled.
    */
-  public get allRadioButtonsDisabled(): boolean {
+  public get disabled(): boolean {
     const allRadioButtons = this.getAllSkyRadioButtonEls();
 
     for (let i = 0; i < allRadioButtons.length; i++) {
@@ -82,78 +70,12 @@ export class SkyRadioFixture {
   /**
    * Set the disabled value for all radio buttons.
    */
-  public set allRadioButtonsDisabled(value: boolean) {
+  public set disabled(value: boolean) {
     const allRadioButtons = this.getAllSkyRadioButtonEls();
 
     allRadioButtons.forEach((button, index) => {
       this.setRadioButtonDisabled(index, value);
     });
-  }
-
-  /**
-   * Indicates if the radio button at the given index is disabled.
-   * @param index The index of the radio button.
-   */
-  public radioButtonDisabled(index: number): boolean {
-    const radioButton = this.getRadioButtonInputEl(index);
-
-    return radioButton && radioButton.nativeElement.disabled;
-  }
-
-  /**
-   * Sets the disabled value of the radio button at the given index.
-   * @param index The index of the radio button.
-   * @param value The boolean value to set the button's diabled property to.
-   */
-  public setRadioButtonDisabled(index: number, value: boolean): void {
-    const radioButton = this.getRadioButtonInputEl(index);
-
-    /* istanbul ignore else */
-    if (radioButton) {
-      radioButton.nativeElement.disabled = value;
-
-      this.fixture.detectChanges();
-    }
-  }
-
-  /**
-   * The text of the radio button at the given index.
-   * @param index The index of the radio button.
-   */
-  public getRadioButtonLabelText(index: number): string {
-    const labelEl = this.getRadioButtonLabelEl(index);
-    return SkyAppTestUtility.getText(labelEl.nativeElement);
-  }
-
-  /**
-   * Select the radio button with the given index.
-   * @param index The index of the radio button.
-   */
-  public selectRadioButtonInputElByIndex(index: number): void {
-    const radioButton = this.getRadioButtonInputEl(index);
-
-    if (radioButton) {
-      radioButton.nativeElement.click();
-    }
-
-    this.fixture.detectChanges();
-  }
-
-  /**
-   * Select the radio button with the given label.
-   * @param label The label text to select the radio button by.
-   */
-  public selectRadioButtonInputElByLabel(label: string): void {
-    const allRadioButtons = this.getAllSkyRadioButtonEls();
-
-    for (let i = 0; i < allRadioButtons.length; i++) {
-      const radioButtonLabel = this.getRadioButtonLabelText(i);
-
-      if (radioButtonLabel === label) {
-        this.selectRadioButtonInputElByIndex(i);
-        break;
-      }
-    }
   }
 
   private getAllSkyRadioButtonEls(): DebugElement[] {
@@ -162,27 +84,34 @@ export class SkyRadioFixture {
     );
   }
 
-  private getRadioButtonInputEl(index: number): DebugElement {
-    const allSkyRadios = this.getAllSkyRadioButtonEls();
-    let skyRadioInput: DebugElement;
-
-    if (allSkyRadios && allSkyRadios[index]) {
-      const skyRadioEl = allSkyRadios[index];
-      skyRadioInput = skyRadioEl.query(By.css('input'));
-    }
-
-    return skyRadioInput;
+  private getAllRadioInputEls(): DebugElement[] {
+    return this.debugEl.queryAll(
+      By.css('.sky-radio-group sky-radio input')
+    );
   }
 
-  private getRadioButtonLabelEl(index: number): DebugElement {
-    const allSkyRadios = this.getAllSkyRadioButtonEls();
-    let skyRadioInputLabel: DebugElement;
+  private getRadioButtonInputEl(index: number): DebugElement {
+    const allRadioInputs = this.getAllRadioInputEls();
 
-    if (allSkyRadios && allSkyRadios[index]) {
-      const skyRadioEl = allSkyRadios[index];
-      skyRadioInputLabel = skyRadioEl.query(By.css('sky-radio-label .sky-switch-label'));
+    if (allRadioInputs && allRadioInputs[index]) {
+      return allRadioInputs[index];
     }
+  }
 
-    return skyRadioInputLabel;
+  private radioButtonDisabled(index: number): boolean {
+    const radioButton = this.getRadioButtonInputEl(index);
+
+    return radioButton && radioButton.nativeElement.disabled;
+  }
+
+  private setRadioButtonDisabled(index: number, value: boolean): void {
+    const radioButton = this.getRadioButtonInputEl(index);
+
+    /* istanbul ignore else */
+    if (radioButton) {
+      radioButton.nativeElement.disabled = value;
+
+      this.fixture.detectChanges();
+    }
   }
 }

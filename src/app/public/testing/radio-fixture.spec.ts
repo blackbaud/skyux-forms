@@ -88,70 +88,26 @@ describe('Radio fixture', () => {
 
   it('should expose the provided properties', () => {
     const springSeason = fixture.componentInstance.seasons[0];
-    expect(radioGroup.allRadioButtonsDisabled).toBeFalse();
+    expect(radioGroup.disabled).toBeFalse();
     expect(radioGroup.value).toEqual(springSeason.id);
-    expect(radioGroup.selectedLabel).toEqual(springSeason.name);
   });
 
-  it('should get an individual radio button\'s value', () => {
-    const summerIndex = 1;
-    const summerSeason = fixture.componentInstance.seasons[summerIndex];
-    expect(radioGroup.getRadioButtonValue(summerIndex)).toEqual(summerSeason.id);
-  });
+  it('should select the radio button with the given value', () => {
+    const springSeason = fixture.componentInstance.seasons[0];
+    const summerSeason = fixture.componentInstance.seasons[1];
 
-  it('should get an individual radio button\'s label', () => {
-    const summerIndex = 1;
-    const summerSeason = fixture.componentInstance.seasons[summerIndex];
-    expect(radioGroup.getRadioButtonLabelText(summerIndex)).toEqual(summerSeason.name);
-  });
+    expect(radioGroup.value).toEqual(springSeason.id);
 
-  it('should indicate if an individual radio button is disabled', () => {
-    const fallIndex = 2;
+    radioGroup.value = summerSeason.id;
 
-    expect(radioGroup.radioButtonDisabled(fallIndex)).toBeTrue();
-  });
-
-  it('should set the disabled state for an individual radio button', () => {
-    const summerIndex = 1;
-
-    expect(radioGroup.radioButtonDisabled(summerIndex)).toBeFalse();
-
-    radioGroup.setRadioButtonDisabled(summerIndex, true);
-
-    expect(radioGroup.radioButtonDisabled(summerIndex)).toBeTrue();
+    expect(radioGroup.value).toEqual(summerSeason.id);
   });
 
   it('should set the disabled state for all radio buttons', () => {
-    expect(radioGroup.allRadioButtonsDisabled).toBeFalse();
+    expect(radioGroup.disabled).toBeFalse();
 
-    radioGroup.allRadioButtonsDisabled = true;
+    radioGroup.disabled = true;
 
-    expect(radioGroup.allRadioButtonsDisabled).toBeTrue();
-  });
-
-  it('should select a radio button by index', () => {
-    const springIndex = 0;
-    const springSeason = fixture.componentInstance.seasons[springIndex];
-    const summerIndex = 1;
-    const summerSeason = fixture.componentInstance.seasons[summerIndex];
-
-    expect(radioGroup.value).toEqual(springSeason.id);
-
-    radioGroup.selectRadioButtonInputElByIndex(summerIndex);
-
-    expect(radioGroup.value).toEqual(summerSeason.id);
-  });
-
-  it('should select a radio button by label', () => {
-    const springIndex = 0;
-    const springSeason = fixture.componentInstance.seasons[springIndex];
-    const summerIndex = 1;
-    const summerSeason = fixture.componentInstance.seasons[summerIndex];
-
-    expect(radioGroup.value).toEqual(springSeason.id);
-
-    radioGroup.selectRadioButtonInputElByLabel(summerSeason.name);
-
-    expect(radioGroup.value).toEqual(summerSeason.id);
+    expect(radioGroup.disabled).toBeTrue();
   });
 });
