@@ -1,46 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DebugElement
-} from '@angular/core';
-
-import {
-  ComponentFixture,
-  async,
-  TestBed
-} from '@angular/core/testing';
-
-import {
-  BrowserModule,
-  By
-} from '@angular/platform-browser';
-
-import {
-  FormsModule,
-  NgForm,
-  NgModel,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
-
-import {
-  expect
-} from '@skyux-sdk/testing';
-
-import {
-  SkyCheckboxChange
-} from '../checkbox/checkbox-change';
-
-import {
-  SkyCheckboxComponent
-} from './checkbox.component';
-
-import {
-  SkyCheckboxModule
-} from './checkbox.module';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { expect } from '@skyux-sdk/testing';
+import { SkyCheckboxChange } from './checkbox-change';
+import { SkyCheckboxComponent } from './checkbox.component';
+import { SkyCheckboxModule } from './checkbox.module';
 
 // #region helpers
 /** Simple component for testing a single checkbox. */
@@ -225,10 +190,10 @@ class CheckboxWithNameAttributeComponent {}
 
 /** Simple test component with change event */
 @Component({
-  template: `<sky-checkbox (change)="lastEvent = $event"></sky-checkbox>`
+  template: `<sky-checkbox (change)="changeEvents.push($event)"></sky-checkbox>`
 })
 class CheckboxWithChangeEventComponent {
-  public lastEvent: SkyCheckboxChange;
+  public changeEvents: SkyCheckboxChange[] = [];
 }
 
 /** Simple test component with OnPush change detection */
@@ -246,6 +211,7 @@ class CheckboxWithOnPushChangeDetectionComponent {
   public isChecked: boolean = false;
   constructor(public ref: ChangeDetectorRef) {}
 }
+
 // #endregion
 
 describe('Checkbox component', () => {
@@ -368,7 +334,7 @@ describe('Checkbox component', () => {
       expect(inputElement.disabled).toBe(false);
     });
 
-    it('should not toggle `checked` state upon interation while disabled', () => {
+    it('should not toggle `checked` state upon interaction while disabled', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
@@ -424,22 +390,22 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should call not call the change event when the checkbox is not interacted with',
+    it('should not call the change event when the checkbox is not interacted with',
       async(() => {
-      fixture.detectChanges();
-      expect(testComponent.lastEvent).toBeUndefined();
+        fixture.detectChanges();
+        expect(testComponent.changeEvents.length).toEqual(0);
 
-      checkboxInstance.checked = true;
-      fixture.detectChanges();
+        checkboxInstance.checked = true;
+        fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(testComponent.lastEvent).toBeUndefined();
-      });
-    }));
+        fixture.whenStable().then(() => {
+          expect(testComponent.changeEvents.length).toEqual(0);
+        });
+      }));
 
     it('should call the change event and not emit a DOM event to the change output', async(() => {
       fixture.detectChanges();
-      expect(testComponent.lastEvent).toBeUndefined();
+      expect(testComponent.changeEvents.length).toEqual(0);
 
       // Trigger the click on the inputElement, because the input will probably
       // emit a DOM event to the change output.
@@ -450,9 +416,9 @@ describe('Checkbox component', () => {
         // We're checking the arguments type / emitted value to be a boolean, because sometimes the
         // emitted value can be a DOM Event, which is not valid.
         // See angular/angular#4059
-        expect(testComponent.lastEvent.checked).toBe(true);
+        expect(testComponent.changeEvents.length).toBe(1);
+        expect(testComponent.changeEvents[0].checked).toBe(true);
       });
-
     }));
   });
 
@@ -556,7 +522,7 @@ describe('Checkbox component', () => {
 
     it('should assign a unique id to each checkbox', () => {
       let [firstId, secondId] =
-          fixture.debugElement.queryAll(By.directive(SkyCheckboxComponent))
+        fixture.debugElement.queryAll(By.directive(SkyCheckboxComponent))
           .map(debugElement => debugElement.nativeElement.querySelector('input').id);
 
       expect(firstId).toBeTruthy();
@@ -584,7 +550,7 @@ describe('Checkbox component', () => {
         checkboxNativeElement = checkboxElement.nativeElement;
 
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
-        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        ngModel = <NgModel>checkboxElement.injector.get(NgModel);
         labelElement =
           <HTMLLabelElement>checkboxElement
             .nativeElement.querySelector('label.sky-checkbox-wrapper');
@@ -636,7 +602,7 @@ describe('Checkbox component', () => {
 
         testComponent = fixture.debugElement.componentInstance;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
-        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        ngModel = <NgModel>checkboxElement.injector.get(NgModel);
         labelElement =
           <HTMLLabelElement>checkboxElement
             .nativeElement.querySelector('label.sky-checkbox-wrapper');
@@ -684,7 +650,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should not have required and aria-reqiured attributes when not required', () => {
+    it('should not have required and aria-required attributes when not required', () => {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
         expect(inputElement.getAttribute('required')).toBeNull();
@@ -717,14 +683,14 @@ describe('Checkbox component', () => {
         testComponent = fixture.componentInstance;
         checkboxNativeElement = checkboxElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
-        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        ngModel = <NgModel>checkboxElement.injector.get(NgModel);
         labelElement =
           <HTMLLabelElement>checkboxElement
             .nativeElement.querySelector('label.sky-checkbox-wrapper');
       });
     }));
 
-    it('should have required and aria-reqiured attributes', async(() => {
+    it('should have required and aria-required attributes', async(() => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
@@ -740,7 +706,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should not have required and aria-reqiured attributes when input is false', async(() => {
+    it('should not have required and aria-required attributes when input is false', async(() => {
       fixture.detectChanges();
       testComponent.required = false;
       fixture.whenStable().then(() => {
@@ -785,14 +751,14 @@ describe('Checkbox component', () => {
         checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
         checkboxNativeElement = checkboxElement.nativeElement;
         inputElement = <HTMLInputElement>checkboxNativeElement.querySelector('input');
-        ngModel = <NgModel> checkboxElement.injector.get(NgModel);
+        ngModel = <NgModel>checkboxElement.injector.get(NgModel);
         labelElement =
           <HTMLLabelElement>checkboxElement
             .nativeElement.querySelector('label.sky-checkbox-wrapper');
       });
     }));
 
-    it('should have required and aria-reqiured attributes', async(() => {
+    it('should have required and aria-required attributes', async(() => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
@@ -902,11 +868,28 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should not have required and aria-reqiured attributes when not required', async(() => {
+    it('should not have required and aria-required attributes when not required', async(() => {
       fixture.whenStable().then(() => {
         fixture.detectChanges();
         expect(inputElement.getAttribute('required')).toBeNull();
         expect(inputElement.getAttribute('aria-required')).toBeNull();
+      });
+    }));
+
+    it('should call the valueChanges event once with a boolean value', async(() => {
+      const changeEvents: boolean[] = [];
+      fixture.detectChanges();
+
+      formControl.valueChanges.subscribe((value: boolean) => {
+        changeEvents.push(value);
+      });
+
+      inputElement.click();
+      fixture.detectChanges();
+
+      fixture.whenStable().then(() => {
+        expect(changeEvents.length).toEqual(1);
+        expect(changeEvents[0]).toEqual(true);
       });
     }));
   });
@@ -935,7 +918,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should have required and aria-reqiured attributes', async(() => {
+    it('should have required and aria-required attributes', async(() => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
@@ -978,7 +961,7 @@ describe('Checkbox component', () => {
       });
     }));
 
-    it('should have required and aria-reqiured attributes', async(() => {
+    it('should have required and aria-required attributes', async(() => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
@@ -1017,7 +1000,7 @@ describe('Checkbox component', () => {
 
     it('should forward name value to input element', () => {
       let checkboxElement = fixture.debugElement.query(By.directive(SkyCheckboxComponent));
-      let inputElement = <HTMLInputElement> checkboxElement.nativeElement.querySelector('input');
+      let inputElement = <HTMLInputElement>checkboxElement.nativeElement.querySelector('input');
 
       expect(inputElement.getAttribute('name')).toBe('test-name');
     });
