@@ -1,0 +1,73 @@
+<form
+  class="sky-padding-even-large"
+  [formGroup]="myForm"
+  (ngSubmit)="onSubmit(myForm.value)"
+>
+
+  <div
+    class="sky-margin-stacked-default"
+    id="screenshot-selection-box-radio"
+  >
+    <h3
+      class="sky-control-label"
+    >
+      radio
+    </h3>
+    <sky-selection-box-group
+      type="radioButton"
+      formControlName="favoriteColor"
+      [value]="{ selectedRadioButtonValue: 'red' }"
+    >
+      <sky-selection-box *ngFor="let item of radioArray"
+        [value]="item.name"
+        (change)="onSelectionBoxChange($event)"
+      >
+        <sky-selection-box-icon
+          [icon]="item.icon"
+          [iconType]="item.iconType"
+        ></sky-selection-box-icon>
+        <sky-selection-box-header>
+          {{ item.header }}
+        </sky-selection-box-header>
+      </sky-selection-box>
+    </sky-selection-box-group>
+  </div>
+
+  <div
+    class="sky-margin-stacked-default"
+    id="screenshot-selection-box-checkboxes"
+  >
+    <h3
+      class="sky-control-label"
+    >
+      checkboxes
+    </h3>
+    <sky-selection-box-group
+      type="checkbox"
+      formArrayName="getStarted"
+    >
+      <sky-selection-box *ngFor="let item of myArray; let i = index"
+        [formControlName]="i"
+        (change)="onSelectionBoxChange($event)"
+      >
+        <sky-selection-box-icon
+          [icon]="item.icon"
+          [iconType]="item.iconType"
+        ></sky-selection-box-icon>
+        <sky-selection-box-header>
+          {{ item.header }}
+        </sky-selection-box-header>
+        <sky-selection-box-description>
+          {{ item.description }}
+        </sky-selection-box-description>
+      </sky-selection-box>
+    </sky-selection-box-group>
+  </div>
+
+  <button
+    type="submit"
+  >
+    Submit
+  </button>
+
+</form>

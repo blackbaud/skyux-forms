@@ -1,0 +1,11 @@
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+
+@include sky-host-responsive-container-sm-min() {
+  .sky-selection-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    padding: $sky-padding 0;
+  }
+}
