@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   OnInit
 } from '@angular/core';
@@ -30,18 +31,24 @@ export class RadioVisualComponent implements OnInit {
   public required: boolean = false;
 
   public seasons = [
-    { name: 'Spring', disabled: false },
-    { name: 'Summer', disabled: false },
-    { name: 'Fall', disabled: true },
-    { name: 'Winter', disabled: false }
+    { id: 1, name: 'Spring', disabled: false, checked: false },
+    { id: 2, name: 'Summer', disabled: false, checked: false },
+    { id: 3, name: 'Fall', disabled: false, checked: false },
+    { id: 4, name: 'Winter', disabled: false, checked: false }
   ];
 
   public selectedValue = '3';
 
   constructor(
     private formBuilder: FormBuilder,
-    private themeSvc: SkyThemeService
+    private themeSvc: SkyThemeService,
+    private changeRef: ChangeDetectorRef
   ) { }
+
+  public onButtonClick(index: number): void {
+    this.seasons[index].checked = true;
+    this.changeRef.detectChanges();
+  }
 
   public ngOnInit(): void {
     this.radioForm = this.formBuilder.group({

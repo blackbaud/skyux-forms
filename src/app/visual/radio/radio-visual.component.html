@@ -32,6 +32,12 @@
   >
     What is your favorite season?
   </h3>
+  <button *ngFor="let value of seasons; let i = index"
+    type="button"
+    (click)="onButtonClick(i)"
+  >
+    select {{ value.name }}
+  </button>
   <div id="screenshot-radio">
     <sky-radio-group
       ariaLabelledBy="favorite-id"
@@ -43,6 +49,7 @@
       >
         <li *ngFor="let value of seasons">
           <sky-radio
+            [checked]="value.checked"
             [disabled]="value.disabled"
             [value]="value"
           >

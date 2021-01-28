@@ -29,16 +29,16 @@ import {
 } from '@skyux/indicators';
 
 import {
+  SkySelectionBoxAdapterService
+} from './selection-box-adapter.service';
+
+import {
   SkySelectionBoxContainerComponent
 } from './selection-box-container.component';
 
 import {
   SkySelectionBoxDescriptionComponent
 } from './selection-box-description.component';
-
-import {
-  SkySelectionBoxGroupComponent
-} from './selection-box-group.component';
 
 import {
   SkySelectionBoxHeaderComponent
@@ -57,7 +57,6 @@ import {
     SkySelectionBoxComponent,
     SkySelectionBoxContainerComponent,
     SkySelectionBoxDescriptionComponent,
-    SkySelectionBoxGroupComponent,
     SkySelectionBoxHeaderComponent,
     SkySelectionBoxIconComponent
   ],
@@ -75,9 +74,11 @@ import {
     SkySelectionBoxComponent,
     SkySelectionBoxContainerComponent,
     SkySelectionBoxDescriptionComponent,
-    SkySelectionBoxGroupComponent,
     SkySelectionBoxHeaderComponent,
     SkySelectionBoxIconComponent
+  ],
+  providers: [
+    SkySelectionBoxAdapterService
   ]
 })
 export class SkySelectionBoxModule { }

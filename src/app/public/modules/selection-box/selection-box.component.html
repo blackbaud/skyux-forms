@@ -5,8 +5,7 @@
   [ngClass]="{
     'sky-selection-box-selected' : checked
   }"
-  (click)="onButtonClick()"
-  (keydown.enter)="onEnter()"
+  (click)="onButtonClick($event)"
   #skySelectionBoxButton
 >
   <ng-content
@@ -27,19 +26,15 @@
       select="sky-selection-box-description"
     ></ng-content>
   </div>
-  <sky-checkbox *ngIf="type === 'checkbox'"
-    [checked]="checked"
-    [required]="required"
-    (change)="onCheckboxChange($event);"
-    (click)="onControlClick($event)"
-    #checkboxComponent
+
+  <div
+    #controlEl
   >
-  </sky-checkbox>
-  <sky-radio *ngIf="type === 'radioButton'"
-    [labelledBy]="headerId"
-    [value]="value"
-    (click)="onControlClick($event)"
-    #radioComponent
-  >
-  </sky-radio>
+    <ng-content
+      select="sky-radio"
+    ></ng-content>
+    <ng-content
+      select="sky-checkbox"
+    ></ng-content>
+  </div>
 </button>

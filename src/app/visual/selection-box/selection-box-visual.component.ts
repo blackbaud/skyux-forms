@@ -15,7 +15,7 @@ import {
 })
 export class SelectionBoxVisualComponent implements OnInit {
 
-  public myArray: any = [
+  public getStartedArray: any = [
     {
       icon: 'edit',
       iconType: 'skyux',
@@ -71,11 +71,15 @@ export class SelectionBoxVisualComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       getStarted: this.formBuilder.array([
         new FormControl(),
-        new FormControl(),
+        new FormControl(true),
         new FormControl()
       ]),
       favoriteColor: new FormControl()
     });
+  }
+
+  public onChecked(value: any) {
+    console.warn(value);
   }
 
   public onSelectionBoxChange(value: any): void {

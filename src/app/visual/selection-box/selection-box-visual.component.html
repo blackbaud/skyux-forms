@@ -13,13 +13,11 @@
     >
       radio
     </h3>
-    <sky-selection-box-group
-      type="radioButton"
+    <sky-radio-group
       formControlName="favoriteColor"
-      [value]="{ selectedRadioButtonValue: 'red' }"
+      value="red"
     >
       <sky-selection-box *ngFor="let item of radioArray"
-        [value]="item.name"
         (change)="onSelectionBoxChange($event)"
       >
         <sky-selection-box-icon
@@ -29,12 +27,18 @@
         <sky-selection-box-header>
           {{ item.header }}
         </sky-selection-box-header>
+        <sky-radio
+          (checked)="onChecked($event)"
+          [value]="item.name"
+        >
+        </sky-radio>
       </sky-selection-box>
-    </sky-selection-box-group>
+    </sky-radio-group>
   </div>
 
   <div
     class="sky-margin-stacked-default"
+    formArrayName="getStarted"
     id="screenshot-selection-box-checkboxes"
   >
     <h3
@@ -42,26 +46,22 @@
     >
       checkboxes
     </h3>
-    <sky-selection-box-group
-      type="checkbox"
-      formArrayName="getStarted"
-    >
-      <sky-selection-box *ngFor="let item of myArray; let i = index"
+    <sky-selection-box *ngFor="let item of getStartedArray; let i = index">
+      <sky-selection-box-icon
+        [icon]="item.icon"
+        [iconType]="item.iconType"
+      ></sky-selection-box-icon>
+      <sky-selection-box-header>
+        {{ item.header }}
+      </sky-selection-box-header>
+      <sky-selection-box-description>
+        {{ item.description }}
+      </sky-selection-box-description>
+      <sky-checkbox
         [formControlName]="i"
-        (change)="onSelectionBoxChange($event)"
       >
-        <sky-selection-box-icon
-          [icon]="item.icon"
-          [iconType]="item.iconType"
-        ></sky-selection-box-icon>
-        <sky-selection-box-header>
-          {{ item.header }}
-        </sky-selection-box-header>
-        <sky-selection-box-description>
-          {{ item.description }}
-        </sky-selection-box-description>
-      </sky-selection-box>
-    </sky-selection-box-group>
+      </sky-checkbox>
+    </sky-selection-box>
   </div>
 
   <button

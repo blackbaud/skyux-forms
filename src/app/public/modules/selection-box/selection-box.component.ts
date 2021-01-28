@@ -3,27 +3,23 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
   ElementRef,
-  EventEmitter,
-  Input,
-  Optional,
-  Output,
-  Self,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
-
-import {
-  ControlValueAccessor,
-  NgControl
-} from '@angular/forms';
 
 import {
   SkyCoreAdapterService
 } from '@skyux/core';
 
 import {
-  SkyCheckboxChange
-} from '@skyux/forms';
+  Subject
+} from 'rxjs';
+
+import {
+  takeUntil
+} from 'rxjs/operators';
 
 import {
   SkyCheckboxComponent
@@ -34,16 +30,8 @@ import {
 } from '../radio/radio.component';
 
 import {
-  SkyFormsUtility
-} from '../shared/forms-utility';
-
-import {
-  SkySelectionBoxService
-} from './selection-box.service';
-
-import {
-  SkySelectionBoxType
-} from './type/selection-box-type';
+  SkySelectionBoxAdapterService
+} from './selection-box-adapter.service';
 
 /**
  * Creates a button to present users with an option to move forward with tasks.
@@ -54,122 +42,39 @@ import {
   templateUrl: './selection-box.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkySelectionBoxComponent implements AfterContentInit, ControlValueAccessor {
+export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
 
-  /**
-   * Indicates whether the selection box is selected.
-   * @default false
-   */
-  @Input()
-  public set checked(checked: boolean) {
-    if (checked !== this.checked) {
-      this._checked = checked;
-      this._controlValueAccessorChangeFn(checked);
-
-      // Do not mark the field as "dirty"
-      // if the field has been initialized with a value.
-      if (this.isFirstChange && this.ngControl && this.ngControl.control) {
-        this.ngControl.control.markAsPristine();
-        this.isFirstChange = false;
-      }
-    }
-  }
-
-  public get checked() {
-    return this._checked;
-  }
-
-  /**
-   * Indicates whether the selection box is required.
-   * @default false
-   */
-  @Input()
-  set required(value: boolean) {
-    this._required = SkyFormsUtility.coerceBooleanProperty(value);
-  }
-
-  get required(): boolean {
-    return this._required;
-  }
-
-  /**
-   * @internal
-   * This should be dynamically set by the selection box group.
-   */
-  public set type(value: SkySelectionBoxType) {
-    this._type = value;
-    this.changeDetector.markForCheck();
-  }
-
-  public get type(): SkySelectionBoxType {
-    return this._type;
-  }
-
-  /**
-   * Specifies and binds a value to the selection box's `value` property.
-   * @required
-   */
-  @Input()
-  public set value(value: any) {
-    if (this._value !== value) {
-
-      // TODO: is this necessary?
-      if (this.selectedValue && this.selectedValue === this._value) {
-        this.selectedValue = value;
-        this.onChangeCallback(this.selectedValue);
-        this.onTouchedCallback();
-      }
-
-      this._value = value;
-    }
-
-    this.changeDetector.markForCheck();
-  }
-
-  public get value(): any {
-    return this._value;
-  }
-
-  /**
-   * Fires when the value of the selection box changes.
-   */
-  @Output()
-  public change = new EventEmitter<any>();
-
-  public set selectedValue(value: any) {
-    if (value !== this._selectedValue) {
-      this._selectedValue = value;
-    }
-  }
-  public get selectedValue(): any {
-    return this._selectedValue;
-  }
-
-  public set name(value: string) {
-    this._name = value;
-    this.updateRadioButtonName();
-  }
-
-  public get name(): string {
-    return this._name;
-  }
-
-  @ViewChild('checkboxComponent', {
+  @ContentChild(SkyCheckboxComponent, {
     read: SkyCheckboxComponent,
     static: false
   })
   public checkboxComponent: SkyCheckboxComponent;
 
-  @ViewChild('radioComponent', {
+  @ContentChild(SkyRadioComponent, {
+    read: SkyRadioComponent,
     static: false
   })
   public set radioComponent(value: SkyRadioComponent) {
     this._radioComponent = value;
-    this.updateRadioButtonName();
   }
+
+  @ViewChild('controlEl', {
+    read: ElementRef,
+    static: false
+  })
+  private controlEl: ElementRef;
 
   public get radioComponent(): SkyRadioComponent {
     return this._radioComponent;
+  }
+
+  public set checked(value: boolean) {
+    this._checked = value;
+    this.changeDetector.markForCheck();
+  }
+
+  public get checked(): boolean {
+    return this._checked;
   }
 
   @ViewChild('skySelectionBoxButton', {
@@ -178,100 +83,38 @@ export class SkySelectionBoxComponent implements AfterContentInit, ControlValueA
   })
   private buttonEl: ElementRef;
 
-  private isFirstChange = true;
+  private ngUnsubscribe = new Subject<void>();
 
-  private _checked: boolean = false;
-
-  private _name: string;
+  private _checked: boolean;
 
   private _radioComponent: SkyRadioComponent;
-
-  private _required: boolean;
-
-  private _selectedValue: any;
-
-  private _type: SkySelectionBoxType;
-
-  private _value: any;
 
   constructor(
     private adapterService: SkyCoreAdapterService,
     private changeDetector: ChangeDetectorRef,
-    private selectionBoxService: SkySelectionBoxService,
-    @Self() @Optional() private ngControl: NgControl
-  ) {
-
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-
-    this.selectionBoxService.selectedValue
-      .pipe() // TODO: Add unsubscribe.
-      .subscribe(value => {
-        console.log(value);
-        this.checked = (this._value === value.selectedRadioButtonValue);
-      });
-  }
+    private selectionBoxAdapterService: SkySelectionBoxAdapterService
+  ) {}
 
   public ngAfterContentInit(): void {
     setTimeout(() => {
       this.setTabIndexOfFocusableElems(this.buttonEl.nativeElement, -1);
+      this.updateCheckedOnControlChange();
     });
   }
 
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public writeValue(value: any) {
-    this.checked = !!value;
+  public ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public registerOnChange(fn: (value: any) => void) {
-    this._controlValueAccessorChangeFn = fn;
-  }
+  public onButtonClick(event: any): void {
+    const isControlClick =
+      this.selectionBoxAdapterService.isDescendant(this.controlEl, event.target);
 
-  /**
-   * Implemented as part of ControlValueAccessor.
-   */
-  public registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Implemented as part of ControlValueAccessor.
-   * Called when the checkbox is blurred.
-   */
-  /*istanbul ignore next */
-  public onTouched: () => any = () => {};
-
-  public onCheckboxChange(value: SkyCheckboxChange): void {
-    this.checked = value.checked;
-  }
-
-  public onButtonClick(): void {
-    this.checked = !this.checked;
-    this.change.emit(this.checked);
-  }
-
-  public markForCheck(): void {
-    this.changeDetector.markForCheck();
-  }
-
-  /**
-   * Stop click from propigating up to the selection box button,
-   * resulting in a unintended value change.
-   */
-  public onControlClick(event: MouseEvent): void {
-    event.stopPropagation();
-    this.changeDetector.markForCheck();
-  }
-
-  public onEnter(): void {
-    this.checked = !this.checked;
-    this.change.emit(this.checked);
+    if (!isControlClick) {
+      this.selectionBoxAdapterService.getControl(this.controlEl).click();
+      this.changeDetector.markForCheck();
+    }
   }
 
   private setTabIndexOfFocusableElems(element: HTMLElement, tabIndex: number): void {
@@ -284,15 +127,31 @@ export class SkySelectionBoxComponent implements AfterContentInit, ControlValueA
     }
   }
 
-  private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
-  /* istanbul ignore next */
-  private onChangeCallback = (value: any) => {};
-  /* istanbul ignore next */
-  private onTouchedCallback = () => {};
-
-  private updateRadioButtonName(): void {
+  private updateCheckedOnControlChange(): void {
     if (this.radioComponent) {
-      this.radioComponent.name = this._name;
+      this.checked = this.radioComponent.checked;
+      this.radioComponent.deselect
+        .pipe(
+          takeUntil(this.ngUnsubscribe)
+        ).subscribe(() => {
+          this.checked = false;
+        });
+      this.radioComponent.change
+        .pipe(
+          takeUntil(this.ngUnsubscribe)
+        ).subscribe(() => {
+          this.checked = true;
+        });
+    }
+
+    if (this.checkboxComponent) {
+      this.checked = this.checkboxComponent.checked;
+      this.checkboxComponent.change
+        .pipe(
+          takeUntil(this.ngUnsubscribe)
+        ).subscribe((value) => {
+          this.checked = value.checked;
+        });
     }
   }
 }
