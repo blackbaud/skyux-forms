@@ -1,16 +1,32 @@
-<sky-selection-box-container>
-  <sky-selection-box
-    (actionClick)="buttonClicked()"
-  >
+<sky-radio-group
+  value="red"
+>
+  <sky-selection-box *ngFor="let item of radioArray">
     <sky-selection-box-icon
-      iconType="filter"
-    >
-    </sky-selection-box-icon>
+      [icon]="item.icon"
+      [iconType]="item.iconType"
+    ></sky-selection-box-icon>
     <sky-selection-box-header>
-      Build a new list
+      {{ item.header }}
     </sky-selection-box-header>
-    <sky-selection-box-details>
-      Start from scratch and fine-tune with filters
-    </sky-selection-box-details>
+    <sky-radio
+      [value]="item.name"
+    >
+    </sky-radio>
   </sky-selection-box>
-</sky-selection-box-container>
+</sky-radio-group>
+
+<sky-selection-box *ngFor="let item of getStartedArray; let i = index">
+  <sky-selection-box-icon
+    [icon]="item.icon"
+    [iconType]="item.iconType"
+  ></sky-selection-box-icon>
+  <sky-selection-box-header>
+    {{ item.header }}
+  </sky-selection-box-header>
+  <sky-selection-box-description>
+    {{ item.description }}
+  </sky-selection-box-description>
+  <sky-checkbox>
+  </sky-checkbox>
+</sky-selection-box>

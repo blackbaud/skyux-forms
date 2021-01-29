@@ -17,7 +17,8 @@ import {
 } from '@angular/forms';
 
 import {
-  Observable, Subject
+  Observable,
+  Subject
 } from 'rxjs';
 
 import {
@@ -77,7 +78,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
         this.selectedValue = this.value;
       }
 
-      // If radio button comes from a selected state to a deselected state, emit subject.
+      // If radio button goes from a selected state to a deselected state, emit deselect subject.
       if (!newCheckedState) {
         this.deselect.next();
       }

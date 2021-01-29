@@ -82,19 +82,7 @@ export class SelectionBoxVisualComponent implements OnInit {
     console.warn(value);
   }
 
-  public onSelectionBoxChange(value: any): void {
-    // console.log(value);
-  }
-
   public onSubmit(value: any): void {
-    // const formValue = Object.assign({}, value, {
-    //   getStarted: value.skills.map((selected: boolean, i: any) => {
-    //     return {
-    //       id: this.user.skills[i].id,
-    //       selected
-    //     }
-    //   }),
-    // });
     console.warn(value);
   }
 }
