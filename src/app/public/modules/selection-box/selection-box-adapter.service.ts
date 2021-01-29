@@ -1,7 +1,7 @@
 import {
   ElementRef,
   Injectable
-} from "@angular/core";
+} from '@angular/core';
 
 /**
  * @internal
