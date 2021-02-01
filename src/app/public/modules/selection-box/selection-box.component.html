@@ -1,11 +1,13 @@
-<button
+<div
   class="sky-selection-box sky-box sky-rounded-corners sky-btn sky-btn-default"
+  role="button"
   tabindex="0"
   type="button"
   [ngClass]="{
     'sky-selection-box-selected' : checked
   }"
-  (click)="onButtonClick($event)"
+  (click)="onClick($event)"
+  (keydown)="onKeydown($event)"
   #skySelectionBoxButton
 >
   <ng-content
@@ -32,4 +34,4 @@
       select="sky-checkbox"
     ></ng-content>
   </div>
-</button>
+</div>

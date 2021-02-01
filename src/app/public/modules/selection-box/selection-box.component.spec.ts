@@ -1,17 +1,8 @@
 import {
-  DebugElement
-} from '@angular/core';
-
-import {
   async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
-
-import {
-  BrowserModule,
-  By
-} from '@angular/platform-browser';
 
 import {
   RouterTestingModule
@@ -24,6 +15,7 @@ import {
 
 import {
   SkyCoreAdapterService,
+  SkyIdModule,
   SkyMediaQueryService
 } from '@skyux/core';
 
@@ -58,23 +50,24 @@ import {
 describe('Selection box component', () => {
 
   //#region helpers
-  function getDescription(): HTMLElement {
-    return fixture.nativeElement.querySelector('description');
+  function getSelectionBox(): HTMLElement {
+    return fixture.nativeElement.querySelector('.sky-selection-box');
   }
 
-  function getHeader(): HTMLElement {
-    return fixture.nativeElement.querySelector('header');
+  function getDescription(): NodeListOf<HTMLElement> {
+    return fixture.nativeElement.querySelectorAll('.sky-selection-box-description');
   }
 
-  function getIcon(): HTMLElement {
-    return fixture.nativeElement.querySelector('icon');
+  function getHeader(): NodeListOf<HTMLElement> {
+    return fixture.nativeElement.querySelectorAll('.sky-selection-box-header');
+  }
+
+  function getIcon(): NodeListOf<HTMLElement> {
+    return fixture.nativeElement.querySelectorAll('.sky-selection-box-icon');
   }
   //#endregion
 
   let fixture: ComponentFixture<SelectionBoxTestComponent>;
-  let cmp: SelectionBoxTestComponent;
-  let el: HTMLElement;
-  let debugElement: DebugElement;
   let mockMediaQueryService: MockSkyMediaQueryService;
 
   beforeEach(() => {
@@ -85,9 +78,9 @@ describe('Selection box component', () => {
         SelectionBoxTestComponent
       ],
       imports: [
-        BrowserModule,
         RouterTestingModule,
         SkyCheckboxModule,
+        SkyIdModule,
         SkyRadioModule,
         SkySelectionBoxModule
       ],
@@ -110,21 +103,14 @@ describe('Selection box component', () => {
     .createComponent(SelectionBoxTestComponent);
 
     fixture = TestBed.createComponent(SelectionBoxTestComponent);
-    cmp = fixture.componentInstance as SelectionBoxTestComponent;
-    el = fixture.nativeElement as HTMLElement;
-    debugElement = fixture.debugElement;
 
     fixture.detectChanges();
   });
 
   it('should transclude icon, header, and detail sections', () => {
-
-    console.log(el);
-    console.log(cmp);
-
-    // expect(getIcon()).not.toBeNull();
-    // expect(getHeader()).not.toBeNull();
-    // expect(getDescription()).not.toBeNull();
+    expect(getIcon()[0]).not.toBeNull();
+    expect(getHeader()[0]).not.toBeNull();
+    expect(getDescription()[0]).not.toBeNull();
   });
 
   it('should interact with form control when clicking on selection box parent', () => {
@@ -133,16 +119,21 @@ describe('Selection box component', () => {
   it('should interact with form control when pressing enter on selection box parent', () => {
   });
 
-  it('should have a role of button and tabindex on the clickable area', () => {
-    // expect(debugElement.query(By.css('.sky-action-button')).attributes['role']).toBe('button');
-    // expect(debugElement.query(By.css('.sky-action-button')).attributes['tabindex']).toBe('0');
+  it('should have a role of button', () => {
+    const role: string = getSelectionBox().getAttribute('role');
+    expect(role).toBe('button');
   });
 
-  // it('should be accessible', async(() => {
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(async () => {
-  //     await expectAsync(fixture.nativeElement).toBeAccessible();
-  //   });
-  // }));
+  it('should have a tabindex on the clickable area', () => {
+    const tabIndex: string = getSelectionBox().getAttribute('tabindex');
+    expect(tabIndex).toBe('0');
+  });
+
+  it('should be accessible', async(() => {
+    fixture.detectChanges();
+    fixture.whenStable().then(async () => {
+      await expectAsync(fixture.nativeElement).toBeAccessible();
+    });
+  }));
 
 });

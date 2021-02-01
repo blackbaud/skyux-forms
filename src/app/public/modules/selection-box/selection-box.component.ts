@@ -5,6 +5,7 @@ import {
   Component,
   ContentChild,
   ElementRef,
+  Input,
   OnDestroy,
   ViewChild
 } from '@angular/core';
@@ -43,6 +44,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
+
+  @Input()
+  public control: SkyCheckboxComponent | SkyRadioComponent;
 
   @ContentChild(SkyCheckboxComponent, {
     read: SkyCheckboxComponent,
@@ -107,14 +111,25 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-  public onButtonClick(event: any): void {
+  public onClick(event: any): void {
     const isControlClick =
       this.selectionBoxAdapterService.isDescendant(this.controlEl, event.target);
 
     if (!isControlClick) {
-      this.selectionBoxAdapterService.getControl(this.controlEl).click();
-      this.changeDetector.markForCheck();
+      this.selectControl();
     }
+  }
+
+  public onKeydown(event: KeyboardEvent): void {
+    if (event.key === ' ') {
+      this.selectControl();
+    }
+  }
+
+  private selectControl(): void {
+    this.selectionBoxAdapterService.getControl(this.controlEl).click();
+    this.changeDetector.markForCheck();
+    this.selectionBoxAdapterService.focus(this.buttonEl);
   }
 
   private setTabIndexOfFocusableElems(element: HTMLElement, tabIndex: number): void {
@@ -128,20 +143,16 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
   }
 
   private updateCheckedOnControlChange(): void {
+
+    this.control.checkedChange
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe((value) => {
+        this.checked = value;
+    });
+
     if (this.radioComponent) {
       this.checked = this.radioComponent.checked;
-      this.radioComponent.deselect
-        .pipe(
-          takeUntil(this.ngUnsubscribe)
-        ).subscribe(() => {
-          this.checked = false;
-        });
-      this.radioComponent.change
-        .pipe(
-          takeUntil(this.ngUnsubscribe)
-        ).subscribe(() => {
-          this.checked = true;
-        });
     }
 
     if (this.checkboxComponent) {

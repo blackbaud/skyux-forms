@@ -17,7 +17,9 @@
       formControlName="favoriteColor"
       value="red"
     >
-      <sky-selection-box *ngFor="let item of radioArray">
+      <sky-selection-box *ngFor="let item of radioArray; let index = i"
+        [control]="radio"
+      >
         <sky-selection-box-icon
           [icon]="item.icon"
           [iconType]="item.iconType"
@@ -28,6 +30,7 @@
         <sky-radio
           (checked)="onChecked($event)"
           [value]="item.name"
+          #radio
         >
         </sky-radio>
       </sky-selection-box>
@@ -44,7 +47,9 @@
     >
       checkboxes
     </h3>
-    <sky-selection-box *ngFor="let item of getStartedArray; let i = index">
+    <sky-selection-box *ngFor="let item of getStartedArray; let i = index"
+      [control]="checkbox"
+    >
       <sky-selection-box-icon
         [icon]="item.icon"
         [iconType]="item.iconType"
@@ -57,6 +62,7 @@
       </sky-selection-box-description>
       <sky-checkbox
         [formControlName]="i"
+        #checkbox
       >
       </sky-checkbox>
     </sky-selection-box>

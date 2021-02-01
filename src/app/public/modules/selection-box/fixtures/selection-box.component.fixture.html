@@ -1,32 +1,48 @@
 <sky-radio-group
+  ariaLabel="Test options"
   value="red"
 >
-  <sky-selection-box *ngFor="let item of radioArray">
+  <sky-selection-box *ngFor="let item of radioArray"
+    [control]="radio"
+  >
     <sky-selection-box-icon
       [icon]="item.icon"
       [iconType]="item.iconType"
     ></sky-selection-box-icon>
-    <sky-selection-box-header>
+    <sky-selection-box-header
+      skyId
+      #radioHeaderId="skyId"
+    >
       {{ item.header }}
     </sky-selection-box-header>
     <sky-radio
+      [labelledBy]="radioHeaderId.id"
       [value]="item.name"
+      #radio
     >
     </sky-radio>
   </sky-selection-box>
 </sky-radio-group>
 
-<sky-selection-box *ngFor="let item of getStartedArray; let i = index">
+<sky-selection-box *ngFor="let item of getStartedArray; let i = index"
+  [control]="checkbox"
+>
   <sky-selection-box-icon
     [icon]="item.icon"
     [iconType]="item.iconType"
   ></sky-selection-box-icon>
-  <sky-selection-box-header>
+  <sky-selection-box-header
+    skyId
+    #checkboxHeaderId="skyId"
+  >
     {{ item.header }}
   </sky-selection-box-header>
   <sky-selection-box-description>
     {{ item.description }}
   </sky-selection-box-description>
-  <sky-checkbox>
+  <sky-checkbox
+    [labelledBy]="checkboxHeaderId.id"
+    #checkbox
+  >
   </sky-checkbox>
 </sky-selection-box>

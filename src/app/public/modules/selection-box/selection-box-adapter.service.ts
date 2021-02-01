@@ -9,6 +9,10 @@ import {
 @Injectable()
 export class SkySelectionBoxAdapterService {
 
+  focus(el: ElementRef) {
+    el.nativeElement.focus();
+  }
+
   public getControl(el: ElementRef): HTMLElement {
     return el.nativeElement.querySelector('.sky-switch');
   }
