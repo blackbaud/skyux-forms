@@ -33,10 +33,6 @@ import {
 } from './selection-box-adapter.service';
 
 import {
-  SkySelectionBoxContainerComponent
-} from './selection-box-container.component';
-
-import {
   SkySelectionBoxDescriptionComponent
 } from './selection-box-description.component';
 
@@ -55,7 +51,6 @@ import {
 @NgModule({
   declarations: [
     SkySelectionBoxComponent,
-    SkySelectionBoxContainerComponent,
     SkySelectionBoxDescriptionComponent,
     SkySelectionBoxHeaderComponent,
     SkySelectionBoxIconComponent
@@ -72,7 +67,6 @@ import {
   ],
   exports: [
     SkySelectionBoxComponent,
-    SkySelectionBoxContainerComponent,
     SkySelectionBoxDescriptionComponent,
     SkySelectionBoxHeaderComponent,
     SkySelectionBoxIconComponent

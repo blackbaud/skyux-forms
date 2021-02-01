@@ -17,9 +17,7 @@
       formControlName="favoriteColor"
       value="red"
     >
-      <sky-selection-box *ngFor="let item of radioArray"
-        (change)="onSelectionBoxChange($event)"
-      >
+      <sky-selection-box *ngFor="let item of radioArray">
         <sky-selection-box-icon
           [icon]="item.icon"
           [iconType]="item.iconType"
