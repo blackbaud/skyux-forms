@@ -20,13 +20,13 @@ import {
 } from '@skyux/core';
 
 import {
-  SkyCheckboxModule,
-  SkyRadioModule
-} from '@skyux/forms';
-
-import {
   SkyIconModule
 } from '@skyux/indicators';
+
+import {
+  SkyCheckboxModule,
+  SkyRadioModule
+} from '../../public_api';
 
 import {
   SkySelectionBoxAdapterService
