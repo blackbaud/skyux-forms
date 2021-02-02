@@ -9,7 +9,7 @@ import {
 @Injectable()
 export class SkySelectionBoxAdapterService {
 
-  focus(el: ElementRef) {
+  public focus(el: ElementRef): void {
     el.nativeElement.focus();
   }
 
