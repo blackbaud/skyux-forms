@@ -19,7 +19,7 @@ export class SelectionBoxVisualComponent implements OnInit {
     {
       icon: 'edit',
       iconType: 'skyux',
-      header: 'Write an introduction',
+      header: 'Write an introduction about things that make this sentence long',
       description: 'A brief one paragraph introduction about your organzation will help supporters identify with your cause'
     },
     {
@@ -41,19 +41,22 @@ export class SelectionBoxVisualComponent implements OnInit {
       icon: 'edit',
       iconType: 'skyux',
       header: 'Red',
-      name: 'red'
+      name: 'red',
+      description: 'A great choice'
     },
     {
       icon: 'edit',
       iconType: 'skyux',
       header: 'Yellow',
-      name: 'yellow'
+      name: 'yellow',
+      description: 'Eh, you can do better.'
     },
     {
       icon: 'edit',
       iconType: 'skyux',
       header: 'Blue',
-      name: 'blue'
+      name: 'blue',
+      description: 'Yes, this is a color'
     }
   ];
 

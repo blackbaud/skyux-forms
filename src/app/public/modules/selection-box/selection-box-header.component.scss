@@ -3,11 +3,11 @@
 @import "~@skyux/theme/scss/themes/modern/_compat/mixins";
 
 .sky-selection-box-header {
-  margin: 0 0 $sky-space-md;
+  // margin: 0 0 $sky-space-md;
 }
 
 @include sky-theme-modern {
   .sky-selection-box-header {
-    margin: 0 0 $sky-theme-modern-space-md;
+    // margin: 0 0 $sky-theme-modern-space-md;
   }
 }

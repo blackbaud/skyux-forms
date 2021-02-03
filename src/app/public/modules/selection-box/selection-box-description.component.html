@@ -1,11 +1,1 @@
-<div
-  class="sky-selection-box-description"
-  [ngClass]="{
-    'sky-font-deemphasized' :
-      (themeSvc?.settingsChange | async)?.currentSettings.theme.name === 'modern',
-    'sky-deemphasized' :
-      (themeSvc?.settingsChange | async)?.currentSettings.theme.name === 'default'
-  }"
->
-  <ng-content></ng-content>
-</div>
+<ng-content></ng-content>

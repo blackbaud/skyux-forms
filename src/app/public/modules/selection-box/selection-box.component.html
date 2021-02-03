@@ -8,30 +8,47 @@
   }"
   (click)="onClick($event)"
   (keydown)="onKeydown($event)"
-  #skySelectionBoxButton
+  #selectionBox
 >
-  <ng-content
-    select="sky-selection-box-icon"
-  ></ng-content>
   <div
-    class="sky-selection-box-text-container"
+    aria-hidden="true"
+    class="sky-selection-box-icon"
+  >
+    <ng-content
+      select="sky-icon"
+    ></ng-content>
+  </div>
+  <div
+    class="sky-selection-box-header sky-headline"
   >
     <ng-content
       select="sky-selection-box-header"
     ></ng-content>
-    <ng-content
-      select="sky-selection-box-description"
-    ></ng-content>
   </div>
 
   <div
-    #controlEl
+    class="sky-selection-box-control"
+    #control
   >
     <ng-content
       select="sky-radio"
     ></ng-content>
     <ng-content
       select="sky-checkbox"
+    ></ng-content>
+  </div>
+
+  <div
+    class="sky-selection-box-description"
+    [ngClass]="{
+      'sky-font-deemphasized' :
+        (themeSvc?.settingsChange | async)?.currentSettings.theme.name === 'modern',
+      'sky-deemphasized' :
+        (themeSvc?.settingsChange | async)?.currentSettings.theme.name === 'default'
+    }"
+  >
+    <ng-content
+      select="sky-selection-box-description"
     ></ng-content>
   </div>
 </div>

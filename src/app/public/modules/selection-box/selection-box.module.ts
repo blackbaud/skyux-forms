@@ -41,10 +41,6 @@ import {
 } from './selection-box-header.component';
 
 import {
-  SkySelectionBoxIconComponent
-} from './selection-box-icon.component';
-
-import {
   SkySelectionBoxComponent
 } from './selection-box.component';
 
@@ -52,8 +48,7 @@ import {
   declarations: [
     SkySelectionBoxComponent,
     SkySelectionBoxDescriptionComponent,
-    SkySelectionBoxHeaderComponent,
-    SkySelectionBoxIconComponent
+    SkySelectionBoxHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -68,8 +63,7 @@ import {
   exports: [
     SkySelectionBoxComponent,
     SkySelectionBoxDescriptionComponent,
-    SkySelectionBoxHeaderComponent,
-    SkySelectionBoxIconComponent
+    SkySelectionBoxHeaderComponent
   ],
   providers: [
     SkySelectionBoxAdapterService

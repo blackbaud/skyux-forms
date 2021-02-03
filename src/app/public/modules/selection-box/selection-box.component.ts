@@ -15,6 +15,10 @@ import {
 } from '@skyux/core';
 
 import {
+  SkyThemeService
+} from '@skyux/theme';
+
+import {
   Subject
 } from 'rxjs';
 
@@ -62,7 +66,7 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     this._radioComponent = value;
   }
 
-  @ViewChild('controlEl', {
+  @ViewChild('control', {
     read: ElementRef,
     static: false
   })
@@ -81,11 +85,11 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     return this._checked;
   }
 
-  @ViewChild('skySelectionBoxButton', {
+  @ViewChild('selectionBox', {
     read: ElementRef,
     static: false
   })
-  private buttonEl: ElementRef;
+  private selectionBoxEl: ElementRef;
 
   private ngUnsubscribe = new Subject<void>();
 
@@ -94,6 +98,7 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
   private _radioComponent: SkyRadioComponent;
 
   constructor(
+    public themeSvc: SkyThemeService,
     private adapterService: SkyCoreAdapterService,
     private changeDetector: ChangeDetectorRef,
     private selectionBoxAdapterService: SkySelectionBoxAdapterService
@@ -101,7 +106,7 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
 
   public ngAfterContentInit(): void {
     setTimeout(() => {
-      this.setTabIndexOfFocusableElems(this.buttonEl.nativeElement, -1);
+      this.setTabIndexOfFocusableElems(this.selectionBoxEl.nativeElement, -1);
       this.updateCheckedOnControlChange();
     });
   }
@@ -129,7 +134,7 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
   private selectControl(): void {
     this.selectionBoxAdapterService.getControl(this.controlEl).click();
     this.changeDetector.markForCheck();
-    this.selectionBoxAdapterService.focus(this.buttonEl);
+    this.selectionBoxAdapterService.focus(this.selectionBoxEl);
   }
 
   private setTabIndexOfFocusableElems(element: HTMLElement, tabIndex: number): void {
