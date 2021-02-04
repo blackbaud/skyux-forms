@@ -144,7 +144,7 @@ describe('Selection box component', () => {
       expect(selectionBoxes[0]).not.toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[1]).toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[2]).not.toHaveCssClass('sky-selection-box-selected');
-    })
+    });
   }));
 
   // Tests that depend on sky-checkbox and sky-radio need to use async.
@@ -163,7 +163,7 @@ describe('Selection box component', () => {
       expect(selectionBoxes[0]).not.toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[1]).toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[2]).not.toHaveCssClass('sky-selection-box-selected');
-    })
+    });
   }));
 
   // Tests that depend on sky-checkbox and sky-radio need to use async.
@@ -178,7 +178,7 @@ describe('Selection box component', () => {
       expect(selectionBoxes[0]).not.toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[1]).toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[2]).not.toHaveCssClass('sky-selection-box-selected');
-    })
+    });
   }));
 
   // Tests that depend on sky-checkbox and sky-radio need to use async.
@@ -193,7 +193,7 @@ describe('Selection box component', () => {
       expect(selectionBoxes[0]).not.toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[1]).toHaveCssClass('sky-selection-box-selected');
       expect(selectionBoxes[2]).not.toHaveCssClass('sky-selection-box-selected');
-    })
+    });
   }));
 
   it('should interact with form control when pressing space key on selection box parent', () => {
@@ -214,7 +214,7 @@ describe('Selection box component', () => {
       fixture.detectChanges();
       const tabbableChild = fixture.nativeElement.querySelector('#link');
       expect(tabbableChild.getAttribute('tabindex')).toBe('-1');
-    })
+    });
   }));
 
   it('should be accessible', async(() => {
