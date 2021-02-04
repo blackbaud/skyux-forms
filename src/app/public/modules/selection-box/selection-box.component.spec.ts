@@ -5,17 +5,11 @@ import {
 } from '@angular/core/testing';
 
 import {
-  RouterTestingModule
-} from '@angular/router/testing';
-
-import {
   expect,
   expectAsync
 } from '@skyux-sdk/testing';
 
 import {
-  SkyCoreAdapterService,
-  SkyIdModule,
   SkyMediaQueryService
 } from '@skyux/core';
 
@@ -24,30 +18,18 @@ import {
 } from '@skyux/core/testing';
 
 import {
-  SkyCheckboxModule
-} from '../checkbox/checkbox.module';
-
-import {
-  SkyRadioModule
-} from '../radio/radio.module';
+  SkySelectionBoxFixturesModule
+} from './fixtures/selection-box-fixtures.module';
 
 import {
   SelectionBoxTestComponent
 } from './fixtures/selection-box.component.fixture';
 
 import {
-  SkySelectionBoxAdapterService
-} from './selection-box-adapter.service';
-
-import {
   SkySelectionBoxComponent
 } from './selection-box.component';
 
-import {
-  SkySelectionBoxModule
-} from './selection-box.module';
-
-describe('Selection box component', () => {
+fdescribe('Selection box component', () => {
 
   //#region helpers
   function getSelectionBox(): HTMLElement {
@@ -74,19 +56,8 @@ describe('Selection box component', () => {
 
     mockMediaQueryService = new MockSkyMediaQueryService();
     TestBed.configureTestingModule({
-      declarations: [
-        SelectionBoxTestComponent
-      ],
       imports: [
-        RouterTestingModule,
-        SkyCheckboxModule,
-        SkyIdModule,
-        SkyRadioModule,
-        SkySelectionBoxModule
-      ],
-      providers: [
-        SkyCoreAdapterService,
-        SkySelectionBoxAdapterService
+        SkySelectionBoxFixturesModule
       ]
     });
 

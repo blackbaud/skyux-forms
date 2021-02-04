@@ -7,6 +7,14 @@ import {
 } from '@angular/core';
 
 import {
+  SkyCoreAdapterService
+} from '@skyux/core';
+
+import {
+  SkyThemeService
+} from '@skyux/theme';
+
+import {
   SkySelectionBoxAdapterService
 } from './selection-box-adapter.service';
 
@@ -37,7 +45,9 @@ import {
     SkySelectionBoxHeaderComponent
   ],
   providers: [
-    SkySelectionBoxAdapterService
+    SkyCoreAdapterService,
+    SkySelectionBoxAdapterService,
+    SkyThemeService
   ]
 })
 export class SkySelectionBoxModule { }

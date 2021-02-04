@@ -5,10 +5,10 @@
   <sky-selection-box *ngFor="let item of radioArray"
     [control]="radio"
   >
-    <sky-selection-box-icon
+    <sky-icon
       [icon]="item.icon"
       [iconType]="item.iconType"
-    ></sky-selection-box-icon>
+    ></sky-icon>
     <sky-selection-box-header
       skyId
       #radioHeaderId="skyId"
@@ -27,10 +27,10 @@
 <sky-selection-box *ngFor="let item of getStartedArray; let i = index"
   [control]="checkbox"
 >
-  <sky-selection-box-icon
+  <sky-icon
     [icon]="item.icon"
     [iconType]="item.iconType"
-  ></sky-selection-box-icon>
+  ></sky-icon>
   <sky-selection-box-header
     skyId
     #checkboxHeaderId="skyId"
