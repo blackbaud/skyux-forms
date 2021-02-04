@@ -19,7 +19,7 @@ export class SelectionBoxVisualComponent implements OnInit {
     {
       icon: 'edit',
       iconType: 'skyux',
-      header: 'Write an introduction about things that make this sentence long',
+      header: 'Write an introduction',
       description: 'A brief one paragraph introduction about your organzation will help supporters identify with your cause'
     },
     {
@@ -75,6 +75,11 @@ export class SelectionBoxVisualComponent implements OnInit {
       getStarted: this.formBuilder.array([
         new FormControl(),
         new FormControl(true),
+        new FormControl()
+      ]),
+      getStartedNoIcons: this.formBuilder.array([
+        new FormControl(),
+        new FormControl(),
         new FormControl()
       ]),
       favoriteColor: new FormControl()
