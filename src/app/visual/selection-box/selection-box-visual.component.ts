@@ -15,7 +15,7 @@ import {
 })
 export class SelectionBoxVisualComponent implements OnInit {
 
-  public getStartedArray: any = [
+  public checkboxArray: any = [
     {
       icon: 'edit',
       iconType: 'skyux',
@@ -38,33 +38,29 @@ export class SelectionBoxVisualComponent implements OnInit {
 
   public radioArray: any = [
     {
-      icon: 'edit',
+      icon: 'check',
       iconType: 'skyux',
-      header: 'Red',
-      name: 'red',
-      description: 'A great choice'
+      header: 'Boost Engagement',
+      description: 'Encourage supporters to interact with your organization',
+      name: 'engagement'
     },
     {
-      icon: 'edit',
+      icon: 'filter',
       iconType: 'skyux',
-      header: 'Yellow',
-      name: 'yellow',
-      description: 'Eh, you can do better.'
+      header: 'Build relationships',
+      description: 'Connect to supporters on a personal level and maintain accurate date',
+      name: 'relationships'
     },
     {
-      icon: 'edit',
+      icon: 'search',
       iconType: 'skyux',
-      header: 'Blue',
-      name: 'blue',
-      description: 'Yes, this is a color'
+      header: 'Drive performance',
+      description: 'Enourage supporters to interact with your organization',
+      name: 'performance'
     }
   ];
 
   public myForm: FormGroup;
-
-  // Padding to be applied to the action button container so that the focus outline
-  // is fully visible in the screenshot.
-  public containerPadding: number = 0;
 
   constructor(
     private formBuilder: FormBuilder
@@ -72,22 +68,18 @@ export class SelectionBoxVisualComponent implements OnInit {
 
   public ngOnInit(): void {
     this.myForm = this.formBuilder.group({
-      getStarted: this.formBuilder.array([
-        new FormControl(),
-        new FormControl(true),
-        new FormControl()
-      ]),
-      getStartedNoIcons: this.formBuilder.array([
+      radioGroup: new FormControl(),
+      checkboxGroup: this.formBuilder.array([
         new FormControl(),
         new FormControl(),
         new FormControl()
       ]),
-      favoriteColor: new FormControl()
+      checkboxNoIconsGroup: this.formBuilder.array([
+        new FormControl(),
+        new FormControl(),
+        new FormControl()
+      ])
     });
-  }
-
-  public onChecked(value: any) {
-    console.warn(value);
   }
 
   public onSubmit(value: any): void {

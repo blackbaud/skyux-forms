@@ -12,10 +12,9 @@
       Radio buttons
     </h3>
     <sky-radio-group
-      formControlName="favoriteColor"
-      value="red"
+      formControlName="radioGroup"
     >
-      <sky-selection-box *ngFor="let item of radioArray; let index = i"
+      <sky-selection-box *ngFor="let item of radioArray"
         [control]="radio"
       >
         <sky-icon
@@ -29,7 +28,6 @@
           {{ item.description }}
         </sky-selection-box-description>
         <sky-radio
-          (checked)="onChecked($event)"
           [value]="item.name"
           #radio
         >
@@ -40,13 +38,13 @@
 
   <div
     class="sky-margin-stacked-default"
-    formArrayName="getStarted"
+    formArrayName="checkboxGroup"
     id="screenshot-selection-box-checkboxes"
   >
     <h3>
       Checkboxes
     </h3>
-    <sky-selection-box *ngFor="let item of getStartedArray; let i = index"
+    <sky-selection-box *ngFor="let item of checkboxArray; let i = index"
       [control]="checkbox"
     >
       <sky-icon
@@ -69,13 +67,13 @@
 
   <div
     class="sky-margin-stacked-default"
-    formArrayName="getStartedNoIcons"
+    formArrayName="checkboxNoIconsGroup"
     id="screenshot-selection-box-checkboxes-no-icons"
   >
     <h3>
       Without icons
     </h3>
-    <sky-selection-box *ngFor="let item of getStartedArray; let i = index"
+    <sky-selection-box *ngFor="let item of checkboxArray; let i = index"
       [control]="checkbox"
     >
       <sky-selection-box-header>
