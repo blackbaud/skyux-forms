@@ -29,7 +29,7 @@ import {
   SkySelectionBoxComponent
 } from './selection-box.component';
 
-fdescribe('Selection box component', () => {
+describe('Selection box component', () => {
 
   //#region helpers
   function getSelectionBox(): HTMLElement {
