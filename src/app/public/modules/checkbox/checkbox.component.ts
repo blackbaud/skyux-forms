@@ -134,6 +134,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
     if (checked !== this.checked) {
       this._checked = checked;
       this._controlValueAccessorChangeFn(checked);
+      this._checkedChange.next(this._checked);
 
       // Do not mark the field as "dirty"
       // if the field has been initialized with a value.
