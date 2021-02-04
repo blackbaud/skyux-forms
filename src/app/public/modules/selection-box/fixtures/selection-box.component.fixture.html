@@ -1,9 +1,38 @@
-<sky-radio-group
-  ariaLabel="Test options"
-  value="red"
+<div
+  id="radioSelectionBoxes"
 >
-  <sky-selection-box *ngFor="let item of radioArray"
-    [control]="radio"
+  <sky-radio-group
+    ariaLabel="Test options"
+    value="red"
+  >
+    <sky-selection-box *ngFor="let item of radioArray"
+      [control]="radio"
+    >
+      <sky-icon
+        [icon]="item.icon"
+        [iconType]="item.iconType"
+      ></sky-icon>
+      <sky-selection-box-header
+        skyId
+        #radioHeaderId="skyId"
+      >
+        {{ item.header }}
+      </sky-selection-box-header>
+      <sky-radio
+        [labelledBy]="radioHeaderId.id"
+        [value]="item.name"
+        #radio
+      >
+      </sky-radio>
+    </sky-selection-box>
+  </sky-radio-group>
+</div>
+
+<div
+  id="checkboxSelectionBoxes"
+>
+  <sky-selection-box *ngFor="let item of checkboxArray; let i = index"
+    [control]="checkbox"
   >
     <sky-icon
       [icon]="item.icon"
@@ -11,38 +40,36 @@
     ></sky-icon>
     <sky-selection-box-header
       skyId
-      #radioHeaderId="skyId"
+      #checkboxHeaderId="skyId"
     >
       {{ item.header }}
     </sky-selection-box-header>
-    <sky-radio
-      [labelledBy]="radioHeaderId.id"
-      [value]="item.name"
-      #radio
+    <sky-selection-box-description>
+      {{ item.description }}
+    </sky-selection-box-description>
+    <sky-checkbox
+      [labelledBy]="checkboxHeaderId.id"
+      #checkbox
     >
-    </sky-radio>
+    </sky-checkbox>
   </sky-selection-box>
-</sky-radio-group>
+</div>
 
-<sky-selection-box *ngFor="let item of getStartedArray; let i = index"
-  [control]="checkbox"
+<sky-selection-box
+  [control]="checkboxWithLink"
 >
-  <sky-icon
-    [icon]="item.icon"
-    [iconType]="item.iconType"
-  ></sky-icon>
   <sky-selection-box-header
     skyId
-    #checkboxHeaderId="skyId"
+    #checkboxWithLinkHeaderId="skyId"
   >
-    {{ item.header }}
+    Header
   </sky-selection-box-header>
   <sky-selection-box-description>
-    {{ item.description }}
+    This <a id="link" href="#">link</a> should not be tabbable.
   </sky-selection-box-description>
   <sky-checkbox
-    [labelledBy]="checkboxHeaderId.id"
-    #checkbox
+    [labelledBy]="checkboxWithLinkHeaderId.id"
+    #checkboxWithLink
   >
   </sky-checkbox>
 </sky-selection-box>
