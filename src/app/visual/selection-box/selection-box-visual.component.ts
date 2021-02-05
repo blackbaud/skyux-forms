@@ -89,7 +89,7 @@ export class SelectionBoxVisualComponent implements OnInit {
   }
 
   public onSubmit(value: any): void {
-    console.warn(value);
+    console.log(value);
   }
 
   public themeSettingsChange(themeSettings: SkyThemeSettings): void {

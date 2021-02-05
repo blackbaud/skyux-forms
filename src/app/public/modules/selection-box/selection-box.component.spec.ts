@@ -90,7 +90,7 @@ describe('Selection box component', () => {
     fixture.detectChanges();
   });
 
-  it('should transclude icon, header, and detail sections', () => {
+  it('should transclude icon, header, and description sections', () => {
     expect(getIcon()[0]).not.toBeNull();
     expect(getHeader()[0]).not.toBeNull();
     expect(getDescription()[0]).not.toBeNull();
@@ -195,9 +195,6 @@ describe('Selection box component', () => {
       expect(selectionBoxes[2]).not.toHaveCssClass('sky-selection-box-selected');
     });
   }));
-
-  it('should interact with form control when pressing space key on selection box parent', () => {
-  });
 
   it('should have a role of button', () => {
     const role: string = getRadioSelectionBoxes()[0].getAttribute('role');
