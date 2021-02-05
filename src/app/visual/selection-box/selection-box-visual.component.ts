@@ -9,6 +9,11 @@ import {
   FormGroup
 } from '@angular/forms';
 
+import {
+  SkyThemeService,
+  SkyThemeSettings
+} from '@skyux/theme';
+
 @Component({
   selector: 'selection-box-visual',
   templateUrl: './selection-box-visual.component.html'
@@ -63,7 +68,8 @@ export class SelectionBoxVisualComponent implements OnInit {
   public myForm: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private themeSvc: SkyThemeService
   ) { }
 
   public ngOnInit(): void {
@@ -84,5 +90,9 @@ export class SelectionBoxVisualComponent implements OnInit {
 
   public onSubmit(value: any): void {
     console.warn(value);
+  }
+
+  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
+    this.themeSvc.setTheme(themeSettings);
   }
 }

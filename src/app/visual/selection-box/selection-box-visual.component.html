@@ -1,34 +1,33 @@
-<form
+<div
   class="sky-padding-even-large"
-  [formGroup]="myForm"
-  (ngSubmit)="onSubmit(myForm.value)"
 >
+  <sky-docs-demo-control-panel-theme
+    (themeSettingsChange)="themeSettingsChange($event)"
+  ></sky-docs-demo-control-panel-theme>
 
+  <h3>
+    Radio button
+  </h3>
   <div
     class="sky-margin-stacked-default"
     id="screenshot-selection-box-radio"
   >
-    <h3>
-      Radio buttons
-    </h3>
-    <sky-radio-group
-      formControlName="radioGroup"
-    >
-      <sky-selection-box *ngFor="let item of radioArray"
+    <sky-radio-group>
+      <sky-selection-box
         [control]="radio"
       >
         <sky-icon
-          [icon]="item.icon"
-          [iconType]="item.iconType"
+          icon="clock"
+          iconType="skyux"
         ></sky-icon>
         <sky-selection-box-header>
-          {{ item.header }}
+          Save time and effort
         </sky-selection-box-header>
         <sky-selection-box-description>
-          {{ item.description }}
+          Encourage supporters to interact with your organization
         </sky-selection-box-description>
         <sky-radio
-          [value]="item.name"
+          [value]="'encourage'"
           #radio
         >
         </sky-radio>
@@ -36,64 +35,53 @@
     </sky-radio-group>
   </div>
 
+  <h3>
+    Checkbox
+  </h3>
   <div
     class="sky-margin-stacked-default"
-    formArrayName="checkboxGroup"
-    id="screenshot-selection-box-checkboxes"
+    id="screenshot-selection-box-checkbox"
   >
-    <h3>
-      Checkboxes
-    </h3>
-    <sky-selection-box *ngFor="let item of checkboxArray; let i = index"
+    <sky-selection-box
       [control]="checkbox"
     >
       <sky-icon
-        [icon]="item.icon"
-        [iconType]="item.iconType"
+        icon="clock"
+        iconType="skyux"
       ></sky-icon>
       <sky-selection-box-header>
-        {{ item.header }}
+        Save time and effort
       </sky-selection-box-header>
       <sky-selection-box-description>
-        {{ item.description }}
+        Encourage supporters to interact with your organization
       </sky-selection-box-description>
       <sky-checkbox
-        [formControlName]="i"
         #checkbox
       >
       </sky-checkbox>
     </sky-selection-box>
   </div>
 
+  <h3>
+    Without icon
+  </h3>
   <div
     class="sky-margin-stacked-default"
-    formArrayName="checkboxNoIconsGroup"
-    id="screenshot-selection-box-checkboxes-no-icons"
+    id="screenshot-selection-box-no-icon"
   >
-    <h3>
-      Without icons
-    </h3>
-    <sky-selection-box *ngFor="let item of checkboxArray; let i = index"
-      [control]="checkbox"
+    <sky-selection-box
+      [control]="checkbox2"
     >
       <sky-selection-box-header>
-        {{ item.header }}
+        Save time and effort
       </sky-selection-box-header>
       <sky-selection-box-description>
-        {{ item.description }}
+        Encourage supporters to interact with your organization
       </sky-selection-box-description>
       <sky-checkbox
-        [formControlName]="i"
-        #checkbox
+        #checkbox2
       >
       </sky-checkbox>
     </sky-selection-box>
   </div>
-
-  <button
-    type="submit"
-  >
-    Submit
-  </button>
-
-</form>
+</div>

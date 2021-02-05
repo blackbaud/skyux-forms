@@ -50,12 +50,16 @@
   .sky-selection-box {
     padding: $sky-theme-modern-padding-even-xl;
 
-    ::ng-deep > sky-icon {
+    .sky-selection-box-icon {
       margin: 0 $sky-theme-modern-space-md 0 0;
     }
 
     .sky-selection-box-content {
-      margin: 0 $sky-theme-modern-space-md 0 0;
+      margin: 0 $sky-theme-modern-space-xl 0 0;
+    }
+
+    .sky-selection-box-description {
+      margin: 3px 0 0 0;
     }
   }
 }
