@@ -43,7 +43,7 @@ import {
 const SKY_SELECTION_BOX_CLASS_NAME = '.sky-selection-box';
 
 /**
- * Creates a button to present users with an option to move forward with tasks.
+ * Creates a grid layout for an array of selection boxes.
  */
 @Component({
   selector: 'sky-selection-box-grid',
