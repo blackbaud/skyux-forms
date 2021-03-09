@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 
 /**
- * Specifies a description to display on a selection box.
+ * Specifies the description to display in a selection box.
  */
 @Component({
   selector: 'sky-selection-box-description',

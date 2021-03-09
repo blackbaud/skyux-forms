@@ -2,7 +2,6 @@
   class="sky-selection-box sky-box sky-rounded-corners sky-btn sky-btn-default"
   role="button"
   tabindex="0"
-  type="button"
   [ngClass]="{
     'sky-selection-box-selected' : checked
   }"
@@ -13,7 +12,9 @@
 
   <div
     class="sky-selection-box-icon"
-    [ngStyle]="{ 'display': !icon.innerHTML.trim() ? 'none' : '' }"
+    [ngStyle]="{
+      'display': !icon.innerHTML.trim() ? 'none' : ''
+    }"
     #icon
   >
     <ng-content
@@ -33,11 +34,9 @@
     </div>
     <div
       class="sky-selection-box-description"
-      [ngClass]="{
-        'sky-font-deemphasized' :
-          (themeSvc?.settingsChange | async)?.currentSettings.theme.name === 'modern',
-        'sky-deemphasized' :
-          (themeSvc?.settingsChange | async)?.currentSettings.theme.name === 'default'
+      [skyThemeClass]="{
+        'sky-font-deemphasized' :  'modern',
+        'sky-deemphasized' : 'default'
       }"
     >
       <ng-content

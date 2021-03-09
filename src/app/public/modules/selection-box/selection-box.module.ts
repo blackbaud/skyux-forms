@@ -11,6 +11,7 @@ import {
 } from '@skyux/core';
 
 import {
+  SkyThemeModule,
   SkyThemeService
 } from '@skyux/theme';
 
@@ -27,19 +28,26 @@ import {
 } from './selection-box-header.component';
 
 import {
+  SkySelectionBoxGridComponent
+} from './selection-box-grid.component';
+
+import {
   SkySelectionBoxComponent
 } from './selection-box.component';
 
 @NgModule({
   declarations: [
+    SkySelectionBoxGridComponent,
     SkySelectionBoxComponent,
     SkySelectionBoxDescriptionComponent,
     SkySelectionBoxHeaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SkyThemeModule
   ],
   exports: [
+    SkySelectionBoxGridComponent,
     SkySelectionBoxComponent,
     SkySelectionBoxDescriptionComponent,
     SkySelectionBoxHeaderComponent

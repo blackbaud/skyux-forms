@@ -23,10 +23,6 @@ import {
 } from '../../radio/radio.module';
 
 import {
-  SkySelectionBoxAdapterService
-} from '../selection-box-adapter.service';
-
-import {
   SkySelectionBoxModule
 } from '../selection-box.module';
 
@@ -45,9 +41,6 @@ import {
     SkyIdModule,
     SkyRadioModule,
     SkySelectionBoxModule
-  ],
-  providers: [
-    SkySelectionBoxAdapterService
   ]
 })
 export class SkySelectionBoxFixturesModule { }

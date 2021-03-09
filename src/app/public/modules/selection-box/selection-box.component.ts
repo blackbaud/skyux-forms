@@ -10,14 +10,6 @@ import {
 } from '@angular/core';
 
 import {
-  SkyCoreAdapterService
-} from '@skyux/core';
-
-import {
-  SkyThemeService
-} from '@skyux/theme';
-
-import {
   Subject
 } from 'rxjs';
 
@@ -77,15 +69,13 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
   private _checked: boolean;
 
   constructor(
-    public themeSvc: SkyThemeService,
-    private adapterService: SkyCoreAdapterService,
     private changeDetector: ChangeDetectorRef,
     private selectionBoxAdapterService: SkySelectionBoxAdapterService
   ) {}
 
   public ngAfterContentInit(): void {
     setTimeout(() => {
-      this.disableTabbingForChildren();
+      this.selectionBoxAdapterService.setChildrenTabIndex(this.selectionBoxEl, -1);
       this.updateCheckedOnControlChange();
     });
   }
@@ -111,17 +101,6 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     if (event.key === ' ') {
       this.selectControl();
       event.preventDefault();
-    }
-  }
-
-  private disableTabbingForChildren(): void {
-    const el = this.selectionBoxEl.nativeElement;
-    const focusableElems = this.adapterService.getFocusableChildren(el, {
-      ignoreVisibility: true
-    });
-    let index = focusableElems.length;
-    while (index--) {
-      focusableElems[index].tabIndex = -1;
     }
   }
 

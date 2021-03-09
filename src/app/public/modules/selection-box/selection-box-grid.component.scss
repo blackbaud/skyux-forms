@@ -1,0 +1,31 @@
+@import "~@skyux/theme/scss/mixins";
+@import "~@skyux/theme/scss/_compat/mixins";
+
+.sky-selection-box-grid {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0 7.5px;
+  max-width: 1398px;
+  margin: 0 auto;
+
+  &.sky-selection-box-grid-align-center {
+    justify-content: center;
+  }
+
+  &.sky-selection-box-grid-align-left {
+    justify-content: flex-start;
+  }
+
+  ::ng-deep > sky-selection-box {
+    margin: 0 7.5px 15px;
+    height: 100%;
+  }
+
+  &.sky-responsive-container-sm ::ng-deep > sky-selection-box {
+    flex: 0 1 344px;
+  }
+
+  &.sky-responsive-container-md ::ng-deep > sky-selection-box {
+    flex: 0 1 446px;
+  }
+}
