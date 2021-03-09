@@ -5,7 +5,6 @@
   display: flex;
   flex-flow: row wrap;
   padding: 0 7.5px;
-  max-width: 1398px;
   margin: 0 auto;
 
   &.sky-selection-box-grid-align-center {
@@ -21,11 +20,27 @@
     height: 100%;
   }
 
-  &.sky-responsive-container-sm ::ng-deep > sky-selection-box {
-    flex: 0 1 344px;
+  &.sky-responsive-container-sm {
+    max-width: 374px;
+
+    ::ng-deep > sky-selection-box {
+      flex: 0 1 344px;
+    }
   }
 
-  &.sky-responsive-container-md ::ng-deep > sky-selection-box {
-    flex: 0 1 446px;
+  &.sky-responsive-container-md {
+    max-width: 937px;
+
+    ::ng-deep > sky-selection-box {
+      flex: 0 1 446px;
+    }
+  }
+
+  &.sky-responsive-container-lg {
+    max-width: 1398px;
+
+    ::ng-deep > sky-selection-box {
+      flex: 0 1 446px;
+    }
   }
 }

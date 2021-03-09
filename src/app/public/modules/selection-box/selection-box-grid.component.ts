@@ -125,8 +125,8 @@ export class SkySelectionBoxGridComponent implements OnDestroy, OnInit {
   }
 
   private updateBreakpointClass(): void {
-    const width = this.coreAdapterService.getWidth(this.elementRef);
-    this.currentBreakpoint = this.selectionBoxAdapter.getBreakpointForWidth(width);
+    const parentWidth = this.selectionBoxAdapter.getParentWidth(this.elementRef);
+    this.currentBreakpoint = this.selectionBoxAdapter.getBreakpointForWidth(parentWidth);
   }
 
   private updateChildrenHeights(): void {

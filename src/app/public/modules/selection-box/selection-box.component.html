@@ -26,7 +26,11 @@
     class="sky-selection-box-content"
   >
     <div
-      class="sky-selection-box-header sky-headline"
+      class="sky-selection-box-header"
+      [ngClass]="{
+        'sky-font-heading-2' : icon.innerHTML.trim(),
+        'sky-font-heading-3' : !icon.innerHTML.trim()
+      }"
     >
       <ng-content
         select="sky-selection-box-header"
@@ -35,7 +39,7 @@
     <div
       class="sky-selection-box-description"
       [skyThemeClass]="{
-        'sky-font-deemphasized' :  'modern',
+        'sky-font-deemphasized' : 'modern',
         'sky-deemphasized' : 'default'
       }"
     >
