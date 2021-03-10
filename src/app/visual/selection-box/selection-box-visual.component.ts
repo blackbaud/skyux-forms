@@ -26,51 +26,6 @@ export class SelectionBoxVisualComponent implements OnInit {
 
   public alignItems: SkySelectionBoxGridAlignItems;
 
-  public checkboxArray: any = [
-    {
-      icon: 'edit',
-      iconType: 'skyux',
-      header: 'Write an introduction',
-      description: 'A brief one paragraph introduction about your organzation will help supporters identify with your cause'
-    },
-    {
-      icon: 'calendar',
-      iconType: 'skyux',
-      header: 'Schedule a consultation',
-      description: 'Get something on the calendar to engage your constituents!'
-    },
-    {
-      icon: 'clock',
-      iconType: 'skyux',
-      header: 'Save time and effort',
-      description: 'Encourage supporters to interact with your organization'
-    }
-  ];
-
-  public radioArray: any = [
-    {
-      icon: 'check',
-      iconType: 'skyux',
-      header: 'Boost Engagement',
-      description: 'Encourage supporters to interact with your organization',
-      name: 'engagement'
-    },
-    {
-      icon: 'filter',
-      iconType: 'skyux',
-      header: 'Build relationships',
-      description: 'Connect to supporters on a personal level and maintain accurate date',
-      name: 'relationships'
-    },
-    {
-      icon: 'search',
-      iconType: 'skyux',
-      header: 'Drive performance',
-      description: 'Enourage supporters to interact with your organization',
-      name: 'performance'
-    }
-  ];
-
   public items: any[] = [
     {
       name: 'Save time and effort',

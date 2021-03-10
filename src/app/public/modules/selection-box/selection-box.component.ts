@@ -52,6 +52,15 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     return this._checked;
   }
 
+  public set disabled(value: boolean) {
+    this.selectionBoxAdapterService.setTabIndex(this.selectionBoxEl, value ? -1 : 0);
+    this._disabled = value;
+  }
+
+  public get disabled(): boolean {
+    return this._disabled || false;
+  }
+
   @ViewChild('control', {
     read: ElementRef,
     static: false
@@ -68,6 +77,8 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
 
   private _checked: boolean;
 
+  private _disabled: boolean;
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private selectionBoxAdapterService: SkySelectionBoxAdapterService
@@ -77,6 +88,7 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     setTimeout(() => {
       this.selectionBoxAdapterService.setChildrenTabIndex(this.selectionBoxEl, -1);
       this.updateCheckedOnControlChange();
+      this.updateDisabledState();
     });
   }
 
@@ -106,7 +118,6 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
 
   private selectControl(): void {
     this.selectionBoxAdapterService.getControl(this.controlEl).click();
-    this.changeDetector.markForCheck();
     this.selectionBoxAdapterService.focus(this.selectionBoxEl);
   }
 
@@ -117,5 +128,9 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
       ).subscribe((value) => {
         this.checked = value;
     });
+  }
+
+  private updateDisabledState(): void {
+    this.disabled = !!this.control?.disabled;
   }
 }

@@ -1,9 +1,15 @@
 <div
-  class="sky-selection-box sky-box sky-rounded-corners sky-btn sky-btn-default"
+  class="sky-selection-box sky-rounded-corners sky-btn sky-btn-default"
   role="button"
   tabindex="0"
+  [attr.disabled]="disabled ? true : null"
   [ngClass]="{
-    'sky-selection-box-selected' : checked
+    'sky-selection-box-selected' : checked,
+    'sky-selection-box-disabled' : disabled
+  }"
+  [skyThemeClass]="{
+    'sky-shadow' : 'default',
+    'sky-box sky-elevation-1': 'modern'
   }"
   (click)="onClick($event)"
   (keydown)="onKeydown($event)"
