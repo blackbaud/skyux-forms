@@ -107,11 +107,14 @@ describe('Selection box', () => {
     });
     it('should match previous screenshot with a checkbox when in focus state', async (done) => {
       await SkyHostBrowser.scrollTo('#screenshot-selection-box-checkbox');
+      // Double click to avoid accidentially capturing the selected state.
       element(by.css('#screenshot-selection-box-checkbox .sky-selection-box')).click().then(() => {
-        expect('#screenshot-selection-box-checkbox')
-          .toMatchBaselineScreenshot(done, {
-            screenshotName: getScreenshotName('selection-box-focus')
-          });
+        element(by.css('#screenshot-selection-box-checkbox .sky-selection-box')).click().then(() => {
+          expect('#screenshot-selection-box-checkbox')
+            .toMatchBaselineScreenshot(done, {
+              screenshotName: getScreenshotName('selection-box-focus')
+            });
+        });
       });
     });
     it('should match previous screenshot when disabled', async (done) => {
@@ -119,7 +122,7 @@ describe('Selection box', () => {
       await clickCheckbox();
       expect('#screenshot-selection-box-disabled')
         .toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('screenshot-selection-box-disabled')
+          screenshotName: getScreenshotName('selection-box-disabled')
         });
     });
     it('should match previous screenshot with no icon', async (done) => {
@@ -133,7 +136,7 @@ describe('Selection box', () => {
       await SkyHostBrowser.scrollTo('#screenshot-selection-box-grid');
       expect('#screenshot-selection-box-grid')
         .toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('screenshot-selection-box-grid')
+          screenshotName: getScreenshotName('selection-box-grid')
         });
     });
   }
