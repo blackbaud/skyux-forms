@@ -56,8 +56,35 @@
         Encourage supporters to interact with your organization
       </sky-selection-box-description>
       <sky-checkbox
-        [disabled]="true"
         #checkbox
+      >
+      </sky-checkbox>
+    </sky-selection-box>
+  </div>
+
+  <h3>
+    Disabled
+  </h3>
+  <div
+    class="sky-margin-stacked-default"
+    id="screenshot-selection-box-disabled"
+  >
+    <sky-selection-box
+      [control]="checkboxDisabled"
+    >
+      <sky-icon
+        icon="clock"
+        iconType="skyux"
+      ></sky-icon>
+      <sky-selection-box-header>
+        Save time and effort
+      </sky-selection-box-header>
+      <sky-selection-box-description>
+        Encourage supporters to interact with your organization
+      </sky-selection-box-description>
+      <sky-checkbox
+        [disabled]="true"
+        #checkboxDisabled
       >
       </sky-checkbox>
     </sky-selection-box>
@@ -111,7 +138,7 @@
   </div>
   <div
     class="sky-margin-stacked-default"
-    id="screenshot-selection-box-checkbox"
+    id="screenshot-selection-box-grid"
   >
     <sky-selection-box-grid
       [alignItems]="alignItems"

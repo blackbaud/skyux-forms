@@ -1,9 +1,4 @@
 import {
-  by,
-  element
-} from 'protractor';
-
-import {
   SkyHostBrowserBreakpoint
 } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
@@ -12,6 +7,12 @@ import {
   SkyHostBrowser,
   SkyVisualThemeSelector
 } from '@skyux-sdk/e2e';
+
+import {
+  browser,
+  by,
+  element
+} from 'protractor';
 
 describe('Selection box', () => {
 
@@ -94,11 +95,45 @@ describe('Selection box', () => {
           screenshotName: getScreenshotName('selection-box-checkbox-checked')
         });
     });
+    it('should match previous screenshot with a checkbox when in hover state', async (done) => {
+      await SkyHostBrowser.scrollTo('#screenshot-selection-box-checkbox');
+      browser.actions().mouseMove(element(by.css('#screenshot-selection-box-checkbox .sky-selection-box')))
+        .perform().then(() => {
+          expect('#screenshot-selection-box-checkbox')
+            .toMatchBaselineScreenshot(done, {
+              screenshotName: getScreenshotName('selection-box-hover')
+            });
+        });
+    });
+    it('should match previous screenshot with a checkbox when in focus state', async (done) => {
+      await SkyHostBrowser.scrollTo('#screenshot-selection-box-checkbox');
+      element(by.css('#screenshot-selection-box-checkbox .sky-selection-box')).click().then(() => {
+        expect('#screenshot-selection-box-checkbox')
+          .toMatchBaselineScreenshot(done, {
+            screenshotName: getScreenshotName('selection-box-focus')
+          });
+      });
+    });
+    it('should match previous screenshot when disabled', async (done) => {
+      await SkyHostBrowser.scrollTo('#screenshot-selection-box-disabled');
+      await clickCheckbox();
+      expect('#screenshot-selection-box-disabled')
+        .toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('screenshot-selection-box-disabled')
+        });
+    });
     it('should match previous screenshot with no icon', async (done) => {
       await SkyHostBrowser.scrollTo('#screenshot-selection-box-no-icon');
       expect('#screenshot-selection-box-no-icon')
         .toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('selection-box-no-icon')
+        });
+    });
+    it('should match previous screenshot inside a sky-selection-box-grid', async (done) => {
+      await SkyHostBrowser.scrollTo('#screenshot-selection-box-grid');
+      expect('#screenshot-selection-box-grid')
+        .toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('screenshot-selection-box-grid')
         });
     });
   }
