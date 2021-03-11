@@ -27,12 +27,17 @@ import {
 } from '../selection-box.module';
 
 import {
+  SelectionBoxGridTestComponent
+} from './selection-box-grid.component.fixture';
+
+import {
   SelectionBoxTestComponent
 } from './selection-box.component.fixture';
 
 @NgModule({
   declarations: [
-    SelectionBoxTestComponent
+    SelectionBoxTestComponent,
+    SelectionBoxGridTestComponent
   ],
   imports: [
     CommonModule,

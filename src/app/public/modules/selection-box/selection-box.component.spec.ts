@@ -11,12 +11,16 @@ import {
 } from '@skyux-sdk/testing';
 
 import {
-  SkyMediaQueryService
-} from '@skyux/core';
+  SkyTheme,
+  SkyThemeMode,
+  SkyThemeService,
+  SkyThemeSettings,
+  SkyThemeSettingsChange
+} from '@skyux/theme';
 
 import {
-  MockSkyMediaQueryService
-} from '@skyux/core/testing';
+  BehaviorSubject
+} from 'rxjs';
 
 import {
   SkySelectionBoxFixturesModule
@@ -26,16 +30,13 @@ import {
   SelectionBoxTestComponent
 } from './fixtures/selection-box.component.fixture';
 
-import {
-  SkySelectionBoxComponent
-} from './selection-box.component';
-
 describe('Selection box component', () => {
 
   //#region helpers
   function getRadioSelectionBoxes(): NodeListOf<HTMLElement> {
     return fixture.nativeElement.querySelectorAll('#radioSelectionBoxes .sky-selection-box');
   }
+
   function getCheckboxSelectionBoxes(): NodeListOf<HTMLElement> {
     return fixture.nativeElement.querySelectorAll('#checkboxSelectionBoxes .sky-selection-box');
   }
@@ -62,31 +63,34 @@ describe('Selection box component', () => {
   //#endregion
 
   let fixture: ComponentFixture<SelectionBoxTestComponent>;
-  let mockMediaQueryService: MockSkyMediaQueryService;
+  let mockThemeSvc: {
+    settingsChange: BehaviorSubject<SkyThemeSettingsChange>
+  };
 
   beforeEach(() => {
+    mockThemeSvc = {
+      settingsChange: new BehaviorSubject<SkyThemeSettingsChange>(
+        {
+          currentSettings: new SkyThemeSettings(
+            SkyTheme.presets.default,
+            SkyThemeMode.presets.light
+          ),
+          previousSettings: undefined
+        }
+      )
+    };
 
-    mockMediaQueryService = new MockSkyMediaQueryService();
-    TestBed.configureTestingModule({
+    fixture = TestBed.configureTestingModule({
       imports: [
         SkySelectionBoxFixturesModule
+      ],
+      providers: [
+        {
+          provide: SkyThemeService,
+          useValue: mockThemeSvc
+        }
       ]
-    });
-
-    fixture = TestBed.overrideComponent(SkySelectionBoxComponent, {
-      add: {
-        providers: [
-          {
-            provide: SkyMediaQueryService,
-            useValue: mockMediaQueryService
-          }
-        ]
-      }
-    })
-    .createComponent(SelectionBoxTestComponent);
-
-    fixture = TestBed.createComponent(SelectionBoxTestComponent);
-
+    }).createComponent(SelectionBoxTestComponent);
     fixture.detectChanges();
   });
 
@@ -96,7 +100,7 @@ describe('Selection box component', () => {
     expect(getDescription()[0]).not.toBeNull();
   });
 
-  it('should interact with radio buttons when clicking on selection box parent', () => {
+  it('should interact with radio buttons when clicking on parent selection box', () => {
     const selectionBoxes = getRadioSelectionBoxes();
     const radioButtons = getRadioButtons();
     selectionBoxes[1].click();
@@ -114,7 +118,7 @@ describe('Selection box component', () => {
     expect(radioButtons[2].checked).toEqual(true);
   });
 
-  it('should interact with checkboxes when clicking on selection box parent', () => {
+  it('should interact with checkboxes when clicking on parent selection box', () => {
     const selectionBoxes = getCheckboxSelectionBoxes();
     const checkboxes = getCheckboxes();
     selectionBoxes[1].click();
@@ -201,10 +205,20 @@ describe('Selection box component', () => {
     expect(role).toBe('button');
   });
 
-  it('should have a tabindex on the clickable area', () => {
+  it('should have a tabindex of 0', () => {
     const tabIndex: string = getRadioSelectionBoxes()[0].getAttribute('tabindex');
     expect(tabIndex).toBe('0');
   });
+
+  it('should have a tabindex of -1 when the control is disabled', async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const disabledSelectionBox =
+        fixture.nativeElement.querySelector('#disabled-selection-box .sky-selection-box');
+      const tabIndex: string = disabledSelectionBox.getAttribute('tabindex');
+      expect(tabIndex).toBe('-1');
+    });
+  }));
 
   it('should update tabindex of tabbable children elements to -1', async(() => {
     fixture.whenStable().then(() => {
@@ -214,11 +228,10 @@ describe('Selection box component', () => {
     });
   }));
 
-  it('should be accessible', async(() => {
+  it('should be accessible', async () => {
     fixture.detectChanges();
-    fixture.whenStable().then(async () => {
-      await expectAsync(fixture.nativeElement).toBeAccessible();
-    });
-  }));
+    await fixture.whenStable();
+    await expectAsync(fixture.nativeElement).toBeAccessible();
+  });
 
 });

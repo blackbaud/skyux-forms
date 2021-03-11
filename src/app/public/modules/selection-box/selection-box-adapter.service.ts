@@ -10,9 +10,9 @@ import {
   SkyMediaBreakpoints
 } from '@skyux/core';
 
-const SM_BREAKPOINT_CLASS_NAME = 'sky-responsive-container-sm';
-const MD_BREAKPOINT_CLASS_NAME = 'sky-responsive-container-md';
-const LG_BREAKPOINT_CLASS_NAME = 'sky-responsive-container-lg';
+const SM_BREAKPOINT_CLASS_NAME = 'sky-selection-box-container-sm';
+const MD_BREAKPOINT_CLASS_NAME = 'sky-selection-box-container-md';
+const LG_BREAKPOINT_CLASS_NAME = 'sky-selection-box-container-lg';
 
 /**
  * @internal
@@ -72,7 +72,7 @@ export class SkySelectionBoxAdapterService {
   /**
    * Returns `true` if the `childEl` is a descendant of the `parentEl`.
    */
-  public isDescendant(parentEl: ElementRef, childEl: ElementRef): boolean {
+  public isDescendant(parentEl: ElementRef, childEl: HTMLElement): boolean {
     return parentEl.nativeElement.contains(childEl);
   }
 

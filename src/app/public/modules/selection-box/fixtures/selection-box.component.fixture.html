@@ -65,7 +65,7 @@
     Header
   </sky-selection-box-header>
   <sky-selection-box-description>
-    This <a id="link" href="#">link</a> should not be tabbable.
+    This <a id="link" href="#" class="sky-emphasized">link</a> should not be tabbable.
   </sky-selection-box-description>
   <sky-checkbox
     [labelledBy]="checkboxWithLinkHeaderId.id"
@@ -73,3 +73,27 @@
   >
   </sky-checkbox>
 </sky-selection-box>
+
+<div
+  id="disabled-selection-box"
+>
+  <sky-selection-box
+    [control]="disabledCheckbox"
+  >
+    <sky-selection-box-header
+      skyId
+      #disabledCheckboxHeaderId="skyId"
+    >
+      Disabled selection box
+    </sky-selection-box-header>
+    <sky-selection-box-description>
+      I should be disabled
+    </sky-selection-box-description>
+    <sky-checkbox
+      [disabled]="true"
+      [labelledBy]="disabledCheckboxHeaderId.id"
+      #disabledCheckbox
+    >
+    </sky-checkbox>
+  </sky-selection-box>
+</div>

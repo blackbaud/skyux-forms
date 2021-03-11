@@ -25,7 +25,7 @@
     height: 100%;
   }
 
-  &.sky-responsive-container-sm {
+  &.sky-selection-box-container-sm {
     max-width: 374px;
 
     ::ng-deep > sky-selection-box {
@@ -33,7 +33,7 @@
     }
   }
 
-  &.sky-responsive-container-md {
+  &.sky-selection-box-container-md {
     max-width: 937px;
 
     ::ng-deep > sky-selection-box {
@@ -41,7 +41,7 @@
     }
   }
 
-  &.sky-responsive-container-lg {
+  &.sky-selection-box-container-lg {
     max-width: 1398px;
 
     ::ng-deep > sky-selection-box {

@@ -100,6 +100,11 @@ export class SkySelectionBoxGridComponent implements OnDestroy, OnInit {
   ) {}
 
   public ngOnInit(): void {
+    setTimeout(() => {
+      this.updateBreakpointClass();
+      this.updateChildrenHeights();
+    });
+
     if (this.themeSvc) {
       this.themeSvc.settingsChange
         .pipe(
@@ -130,8 +135,6 @@ export class SkySelectionBoxGridComponent implements OnDestroy, OnInit {
   }
 
   private updateChildrenHeights(): void {
-    console.log('update heights');
-    this.coreAdapterService.resetHeight(this.elementRef, SKY_SELECTION_BOX_CLASS_NAME);
     this.coreAdapterService.syncMaxHeight(this.elementRef, SKY_SELECTION_BOX_CLASS_NAME);
   }
 
