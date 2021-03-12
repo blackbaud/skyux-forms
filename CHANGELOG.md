@@ -1,6 +1,6 @@
 # 4.15.2 (2021-03-12)
 
-- Fixed the file item component to not allow file titles to extend outside of the component. [#239](https://github.com/blackbaud/skyux-forms/pull/239)
+- Fixed the file item component so that file titles do not extend outside of the component. [#239](https://github.com/blackbaud/skyux-forms/pull/239)
 
 # 4.15.1 (2021-02-16)
 
