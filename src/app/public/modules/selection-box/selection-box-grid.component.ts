@@ -135,6 +135,7 @@ export class SkySelectionBoxGridComponent implements OnDestroy, OnInit {
   }
 
   private updateChildrenHeights(): void {
+    this.coreAdapterService.resetHeight(this.elementRef, SKY_SELECTION_BOX_CLASS_NAME);
     this.coreAdapterService.syncMaxHeight(this.elementRef, SKY_SELECTION_BOX_CLASS_NAME);
   }
 
