@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "4.15.1",
+  "version": "4.15.2",
   "description": "SKY UX Forms",
   "scripts": {
     "build": "skyux build-public-library",
@@ -66,7 +66,7 @@
     "@skyux/popovers": "4.4.0",
     "@skyux/router": "4.1.0",
     "@skyux/tabs": "4.6.3",
-    "@skyux/theme": "file:.yalc/@skyux/theme",
+    "@skyux/theme": "4.15.2",
     "codelyzer": "5.2.2",
     "rxjs": "6.6.6",
     "ts-node": "8.3.0",
