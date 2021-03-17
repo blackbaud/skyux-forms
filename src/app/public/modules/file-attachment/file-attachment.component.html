@@ -36,42 +36,52 @@
       (change)="fileChangeEvent($event)"
       #fileInput
     >
-    <button *ngIf="showFileAttachmentButton"
-      class="sky-file-attachment-btn sky-btn sky-btn-default"
-      type="button"
-      [attr.aria-describedby]="fileDropDescriptionElementId"
-      [disabled]="disabled"
-      (click)="onDropClicked()"
-    >
-      <sky-icon
-        icon="folder-open-o"
-      ></sky-icon>
-      {{ value ?
-        ('skyux_file_attachment_button_label_replace_file' | skyLibResources) :
-        ('skyux_file_attachment_button_label_choose_file' | skyLibResources)
-      }}
-    </button>
-    <ng-container *skyThemeIf="'modern'">
+    <ng-template #chooseFile>
+      <button
+        class="sky-file-attachment-btn sky-btn sky-btn-default"
+        type="button"
+        [attr.aria-describedby]="fileDropDescriptionElementId"
+        [disabled]="disabled"
+        (click)="onDropClicked()"
+      >
+        <sky-icon
+          icon="folder-open-o"
+        ></sky-icon>
+        {{ value ?
+          ('skyux_file_attachment_button_label_replace_file' | skyLibResources) :
+          ('skyux_file_attachment_button_label_choose_file' | skyLibResources)
+        }}
+      </button>
+    </ng-template>
+    <ng-template #linkedFile>
+      <a
+        (click)="emitClick()"
+      >
+        {{ getFileName() }}
+      </a>
+    </ng-template>
+    <ng-template #noFile>
+      <span class="sky-file-attachment-none sky-deemphasized">
+        {{ 'skyux_file_attachment_label_no_file_chosen' | skyLibResources }}
+      </span>
+    </ng-template>
+    <ng-template [skyThemeIf]="'modern'">
+      <ng-template [ngIf]="!value">
+        <ng-container *ngTemplateOutlet="chooseFile"></ng-container>
+      </ng-template>
       <sky-icon *ngIf="value && !isImage()"
         class="sky-file-attachment-icon sky-deemphasized"
         icon="file-o"
         size="2x"
       ></sky-icon>
-    </ng-container>
-    <span *ngIf="value || currentThemeName === 'default'"
-      class="sky-file-attachment-name"
-    >
-      <a *ngIf="value; else noFile"
-        (click)="emitClick()"
-      >
-        {{ getFileName() }}
-      </a>
-    </span>
-    <ng-template #noFile>
-      <span
-        class="sky-file-attachment-none sky-deemphasized"
-      >
-        {{ 'skyux_file_attachment_label_no_file_chosen' | skyLibResources }}
+      <span class="sky-file-attachment-name">
+        <ng-template *ngIf="value; then linkedFile"></ng-template>
+      </span>
+    </ng-template>
+    <ng-template [skyThemeIf]="'default'">
+      <ng-container *ngTemplateOutlet="chooseFile"></ng-container>
+      <span class="sky-file-attachment-name">
+        <ng-template *ngIf="value; then linkedFile else noFile"></ng-template>
       </span>
     </ng-template>
     <button *ngIf="value"
@@ -80,7 +90,7 @@
       [attr.aria-label]="'skyux_file_attachment_file_item_delete' | skyLibResources"
       [disabled]="disabled"
       [skyThemeClass]="{
-        'sky-btn-icon-borderless' : 'modern'
+        'sky-btn-icon-borderless': 'modern'
       }"
       (click)="deleteFileAttachment()"
     >

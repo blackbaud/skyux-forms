@@ -21,7 +21,7 @@ import {
 
 import {
   SkyTheme,
-  SkyThemeMode,
+  SkyThemeMode, SkyThemeModule,
   SkyThemeService,
   SkyThemeSettings,
   SkyThemeSettingsChange
@@ -86,7 +86,8 @@ describe('File attachment', () => {
     };
     TestBed.configureTestingModule({
       imports: [
-        FileAttachmentTestModule
+        FileAttachmentTestModule,
+        SkyThemeModule
       ],
       providers: [
         {
@@ -383,6 +384,7 @@ describe('File attachment', () => {
     fileAttachmentInstance.ngAfterViewInit();
     tick();
     fixture.detectChanges();
+    fixture.whenStable();
     const input = getInputDebugEl(fixture);
     const button = getButtonEl(el);
 
@@ -566,10 +568,10 @@ describe('File attachment', () => {
     expect(fileChangeActual.file).toBeFalsy();
   });
 
-  it('should show the appropriate file name', () => {
+  it('should show a regular file name', () => {
 
     // Regular file
-    let testFile = <SkyFileItem> {
+    const testFile = <SkyFileItem> {
       file: {
         name: 'test.png',
         size: 1000,
@@ -581,9 +583,12 @@ describe('File attachment', () => {
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('test.png');
+  });
+
+  it('should show the file name truncated', () => {
 
     // File with truncated name
-    testFile = <SkyFileItem> {
+    const testFile = <SkyFileItem> {
       file: {
         name: 'abcdefghijklmnopqrstuvwxyz12345.png',
         size: 1000,
@@ -595,9 +600,12 @@ describe('File attachment', () => {
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('abcdefghijklmnopqrstuvwxyz...');
+  });
+
+  it('should show file with no name', () => {
 
     // File with no name
-    testFile = <SkyFileItem> {
+    const testFile = <SkyFileItem> {
       file: {
         name: undefined,
         size: 1000,
@@ -609,6 +617,9 @@ describe('File attachment', () => {
     fixture.detectChanges();
 
     expect(getFileNameText()).toBe('myFile');
+  });
+
+  it('should show no file chosen', () => {
 
     // no file
     fileAttachmentInstance.writeValue(undefined);
@@ -616,9 +627,12 @@ describe('File attachment', () => {
 
     expect(getFileNameText()).toBe('No file chosen');
     expect(fileAttachmentInstance.getFileName()).toBeUndefined();
+  });
+
+  it('should show file as truncated url', () => {
 
     // File with no name and truncated url
-    testFile = <SkyFileItem> {
+    const testFile = <SkyFileItem> {
       file: {
         name: undefined,
         size: 1000,
