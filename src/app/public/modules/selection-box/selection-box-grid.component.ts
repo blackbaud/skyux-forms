@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ContentChildren,
@@ -8,7 +9,8 @@ import {
   OnDestroy,
   OnInit,
   QueryList,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {
@@ -51,9 +53,10 @@ const SKY_SELECTION_BOX_CLASS_NAME = '.sky-selection-box';
   styleUrls: [
     './selection-box-grid.component.scss'
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
-export class SkySelectionBoxGridComponent implements OnDestroy, OnInit {
+export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, OnInit {
 
   /**
    * Specifies how to display the selection boxes inside the selection box grid.
@@ -100,23 +103,21 @@ export class SkySelectionBoxGridComponent implements OnDestroy, OnInit {
   ) {}
 
   public ngOnInit(): void {
-    setTimeout(() => {
-      this.updateBreakpointClass();
-      this.updateChildrenHeights();
-    });
-
     if (this.themeSvc) {
       this.themeSvc.settingsChange
         .pipe(
           takeUntil(this.ngUnsubscribe)
         )
         .subscribe(() => {
-          setTimeout(() => {
-            this.updateBreakpointClass();
-            this.updateChildrenHeights();
-          });
+          this.updateBreakpointClass();
+          this.updateChildrenHeights();
         });
     }
+  }
+
+  public ngAfterViewInit(): void {
+    this.updateBreakpointClass();
+    this.updateChildrenHeights();
   }
 
   public ngOnDestroy(): void {

@@ -13,13 +13,13 @@
     box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.3),
                 inset 0 0 0 1px $sky-highlight-color-info;
 
-    ::ng-deep .sky-switch-control {
+    .sky-switch-control {
       border: solid 1px $sky-highlight-color-info;
     }
   }
 
   &:focus {
-    ::ng-deep .sky-switch-control {
+    .sky-switch-control {
       //default
       outline: thin dotted;
 
@@ -50,7 +50,7 @@
     justify-content: center;
     flex: 0 0 auto;
 
-    ::ng-deep .sky-icon {
+    .sky-icon {
       font-size: 24px !important;
     }
   }
@@ -79,13 +79,13 @@
       box-shadow: $sky-theme-modern-elevation-1-shadow-size $sky-theme-modern-elevation-1-shadow-color,
       inset 0 0 0 1px $sky-theme-modern-background-color-primary-dark;
 
-      ::ng-deep .sky-switch-control {
+      .sky-switch-control {
         border: solid 1px $sky-theme-modern-background-color-primary-dark;
       }
     }
 
     &:focus {
-      ::ng-deep .sky-switch-control {
+      .sky-switch-control {
         border: solid 2px $sky-theme-modern-background-color-primary-dark;
         outline: none;
       }
@@ -114,10 +114,6 @@
       align-items: center;
       justify-content: center;
       flex: 0 0 auto;
-
-      ::ng-deep .sky-icon {
-        font-size: 24px !important;
-      }
     }
 
     .sky-selection-box-content {

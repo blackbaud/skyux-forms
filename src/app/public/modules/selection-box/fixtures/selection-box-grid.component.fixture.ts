@@ -1,6 +1,11 @@
 import {
-  Component
+  Component,
+  ViewChild
 } from '@angular/core';
+
+import {
+  SkySelectionBoxGridComponent
+} from '../selection-box-grid.component';
 
 import {
   SkySelectionBoxGridAlignItems
@@ -14,5 +19,12 @@ export class SelectionBoxGridTestComponent {
 
   public alignItems: SkySelectionBoxGridAlignItems;
 
-  public firstBoxHeight: string;
+  public firstBoxHeight: string = '500px';
+
+  @ViewChild(SkySelectionBoxGridComponent, {
+    read: SkySelectionBoxGridComponent,
+    static: false
+  })
+  public selectionBoxGrid: SkySelectionBoxGridComponent;
+
 }

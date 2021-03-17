@@ -20,7 +20,7 @@
     justify-content: flex-start;
   }
 
-  ::ng-deep > sky-selection-box {
+  > sky-selection-box {
     margin: 0 7.5px 15px;
     height: 100%;
   }
@@ -28,7 +28,7 @@
   &.sky-selection-box-container-sm {
     max-width: 374px;
 
-    ::ng-deep > sky-selection-box {
+    > sky-selection-box {
       flex: 0 1 344px;
     }
   }
@@ -36,7 +36,7 @@
   &.sky-selection-box-container-md {
     max-width: 937px;
 
-    ::ng-deep > sky-selection-box {
+    > sky-selection-box {
       flex: 0 1 446px;
     }
   }
@@ -44,7 +44,7 @@
   &.sky-selection-box-container-lg {
     max-width: 1398px;
 
-    ::ng-deep > sky-selection-box {
+    > sky-selection-box {
       flex: 0 1 446px;
     }
   }

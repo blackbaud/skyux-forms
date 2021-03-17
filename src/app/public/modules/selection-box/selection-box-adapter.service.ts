@@ -10,9 +10,13 @@ import {
   SkyMediaBreakpoints
 } from '@skyux/core';
 
-const SM_BREAKPOINT_CLASS_NAME = 'sky-selection-box-container-sm';
-const MD_BREAKPOINT_CLASS_NAME = 'sky-selection-box-container-md';
-const LG_BREAKPOINT_CLASS_NAME = 'sky-selection-box-container-lg';
+const RESPONSIVE_CLASS_SM = 'sky-selection-box-container-sm';
+const RESPONSIVE_CLASS_MD = 'sky-selection-box-container-md';
+const RESPONSIVE_CLASS_LG = 'sky-selection-box-container-lg';
+
+const BREAKPOINT_SM_MAX_PIXELS = 991;
+const BREAKPOINT_MD_MIN_PIXELS = 992;
+const BREAKPOINT_MD_MAX_PIXELS = 1439;
 
 /**
  * @internal
@@ -49,13 +53,9 @@ export class SkySelectionBoxAdapterService {
    * @param width Width of element in pixels.
    */
   public getBreakpointForWidth(width: number): SkyMediaBreakpoints {
-    const smBreakpointMaxPixels = 991;
-    const mdBreakpointMinPixels = 992;
-    const mdBreakpointMaxPixels = 1439;
-
-    if (width <= smBreakpointMaxPixels) {
+    if (width <= BREAKPOINT_SM_MAX_PIXELS) {
       return SkyMediaBreakpoints.sm;
-    } else if (width >= mdBreakpointMinPixels && width <= mdBreakpointMaxPixels) {
+    } else if (width >= BREAKPOINT_MD_MIN_PIXELS && width <= BREAKPOINT_MD_MAX_PIXELS) {
       return SkyMediaBreakpoints.md;
     } else {
       return SkyMediaBreakpoints.lg;
@@ -96,24 +96,24 @@ export class SkySelectionBoxAdapterService {
   public setResponsiveClass(element: ElementRef, breakpoint: SkyMediaBreakpoints): void {
     const nativeEl: HTMLElement = element.nativeElement;
 
-    this.renderer.removeClass(nativeEl, SM_BREAKPOINT_CLASS_NAME);
-    this.renderer.removeClass(nativeEl, MD_BREAKPOINT_CLASS_NAME);
-    this.renderer.removeClass(nativeEl, LG_BREAKPOINT_CLASS_NAME);
+    this.renderer.removeClass(nativeEl, RESPONSIVE_CLASS_SM);
+    this.renderer.removeClass(nativeEl, RESPONSIVE_CLASS_MD);
+    this.renderer.removeClass(nativeEl, RESPONSIVE_CLASS_LG);
 
     let newClass: string;
 
     // tslint:disable-next-line: switch-default
     switch (breakpoint) {
       case SkyMediaBreakpoints.sm: {
-        newClass = SM_BREAKPOINT_CLASS_NAME;
+        newClass = RESPONSIVE_CLASS_SM;
         break;
       }
       case SkyMediaBreakpoints.md: {
-        newClass = MD_BREAKPOINT_CLASS_NAME;
+        newClass = RESPONSIVE_CLASS_MD;
         break;
       }
       case SkyMediaBreakpoints.lg: {
-        newClass = LG_BREAKPOINT_CLASS_NAME;
+        newClass = RESPONSIVE_CLASS_LG;
         break;
       }
     }

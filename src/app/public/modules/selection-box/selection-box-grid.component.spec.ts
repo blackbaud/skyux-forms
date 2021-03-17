@@ -6,7 +6,8 @@ import {
 
 import {
   expect,
-  expectAsync
+  expectAsync,
+  SkyAppTestUtility
 } from '@skyux-sdk/testing';
 
 import {
@@ -28,11 +29,14 @@ import {
 import {
   SelectionBoxGridTestComponent
 } from './fixtures/selection-box-grid.component.fixture';
-import { SkySelectionBoxGridComponent } from './selection-box-grid.component';
 
 import {
   SkySelectionBoxGridAlignItems
 } from './types/selection-box-grid-align-items';
+
+import {
+  SkySelectionBoxGridComponent
+} from './selection-box-grid.component';
 
 describe('Selection box grid component', () => {
 
@@ -101,34 +105,23 @@ describe('Selection box grid component', () => {
     expect(getSelectionBoxGrid()).toHaveCssClass('sky-selection-box-grid-align-left');
   });
 
-  it(`should sync all child selection boxes to have the same height as the tallest selection box`, async(() => {
-    fixture.componentInstance.firstBoxHeight = '500px';
-    fixture.detectChanges();
-    // Wait for setTimeout() to fire.
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      const selectionBoxes = getSelectionBoxes();
-      const newHeight = selectionBoxes[0].getBoundingClientRect().height;
+  it(`should sync all child selection boxes to have the same height as the tallest selection box`, () => {
+    const selectionBoxes = getSelectionBoxes();
+    const newHeight = selectionBoxes[0].getBoundingClientRect().height;
 
-      expect(newHeight).toBeGreaterThanOrEqual(500);
-      for (let i = 0; i < selectionBoxes.length; i++) {
-        expect(selectionBoxes[i].getBoundingClientRect().height).toEqual(newHeight);
-      }
-    });
-  }));
+    // Fixture has a single hard-coded selection box of 500px,
+    // so the other selection boxes should be atleast 500px tall.
+    expect(newHeight).toBeGreaterThanOrEqual(500);
+    for (let i = 0; i < selectionBoxes.length; i++) {
+      expect(selectionBoxes[i].getBoundingClientRect().height).toEqual(newHeight);
+    }
+  });
 
   it(`should update CSS responsive classes on window resize`, async(() => {
-    const spy = spyOn(SkySelectionBoxGridComponent.prototype as any, 'updateBreakpointClass');
+    const spy = spyOn(component.selectionBoxGrid as any, 'updateBreakpointClass');
     expect(spy).not.toHaveBeenCalled();
 
-    // IE 11 workaround for window.dispatchEvent.
-    if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0) {
-      const evt = document.createEvent('UIEvents') as any;
-      evt.initUIEvent('resize', true, false, window, 0);
-      window.dispatchEvent(evt);
-    } else {
-      window.dispatchEvent(new Event('resize'));
-    }
+    SkyAppTestUtility.fireDomEvent(window, 'resize');
     fixture.detectChanges();
 
     expect(spy).toHaveBeenCalledTimes(1);

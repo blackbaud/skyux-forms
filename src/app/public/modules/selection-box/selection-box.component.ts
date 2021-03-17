@@ -1,12 +1,13 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   OnDestroy,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {
@@ -36,9 +37,10 @@ import {
   selector: 'sky-selection-box',
   styleUrls: ['./selection-box.component.scss'],
   templateUrl: './selection-box.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
-export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
+export class SkySelectionBoxComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   public control: SkyCheckboxComponent | SkyRadioComponent;
@@ -84,7 +86,8 @@ export class SkySelectionBoxComponent implements AfterContentInit, OnDestroy {
     private selectionBoxAdapterService: SkySelectionBoxAdapterService
   ) {}
 
-  public ngAfterContentInit(): void {
+  public ngAfterViewInit(): void {
+    // Wait for consumer form controls to initialize before setting selected/disabled states.
     setTimeout(() => {
       this.selectionBoxAdapterService.setChildrenTabIndex(this.selectionBoxEl, -1);
       this.updateCheckedOnControlChange();
