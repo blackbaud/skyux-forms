@@ -34,10 +34,6 @@ import {
   SkySelectionBoxGridAlignItems
 } from './types/selection-box-grid-align-items';
 
-import {
-  SkySelectionBoxGridComponent
-} from './selection-box-grid.component';
-
 describe('Selection box grid component', () => {
 
   //#region helpers
