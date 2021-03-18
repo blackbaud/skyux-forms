@@ -1,12 +1,12 @@
 export const enum SkySelectionBoxGridAlignItems {
 
   /**
-   * Displays the selection boxes as center-aligned.
+   * Center-aligns the selection boxes.
    */
   Center = 'center',
 
   /**
-   * Displays the selection boxes as left-aligned.
+   * Left-aligns the selection boxes.
    */
   Left = 'left'
 

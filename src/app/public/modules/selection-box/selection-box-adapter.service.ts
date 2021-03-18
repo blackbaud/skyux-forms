@@ -42,7 +42,7 @@ export class SkySelectionBoxAdapterService {
 
   /**
    * Returns a child element with the `.sky-switch` class.
-   * Useful for getting SKYUX-themed radio buttons or checkboxes.
+   * Useful for getting SKY UX-themed radio buttons or checkboxes.
    */
   public getControl(el: ElementRef): HTMLElement {
     return el.nativeElement.querySelector('.sky-switch');
@@ -50,7 +50,7 @@ export class SkySelectionBoxAdapterService {
 
   /**
    * Returns a breakpoint based on the width.
-   * @param width Width of element in pixels.
+   * @param width Width of the element in pixels.
    */
   public getBreakpointForWidth(width: number): SkyMediaBreakpoints {
     if (width <= BREAKPOINT_SM_MAX_PIXELS) {
@@ -91,7 +91,7 @@ export class SkySelectionBoxAdapterService {
   }
 
   /**
-   * Adds responsive CSS class on the provided element, based on its current width.
+   * Adds a responsive CSS class on the provided element based on its current width.
    */
   public setResponsiveClass(element: ElementRef, breakpoint: SkyMediaBreakpoints): void {
     const nativeEl: HTMLElement = element.nativeElement;

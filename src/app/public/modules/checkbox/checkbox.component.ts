@@ -166,7 +166,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   }
 
   /**
-   * Fires when the checked value changes.
+   * Fires when the selected value changes.
    */
   @Output()
   public get checkedChange(): Observable<boolean> {

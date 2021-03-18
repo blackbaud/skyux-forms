@@ -29,7 +29,7 @@ import {
 } from './types/radio-change';
 
 /**
- * Auto-incrementing integer used to generate unique ids for radio components.
+ * Auto-incrementing integer that generates unique IDs for radio components.
  */
 let nextUniqueId = 0;
 
@@ -225,7 +225,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   /**
-   * Fires when the checked value changes.
+   * Fires when the selected value changes.
    */
   @Output()
   public get checkedChange(): Observable<boolean> {
