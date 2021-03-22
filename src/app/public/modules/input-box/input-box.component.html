@@ -1,5 +1,4 @@
-<ng-template *skyThemeIf="'default'">
-  <div
+  <div *skyThemeIf="'default'"
     class="sky-input-box"
   >
     <div
@@ -39,10 +38,8 @@
       ></ng-container>
     </div>
   </div>
-</ng-template>
 
-<ng-template *skyThemeIf="'modern'">
-  <div
+  <div *skyThemeIf="'modern'"
     class="sky-input-box"
     [ngClass]="{
       'sky-input-box-disabled': disabled
@@ -89,7 +86,6 @@
       *ngTemplateOutlet="errorLabelTemplate"
     ></ng-container>
   </div>
-</ng-template>
 
 <ng-template
   #labelTemplate
