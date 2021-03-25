@@ -1,4 +1,4 @@
-# 4.16.0 (2021-03-19)
+# 4.16.0 (2021-03-25)
 
 - Added the selection box component. [#232](https://github.com/blackbaud/skyux-forms/pull/232)
 
