@@ -22,7 +22,7 @@
         headingStyle="success"
       >
         <p>
-          Use selection boxes when users need to make a selection during unavoidable, one-time workflows, such as setup or onboarding scenarios. In these scenarios, the selection boxes should represent the only decision users need to make on a page.
+          Use selection boxes when users must make a selection or answer a standalone question before proceeding, usually as part of a setup or configuration task. In these scenarios, the selection boxes should represent the only decision users need to make on a page.
         </p>
         <sky-docs-design-guideline-thumbnail
           caption="Do use selection boxes for choices made during onboarding or other one-time processes."
@@ -50,7 +50,10 @@
         headingStyle="danger"
       >
         <p>
-          Don’t use selection boxes in common or repeatable workflows, especially inside modals. Use other selection controls, like checkboxes or radio buttons.
+          Don’t use selection boxes for repeatable data entry tasks, especially inside modals. Use other selection controls, like checkboxes or radio buttons.
+        </p>
+        <p>
+          Don't use selection boxes when there are more than 12 options. Use other selection controls instead.
         </p>
         <sky-docs-design-guideline-thumbnail
           caption="Don't use selection boxes when the choice is part of a task or workflow that users will complete repeatedly."
@@ -223,7 +226,7 @@
         </sky-docs-design-guideline-thumbnail>
         <sky-docs-design-guideline-thumbnail
           caption="Don't use custom flex layouts to arrange selection boxes."
-          captionType="success"
+          captionType="danger"
           imageSource="~/assets/img/guidelines/selection-box/selection-box-layout-2-modern.png"
         >
         </sky-docs-design-guideline-thumbnail>
