@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 
 import {
-  AbstractControl,
   FormArray,
   FormBuilder,
   FormGroup
@@ -16,8 +15,8 @@ import {
 })
 export class SelectionBoxDemoComponent implements OnInit {
 
-  public get checkboxArray(): AbstractControl {
-    return this.myForm.get('checkboxes');
+  public get checkboxArray(): FormArray {
+    return this.myForm.get('checkboxes') as FormArray;
   }
 
   public selectionBoxes: any[] = [
