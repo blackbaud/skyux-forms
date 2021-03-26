@@ -8,7 +8,62 @@
   </sky-docs-demo-page-summary>
 
   <sky-docs-demo>
-    <!-- Demo goes here -->
+    <sky-docs-demo-control-panel
+      (selectionChange)="onDemoSelectionChange($event)"
+    >
+      <sky-docs-demo-control-panel-section>
+        <sky-docs-demo-control-panel-radio-group
+          heading="Form type"
+          initialValue="checkbox"
+          propertyName="mode"
+          [choices]="formChoices"
+        >
+        </sky-docs-demo-control-panel-radio-group>
+      </sky-docs-demo-control-panel-section>
+    </sky-docs-demo-control-panel>
+    <sky-selection-box-grid *ngIf="demoSettings?.mode === 'checkbox'">
+      <sky-selection-box *ngFor="let item of items"
+        [control]="checkbox"
+      >
+        <sky-icon
+          iconType="skyux"
+          [icon]="item.icon"
+        ></sky-icon>
+        <sky-selection-box-header>
+          {{ item.name }}
+        </sky-selection-box-header>
+        <sky-selection-box-description>
+          {{ item.description }}
+        </sky-selection-box-description>
+        <sky-checkbox
+          #checkbox
+        >
+        </sky-checkbox>
+      </sky-selection-box>
+    </sky-selection-box-grid>
+    <sky-radio-group *ngIf="demoSettings?.mode === 'radio'">
+      <sky-selection-box-grid>
+        <sky-selection-box *ngFor="let item of items"
+          [control]="radio"
+        >
+          <sky-icon
+            iconType="skyux"
+            [icon]="item.icon"
+          ></sky-icon>
+          <sky-selection-box-header>
+            {{ item.name }}
+          </sky-selection-box-header>
+          <sky-selection-box-description>
+            {{ item.description }}
+          </sky-selection-box-description>
+          <sky-radio
+            [value]="item.value"
+            #radio
+          >
+          </sky-radio>
+        </sky-selection-box>
+      </sky-selection-box-grid>
+    </sky-radio-group>
   </sky-docs-demo>
 
   <sky-docs-design-guidelines>
@@ -17,8 +72,13 @@
 
   <sky-docs-code-examples>
     <sky-docs-code-example
-      heading="Standard selection boxes"
-      sourceCodePath="src/app/public/plugin-resources/code-examples/selection-box/basic"
+      heading="Selection boxes with checkboxes"
+      sourceCodePath="src/app/public/plugin-resources/code-examples/selection-box/checkbox"
+    >
+    </sky-docs-code-example>
+    <sky-docs-code-example
+      heading="Selection boxes with radio buttons"
+      sourceCodePath="src/app/public/plugin-resources/code-examples/selection-box/radio"
     >
     </sky-docs-code-example>
   </sky-docs-code-examples>

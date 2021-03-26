@@ -1,22 +1,26 @@
 <form
   [formGroup]="myForm"
-  (ngSubmit)="onSubmit()"
 >
   <sky-selection-box-grid>
-    <sky-selection-box *ngFor="let item of items"
+    <sky-selection-box *ngFor="let control of checkboxArray.controls; let i = index"
       [control]="checkbox"
     >
       <sky-icon
         iconType="skyux"
-        [icon]="item.icon"
+        [icon]="selectionBoxes[i].icon"
       ></sky-icon>
-      <sky-selection-box-header>
-        {{ item.name }}
+      <sky-selection-box-header
+        skyId
+        #checkboxHeaderId="skyId"
+      >
+        {{ selectionBoxes[i].name }}
       </sky-selection-box-header>
       <sky-selection-box-description>
-        {{ item.description }}
+        {{ selectionBoxes[i].description }}
       </sky-selection-box-description>
       <sky-checkbox
+        [formControl]="control"
+        [labelledBy]="checkboxHeaderId.id"
         #checkbox
       >
       </sky-checkbox>

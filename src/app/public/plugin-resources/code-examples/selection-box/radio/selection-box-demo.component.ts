@@ -5,7 +5,6 @@ import {
 
 import {
   FormBuilder,
-  FormControl,
   FormGroup
 } from '@angular/forms';
 
@@ -19,17 +18,20 @@ export class SelectionBoxDemoComponent implements OnInit {
     {
       name: 'Save time and effort',
       icon: 'clock',
-      description: 'Automate mundane tasks and spend more time on the things that matter'
+      description: 'Automate mundane tasks and spend more time on the things that matter',
+      value: 'clock'
     },
     {
       name: 'Boost Engagement',
       icon: 'user',
-      description: 'Encourage supporters to interact with your organization'
+      description: 'Encourage supporters to interact with your organization',
+      value: 'engagement'
     },
     {
       name: 'Build Relationships',
       icon: 'users',
-      description: 'Connect to supporters on a personal level and maintain accurate data'
+      description: 'Connect to supporters on a personal level and maintain accurate data',
+      value: 'relationships'
     }
   ];
 
@@ -41,15 +43,8 @@ export class SelectionBoxDemoComponent implements OnInit {
 
   public ngOnInit(): void {
     this.myForm = this.formBuilder.group({
-      checkboxGroup: this.formBuilder.array([
-        new FormControl(),
-        new FormControl(),
-        new FormControl()
-      ])
+      myOption: this.items[2].value
     });
-  }
-
-  public onSubmit(value: any): void {
-    console.log(value);
+    this.myForm.valueChanges.subscribe(value => console.log(value));
   }
 }
