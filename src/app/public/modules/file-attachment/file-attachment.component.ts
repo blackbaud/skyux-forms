@@ -9,6 +9,7 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  OnInit,
   Optional,
   Output,
   QueryList,
@@ -19,6 +20,10 @@ import {
 import {
   NgControl
 } from '@angular/forms';
+
+import {
+  SkyThemeService
+} from '@skyux/theme';
 
 import {
   Subject
@@ -67,7 +72,7 @@ let uniqueId = 0;
   styleUrls: ['./file-attachment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnInit, OnDestroy {
 
   /**
    * Specifies a comma-delimited string literal of MIME types that users can attach.
@@ -156,13 +161,17 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     if (isNewValue) {
       this._value = value;
       this._onChange(value);
-      this.changeDetector.markForCheck();
+      this.updateFileAttachmentButton();
     }
   }
 
   public get value(): SkyFileItem {
     return this._value;
   }
+
+  public currentThemeName: string;
+
+  public showFileAttachmentButton: boolean;
 
   @ViewChild('fileInput')
   private inputEl: ElementRef;
@@ -181,6 +190,7 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
   private _value: any;
 
   constructor(
+    public themeSvc: SkyThemeService,
     private changeDetector: ChangeDetectorRef,
     private fileAttachmentService: SkyFileAttachmentService,
     private fileItemService: SkyFileItemService,
@@ -191,6 +201,17 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+  }
+
+  public ngOnInit(): void {
+    this.themeSvc.settingsChange
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe((themeSettings) => {
+        this.currentThemeName = themeSettings.currentSettings?.theme?.name;
+        this.updateFileAttachmentButton();
+      });
   }
 
   public ngAfterViewInit(): void {
@@ -399,6 +420,11 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
         this.loadFile(file);
       }
     }
+  }
+
+  private updateFileAttachmentButton(): void {
+    this.showFileAttachmentButton = !(this.value && this.currentThemeName === 'modern');
+    this.changeDetector.markForCheck();
   }
 
   /*istanbul ignore next */
