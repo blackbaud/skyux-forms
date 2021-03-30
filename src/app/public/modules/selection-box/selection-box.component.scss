@@ -20,9 +20,11 @@
 
   &:focus {
     .sky-switch-control {
-      outline: none;
-      border: none;
-      box-shadow: inset 0 0 0 2px $sky-theme-modern-color-blue-74;
+      //default
+      outline: thin dotted;
+
+      //webkit
+      outline: -webkit-focus-ring-color auto 5px;
     }
   }
 
@@ -85,6 +87,12 @@
     &:focus {
       .sky-switch-input:not(:disabled):checked + .sky-switch-control {
         border: none;
+      }
+
+      .sky-switch-control {
+        outline: none;
+        border: none;
+        box-shadow: inset 0 0 0 2px $sky-theme-modern-color-blue-74;
       }
     }
 
