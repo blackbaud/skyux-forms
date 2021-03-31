@@ -24,18 +24,18 @@ export class SelectionBoxDemoComponent implements OnInit {
       name: 'Save time and effort',
       icon: 'clock',
       description:
-        'Automate mundane tasks and spend more time on the things that matter'
+        'Automate mundane tasks and spend more time on the things that matter.'
     },
     {
-      name: 'Boost Engagement',
+      name: 'Boost engagement',
       icon: 'user',
-      description: 'Encourage supporters to interact with your organization'
+      description: 'Encourage supporters to interact with your organization.'
     },
     {
-      name: 'Build Relationships',
+      name: 'Build relationships',
       icon: 'users',
       description:
-        'Connect to supporters on a personal level and maintain accurate data'
+        'Connect to supporters on a personal level and maintain accurate data.'
     }
   ];
 
