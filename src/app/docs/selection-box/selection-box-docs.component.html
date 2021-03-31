@@ -35,28 +35,15 @@
         </sky-docs-demo-control-panel-checkbox>
       </sky-docs-demo-control-panel-section>
     </sky-docs-demo-control-panel>
-    <sky-selection-box-grid *ngIf="demoSettings?.mode === 'checkbox'">
-      <sky-selection-box *ngFor="let item of items"
-        [control]="checkbox"
-      >
-        <sky-selection-box-header>
-          {{ item.name }}
-        </sky-selection-box-header>
-        <sky-selection-box-description *ngIf="demoSettings?.showDescription">
-          {{ item.description }}
-        </sky-selection-box-description>
-        <sky-checkbox
-          #checkbox
-        >
-        </sky-checkbox>
-      </sky-selection-box>
-    </sky-selection-box-grid>
-    <sky-radio-group *ngIf="demoSettings?.mode === 'radio'">
-      <sky-selection-box-grid>
+    <!-- Due to how the selection box styles react to the existence of the icon, we have to
+      initially render the whole selection box component with or without the icon present to get
+      the styles to work correctly. -->
+    <ng-container *ngIf="demoSettings?.mode === 'checkbox'">
+      <sky-selection-box-grid *ngIf="demoSettings?.showIcon">
         <sky-selection-box *ngFor="let item of items"
-          [control]="radio"
+          [control]="checkbox"
         >
-          <sky-icon *ngIf="demoSettings?.showIcon"
+          <sky-icon
             iconType="skyux"
             [icon]="item.icon"
           ></sky-icon>
@@ -66,14 +53,73 @@
           <sky-selection-box-description *ngIf="demoSettings?.showDescription">
             {{ item.description }}
           </sky-selection-box-description>
-          <sky-radio
-            [value]="item.value"
-            #radio
+          <sky-checkbox
+            #checkbox
           >
-          </sky-radio>
+          </sky-checkbox>
         </sky-selection-box>
       </sky-selection-box-grid>
-    </sky-radio-group>
+      <sky-selection-box-grid *ngIf="!demoSettings?.showIcon">
+        <sky-selection-box *ngFor="let item of items"
+          [control]="checkbox"
+        >
+          <sky-selection-box-header>
+            {{ item.name }}
+          </sky-selection-box-header>
+          <sky-selection-box-description *ngIf="demoSettings?.showDescription">
+            {{ item.description }}
+          </sky-selection-box-description>
+          <sky-checkbox
+            #checkbox
+          >
+          </sky-checkbox>
+        </sky-selection-box>
+      </sky-selection-box-grid>
+    </ng-container>
+    <ng-container *ngIf="demoSettings?.mode === 'radio'">
+      <sky-radio-group *ngIf="demoSettings?.showIcon">
+        <sky-selection-box-grid>
+          <sky-selection-box *ngFor="let item of items"
+            [control]="radio"
+          >
+            <sky-icon
+              iconType="skyux"
+              [icon]="item.icon"
+            ></sky-icon>
+            <sky-selection-box-header>
+              {{ item.name }}
+            </sky-selection-box-header>
+            <sky-selection-box-description *ngIf="demoSettings?.showDescription">
+              {{ item.description }}
+            </sky-selection-box-description>
+            <sky-radio
+              [value]="item.value"
+              #radio
+            >
+            </sky-radio>
+          </sky-selection-box>
+        </sky-selection-box-grid>
+      </sky-radio-group>
+      <sky-radio-group *ngIf="!demoSettings?.showIcon">
+        <sky-selection-box-grid>
+          <sky-selection-box *ngFor="let item of items"
+            [control]="radio"
+          >
+            <sky-selection-box-header>
+              {{ item.name }}
+            </sky-selection-box-header>
+            <sky-selection-box-description *ngIf="demoSettings?.showDescription">
+              {{ item.description }}
+            </sky-selection-box-description>
+            <sky-radio
+              [value]="item.value"
+              #radio
+            >
+            </sky-radio>
+          </sky-selection-box>
+        </sky-selection-box-grid>
+      </sky-radio-group>
+    </ng-container>
   </sky-docs-demo>
 
   <sky-docs-design-guidelines>
