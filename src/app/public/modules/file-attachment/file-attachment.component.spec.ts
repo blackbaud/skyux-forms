@@ -385,7 +385,6 @@ describe('File attachment', () => {
     fileAttachmentInstance.ngAfterViewInit();
     tick();
     fixture.detectChanges();
-    fixture.whenStable();
     const input = getInputDebugEl(fixture);
     const button = getButtonEl(el);
 

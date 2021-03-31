@@ -7,8 +7,7 @@ import {
 } from '@angular/common';
 
 import {
-  SkyThemeModule,
-  SkyThemeService
+  SkyThemeModule
 } from '@skyux/theme';
 
 import {
@@ -25,9 +24,6 @@ import {
   ],
   exports: [
     SkyInputBoxComponent
-  ],
-  providers: [
-    SkyThemeService
   ]
 })
 export class SkyInputBoxModule { }
