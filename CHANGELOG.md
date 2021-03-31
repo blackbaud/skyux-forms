@@ -1,6 +1,6 @@
 # 4.16.1 (2021-03-31)
 
-- Updated the filter and sort icons to use modern theme. [#240](https://github.com/blackbaud/skyux-forms/pull/240)
+- Replaced theme conditionals in templates with the new `skyThemeIf` directive. [#240](https://github.com/blackbaud/skyux-forms/pull/240)
 
 # 4.16.0 (2021-03-25)
 
