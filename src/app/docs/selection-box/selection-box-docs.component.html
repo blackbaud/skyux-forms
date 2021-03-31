@@ -20,19 +20,29 @@
         >
         </sky-docs-demo-control-panel-radio-group>
       </sky-docs-demo-control-panel-section>
+      <sky-docs-demo-control-panel-section>
+        <sky-docs-demo-control-panel-checkbox
+          label="Include icon"
+          propertyName="showIcon"
+          [checked]="true"
+        >
+        </sky-docs-demo-control-panel-checkbox>
+        <sky-docs-demo-control-panel-checkbox
+          label="Include description"
+          propertyName="showDescription"
+          [checked]="true"
+        >
+        </sky-docs-demo-control-panel-checkbox>
+      </sky-docs-demo-control-panel-section>
     </sky-docs-demo-control-panel>
     <sky-selection-box-grid *ngIf="demoSettings?.mode === 'checkbox'">
       <sky-selection-box *ngFor="let item of items"
         [control]="checkbox"
       >
-        <sky-icon
-          iconType="skyux"
-          [icon]="item.icon"
-        ></sky-icon>
         <sky-selection-box-header>
           {{ item.name }}
         </sky-selection-box-header>
-        <sky-selection-box-description>
+        <sky-selection-box-description *ngIf="demoSettings?.showDescription">
           {{ item.description }}
         </sky-selection-box-description>
         <sky-checkbox
@@ -46,14 +56,14 @@
         <sky-selection-box *ngFor="let item of items"
           [control]="radio"
         >
-          <sky-icon
+          <sky-icon *ngIf="demoSettings?.showIcon"
             iconType="skyux"
             [icon]="item.icon"
           ></sky-icon>
           <sky-selection-box-header>
             {{ item.name }}
           </sky-selection-box-header>
-          <sky-selection-box-description>
+          <sky-selection-box-description *ngIf="demoSettings?.showDescription">
             {{ item.description }}
           </sky-selection-box-description>
           <sky-radio

@@ -16,8 +16,8 @@ export class SelectionBoxDocsComponent {
   public demoSettings: any = {};
 
   public formChoices: SkyDocsDemoControlPanelRadioChoice[] = [
-    { value: 'checkbox', label: 'Checkbox' },
-    { value: 'radio', label: 'Radio' }
+    { value: 'checkbox', label: 'Multi-select' },
+    { value: 'radio', label: 'Single-select' }
   ];
 
   public items: any[] = [
@@ -44,6 +44,12 @@ export class SelectionBoxDocsComponent {
   public onDemoSelectionChange(change: SkyDocsDemoControlPanelChange): void {
     if (change.mode !== undefined) {
       this.demoSettings.mode = change.mode;
+    }
+    if (change.showIcon !== undefined) {
+      this.demoSettings.showIcon = change.showIcon;
+    }
+    if (change.showDescription !== undefined) {
+      this.demoSettings.showDescription = change.showDescription;
     }
   }
 
