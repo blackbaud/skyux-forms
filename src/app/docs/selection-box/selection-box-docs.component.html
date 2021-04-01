@@ -44,16 +44,22 @@
         >
         </sky-docs-design-guideline-thumbnail>
       </sky-docs-design-guideline>
-        
+          
       <sky-docs-design-guideline
         heading="Don't use when"
         headingStyle="danger"
       >
         <p>
-          Don’t use selection boxes for repeatable tasks such as data entry. Use other selection controls, such as <a href="https://developer.blackbaud.com/skyux/components/checkbox">checkboxes</a> or <a href="https://developer.blackbaud.com/skyux/components/radio">radio buttons</a>, instead.
+            Don’t use selection boxes for repeatable tasks such as data entry. Use other selection controls, such as 
+            <a *skyThemeIf="'default'" href="https://developer.blackbaud.com/skyux-forms/docs/checkbox">checkboxes</a>
+            <a *skyThemeIf="'modern'" href="https://developer.blackbaud.com/skyux-forms/docs/checkbox?svcid=skyux-modern">checkboxes</a>
+            or 
+            <a *skyThemeIf="'default'" href="https://developer.blackbaud.com/skyux-forms/docs/radio">radio buttons</a>
+            <a *skyThemeIf="'modern'" href="https://developer.blackbaud.com/skyux-forms/docs/radio?svcid=skyux-modern">radio buttons</a>
+            , instead.
         </p>
         <p>
-          Don't use selection boxes when there are more than 12 options. Use other selection controls instead.
+          Don't use selection boxes for fewer than 3 options or more than 12 options. Use other selection controls instead.
         </p>
         <sky-docs-design-guideline-thumbnail
           caption="Don't use selection boxes in tasks or workflows that users complete repeatedly."
@@ -69,6 +75,13 @@
         </sky-docs-design-guideline-thumbnail>
       </sky-docs-design-guideline>
         
+      <sky-docs-design-guideline
+      >
+        <p>
+          Don't use selection boxes for fewer than 3 options or more than 12 options. Use other selection controls instead.
+        </p>
+      </sky-docs-design-guideline>
+        
     </sky-docs-demo-page-section>
     
     <sky-docs-demo-page-section
@@ -79,7 +92,7 @@
       >
         <sky-docs-anatomy-item>Box</sky-docs-anatomy-item>
         <sky-docs-anatomy-item>Checkbox or radio button</sky-docs-anatomy-item>
-        <sky-docs-anatomy-item>Title</sky-docs-anatomy-item>
+        <sky-docs-anatomy-item>Header</sky-docs-anatomy-item>
         <sky-docs-anatomy-item isOptional="true">Icon</sky-docs-anatomy-item>
         <sky-docs-anatomy-item isOptional="true">Description</sky-docs-anatomy-item>
       </sky-docs-anatomy>
@@ -218,7 +231,7 @@
     >
       
       <div class="sky-text-block">
-        Keep titles and descriptions short and concise. Limit descriptions to a single sentence.
+        Keep headers and descriptions short and concise. Descriptions can be partial or complete sentences, but don't use more than a single sentence.
       </div>
       
     </sky-docs-demo-page-section>
@@ -229,7 +242,7 @@
       
       <sky-docs-design-guideline>
         <p>
-          Selection boxes are arranged in a centered container based on their number and the container’s width. Don’t use different layouts with selection boxes.
+          Selection boxes are center-aligned within a container based on the number of options and the container’s width. Don’t use other layouts with selection boxes.
         </p>
         <sky-docs-design-guideline-thumbnail
           caption="Do center-align selection boxes and use matching heights."
@@ -238,7 +251,7 @@
         >
         </sky-docs-design-guideline-thumbnail>
         <sky-docs-design-guideline-thumbnail
-          caption="Don't use custom flex layouts to arrange selection boxes."
+          caption="Don't use custom layouts to arrange selection boxes."
           captionType="danger"
           imageSource="~/assets/img/guidelines/selection-box/selection-box-layout-2-modern.png"
         >
