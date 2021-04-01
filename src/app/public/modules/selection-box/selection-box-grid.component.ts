@@ -45,7 +45,7 @@ import {
 const SKY_SELECTION_BOX_CLASS_NAME = '.sky-selection-box';
 
 /**
- * Creates a grid layout for an array of selection boxes.
+ * Creates a grid layout for the array of selection boxes.
  */
 @Component({
   selector: 'sky-selection-box-grid',
@@ -59,7 +59,7 @@ const SKY_SELECTION_BOX_CLASS_NAME = '.sky-selection-box';
 export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, OnInit {
 
   /**
-   * Specifies how to display the selection boxes inside the selection box grid.
+   * Specifies how to display the selection boxes in the grid.
    * @default SkySelectionBoxGridAlignItems.Center
    */
   @Input()
