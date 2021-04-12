@@ -26,8 +26,29 @@
     height: 100%;
   }
 
-  &.sky-selection-box-container-sm {
+  &.sky-selection-box-container-xs {
     max-width: 374px;
+
+    > sky-selection-box {
+      flex: 0 1 344px;
+    }
+
+    .sky-selection-box {
+      padding: $sky-theme-modern-padding-even-md;
+
+      .sky-selection-box-icon {
+        display: none;
+      }
+
+      .sky-selection-box-header {
+        font-size: $sky-theme-modern-font-heading-3-size;
+        font-weight: $sky-theme-modern-font-heading-3-weight;
+      }
+    }
+  }
+
+  &.sky-selection-box-container-sm {
+    max-width: 733px;
 
     > sky-selection-box {
       flex: 0 1 344px;
