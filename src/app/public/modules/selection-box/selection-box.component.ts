@@ -44,6 +44,7 @@ export class SkySelectionBoxComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Specifies the radio button or checkbox to display in the selection box.
+   * @required
    */
   @Input()
   public control: SkyCheckboxComponent | SkyRadioComponent;

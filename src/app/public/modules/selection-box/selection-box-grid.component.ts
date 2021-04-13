@@ -6,6 +6,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  NgZone,
   OnDestroy,
   OnInit,
   QueryList,
@@ -14,6 +15,7 @@ import {
 } from '@angular/core';
 
 import {
+  MutationObserverService,
   SkyCoreAdapterService,
   SkyMediaBreakpoints
 } from '@skyux/core';
@@ -91,6 +93,8 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   })
   private elementRef: ElementRef<any>;
 
+  private mutationObserver: MutationObserver;
+
   private ngUnsubscribe = new Subject();
 
   private _alignItems: SkySelectionBoxGridAlignItems;
@@ -100,7 +104,10 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   constructor(
     private themeSvc: SkyThemeService,
     private coreAdapterService: SkyCoreAdapterService,
-    private selectionBoxAdapter: SkySelectionBoxAdapterService
+    private selectionBoxAdapter: SkySelectionBoxAdapterService,
+    private hostElRef: ElementRef,
+    private mutationObserverSvc: MutationObserverService,
+    private ngZone: NgZone
   ) {}
 
   public ngOnInit(): void {
@@ -119,11 +126,14 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   public ngAfterViewInit(): void {
     this.updateBreakpointClass();
     this.updateChildrenHeights();
+    this.initMutationObserver();
   }
 
   public ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+
+    this.destroyMutationObserver();
   }
 
   @HostListener('window:resize')
@@ -131,8 +141,38 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
     this.updateBreakpointClass();
   }
 
+  private initMutationObserver(): void {
+    if (!this.mutationObserver) {
+      const el = this.elementRef.nativeElement;
+
+      // MutationObserver is patched by Zone.js and therefore becomes part of the
+      // Angular change detection cycle, but this can lead to infinite loops in some
+      // scenarios. This will keep MutationObserver from triggering change detection.
+      this.ngZone.runOutsideAngular(() => {
+        this.mutationObserver = this.mutationObserverSvc.create(() => {
+          this.updateChildrenHeights();
+        });
+
+        this.mutationObserver.observe(
+          el,
+          {
+            characterData: true,
+            subtree: true
+          }
+        );
+      });
+    }
+  }
+
+  private destroyMutationObserver(): void {
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+      this.mutationObserver = undefined;
+    }
+  }
+
   private updateBreakpointClass(): void {
-    const parentWidth = this.selectionBoxAdapter.getParentWidth(this.elementRef);
+    const parentWidth = this.selectionBoxAdapter.getParentWidth(this.hostElRef);
     this.currentBreakpoint = this.selectionBoxAdapter.getBreakpointForWidth(parentWidth);
   }
 
