@@ -119,6 +119,7 @@ describe('Radio group component (reactive)', function () {
     expect(radio).toExist();
     radio.focus();
     radio.blur();
+    tick();
 
     expect(componentInstance.radioForm.touched).toEqual(true);
   }));

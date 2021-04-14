@@ -212,6 +212,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
         )
         .subscribe(() => {
           this.onTouched();
+          this.changeDetector.markForCheck();
         });
     });
   }
