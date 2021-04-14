@@ -110,6 +110,19 @@ describe('Radio group component (reactive)', function () {
     expect(componentInstance.radioForm.dirty).toEqual(true);
   }));
 
+  it('should mark as touched after losing focus', fakeAsync(function () {
+    fixture.detectChanges();
+
+    expect(componentInstance.radioForm.touched).toEqual(false);
+
+    const radio = fixture.nativeElement.querySelector('input[type="radio"]');
+    expect(radio).toExist();
+    radio.focus();
+    radio.blur();
+
+    expect(componentInstance.radioForm.touched).toEqual(true);
+  }));
+
   it('should update the ngModel properly when radio button is changed', fakeAsync(function () {
     fixture.detectChanges();
 
