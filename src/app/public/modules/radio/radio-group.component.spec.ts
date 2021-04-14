@@ -115,11 +115,10 @@ describe('Radio group component (reactive)', function () {
 
     expect(componentInstance.radioForm.touched).toEqual(false);
 
-    const radio = fixture.nativeElement.querySelector('input[type="radio"]');
-    expect(radio).toExist();
-    radio.focus();
-    radio.blur();
-    tick();
+    const debugElement = fixture.debugElement.query(By.css('input[type="radio"]'));
+    expect(debugElement.nativeElement).toExist();
+    debugElement.triggerEventHandler('focus', {});
+    debugElement.triggerEventHandler('blur', {});
 
     expect(componentInstance.radioForm.touched).toEqual(true);
   }));
