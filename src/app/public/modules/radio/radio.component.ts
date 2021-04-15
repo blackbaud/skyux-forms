@@ -219,8 +219,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   /**
    * Fires when users focus off a radio button.
    */
-  @Output()
-  public get blur(): Observable<SkyRadioChange> {
+  public get blur(): Observable<undefined> {
     return this._blur;
   }
 
@@ -254,7 +253,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   private _change = new EventEmitter<SkyRadioChange>();
-  private _blur = new EventEmitter<SkyRadioChange>();
+  private _blur = new EventEmitter<undefined>();
   private _checked = false;
   private _checkedChange = new BehaviorSubject<boolean>(this._checked);
   private _disabled: boolean = false;
