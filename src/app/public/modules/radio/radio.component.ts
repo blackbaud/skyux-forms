@@ -17,7 +17,8 @@ import {
 
 import {
   BehaviorSubject,
-  Observable
+  Observable,
+  Subject
 } from 'rxjs';
 
 import {
@@ -60,6 +61,11 @@ const SKY_RADIO_CONTROL_VALUE_ACCESSOR: Provider = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
+
+  /**
+   * Fires when users focus off a radio button.
+   */
+  public blur = new Subject<void>();
 
   /**
    * Indicates whether the radio button is selected.
@@ -217,13 +223,6 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   /**
-   * Fires when users focus off a radio button.
-   */
-  public get blur(): Observable<undefined> {
-    return this._blur;
-  }
-
-  /**
    * Fires when users select a radio button.
    */
   @Output()
@@ -253,7 +252,6 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   }
 
   private _change = new EventEmitter<SkyRadioChange>();
-  private _blur = new EventEmitter<undefined>();
   private _checked = false;
   private _checkedChange = new BehaviorSubject<boolean>(this._checked);
   private _disabled: boolean = false;
@@ -315,7 +313,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
   public onInputFocusChange(event: Event): void {
     this.onTouchedCallback();
-    this._blur.emit();
+    this.blur.next();
   }
 
   /* istanbul ignore next */
