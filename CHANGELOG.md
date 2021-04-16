@@ -1,4 +1,4 @@
-# 4.16.4 (2021-04-15)
+# 4.16.4 (2021-04-16)
 
 - Updated the radio group component to be marked as touched after an input field loses focus. [#257](https://github.com/blackbaud/skyux-forms/pull/257)
 
