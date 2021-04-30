@@ -530,6 +530,17 @@ describe('Input box', () => {
         });
       }
     );
+
+    it(
+      'should match previous input box with placeholder text',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-placeholder');
+
+        expect('#input-box-placeholder').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-placeholder')
+        });
+      }
+    );
   }
 
   beforeEach(async () => {
