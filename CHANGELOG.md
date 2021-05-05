@@ -1,3 +1,7 @@
+# 4.17.1 (2021-05-05)
+
+- Fixed the input box component to utilize the correct placeholder font size. [#263](https://github.com/blackbaud/skyux-forms/pull/263)
+
 # 4.17.0 (2021-04-22)
 
 - Updated the form control `line-height` to fit descenders. [#261](https://github.com/blackbaud/skyux-forms/pull/261)
