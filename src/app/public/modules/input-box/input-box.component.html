@@ -7,6 +7,9 @@
       <ng-container
         *ngTemplateOutlet="labelTemplate"
       ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="characterCountTemplate"
+      ></ng-container>
       <div
         class="sky-input-group"
       >
@@ -64,8 +67,15 @@
           <div
             class="sky-input-box-form-group-inner"
           >
+            <div
+              class="sky-input-box-label-wrapper"
+            >
+              <ng-container
+                *ngTemplateOutlet="labelTemplate"
+              ></ng-container>
+            </div>
             <ng-container
-              *ngTemplateOutlet="labelTemplate"
+              *ngTemplateOutlet="characterCountTemplate"
             ></ng-container>
             <ng-container
               *ngTemplateOutlet="inputTemplate"
@@ -94,6 +104,11 @@
   <ng-content
     select=".sky-inline-help-shim"
   ></ng-content>
+</ng-template>
+
+<ng-template
+  #characterCountTemplate
+>
   <ng-content
     select="sky-character-counter-indicator"
   ></ng-content>

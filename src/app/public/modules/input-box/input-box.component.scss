@@ -248,11 +248,6 @@ sky-input-box {
       }
 
       .sky-input-box-btn-inset {
-
-        .sky-inline-help-shim {
-          flex: 0 0 0;
-          padding: 6px 15px 1px 6px;
-        }
         .sky-btn {
           background-color: transparent;
           border-radius: $sky-theme-modern-box-border-radius-default;
@@ -265,6 +260,18 @@ sky-input-box {
       }
 
       .sky-input-box-form-group-inner {
+
+        .sky-input-box-label-wrapper {
+          display: flex;
+
+          .sky-inline-help-shim {
+            position: relative;
+            top: 3px;
+            left: -6px;
+            font-size: 16px;
+          }
+        }
+
         > .sky-form-control:first-child,
         > *:first-child .sky-form-control {
           margin-top: 0;
