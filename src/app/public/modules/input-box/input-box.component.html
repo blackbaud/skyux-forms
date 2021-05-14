@@ -57,8 +57,6 @@
           'sky-input-box-group-form-control-focus': formControlHasFocus,
           'sky-input-box-group-form-control-invalid': hasErrorsComputed
         }"
-        (focusin)="formControlFocusIn()"
-        (focusout)="formControlFocusOut()"
       >
         <div
           class="sky-form-group"
@@ -94,6 +92,9 @@
     select=".sky-control-label"
   ></ng-content>
   <ng-content
+    select=".sky-inline-help-shim"
+  ></ng-content>
+  <ng-content
     select="sky-character-counter-indicator"
   ></ng-content>
 </ng-template>
@@ -102,6 +103,8 @@
   #inputTemplate
 >
   <ng-content
+    (focusin)="formControlFocusIn()"
+    (focusout)="formControlFocusOut()"
     select=".sky-form-control"
   ></ng-content>
   <ng-container

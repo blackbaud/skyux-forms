@@ -61,6 +61,32 @@
         </div>
       </sky-column>
     </sky-row>
+    <sky-row>
+      <sky-column>
+        <div
+          id="input-box-help-inline"
+        >
+          <sky-input-box
+            class="sky-margin-stacked-lg"
+          >
+            <sky-help-inline class="sky-inline-help-shim"></sky-help-inline>
+            <label
+              class="sky-control-label"
+              [for]="inputBoxInlineHelp.id"
+            >
+              Input with inline help
+            </label>
+            <input
+              class="sky-form-control"
+              skyId
+              type="text"
+              value="Value"
+              #inputBoxInlineHelp="skyId"
+            >
+          </sky-input-box>
+        </div>
+      </sky-column>
+    </sky-row>
 
     <sky-row>
       <sky-column>
@@ -175,12 +201,17 @@
         <sky-input-box
           class="sky-margin-stacked-lg"
         >
-          <label
-            class="sky-control-label"
-            [for]="inputBoxSideBySide2.id"
-          >
-            Input right with a label with a lot of text that should wrap and cause the height of the input box to expand to fit the extra text instead of truncating it.
-          </label>
+          <div class="sky-input-box-label-container">
+            <label
+              class="sky-control-label"
+              [for]="inputBoxSideBySide2.id"
+            >
+              Input right with a label with a lot of text that should wrap and cause the height of the input box to expand to fit the extra text instead of truncating it.
+            </label>
+            <div class="sky-inline-help-shim">
+              <sky-help-inline></sky-help-inline>
+            </div>
+          </div>
           <input
             class="sky-form-control"
             skyId

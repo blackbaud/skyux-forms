@@ -35,10 +35,6 @@ sky-input-box {
     }
   }
 
-  .sky-control-label {
-    flex-grow: 1;
-  }
-
   sky-character-counter-indicator {
     flex-grow: 1;
     text-align: right;
@@ -232,6 +228,11 @@ sky-input-box {
       }
 
       .sky-input-box-btn-inset {
+
+        .sky-inline-help-shim {
+          flex: 0 0 0;
+          padding: 6px 15px 1px 6px;
+        }
         .sky-btn {
           background-color: transparent;
           border-radius: $sky-theme-modern-box-border-radius-default;
