@@ -36,6 +36,8 @@ export class InputBoxVisualComponent implements OnInit, AfterViewInit {
 
   public errorNgModelValue: string;
 
+  public myValue: string = 'Value';
+
   @ViewChild('errorNgModel')
   public errorNgModel: NgModel;
 
