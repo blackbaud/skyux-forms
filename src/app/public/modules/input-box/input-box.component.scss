@@ -15,6 +15,10 @@ sky-input-box {
   .sky-form-group {
     display: flex;
     flex-wrap: wrap;
+
+    .sky-inline-help-shim {
+      margin: 0 0 0 4px;
+    }
   }
 
   .sky-input-box-input-group-inner {
@@ -267,8 +271,9 @@ sky-input-box {
           .sky-inline-help-shim {
             position: relative;
             top: 3px;
-            left: -6px;
+            left: -11px;
             font-size: 16px;
+            margin: 0;
           }
         }
 
