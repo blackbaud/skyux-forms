@@ -231,6 +231,22 @@ describe('Input box component', () => {
       expect(els.inputGroupBtnEls[1].children.item(0)).toHaveCssClass('host-service-button-2');
     });
 
+    it('should add a disabled CSS class when disabled', () => {
+      const fixture = TestBed.createComponent(InputBoxFixtureComponent);
+
+      fixture.detectChanges();
+
+      const inputBoxEl = getInputBoxEl(fixture, 'input-basic');
+      const inputBoxWrapperEl = inputBoxEl.querySelector('.sky-input-box');
+
+      expect(inputBoxWrapperEl).not.toHaveCssClass('sky-input-box-disabled');
+
+      fixture.componentInstance.basicDisabled = true;
+      fixture.detectChanges();
+
+      expect(inputBoxWrapperEl).toHaveCssClass('sky-input-box-disabled');
+    });
+
     it('should pass accessibility', async(() => {
       const fixture = TestBed.createComponent(InputBoxFixtureComponent);
 
@@ -374,6 +390,16 @@ describe('Input box component', () => {
       const els = getModernEls(fixture, 'input-button-inset');
 
       expect(els.insetBtnEl.children.item(0)).toHaveCssClass('test-button-inset');
+    });
+
+    it('should render the inset icon element in the expected location', () => {
+      const fixture = TestBed.createComponent(InputBoxFixtureComponent);
+
+      fixture.detectChanges();
+
+      const els = getModernEls(fixture, 'input-icon-inset');
+
+      expect(els.insetBtnEl.children.item(0)).toHaveCssClass('test-icon-inset');
     });
 
     it('should render the left input group button element in the expected locations', () => {
