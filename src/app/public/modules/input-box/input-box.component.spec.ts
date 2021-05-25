@@ -34,7 +34,10 @@ import {
 import {
   InputBoxFixturesModule
 } from './fixtures/input-box.module.fixture';
-import { SkyInputBoxAdapterService } from './input-box-adapter.service';
+
+import {
+  SkyInputBoxAdapterService
+} from './input-box-adapter.service';
 
 describe('Input box component', () => {
   let mockThemeSvc: {
@@ -282,6 +285,7 @@ describe('Input box component', () => {
       inputEl: HTMLElement,
       inputGroupBtnEls: HTMLElement[],
       insetBtnEl: HTMLElement,
+      insetIconWrapperEl: HTMLElement,
       labelEl: HTMLLabelElement
     } {
       const inputBoxEl = getInputBoxEl(fixture, parentCls);
@@ -306,6 +310,8 @@ describe('Input box component', () => {
 
       const insetBtnEl = formGroupEl.children.item(1) as HTMLElement;
 
+      const insetIconWrapperEl = formGroupEl.children.item(1) as HTMLElement;
+
       const inputGroupBtnEls = Array.from(inputGroupEl.children).slice(1) as HTMLElement[];
 
       return {
@@ -314,6 +320,7 @@ describe('Input box component', () => {
         inputEl,
         inputGroupBtnEls,
         insetBtnEl,
+        insetIconWrapperEl,
         labelEl
       };
     }
@@ -414,7 +421,7 @@ describe('Input box component', () => {
 
       const els = getModernEls(fixture, 'input-icon-inset');
 
-      expect(els.insetBtnEl.children.item(0)).toHaveCssClass('test-icon-inset');
+      expect(els.insetBtnEl.children.item(0).children.item(0)).toHaveCssClass('test-icon-inset');
     });
 
     it('should focus on the control when clicking on an inset icon', () => {

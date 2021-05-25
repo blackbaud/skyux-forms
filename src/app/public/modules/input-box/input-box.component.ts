@@ -6,7 +6,6 @@ import {
   Input,
   OnInit,
   TemplateRef,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -84,12 +83,6 @@ export class SkyInputBoxComponent implements OnInit {
   @ContentChild(NgModel)
   public ngModel: NgModel;
 
-  @ViewChild('inputTemplate', {
-    read: ElementRef,
-    static: true
-  })
-  private formControlEl: ElementRef;
-
   public get hasErrorsComputed(): boolean {
     if (this.hasErrors === undefined) {
       return this.controlHasErrors(this.formControl) ||
@@ -120,7 +113,7 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   public onInsetIconClick(): void {
-    if (this.formControlEl && !this.disabled) {
+    if (!this.disabled) {
       this.adapterService.focusControl(this.elementRef);
     }
   }
