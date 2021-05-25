@@ -278,7 +278,9 @@
 <div
   class="input-icon-inset"
 >
-  <sky-input-box>
+  <sky-input-box
+    [disabled]="insetIconDisabled"
+  >
     <label
       class="sky-control-label"
       [for]="inputBoxIconInset.id"
@@ -289,6 +291,7 @@
       class="sky-form-control"
       skyId
       type="text"
+      [disabled]="insetIconDisabled"
       #inputBoxIconInset="skyId"
     >
     <div

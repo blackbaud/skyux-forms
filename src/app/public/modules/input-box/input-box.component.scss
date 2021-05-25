@@ -35,15 +35,19 @@ sky-input-box {
     }
   }
 
-  .sky-input-group-icon {
-    width: 33px;
+  .sky-input-box-icon-inset-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: center;
+
+    .sky-input-group-icon {
+      width: 33px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .sky-input-box-disabled {
-    .sky-input-group-icon {
+    .sky-input-box-icon-inset-wrapper {
       background-color: $sky-background-color-disabled;
 
       .sky-icon {
@@ -408,7 +412,7 @@ sky-input-box {
       cursor: not-allowed;
     }
 
-    .sky-input-group-icon {
+    .sky-input-box-icon-inset-wrapper {
       background-color: transparent;
     }
 

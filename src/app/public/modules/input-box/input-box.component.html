@@ -154,12 +154,17 @@
 <ng-template
   #iconsInsetTemplate
 >
-  <ng-content
-    select=".sky-input-group-icon.sky-input-box-icon-inset"
-  ></ng-content>
-  <ng-container
-    *ngTemplateOutlet="hostIconsInsetTemplate"
-  ></ng-container>
+  <div
+    class="sky-input-box-icon-inset-wrapper"
+    (click)="onInsetIconClick()"
+  >
+    <ng-content
+      select=".sky-input-group-icon.sky-input-box-icon-inset"
+    ></ng-content>
+    <ng-container
+      *ngTemplateOutlet="hostIconsInsetTemplate"
+    ></ng-container>
+  </div>
 </ng-template>
 
 <ng-template
