@@ -11,6 +11,9 @@
         *ngTemplateOutlet="labelTemplate"
       ></ng-container>
       <ng-container
+        *ngTemplateOutlet="inlineHelpTemplate"
+      ></ng-container>
+      <ng-container
         *ngTemplateOutlet="characterCountTemplate"
       ></ng-container>
       <div
@@ -66,6 +69,8 @@
           'sky-input-box-group-form-control-focus': formControlHasFocus,
           'sky-input-box-group-form-control-invalid': hasErrorsComputed
         }"
+        (focusin)="formControlFocusIn()"
+        (focusout)="formControlFocusOut()"
       >
         <div
           class="sky-form-group"
@@ -79,10 +84,13 @@
               <ng-container
                 *ngTemplateOutlet="labelTemplate"
               ></ng-container>
+              <ng-container
+                *ngTemplateOutlet="inlineHelpTemplate"
+              ></ng-container>
+              <ng-container
+                *ngTemplateOutlet="characterCountTemplate"
+              ></ng-container>
             </div>
-            <ng-container
-              *ngTemplateOutlet="characterCountTemplate"
-            ></ng-container>
             <ng-container
               *ngTemplateOutlet="inputTemplate"
             ></ng-container>
@@ -110,6 +118,11 @@
   <ng-content
     select=".sky-control-label"
   ></ng-content>
+</ng-template>
+
+<ng-template
+  #inlineHelpTemplate
+>
   <ng-content
     select=".sky-inline-help-shim"
   ></ng-content>
@@ -127,8 +140,6 @@
   #inputTemplate
 >
   <ng-content
-    (focusin)="formControlFocusIn()"
-    (focusout)="formControlFocusOut()"
     select=".sky-form-control"
   ></ng-content>
   <ng-container

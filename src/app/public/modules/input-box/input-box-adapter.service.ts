@@ -16,4 +16,21 @@ import {
     }
   }
 
+  /**
+   * Returns the inline help element.
+   */
+  public getInlineHelpElement(elRef: ElementRef): HTMLElement {
+    return elRef.nativeElement.querySelector('.sky-inline-help-shim');
+  }
+
+  /**
+   * Returns true if the provided element contains the focused element.
+   */
+  public isFocusInElement(el: HTMLElement): boolean {
+    if (el) {
+      return el === document.activeElement || el.contains(document.activeElement);
+    }
+    return false;
+  }
+
  }
