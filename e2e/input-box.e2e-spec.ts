@@ -539,6 +539,44 @@ describe('Input box', () => {
       }
     );
 
+    // Inset icon
+    it(
+      'should match previous input box with an inset icon',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset');
+
+        expect('#input-box-icon-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with an inset button screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset');
+
+        await clickLabel('input-box-button-inset');
+
+        expect('#input-box-icon-inset').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset-focused')
+        });
+      }
+    );
+
+    // Disabled inset icon
+    it(
+      'should match previous input box with a disabled inset icon',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset-disabled');
+
+        expect('#input-box-icon-inset-disabled').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset-disabled')
+        });
+      }
+    );
+
+    // Placeholder text
     it(
       'should match previous input box with placeholder text',
       async (done) => {
