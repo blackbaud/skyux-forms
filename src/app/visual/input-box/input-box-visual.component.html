@@ -94,7 +94,7 @@
     <sky-row>
       <sky-column>
         <div
-          id="input-box-help-inline-required"
+          id="input-box-help-inline-required-with-character-counter"
         >
           <sky-input-box
             class="sky-margin-stacked-lg"
@@ -104,39 +104,9 @@
             ></sky-help-inline>
             <label
               class="sky-control-label sky-control-label-required"
-              [for]="inputBoxInlineHelpRequired.id"
+              [for]="inputBoxInlineHelpRequiredCharacterCounter.id"
             >
-              Required input with inline help
-            </label>
-            <input
-              class="sky-form-control"
-              skyId
-              type="text"
-              value="Value"
-              required
-              #inputBoxInlineHelpRequired="skyId"
-            >
-          </sky-input-box>
-        </div>
-      </sky-column>
-    </sky-row>
-
-    <sky-row>
-      <sky-column>
-        <div
-          id="input-box-help-inline-help-character-count"
-        >
-          <sky-input-box
-            class="sky-margin-stacked-lg"
-          >
-            <sky-help-inline
-              class="sky-inline-help-shim"
-            ></sky-help-inline>
-            <label
-              class="sky-control-label"
-              [for]="inputBoxInlineHelpCharacterCount.id"
-            >
-              Input with inline help and character count
+              Required input with inline help and character counter
             </label>
             <sky-character-counter-indicator
               #indicator
@@ -146,11 +116,12 @@
               class="sky-form-control"
               skyId
               type="text"
+              required
               skyCharacterCounter
               [(ngModel)]="myValue"
               [skyCharacterCounterIndicator]="indicator"
               [skyCharacterCounterLimit]="10"
-              #inputBoxInlineHelpCharacterCount="skyId"
+              #inputBoxInlineHelpRequiredCharacterCounter="skyId"
             >
           </sky-input-box>
         </div>
@@ -299,17 +270,12 @@
         <sky-input-box
           class="sky-margin-stacked-lg"
         >
-          <div class="sky-input-box-label-container">
-            <label
-              class="sky-control-label"
-              [for]="inputBoxSideBySide2.id"
-            >
-              Input right with a label with a lot of text that should wrap and cause the height of the input box to expand to fit the extra text instead of truncating it.
-            </label>
-            <div class="sky-inline-help-shim">
-              <sky-help-inline></sky-help-inline>
-            </div>
-          </div>
+          <label
+            class="sky-control-label"
+            [for]="inputBoxSideBySide2.id"
+          >
+            Input right with a label with a lot of text that should wrap and cause the height of the input box to expand to fit the extra text instead of truncating it.
+          </label>
           <input
             class="sky-form-control"
             skyId

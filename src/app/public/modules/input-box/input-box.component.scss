@@ -19,6 +19,11 @@ sky-input-box {
     .sky-inline-help-shim {
       margin: 0 0 0 4px;
     }
+
+    .sky-input-box-label-wrapper {
+      display: flex;
+      width: 100%;
+    }
   }
 
   .sky-input-box-input-group-inner {
@@ -64,6 +69,7 @@ sky-input-box {
     flex-grow: 1;
     text-align: right;
     margin-bottom: $sky-margin-half;
+    margin-left: auto;
   }
 
   .sky-control-label + sky-character-counter-indicator {
@@ -247,6 +253,10 @@ sky-input-box {
           .sky-help-inline {
             font-size: 16px;
             padding: 3px 10px 0;
+          }
+
+          &:last-child .sky-help-inline {
+            padding: 3px 0 0 10px;
           }
         }
 
