@@ -17,10 +17,6 @@ import {
 } from '@skyux/theme';
 
 import {
-  SkySelectionBoxAdapterService
-} from './selection-box-adapter.service';
-
-import {
   SkySelectionBoxDescriptionComponent
 } from './selection-box-description.component';
 
@@ -56,7 +52,6 @@ import {
   providers: [
     MutationObserverService,
     SkyCoreAdapterService,
-    SkySelectionBoxAdapterService,
     SkyThemeService
   ]
 })
