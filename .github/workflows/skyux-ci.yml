@@ -5,10 +5,12 @@ on:
     branches:
       - master
       - 3.x.x
+      - 5.0.0-next
   push:
     branches:
       - master
       - 3.x.x
+      - 5.0.0-next
     tags:
       - '*.*.*'
 
