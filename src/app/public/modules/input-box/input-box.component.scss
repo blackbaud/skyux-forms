@@ -16,7 +16,7 @@ sky-input-box {
     display: flex;
     flex-wrap: wrap;
 
-    .sky-inline-help-shim {
+    .sky-control-help {
       margin: 0 0 0 4px;
     }
 
@@ -225,11 +225,12 @@ sky-input-box {
         width: 100%;
 
         .sky-control-label,
+        .sky-control-help,
         sky-character-counter-indicator {
           margin-bottom: 0;
           position: relative;
           /*
-            The label should be above input elements so clicking on it will focus on the
+            The label elements should be above input elements so clicking on it will focus on the
             input element. It is important the user be able to click on the label rather
             than the input element's top padding, because clicking the label will place
             the cursor where the user last left it, while clicking the input's padding
@@ -247,7 +248,7 @@ sky-input-box {
           font-size: 13px;
         }
 
-        .sky-inline-help-shim {
+        .sky-control-help {
           margin: 0;
 
           .sky-help-inline {

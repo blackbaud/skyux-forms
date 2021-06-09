@@ -132,7 +132,7 @@ describe('Input box component', () => {
 
       const labelEl = formGroupEl.querySelector('.sky-control-label') as HTMLLabelElement;
 
-      const inlineHelpEl = formGroupEl.querySelector('.sky-inline-help-shim') as HTMLElement;
+      const inlineHelpEl = formGroupEl.querySelector('.sky-control-help') as HTMLElement;
 
       const characterCountEl = formGroupEl.querySelector('sky-character-counter-indicator') as HTMLElement;
 
@@ -310,7 +310,7 @@ describe('Input box component', () => {
 
       const labelEl = formGroupInnerEl.children.item(0).children.item(0) as HTMLLabelElement;
 
-      const inlineHelpEl = formGroupEl.querySelector('.sky-inline-help-shim') as HTMLElement;
+      const inlineHelpEl = formGroupEl.querySelector('.sky-control-help') as HTMLElement;
 
       const characterCountEl = formGroupInnerEl.children.item(0).children.item(1) as HTMLLabelElement;
 

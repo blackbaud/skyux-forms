@@ -75,4 +75,8 @@ export class InputBoxVisualComponent implements OnInit, AfterViewInit {
     this.themeSvc.setTheme(themeSettings);
   }
 
+  public onActionClick(): void {
+    console.log('click!');
+  }
+
 }

@@ -20,7 +20,7 @@ import {
    * Returns the inline help element.
    */
   public getInlineHelpElement(elRef: ElementRef): HTMLElement {
-    return elRef.nativeElement.querySelector('.sky-inline-help-shim');
+    return elRef.nativeElement.querySelector('.sky-control-help');
   }
 
   /**
