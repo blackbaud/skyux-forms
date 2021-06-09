@@ -70,6 +70,9 @@ let uniqueId = 0;
   selector: 'sky-file-attachment',
   templateUrl: './file-attachment.component.html',
   styleUrls: ['./file-attachment.component.scss'],
+  providers: [
+    SkyFileAttachmentService
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentInit, OnInit, OnDestroy {

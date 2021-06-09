@@ -32,20 +32,12 @@ import {
 } from './file-attachment-label.component';
 
 import {
-  SkyFileAttachmentService
-} from './file-attachment.service';
-
-import {
   SkyFileDropComponent
 } from './file-drop.component';
 
 import {
   SkyFileItemComponent
 } from './file-item.component';
-
-import {
-  SkyFileItemService
-} from './file-item.service';
 
 import {
   SkyFileSizePipe
@@ -79,9 +71,7 @@ import {
     SkyFileSizePipe
   ],
   providers: [
-    DecimalPipe,
-    SkyFileAttachmentService,
-    SkyFileItemService
+    DecimalPipe
   ]
 })
 export class SkyFileAttachmentsModule { }

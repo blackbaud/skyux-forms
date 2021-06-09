@@ -37,7 +37,10 @@ import {
 @Component({
   selector: 'sky-file-drop',
   templateUrl: './file-drop.component.html',
-  styleUrls: ['./file-drop.component.scss']
+  styleUrls: ['./file-drop.component.scss'],
+  providers: [
+    SkyFileAttachmentService
+  ]
 })
 export class SkyFileDropComponent implements OnDestroy {
   /**
