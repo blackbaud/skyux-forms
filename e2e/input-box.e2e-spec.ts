@@ -110,6 +110,23 @@ describe('Input box', () => {
       });
     });
 
+    it('should match previous input box screenshot with an inline help component', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-help-inline');
+
+      expect('#input-box-help-inline').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-help-inline')
+      });
+    });
+
+    it(`should match previous input box screenshot with an inline help component
+        along side a character counter and required indicator`, async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-help-inline-required-with-character-counter');
+
+      expect('#input-box-help-inline-required-with-character-counter').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-help-inline-required-with-character-counter')
+      });
+    });
+
     it('should match previous textarea input box screenshot when focused', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-textarea');
 
