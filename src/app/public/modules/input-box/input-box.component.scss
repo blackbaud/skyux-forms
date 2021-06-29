@@ -90,6 +90,13 @@ sky-input-box {
       box-shadow: none;
     }
   }
+
+  .sky-input-box-icon-inset-left-wrapper {
+    .sky-input-box-icon-inset-left {
+      padding: 0 0 0 10px;
+      width: initial;
+    }
+  }
 }
 
 .sky-theme-modern {

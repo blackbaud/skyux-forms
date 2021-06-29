@@ -26,9 +26,6 @@
         <ng-container
           *ngTemplateOutlet="buttonsLeftTemplate"
         ></ng-container>
-        <ng-container
-          *ngTemplateOutlet="iconsInsetLeftTemplate"
-        ></ng-container>
         <div
           class="sky-input-box-input-group-inner"
           [ngClass]="{
@@ -38,6 +35,9 @@
           (focusin)="formControlFocusIn()"
           (focusout)="formControlFocusOut()"
         >
+          <ng-container
+            *ngTemplateOutlet="iconsInsetLeftTemplate"
+          ></ng-container>
           <ng-container
             *ngTemplateOutlet="inputTemplate"
           ></ng-container>
