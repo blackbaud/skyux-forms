@@ -35,10 +35,6 @@ import {
 } from '@skyux/router';
 
 import {
-  SkySearchModule
-} from '@skyux/lookup';
-
-import {
   SkyCharacterCounterModule,
   SkyCheckboxModule,
   SkyFileAttachmentsModule,
@@ -66,8 +62,7 @@ import {
     SkySelectionBoxModule,
     SkyStatusIndicatorModule,
     SkyCharacterCounterModule,
-    SkyToggleSwitchModule,
-    SkySearchModule
+    SkyToggleSwitchModule
   ],
   providers: [
     {
