@@ -74,6 +74,8 @@ export class SkyInputBoxComponent implements OnInit {
 
   public hostIconsInsetTemplate: TemplateRef<any>;
 
+  public hostIconsInsetLeftTemplate: TemplateRef<any>;
+
   @ContentChild(FormControlDirective)
   public formControl: FormControlDirective;
 
@@ -105,7 +107,10 @@ export class SkyInputBoxComponent implements OnInit {
   }
 
   public formControlFocusIn(): void {
-    this.updateHasFocus(true);
+    const inlineHelpEl = this.adapterService.getInlineHelpElement(this.elementRef);
+    if (!this.adapterService.isFocusInElement(inlineHelpEl)) {
+      this.updateHasFocus(true);
+    }
   }
 
   public formControlFocusOut(): void {
@@ -124,6 +129,7 @@ export class SkyInputBoxComponent implements OnInit {
     this.hostButtonsLeftTemplate = args.buttonsLeftTemplate;
     this.hostButtonsInsetTemplate = args.buttonsInsetTemplate;
     this.hostIconsInsetTemplate = args.iconsInsetTemplate;
+    this.hostIconsInsetLeftTemplate = args.iconsInsetLeftTemplate;
   }
 
   private updateHasFocus(hasFocus: boolean): void {

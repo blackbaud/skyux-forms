@@ -110,6 +110,23 @@ describe('Input box', () => {
       });
     });
 
+    it('should match previous input box screenshot with an inline help component', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-help-inline');
+
+      expect('#input-box-help-inline').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-help-inline')
+      });
+    });
+
+    it(`should match previous input box screenshot with an inline help component
+        along side a character counter and required indicator`, async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-help-inline-required-with-character-counter');
+
+      expect('#input-box-help-inline-required-with-character-counter').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-help-inline-required-with-character-counter')
+      });
+    });
+
     it('should match previous textarea input box screenshot when focused', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-textarea');
 
@@ -564,6 +581,31 @@ describe('Input box', () => {
 
         expect('#input-box-icon-inset-disabled').toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('input-box-icon-inset-disabled')
+        });
+      }
+    );
+
+    // Left inset icon
+    it(
+      'should match previous input box with a left inset icon',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
+
+        expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset-left')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a left inset button screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
+
+        await clickLabel('input-box-button-inset');
+
+        expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset-left-focused')
         });
       }
     );
