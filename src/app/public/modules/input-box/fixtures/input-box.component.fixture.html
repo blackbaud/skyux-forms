@@ -15,7 +15,34 @@
       skyId
       [disabled]="basicDisabled"
       #basicInput="skyId"
-    >f
+    >
+  </sky-input-box>
+</div>
+
+<div
+  class="input-inline-help"
+>
+  <sky-input-box>
+    <label
+      class="sky-control-label"
+      [for]="inlineHelp.id"
+    >
+      Basic input with inline help
+    </label>
+    <div
+      class="sky-control-help"
+    >
+      <button
+        type="button"
+      >
+        CUSTOM HELP WIDGET
+      </button>
+    </div>
+    <input
+      class="sky-form-control"
+      skyId
+      #inlineHelp="skyId"
+    >
   </sky-input-box>
 </div>
 
@@ -295,6 +322,33 @@
     >
     <div
       class="sky-input-group-icon sky-input-box-icon-inset"
+    >
+      <sky-icon
+        class="test-icon-inset"
+        icon="search"
+      ></sky-icon>
+    </div>
+  </sky-input-box>
+</div>
+
+<div
+  class="input-icon-inset-left"
+>
+  <sky-input-box>
+    <label
+      class="sky-control-label"
+      [for]="inputBoxIconInsetLeft.id"
+    >
+      Input with left inset icon
+    </label>
+    <input
+      class="sky-form-control"
+      skyId
+      type="text"
+      #inputBoxIconInsetLeft="skyId"
+    >
+    <div
+      class="sky-input-group-icon sky-input-box-icon-inset-left"
     >
       <sky-icon
         class="test-icon-inset"
