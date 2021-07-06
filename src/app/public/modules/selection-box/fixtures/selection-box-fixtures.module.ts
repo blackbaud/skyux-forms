@@ -23,6 +23,10 @@ import {
 } from '../../radio/radio.module';
 
 import {
+  SkySelectionBoxForRootCompatModule
+} from '../../shared/selection-box-for-root-compat.module';
+
+import {
   SkySelectionBoxModule
 } from '../selection-box.module';
 
@@ -45,6 +49,7 @@ import {
     SkyIconModule,
     SkyIdModule,
     SkyRadioModule,
+    SkySelectionBoxForRootCompatModule,
     SkySelectionBoxModule
   ]
 })

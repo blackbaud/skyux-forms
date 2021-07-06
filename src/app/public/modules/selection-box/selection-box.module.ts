@@ -7,14 +7,16 @@ import {
 } from '@angular/core';
 
 import {
-  MutationObserverService,
-  SkyCoreAdapterService
-} from '@skyux/core';
+  SkyThemeModule
+} from '@skyux/theme';
 
 import {
-  SkyThemeModule,
-  SkyThemeService
-} from '@skyux/theme';
+  SkySelectionBoxForRootCompatModule
+} from '../shared/selection-box-for-root-compat.module';
+
+import {
+  SkySelectionBoxAdapterService
+} from './selection-box-adapter.service';
 
 import {
   SkySelectionBoxDescriptionComponent
@@ -41,7 +43,8 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyThemeModule
+    SkyThemeModule,
+    SkySelectionBoxForRootCompatModule
   ],
   exports: [
     SkySelectionBoxGridComponent,
@@ -50,9 +53,7 @@ import {
     SkySelectionBoxHeaderComponent
   ],
   providers: [
-    MutationObserverService,
-    SkyCoreAdapterService,
-    SkyThemeService
+    SkySelectionBoxAdapterService
   ]
 })
 export class SkySelectionBoxModule { }

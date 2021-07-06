@@ -6,9 +6,7 @@ import {
 /**
  * @internal
  */
- @Injectable({
-   providedIn: 'root'
- })
+ @Injectable()
  export class SkyInputBoxAdapterService {
 
   public focusControl(elRef: ElementRef): void {

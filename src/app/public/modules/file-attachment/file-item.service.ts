@@ -9,9 +9,7 @@ import {
 /**
  * @internal
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SkyFileItemService {
 
   public isFile(fileItem: SkyFileItem): boolean {

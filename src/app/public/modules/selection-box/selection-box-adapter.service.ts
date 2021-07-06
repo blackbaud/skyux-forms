@@ -24,9 +24,7 @@ const BREAKPOINT_MD_MAX_PIXELS = 1439;
 /**
  * @internal
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SkySelectionBoxAdapterService {
 
   private renderer: Renderer2;

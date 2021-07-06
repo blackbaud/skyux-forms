@@ -474,23 +474,21 @@ describe('Input box component', () => {
 
     it('should focus on the control when clicking on an inset icon', () => {
       const fixture = TestBed.createComponent(InputBoxFixtureComponent);
-      const adapterService = TestBed.inject(SkyInputBoxAdapterService);
-      const spy = spyOn(adapterService, 'focusControl').and.callThrough();
+      const spy = spyOn(SkyInputBoxAdapterService.prototype, 'focusControl').and.callThrough();
 
       fixture.detectChanges();
       const insetIconWrapperEl = getInsetIconWrapperEl(fixture, 'input-icon-inset');
       const el = getControlEl(fixture, 'input-icon-inset') as Element;
       insetIconWrapperEl.click();
 
-      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledTimes(1);
       expect(el).toEqual(document.activeElement);
     });
 
     it('should not call adapter method when clicking on a disabled inset icon', () => {
       const fixture = TestBed.createComponent(InputBoxFixtureComponent);
       fixture.componentInstance.insetIconDisabled = true;
-      const adapterService = TestBed.inject(SkyInputBoxAdapterService);
-      const spy = spyOn(adapterService, 'focusControl');
+      const spy = spyOn(SkyInputBoxAdapterService.prototype, 'focusControl').and.callThrough();
 
       fixture.detectChanges();
       const insetIconWrapperEl = getInsetIconWrapperEl(fixture, 'input-icon-inset');
