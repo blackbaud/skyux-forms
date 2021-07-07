@@ -1,3 +1,9 @@
+# 5.0.0-beta.0 (2021-07-07)
+
+- Initial beta release.
+- Added support for `@angular/core@^12`. [#277](https://github.com/blackbaud/skyux-forms/pull/277)
+- Added support for `5.0.0-beta.*` versions of SKY UX component libraries. [#277](https://github.com/blackbaud/skyux-forms/pull/277)
+
 # 4.20.0 (2021-07-01)
 
 - Added a layout to the input box component that supports the search component in modern theme. [#273](https://github.com/blackbaud/skyux-forms/pull/273)

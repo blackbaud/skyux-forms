@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "4.20.0",
+  "version": "5.0.0-beta.0",
   "description": "SKY UX Forms",
   "scripts": {
     "build": "skyux build-public-library",
@@ -46,7 +46,7 @@
     "@skyux-sdk/builder": "4.9.0",
     "@skyux-sdk/builder-plugin-skyux": "4.2.0",
     "@skyux-sdk/e2e": "4.0.2",
-    "@skyux-sdk/testing": "4.2.3",
+    "@skyux-sdk/testing": "4.3.0",
     "@skyux/animations": "4.0.1",
     "@skyux/assets": "4.0.1",
     "@skyux/config": "4.4.0",
@@ -59,7 +59,7 @@
     "@skyux/indicators": "4.10.0",
     "@skyux/inline-form": "4.1.1",
     "@skyux/layout": "4.7.1",
-    "@skyux/lists": "4.7.2",
+    "@skyux/lists": "4.8.0",
     "@skyux/lookup": "4.16.0",
     "@skyux/modals": "4.5.4",
     "@skyux/omnibar-interop": "4.0.1",
