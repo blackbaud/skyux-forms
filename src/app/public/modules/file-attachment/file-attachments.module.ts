@@ -40,6 +40,10 @@ import {
 } from './file-item.component';
 
 import {
+  SkyFileItemService
+} from './file-item.service';
+
+import {
   SkyFileSizePipe
 } from './file-size.pipe';
 
@@ -71,7 +75,8 @@ import {
     SkyFileSizePipe
   ],
   providers: [
-    DecimalPipe
+    DecimalPipe,
+    SkyFileItemService
   ]
 })
 export class SkyFileAttachmentsModule { }

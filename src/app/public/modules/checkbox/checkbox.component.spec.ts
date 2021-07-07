@@ -12,7 +12,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-  BrowserModule,
   By
 } from '@angular/platform-browser';
 
@@ -276,7 +275,6 @@ describe('Checkbox component', () => {
         SingleCheckboxComponent
       ],
       imports: [
-        BrowserModule,
         FormsModule,
         ReactiveFormsModule,
         SkyCheckboxModule

@@ -10,8 +10,12 @@ import {
 } from '@angular/core/testing';
 
 import {
-  SkyCoreAdapterService, SkyMediaBreakpoints
+  SkyMediaBreakpoints
 } from '@skyux/core';
+
+import {
+  SkySelectionBoxForRootCompatModule
+} from '../shared/selection-box-for-root-compat.module';
 
 import {
   SkySelectionBoxAdapterService
@@ -66,11 +70,13 @@ describe('Action button adapter service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        SkySelectionBoxForRootCompatModule
+      ],
       declarations: [
         SkySelectionBoxAdapterTestComponent
       ],
       providers: [
-        SkyCoreAdapterService,
         SkySelectionBoxAdapterService
       ]
     });
