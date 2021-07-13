@@ -585,6 +585,31 @@ describe('Input box', () => {
       }
     );
 
+    // Left inset icon
+    it(
+      'should match previous input box with a left inset icon',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
+
+        expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset-left')
+        });
+      }
+    );
+
+    it(
+      'should match previous input box with a left inset button screenshot when input is focused',
+      async (done) => {
+        await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
+
+        await clickLabel('input-box-button-inset');
+
+        expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
+          screenshotName: getScreenshotName('input-box-icon-inset-left-focused')
+        });
+      }
+    );
+
     // Placeholder text
     it(
       'should match previous input box with placeholder text',
