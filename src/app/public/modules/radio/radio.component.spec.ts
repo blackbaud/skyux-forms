@@ -66,12 +66,24 @@ describe('Radio component', function () {
   });
 
   describe('Standard radio component', () => {
-    beforeEach(fakeAsync(function () {
+    let testComponent: SkyRadioTestComponent;
+
+    beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(SkyRadioTestComponent);
+
+      componentInstance = fixture.componentInstance;
+      testComponent = fixture.debugElement.componentInstance;
 
       fixture.detectChanges();
       tick();
-      componentInstance = fixture.componentInstance;
+    }));
+
+    it('should emit the new disabled value when it is modified', fakeAsync(() => {
+      const onDisabledChangeSpy = spyOn(testComponent, 'onDisabledChange');
+      expect(onDisabledChangeSpy).toHaveBeenCalledTimes(0);
+      testComponent.disabled2 = true;
+      fixture.detectChanges();
+      expect(onDisabledChangeSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should update the ngModel properly when radio button is changed', fakeAsync(function () {

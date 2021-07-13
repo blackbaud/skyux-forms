@@ -69,10 +69,23 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   public id: string = `sky-checkbox-${++nextId}`;
 
   /**
-   * Indicates whether to disable the checkbox.
+   * Indicates whether the checkbox is disabled.
    */
-  @Input()
-  public disabled: boolean = false;
+  public get disabled() {
+    return this._disabled;
+  }
+
+  /**
+   * Indicates whether to disable the checkbox.
+   * @default false
+   */
+   @Input()
+   public set disabled(value: boolean) {
+     if (value !== this.disabled) {
+       this._disabled = value;
+       this._disabledChange.next(this._disabled);
+     }
+   }
 
   /**
    * Specifies an index for the checkbox. If not defined, the index is set to the position of the
@@ -126,7 +139,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   }
 
   /**
-   * Indicates whether the checkbox is selected.
+   * Indicates whether to select the checkbox.
    * @default false
    */
   @Input()
@@ -145,9 +158,12 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  public get checked() {
-    return this._checked;
-  }
+  /**
+   * Indicates whether the checkbox is selected.
+   */
+   public get checked() {
+     return this._checked;
+   }
 
   /**
    * Indicates whether the input is required for form validation.
@@ -173,6 +189,14 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
     return this._checkedChange;
   }
 
+  /**
+   * Fires when the selected value changes.
+   */
+   @Output()
+   public get disabledChange(): Observable<boolean> {
+     return this._disabledChange;
+   }
+
   private isFirstChange = true;
 
   private _checkboxType: string;
@@ -180,6 +204,10 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   private _checked: boolean = false;
 
   private _checkedChange = new BehaviorSubject<boolean>(this._checked);
+
+  private _disabled: boolean = false;
+
+  private _disabledChange = new BehaviorSubject<boolean>(this._disabled);
 
   private _required: boolean = false;
 
@@ -246,8 +274,11 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
     this.onTouched();
   }
 
-  /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
-  /*istanbul ignore next */
+  /**
+   * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
+   *
+   * istanbul ignore next
+   */
   public onTouched: () => any = () => {};
 
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};
