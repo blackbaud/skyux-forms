@@ -274,11 +274,8 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
     this.onTouched();
   }
 
-  /**
-   * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
-   *
-   * istanbul ignore next
-   */
+  /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
+  /*instanbul ignore next */
   public onTouched: () => any = () => {};
 
   private _controlValueAccessorChangeFn: (value: any) => void = (value) => {};

@@ -74,26 +74,6 @@ export class SelectionBoxVisualComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       checkboxes: this.buildCheckboxes()
     });
-
-    this.myForm
-      .get('checkboxes')
-      .get('0')
-      .disable();
-    this.myForm
-      .get('checkboxes')
-      .get('1')
-      .disable();
-
-    setTimeout(() => {
-      this.myForm
-        .get('checkboxes')
-        .get('2')
-        .disable();
-      this.myForm
-        .get('checkboxes')
-        .get('1')
-        .enable();
-    }, 5000);
   }
 
   public onCenterAlignClick(): void {
