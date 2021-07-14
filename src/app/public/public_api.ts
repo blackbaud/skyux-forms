@@ -20,6 +20,7 @@ export * from './modules/radio/types/radio-change';
 export * from './modules/radio/radio.module';
 
 export * from './modules/selection-box/types/selection-box-grid-align-items';
+export * from './modules/selection-box/types/selection-box-grid-align-items-type';
 export * from './modules/selection-box/selection-box.module';
 
 export * from './modules/toggle-switch/types/toggle-switch-change';
