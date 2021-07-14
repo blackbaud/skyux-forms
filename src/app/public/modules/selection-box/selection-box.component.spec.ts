@@ -96,27 +96,38 @@ describe('Selection box component', () => {
       ]
     }).createComponent(SelectionBoxTestComponent);
 
-    debugElement = TestBed.createComponent(SelectionBoxTestComponent).debugElement;
+    debugElement = fixture.debugElement;
 
-    testComponent = fixture.debugElement.componentInstance;
+    testComponent = debugElement.componentInstance;
 
     fixture.detectChanges();
   });
 
-  fit('should enable and disable AfterViewInit', async(() => {
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      let outermostDiv = debugElement.query(By.css('div#checkboxSelectionBoxes > form')).nativeElement;
-      fixture.detectChanges();
-      console.log(outermostDiv);
-      expect(outermostDiv).not.toHaveCssClass('sky-selection-box-disabled');
-      fixture.detectChanges();
-      testComponent.myForm.get('checkboxes').get('0').disable();
-      expect(outermostDiv).toHaveCssClass('sky-selection-box-disabled');
-      testComponent.myForm.get('checkboxes').get('0').enable();
-      expect(outermostDiv).not.toHaveCssClass('sky-selection-box-disabled');
-    });
-  }));
+  it('should enable and disable AfterViewInit', async () => {
+
+    let outermostDiv = debugElement.query(By.css('div#checkboxSelectionBoxes > form > sky-selection-box > div')).nativeElement;
+    fixture.detectChanges();
+
+    expect(outermostDiv).not.toHaveCssClass('sky-selection-box-disabled');
+
+    fixture.detectChanges();
+
+    testComponent.myForm.get('checkboxes').get('0').disable();
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(outermostDiv).toHaveCssClass('sky-selection-box-disabled');
+
+    fixture.detectChanges();
+
+    testComponent.myForm.get('checkboxes').get('0').enable();
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(outermostDiv).not.toHaveCssClass('sky-selection-box-disabled');
+  });
 
   it('should transclude icon, header, and description sections', () => {
     expect(getIcon()[0]).not.toBeNull();

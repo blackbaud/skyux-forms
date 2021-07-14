@@ -1,4 +1,4 @@
-<!-- <div
+<div
   id="radioSelectionBoxes"
 >
   <sky-radio-group
@@ -26,21 +26,17 @@
       </sky-radio>
     </sky-selection-box>
   </sky-radio-group>
-</div> -->
+</div>
 
 <div
   id="checkboxSelectionBoxes"
   class="dummy"
 >
   <form [formGroup]="myForm">
-    <div>
-      blahasdf
-    </div>
-    <!-- <sky-selection-box></sky-selection-box>
-    <sky-selection-box></sky-selection-box> -->
-    <div *ngFor="let aControl of selectionBoxFormArray.controls; let i = index">
-    foo
-      <!-- <sky-icon
+    <sky-selection-box *ngFor="let aControl of selectionBoxFormArray.controls; let i = index"
+      [control]="checkbox"
+    >
+      <sky-icon
         [icon]="checkboxSelectionBoxes[i].icon"
         [iconType]="checkboxSelectionBoxes[i].iconType"
       ></sky-icon>
@@ -58,12 +54,12 @@
         [labelledBy]="checkboxHeaderId.id"
         #checkbox
       >
-      </sky-checkbox> -->
-    </div>
+      </sky-checkbox>
+    </sky-selection-box>
   </form>
 </div>
 
-<!-- <sky-selection-box
+<sky-selection-box
   [control]="checkboxWithLink"
 >
   <sky-selection-box-header
@@ -104,4 +100,4 @@
     >
     </sky-checkbox>
   </sky-selection-box>
-</div> -->
+</div>

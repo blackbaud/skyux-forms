@@ -13,7 +13,7 @@ import {
 })
 export class SkyRadioTestComponent implements AfterViewInit {
   public selectedValue = '1';
-  public disabled2 = false;
+  public disabled1 = false;
 
   public value1 = '1';
   public value2 = '2';
