@@ -8,8 +8,8 @@ import {
 } from '../selection-box-grid.component';
 
 import {
-  SkySelectionBoxGridAlignItems
-} from '../types/selection-box-grid-align-items';
+  SkySelectionBoxGridAlignItemsType
+} from '../types/selection-box-grid-align-items-type';
 
 @Component({
   selector: 'sky-test-cmp',
@@ -17,7 +17,7 @@ import {
 })
 export class SelectionBoxGridTestComponent {
 
-  public alignItems: SkySelectionBoxGridAlignItems;
+  public alignItems: SkySelectionBoxGridAlignItemsType;
 
   public firstBoxHeight: string = '500px';
 

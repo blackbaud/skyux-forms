@@ -30,10 +30,6 @@ import {
   SelectionBoxGridTestComponent
 } from './fixtures/selection-box-grid.component.fixture';
 
-import {
-  SkySelectionBoxGridAlignItems
-} from './types/selection-box-grid-align-items';
-
 describe('Selection box grid component', () => {
 
   //#region helpers
@@ -86,7 +82,7 @@ describe('Selection box grid component', () => {
   });
 
   it('should set proper CSS classess when alignItems is set to center', () => {
-    component.alignItems = SkySelectionBoxGridAlignItems.Center;
+    component.alignItems = 'center';
     fixture.detectChanges();
 
     expect(getSelectionBoxGrid()).not.toHaveCssClass('sky-selection-box-grid-align-left');
@@ -94,7 +90,7 @@ describe('Selection box grid component', () => {
   });
 
   it('should set proper CSS classess when alignItems is set to left', () => {
-    component.alignItems = SkySelectionBoxGridAlignItems.Left;
+    component.alignItems = 'left';
     fixture.detectChanges();
 
     expect(getSelectionBoxGrid()).not.toHaveCssClass('sky-selection-box-grid-align-center');

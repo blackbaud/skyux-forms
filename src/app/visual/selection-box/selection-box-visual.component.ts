@@ -15,8 +15,8 @@ import {
 } from '@skyux/theme';
 
 import {
-  SkySelectionBoxGridAlignItems
-} from '../../public/public_api';
+  SkySelectionBoxGridAlignItemsType
+} from '../../public/modules/selection-box/types/selection-box-grid-align-items-type';
 
 @Component({
   selector: 'selection-box-visual',
@@ -24,7 +24,7 @@ import {
 })
 export class SelectionBoxVisualComponent implements OnInit {
 
-  public alignItems: SkySelectionBoxGridAlignItems;
+  public alignItems: SkySelectionBoxGridAlignItemsType;
 
   public items: any[] = [
     {
@@ -83,11 +83,11 @@ export class SelectionBoxVisualComponent implements OnInit {
   }
 
   public onCenterAlignClick(): void {
-    this.alignItems = SkySelectionBoxGridAlignItems.Center;
+    this.alignItems = 'center';
   }
 
   public onLeftAlignClick(): void {
-    this.alignItems = SkySelectionBoxGridAlignItems.Left;
+    this.alignItems = 'left';
   }
 
   public onSubmit(value: any): void {

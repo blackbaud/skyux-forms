@@ -1,5 +1,6 @@
 /**
  * @internal
+ * @deprecated Use `SkySelectionBoxGridAlignItemsType` instead.
  */
 export const enum SkySelectionBoxGridAlignItems {
 
