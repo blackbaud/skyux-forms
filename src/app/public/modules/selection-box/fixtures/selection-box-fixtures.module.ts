@@ -5,7 +5,10 @@ import {
 import {
   NgModule
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import {
+  ReactiveFormsModule
+} from '@angular/forms';
 
 import {
   SkyIdModule
@@ -42,12 +45,12 @@ import {
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     SkyCheckboxModule,
     SkyIconModule,
     SkyIdModule,
     SkyRadioModule,
-    SkySelectionBoxModule,
-    ReactiveFormsModule
+    SkySelectionBoxModule
   ]
 })
 export class SkySelectionBoxFixturesModule { }

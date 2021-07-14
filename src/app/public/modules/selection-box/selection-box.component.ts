@@ -139,7 +139,7 @@ export class SkySelectionBoxComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateDisabledState(): void {
-    this.control.disabledChange
+    this.control?.disabledChange
       .pipe(
         takeUntil(this.ngUnsubscribe)
       ).subscribe((value) => {

@@ -22,6 +22,10 @@ import {
 } from 'rxjs';
 
 import {
+  SkyFormsUtility
+} from '../shared/forms-utility';
+
+import {
   SkyRadioChange
 } from './types/radio-change';
 
@@ -93,8 +97,9 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
    */
   @Input()
   public set disabled(value: boolean) {
-    if (value !== this.disabled) {
-      this._disabled = value;
+    const coercedValue = SkyFormsUtility.coerceBooleanProperty(value);
+    if (coercedValue !== this.disabled) {
+      this._disabled = coercedValue;
       this._disabledChange.next(this._disabled);
       this.changeDetector.markForCheck();
     }

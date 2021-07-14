@@ -71,8 +71,6 @@ export class SelectionBoxTestComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       checkboxes: this.buildCheckboxes()
     });
-
-    // this.myForm.get('checkboxes').get('1').disable();
   }
 
   private buildCheckboxes(): FormArray {

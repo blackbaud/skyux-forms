@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 
 import {
-  ComponentFixture,
   async,
-  TestBed,
-  fakeAsync
+  ComponentFixture,
+  fakeAsync,
+  TestBed
 } from '@angular/core/testing';
 
 import {
