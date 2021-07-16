@@ -140,7 +140,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   }
 
   /**
-   * Indicates whether to the checkbox is selected.
+   * Indicates whether the checkbox is selected.
    * @default false
    */
   @Input()
