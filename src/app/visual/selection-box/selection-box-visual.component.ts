@@ -92,6 +92,20 @@ export class SelectionBoxVisualComponent implements OnInit {
     this.showDescription = !this.showDescription;
   }
 
+  public onToggleAbleFirstCheckboxClick(): void {
+    if (this.myForm.get('checkboxes').get('0').disabled) {
+      this.myForm
+        .get('checkboxes')
+        .get('0')
+        .enable();
+    } else {
+      this.myForm
+        .get('checkboxes')
+        .get('0')
+        .disable();
+    }
+  }
+
   public themeSettingsChange(themeSettings: SkyThemeSettings): void {
     this.themeSvc.setTheme(themeSettings);
   }
