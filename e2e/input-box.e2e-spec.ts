@@ -625,7 +625,7 @@ describe('Input box', () => {
       async (done) => {
         await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
 
-        await clickLabel('input-box-button-inset');
+        await clickLabel('input-box-button-inset-left');
 
         expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('input-box-icon-inset-left-focused')
