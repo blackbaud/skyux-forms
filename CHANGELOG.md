@@ -1,4 +1,4 @@
-# 4.20.1 (2021-07-16)
+# 4.20.1 (2021-07-19)
 
 - Fixed the selection box component to properly disable after init. [#280](https://github.com/blackbaud/skyux-forms/pull/280)
 
