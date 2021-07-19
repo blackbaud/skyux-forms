@@ -41,8 +41,8 @@ import {
 } from './selection-box-adapter.service';
 
 import {
-  SkySelectionBoxGridAlignItems
-} from './types/selection-box-grid-align-items';
+  SkySelectionBoxGridAlignItemsType
+} from './types/selection-box-grid-align-items-type';
 
 const SKY_SELECTION_BOX_CLASS_NAME = '.sky-selection-box';
 
@@ -63,15 +63,15 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   /**
    * @internal
    * Specifies how to display the selection boxes in the grid.
-   * @default SkySelectionBoxGridAlignItems.Center
+   * @default 'center'
    */
   @Input()
-  public set alignItems(value: SkySelectionBoxGridAlignItems) {
+  public set alignItems(value: SkySelectionBoxGridAlignItemsType) {
     this._alignItems = value;
   }
 
-  public get alignItems(): SkySelectionBoxGridAlignItems {
-    return this._alignItems || SkySelectionBoxGridAlignItems.Center;
+  public get alignItems(): SkySelectionBoxGridAlignItemsType {
+    return this._alignItems || 'center';
   }
 
   @ContentChildren(SkySelectionBoxComponent, {
@@ -97,7 +97,7 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
 
   private ngUnsubscribe = new Subject();
 
-  private _alignItems: SkySelectionBoxGridAlignItems;
+  private _alignItems: SkySelectionBoxGridAlignItemsType;
 
   private _currentBreakpoint: SkyMediaBreakpoints;
 
