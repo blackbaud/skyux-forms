@@ -621,11 +621,11 @@ describe('Input box', () => {
     );
 
     it(
-      'should match previous input box with a left inset button screenshot when input is focused',
+      'should match previous input box with a left inset icon screenshot when input is focused',
       async (done) => {
         await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
 
-        await clickLabel('input-box-button-inset-left');
+        await clickLabel('input-box-icon-inset-left');
 
         expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('input-box-icon-inset-left-focused')
