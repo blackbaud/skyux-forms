@@ -7,6 +7,10 @@ import {
 } from '@angular/core';
 
 import {
+  ReactiveFormsModule
+} from '@angular/forms';
+
+import {
   SkyIdModule
 } from '@skyux/core';
 
@@ -45,6 +49,7 @@ import {
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     SkyCheckboxModule,
     SkyIconModule,
     SkyIdModule,
