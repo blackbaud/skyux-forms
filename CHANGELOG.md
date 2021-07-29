@@ -1,3 +1,7 @@
+# 5.0.0-beta.1 (2021-07-29)
+
+- Deprecated the `SkySelectionBoxGridAlignItems` enum in favor of a string union type to support specifying string literals in Angular templates. [#281](https://github.com/blackbaud/skyux-forms/pull/281)
+
 # 4.20.1 (2021-07-21)
 
 - Fixed the selection box component to properly style selection boxes that are disabled after initialization. [#280](https://github.com/blackbaud/skyux-forms/pull/280)

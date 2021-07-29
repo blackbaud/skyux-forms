@@ -1,6 +1,6 @@
 {
   "name": "@skyux/forms",
-  "version": "5.0.0-beta.0",
+  "version": "5.0.0-beta.1",
   "description": "SKY UX Forms",
   "scripts": {
     "build": "skyux build-public-library",
