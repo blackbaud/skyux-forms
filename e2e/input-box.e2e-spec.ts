@@ -11,6 +11,9 @@ import {
   SkyVisualThemeSelector
 } from '@skyux-sdk/e2e';
 
+// tslint:disable-next-line: max-line-length
+const LONG_STRING = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis massa id justo sagittis auctor quis ac orci. Donec scelerisque varius mi, non dignissim est rhoncus eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam at quam erat. Integer at dignissim massa. Pellentesque dictum lacinia malesuada. Quisque quis aliquet enim. Duis suscipit velit interdum libero venenatis, eget fringilla erat faucibus. Duis tincidunt ipsum arcu, ac egestas erat pharetra volutpat. Sed quam tortor, ultrices ac rhoncus non, tincidunt at mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis massa id justo sagittis auctor quis ac orci. Donec scelerisque varius mi, non dignissim est rhoncus eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam at quam erat. Integer at dignissim massa. Pellentesque dictum lacinia malesuada. Quisque quis aliquet enim. Duis suscipit velit interdum libero venenatis, eget fringilla erat faucibus. Duis tincidunt ipsum arcu, ac egestas erat pharetra volutpat. Sed quam tortor, ultrices ac rhoncus non, tincidunt at mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.`;
+
 describe('Input box', () => {
   let currentTheme: string;
   let currentThemeMode: string;
@@ -43,6 +46,15 @@ describe('Input box', () => {
 
     // Move the cursor so the hover state isn't activated.
     await SkyHostBrowser.moveCursorOffScreen();
+  }
+
+  async function sendKeysToInput(wrapperId: string, value: string): Promise<void> {
+    const input = await element(
+      by.css(`#${wrapperId} input, #${wrapperId} textarea`)
+    );
+
+    await input.clear();
+    await input.sendKeys(value);
   }
 
   async function hoverElement(selector: string): Promise<void> {
@@ -134,6 +146,18 @@ describe('Input box', () => {
 
       expect('#input-box-textarea').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('input-box-textarea-focused')
+      });
+
+    });
+
+    it('should match previous textarea input box screenshot when text overflows into label', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-textarea');
+
+      await clickLabel('input-box-textarea');
+      await sendKeysToInput('input-box-textarea', LONG_STRING);
+
+      expect('#input-box-textarea').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-textarea-overflow')
       });
 
     });
@@ -598,11 +622,11 @@ describe('Input box', () => {
     );
 
     it(
-      'should match previous input box with a left inset button screenshot when input is focused',
+      'should match previous input box with a left inset icon screenshot when input is focused',
       async (done) => {
         await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
 
-        await clickLabel('input-box-button-inset');
+        await clickLabel('input-box-icon-inset-left');
 
         expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
           screenshotName: getScreenshotName('input-box-icon-inset-left-focused')

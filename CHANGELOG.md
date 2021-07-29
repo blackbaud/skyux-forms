@@ -1,3 +1,8 @@
+# 4.20.1 (2021-07-21)
+
+- Fixed the selection box component to properly style selection boxes that are disabled after initialization. [#280](https://github.com/blackbaud/skyux-forms/pull/280)
+- Fixed the input box component to prevent overlap between the label and the `textarea` element. [#279](https://github.com/blackbaud/skyux-forms/pull/279)
+
 # 5.0.0-beta.0 (2021-07-07)
 
 - Initial beta release.
