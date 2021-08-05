@@ -45,7 +45,7 @@ import {
 export class SkyInputBoxComponent implements OnInit {
 
   /**
-   * Indicates whether to visually highlight the input box in an error state. If not provided, the input box displays
+   * Indicates whether to visually highlight the input box in an error state. If `hasErrors` is `false`, the input box still
    * an error state if the `ngModel` or Angular `FormControl` contains an error.
    * @default false
    */
