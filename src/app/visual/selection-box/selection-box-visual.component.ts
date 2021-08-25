@@ -16,7 +16,7 @@ import {
 
 import {
   SkySelectionBoxGridAlignItemsType
-} from '../../public/modules/selection-box/types/selection-box-grid-align-items-type';
+} from '../../public/public_api';
 
 @Component({
   selector: 'selection-box-visual',
