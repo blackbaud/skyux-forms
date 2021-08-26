@@ -16,10 +16,10 @@ import {
 
 import {
   SkySelectionBoxGridAlignItemsType
-} from '../../public/public_api';
+} from 'projects/forms/src/public-api';
 
 @Component({
-  selector: 'selection-box-visual',
+  selector: 'app-selection-box-visual',
   templateUrl: './selection-box-visual.component.html'
 })
 export class SelectionBoxVisualComponent implements OnInit {

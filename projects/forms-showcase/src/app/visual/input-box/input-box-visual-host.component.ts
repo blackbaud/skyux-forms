@@ -8,10 +8,10 @@ import {
 
 import {
   SkyInputBoxHostService
-} from '../../public/public_api';
+} from 'projects/forms/src/public-api';
 
 @Component({
-  selector: 'input-box-visual-host',
+  selector: 'app-input-box-visual-host',
   templateUrl: './input-box-visual-host.component.html'
 })
 export class InputBoxVisualHostComponent implements OnInit {

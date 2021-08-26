@@ -17,10 +17,10 @@ import {
 import {
   SkyFileItem,
   SkyFileLink
-} from '../../public/public_api';
+} from 'projects/forms/src/public-api';
 
 @Component({
-  selector: 'single-file-attachment-visual',
+  selector: 'app-single-file-attachment-visual',
   templateUrl: './single-file-attachment-visual.component.html',
   styleUrls: [
     './single-file-attachment-visual.component.scss'

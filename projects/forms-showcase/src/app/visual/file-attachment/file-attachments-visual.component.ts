@@ -14,7 +14,7 @@ import {
   SkyFileDropChange,
   SkyFileItem,
   SkyFileLink
-} from '../../public/public_api';
+} from 'projects/forms/src/public-api';
 
 import {
   SkyThemeService,

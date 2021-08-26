@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "npm run skyux:generate-documentation",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "skyux:generate-lib-resources-module": "ng generate @skyux/i18n:lib-resources-module",
