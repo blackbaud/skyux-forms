@@ -17,7 +17,7 @@ import {
 
 import {
   SkyFormsResourcesModule
-} from '../shared/forms-resources.module';
+} from '../shared/sky-forms-resources.module';
 
 import {
   SkyCharacterCounterInputDirective
