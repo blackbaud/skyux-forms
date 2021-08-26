@@ -212,7 +212,7 @@ export class SkyFileAttachmentComponent implements AfterViewInit, AfterContentIn
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe((themeSettings) => {
-        this.currentThemeName = themeSettings.currentSettings?.theme?.name;
+        this.currentThemeName = themeSettings.currentSettings.theme.name;
         this.updateFileAttachmentButton();
       });
   }

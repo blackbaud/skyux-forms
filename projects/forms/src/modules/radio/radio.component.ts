@@ -180,6 +180,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
    */
   @Input()
   public set value(value: any) {
+    /* istanbul ignore else */
     if (this._value !== value) {
       if (this.selectedValue && this.selectedValue === this._value) {
         this.selectedValue = value;

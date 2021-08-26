@@ -11,6 +11,7 @@ import {
 
   public focusControl(elRef: ElementRef): void {
     const control = elRef.nativeElement.querySelector('.sky-form-control');
+    /* istanbul ignore else */
     if (control) {
       control.focus();
     }

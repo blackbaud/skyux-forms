@@ -111,6 +111,7 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   ) {}
 
   public ngOnInit(): void {
+    /* istanbul ignore else */
     if (this.themeSvc) {
       this.themeSvc.settingsChange
         .pipe(
@@ -142,6 +143,7 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   }
 
   private initMutationObserver(): void {
+    /* istanbul ignore else */
     if (!this.mutationObserver) {
       const el = this.elementRef.nativeElement;
 
@@ -165,6 +167,7 @@ export class SkySelectionBoxGridComponent implements AfterViewInit, OnDestroy, O
   }
 
   private destroyMutationObserver(): void {
+    /* istanbul ignore else */
     if (this.mutationObserver) {
       this.mutationObserver.disconnect();
       this.mutationObserver = undefined;

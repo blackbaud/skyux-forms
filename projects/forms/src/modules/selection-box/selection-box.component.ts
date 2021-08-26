@@ -118,6 +118,7 @@ export class SkySelectionBoxComponent implements AfterViewInit, OnDestroy {
   }
 
   public onKeydown(event: KeyboardEvent): void {
+    /* istanbul ignore else */
     if (event.key === ' ') {
       this.selectControl();
       event.preventDefault();
@@ -139,7 +140,7 @@ export class SkySelectionBoxComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateDisabledState(): void {
-    this.control?.disabledChange
+    this.control.disabledChange
       .pipe(
         takeUntil(this.ngUnsubscribe)
       ).subscribe((value) => {

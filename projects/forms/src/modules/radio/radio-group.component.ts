@@ -118,6 +118,7 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
   public set value(value: any) {
     const isNewValue = value !== this._value;
 
+    /* istanbul ignore else */
     if (isNewValue) {
       this._value = value;
       this.onChange(this._value);
