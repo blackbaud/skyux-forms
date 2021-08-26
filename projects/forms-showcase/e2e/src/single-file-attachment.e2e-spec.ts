@@ -56,8 +56,8 @@ describe('Single file attachment', () => {
       });
     });
 
-    it('should match previous screenshot with no label', (done) => {
-      element(by.css('#toggleLabel')).click();
+    it('should match previous screenshot with no label', async (done) => {
+      await element(by.css('#toggleLabel')).click();
       expect('#screenshot-single-file-attachment').toMatchBaselineScreenshot(done, {
         screenshotName: getScreenshotName('single-file-attachment-no-label')
       });

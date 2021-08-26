@@ -54,7 +54,7 @@ describe('Character count', () => {
       await SkyHostBrowser.setWindowBreakpoint(breakpoint);
       await SkyHostBrowser.scrollTo('#screenshot-character-count');
 
-      element(by.css("input[formControlName='firstName']"))
+      await element(by.css("input[formControlName='firstName']"))
         .sendKeys('A message that exceeds the limit \n');
 
       expect('#screenshot-character-count').toMatchBaselineScreenshot(done, {
