@@ -14,7 +14,7 @@ import {
 } from '../radio-group.component';
 
 @Component({
-  selector: 'radio-group-boolean-test',
+  selector: 'app-radio-group-boolean-test',
   templateUrl: './radio-group-boolean.component.fixture.html'
 })
 export class SkyRadioGroupBooleanTestComponent implements OnInit {

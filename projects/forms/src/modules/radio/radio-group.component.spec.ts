@@ -112,6 +112,7 @@ describe('Radio group component (reactive)', function () {
 
   it('should mark as touched after losing focus', fakeAsync(function () {
     fixture.detectChanges();
+    tick();
 
     expect(componentInstance.radioForm.touched).toEqual(false);
 
@@ -225,6 +226,8 @@ describe('Radio group component (reactive)', function () {
   it('should set the radio name properties correctly', fakeAsync(() => {
     fixture.detectChanges();
     tick();
+    fixture.detectChanges();
+
     const radioArray = Array.from(getRadios(fixture));
     for (let element of radioArray) {
       expect(element.getAttribute('name')).toBe('radioGroup');
@@ -238,6 +241,7 @@ describe('Radio group component (reactive)', function () {
     componentInstance.changeOptions();
     fixture.detectChanges();
     tick();
+    fixture.detectChanges();
 
     const radioArray = Array.from(getRadios(fixture));
     for (let element of radioArray) {
@@ -324,6 +328,7 @@ describe('Radio group component (reactive)', function () {
 
     booleanFixture.detectChanges();
     tick();
+    booleanFixture.detectChanges();
 
     const radios = getRadios(booleanFixture);
 

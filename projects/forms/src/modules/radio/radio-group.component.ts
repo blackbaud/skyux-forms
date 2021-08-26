@@ -169,7 +169,10 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
   }
 
   public ngAfterContentInit(): void {
-    this.resetRadioButtons();
+    // Let child radio components render before updating.
+    setTimeout(() => {
+      this.resetRadioButtons();
+    });
 
     // Watch for radio selections.
     this.watchForSelections();
@@ -179,7 +182,10 @@ export class SkyRadioGroupComponent implements AfterContentInit, AfterViewInit, 
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe(() => {
-        this.resetRadioButtons();
+        // Wait for child radio components to finish any rendering updates.
+        setTimeout(() => {
+          this.resetRadioButtons();
+        });
 
         // Subscribe to the new radio buttons
         this.watchForSelections();

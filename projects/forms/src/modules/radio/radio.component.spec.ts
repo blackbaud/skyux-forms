@@ -343,30 +343,30 @@ describe('Radio component', function () {
       componentInstance = fixture.componentInstance;
     });
 
-    it('should update the ngModel properly when radio button is changed', async(function () {
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        const radios = fixture.nativeElement.querySelectorAll('input');
+    it('should update the ngModel properly when radio button is changed', async(async () => {
+      fixture.detectChanges();
+      await fixture.whenStable();
+      fixture.detectChanges();
 
-        expect(radios.item(0).checked).toBeTruthy();
-        expect(radios.item(1).checked).toBeFalsy();
-        expect(radios.item(2).checked).toBeFalsy();
+      const radios = fixture.nativeElement.querySelectorAll('input');
 
-        fixture.detectChanges();
-        componentInstance.selectedValue = '2';
-        componentInstance.ref.markForCheck();
-        fixture.detectChanges();
+      expect(radios.item(0).checked).toBeTruthy();
+      expect(radios.item(1).checked).toBeFalsy();
+      expect(radios.item(2).checked).toBeFalsy();
 
-        fixture.whenStable().then(() => {
-          fixture.detectChanges();
+      fixture.detectChanges();
+      componentInstance.selectedValue = '2';
+      componentInstance.ref.markForCheck();
+      fixture.detectChanges();
 
-          expect(radios.item(0).checked).toBeFalsy();
-          expect(radios.item(1).checked).toBeTruthy();
-          expect(radios.item(2).checked).toBeFalsy();
-          expect(componentInstance.selectedValue).toBe('2');
-        });
+      await fixture.whenStable();
+      fixture.detectChanges();
 
-      });
+      expect(radios.item(0).checked).toBeFalsy();
+      expect(radios.item(1).checked).toBeTruthy();
+      expect(radios.item(2).checked).toBeFalsy();
+
+      expect(componentInstance.selectedValue).toBe('2');
     }));
   });
 });

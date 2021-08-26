@@ -14,7 +14,7 @@ import {
 } from '@skyux/theme';
 
 @Component({
-  selector: 'radio-visual',
+  selector: 'app-radio-visual',
   templateUrl: './radio-visual.component.html'
 })
 export class RadioVisualComponent implements OnInit {
