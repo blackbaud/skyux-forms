@@ -11,10 +11,6 @@ import {
 } from '@skyux/theme';
 
 import {
-  SkySelectionBoxForRootCompatModule
-} from '../shared/selection-box-for-root-compat.module';
-
-import {
   SkySelectionBoxAdapterService
 } from './selection-box-adapter.service';
 
@@ -43,8 +39,7 @@ import {
   ],
   imports: [
     CommonModule,
-    SkyThemeModule,
-    SkySelectionBoxForRootCompatModule
+    SkyThemeModule
   ],
   exports: [
     SkySelectionBoxGridComponent,

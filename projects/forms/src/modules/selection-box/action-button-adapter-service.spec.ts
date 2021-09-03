@@ -14,10 +14,6 @@ import {
 } from '@skyux/core';
 
 import {
-  SkySelectionBoxForRootCompatModule
-} from '../shared/selection-box-for-root-compat.module';
-
-import {
   SkySelectionBoxAdapterService
 } from './selection-box-adapter.service';
 
@@ -70,9 +66,6 @@ describe('Action button adapter service', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SkySelectionBoxForRootCompatModule
-      ],
       declarations: [
         SkySelectionBoxAdapterTestComponent
       ],
