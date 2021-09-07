@@ -12,7 +12,7 @@ import {
 
 import {
   SkyRadioModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   RadioDemoComponent

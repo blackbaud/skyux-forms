@@ -22,7 +22,7 @@ import {
 import {
   SkyCheckboxModule,
   SkySelectionBoxModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   SelectionBoxDemoComponent
