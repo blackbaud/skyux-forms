@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkyDocsToolsModule } from '@skyux/docs-tools';
 import { VisualComponent } from './visual.component';
 import { CharacterCountVisualComponent } from './character-count/character-count-visual.component';
 import { CheckboxVisualComponent } from './checkbox/checkbox-visual.component';
@@ -12,13 +11,11 @@ import { SingleFileAttachmentVisualComponent } from './single-file-attachment/si
 import { ToggleSwitchVisualComponent } from './toggle-switch/toggle-switch-visual.component';
 import { SkyCharacterCounterModule, SkyCheckboxModule, SkyFileAttachmentsModule, SkyInputBoxModule, SkyRadioModule, SkySelectionBoxModule, SkyToggleSwitchModule } from 'projects/forms/src/public-api';
 import { RouterModule } from '@angular/router';
+import { SkyE2eThemeSelectorModule } from '@skyux/e2e-client';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SkyHelpInlineModule, SkyIconModule } from '@skyux/indicators';
-import { SkyFluidGridModule } from '@skyux/layout';
 import { SkyIdModule } from '@skyux/core';
 import { InputBoxVisualHostComponent } from './input-box/input-box-visual-host.component';
-
-
 
 @NgModule({
   declarations: [
@@ -40,9 +37,8 @@ import { InputBoxVisualHostComponent } from './input-box/input-box-visual-host.c
     RouterModule,
     SkyCharacterCounterModule,
     SkyCheckboxModule,
-    SkyDocsToolsModule,
+    SkyE2eThemeSelectorModule,
     SkyFileAttachmentsModule,
-    SkyFluidGridModule,
     SkyHelpInlineModule,
     SkyIconModule,
     SkyIdModule,

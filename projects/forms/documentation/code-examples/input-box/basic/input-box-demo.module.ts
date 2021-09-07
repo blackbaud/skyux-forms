@@ -12,7 +12,7 @@ import {
 
 import {
   SkyInputBoxModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   SkyThemeModule,

@@ -8,13 +8,8 @@ import {
   FormGroup
 } from '@angular/forms';
 
-import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
 @Component({
-  selector: 'toggle-switch-visual',
+  selector: 'app-toggle-switch-visual',
   templateUrl: './toggle-switch-visual.component.html'
 })
 export class ToggleSwitchVisualComponent {
@@ -23,8 +18,7 @@ export class ToggleSwitchVisualComponent {
   public showLabel = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private themeSvc: SkyThemeService
+    private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
       notifyByEmail: new FormControl(true)
@@ -43,9 +37,5 @@ export class ToggleSwitchVisualComponent {
     } else {
       control.disable();
     }
-  }
-
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
   }
 }

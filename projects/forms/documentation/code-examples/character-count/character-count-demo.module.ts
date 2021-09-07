@@ -18,7 +18,7 @@ import {
 import {
   SkyCharacterCounterModule,
   SkyInputBoxModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   CharacterCountDemoComponent

@@ -8,7 +8,7 @@ import {
 
 import {
   SkyCheckboxModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   SkyCheckboxFixture

@@ -10,11 +10,6 @@ import {
 } from '@angular/core';
 
 import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
-import {
   SkyFileItem,
   SkyFileLink
 } from 'projects/forms/src/public-api';
@@ -53,8 +48,7 @@ export class SingleFileAttachmentVisualComponent implements OnInit {
   public showLabel: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private themeSvc: SkyThemeService
+    private formBuilder: FormBuilder
   ) {
     this.filesToUpload = [];
     this.rejectedFiles = [];
@@ -95,10 +89,6 @@ export class SingleFileAttachmentVisualComponent implements OnInit {
       this.attachmentFileUploaded.disable();
       this.attachmentImageUploaded.disable();
     }
-  }
-
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
   }
 
   private initTestingData(): void {

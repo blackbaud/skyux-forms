@@ -9,7 +9,7 @@ import {
 
 import {
   SkyToggleSwitchModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   ToggleSwitchDemoComponent

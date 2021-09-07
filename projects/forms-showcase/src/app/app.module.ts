@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SkyThemeService } from '@skyux/theme';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +11,7 @@ import { VisualModule } from './visual/visual.module';
     AppComponent
   ],
   imports: [
-    BrowserAnimationsModule,
+    NoopAnimationsModule,
     AppRoutingModule,
     VisualModule
   ],

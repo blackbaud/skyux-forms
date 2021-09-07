@@ -12,23 +12,12 @@ import {
   Validators
 } from '@angular/forms';
 
-import {
-  SkyFluidGridGutterSize
-} from '@skyux/layout';
-
-import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
 @Component({
-  selector: 'input-box-visual',
+  selector: 'app-input-box-visual',
   templateUrl: './input-box-visual.component.html',
   styleUrls: ['./input-box-visual.component.scss']
 })
 export class InputBoxVisualComponent implements OnInit, AfterViewInit {
-
-  public gutterSize = SkyFluidGridGutterSize.Medium;
 
   public errorField: FormControl;
 
@@ -40,8 +29,6 @@ export class InputBoxVisualComponent implements OnInit, AfterViewInit {
 
   @ViewChild('errorNgModel')
   public errorNgModel: NgModel;
-
-  constructor(private themeSvc: SkyThemeService) { }
 
   public ngOnInit(): void {
     this.errorField = new FormControl(
@@ -69,10 +56,6 @@ export class InputBoxVisualComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.errorNgModel.control.markAsTouched();
     });
-  }
-
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
   }
 
   public onActionClick(): void {

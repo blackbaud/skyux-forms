@@ -12,7 +12,7 @@ import {
 
 import {
   SkyFileAttachmentsModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   SkyStatusIndicatorModule

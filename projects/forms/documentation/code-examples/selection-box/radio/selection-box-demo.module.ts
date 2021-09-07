@@ -18,7 +18,7 @@ import {
 import {
   SkyRadioModule,
   SkySelectionBoxModule
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 import {
   SkyIconModule

@@ -6,7 +6,7 @@ import {
   SkyFileDropChange,
   SkyFileItem,
   SkyFileLink
-} from '@skyux/forms';
+} from 'projects/forms/src/public-api';
 
 @Component({
   selector: 'app-file-attachment-demo',
