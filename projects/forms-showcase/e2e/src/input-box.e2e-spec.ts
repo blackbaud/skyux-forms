@@ -659,7 +659,7 @@ describe('Input box', () => {
 
   runTests();
 
-  describe('when modern theme', () => {
+  fdescribe('when modern theme', () => {
 
     beforeEach(async () => {
       await selectTheme('modern', 'light');
