@@ -1,3 +1,7 @@
+# 5.0.0-beta.3 (2021-09-07)
+
+- Updated peer dependencies. [#290](https://github.com/blackbaud/skyux-forms/pull/290)
+
 # 5.0.0-beta.2 (2021-09-03)
 
 - Migrated to Angular CLI. [#288](https://github.com/blackbaud/skyux-forms/pull/288)
