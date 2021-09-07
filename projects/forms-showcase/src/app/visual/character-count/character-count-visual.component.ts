@@ -9,13 +9,8 @@ import {
   OnInit
 } from '@angular/core';
 
-import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
 @Component({
-  selector: 'character-count-visual',
+  selector: 'app-character-count-visual',
   templateUrl: './character-count-visual.component.html'
 })
 export class CharacterCountVisualComponent implements OnInit {
@@ -30,8 +25,7 @@ export class CharacterCountVisualComponent implements OnInit {
   public nameValue: string = '';
 
   constructor(
-    private formBuilder: FormBuilder,
-    private themeSvc: SkyThemeService
+    private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
@@ -40,9 +34,5 @@ export class CharacterCountVisualComponent implements OnInit {
     this.characterCountForm = this.formBuilder.group({
       firstName: this.firstName
     });
-  }
-
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
   }
 }

@@ -8,13 +8,8 @@ import {
   FormGroup
 } from '@angular/forms';
 
-import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
 @Component({
-  selector: 'checkbox-visual',
+  selector: 'app-checkbox-visual',
   templateUrl: './checkbox-visual.component.html'
 })
 export class CheckboxVisualComponent implements OnInit {
@@ -30,8 +25,7 @@ export class CheckboxVisualComponent implements OnInit {
   public required: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private themeSvc: SkyThemeService
+    private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
@@ -42,9 +36,5 @@ export class CheckboxVisualComponent implements OnInit {
 
   public toggleRequired(): void {
     this.required = !this.required;
-  }
-
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
   }
 }

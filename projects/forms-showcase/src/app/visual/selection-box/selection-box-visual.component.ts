@@ -10,11 +10,6 @@ import {
 } from '@angular/forms';
 
 import {
-  SkyThemeService,
-  SkyThemeSettings
-} from '@skyux/theme';
-
-import {
   SkySelectionBoxGridAlignItemsType
 } from 'projects/forms/src/public-api';
 
@@ -65,8 +60,7 @@ export class SelectionBoxVisualComponent implements OnInit {
   public showDescription: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private themeSvc: SkyThemeService
+    private formBuilder: FormBuilder
   ) { }
 
   public ngOnInit(): void {
@@ -103,10 +97,6 @@ export class SelectionBoxVisualComponent implements OnInit {
         .get('0')
         .disable();
     }
-  }
-
-  public themeSettingsChange(themeSettings: SkyThemeSettings): void {
-    this.themeSvc.setTheme(themeSettings);
   }
 
   private buildCheckboxes(): FormArray {
