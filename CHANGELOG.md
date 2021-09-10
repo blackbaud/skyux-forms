@@ -1,3 +1,7 @@
+# 5.0.0-beta.4 (2021-09-10)
+
+- Updated peer dependencies. [#292](https://github.com/blackbaud/skyux-forms/pull/292)
+
 # 5.0.0-beta.3 (2021-09-07)
 
 - Updated peer dependencies. [#290](https://github.com/blackbaud/skyux-forms/pull/290)
