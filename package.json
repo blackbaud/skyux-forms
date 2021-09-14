@@ -29,7 +29,6 @@
     "@skyux/e2e-client": "^5.0.0",
     "@skyux/i18n": "^5.0.0-beta.7",
     "@skyux/indicators": "^5.0.0-beta.4",
-    "@skyux/modals": "^5.0.0-beta.4",
     "@skyux/packages": "^5.0.0-beta.65",
     "@skyux/theme": "^5.0.0-beta.5",
     "rxjs": "~6.6.0",
