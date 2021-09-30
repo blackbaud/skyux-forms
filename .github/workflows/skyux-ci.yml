@@ -1,16 +1,13 @@
 name: SKY UX CI
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - master
-      - 3.x.x
-      - 5.0.0-next
   push:
     branches:
       - master
-      - 3.x.x
-      - 5.0.0-next
     tags:
       - '*.*.*'
 
@@ -31,6 +28,5 @@ jobs:
           github-token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
           npm-token: ${{ secrets.NPM_TOKEN }}
           slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
-          visual-baselines-branch: '5.0.0-next'
       - name: Upload coverage report
         run: bash <(curl -s https://codecov.io/bash)
