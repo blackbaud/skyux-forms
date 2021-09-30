@@ -1,38 +1,52 @@
-# Logs
-logs
-*.log
-npm-debug.log*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Coverage directory used by tools like istanbul
-coverage
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
 
-# Dependency directories
-node_modules
-jspm_packages
+# dependencies
+/node_modules
 
-# Optional npm cache directory
-.npm
+# profiling files
+chrome-profiler-events*.json
 
-# Optional REPL history
-.node_repl_history
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# SKY UX temp directory
-.skypageslocales
-.skypagestmp
-.skyuxtmp
-.srctmp
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
-# SKY UX build directory
-dist
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
 
-# SKY UX visual directory
-screenshots-baseline-local
-screenshots-diff-local
-BrowserStackLocal
-
-# OS specific files
+# System Files
 .DS_Store
+Thumbs.db
 
-*.ngfactory.ts
-*.ngsummary.json
-yarn.lock
+# SKY UX files
+.skyux4sourcecode
+
+# SKY UX files
+/screenshots-baseline-local
+/screenshots-diff-local
