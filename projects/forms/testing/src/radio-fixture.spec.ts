@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 
 import {
-  ComponentFixture,
-  TestBed
+  ComponentFixture, fakeAsync,
+  TestBed, tick
 } from '@angular/core/testing';
 
 import {
@@ -63,7 +63,7 @@ describe('Radio fixture', () => {
   let fixture: ComponentFixture<TestComponent>;
   let radioGroup: SkyRadioFixture;
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         TestComponent
@@ -79,12 +79,14 @@ describe('Radio fixture', () => {
     );
 
     fixture.detectChanges();
+    tick();
 
     radioGroup = new SkyRadioFixture(
       fixture,
       'test-radio'
     );
-  });
+    fixture.detectChanges();
+  }));
 
   it('should expose the provided properties', () => {
     const springSeason = fixture.componentInstance.seasons[0];
