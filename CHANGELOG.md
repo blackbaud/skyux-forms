@@ -1,6 +1,6 @@
 # 5.0.1 (2021-11-18)
 
-- Added support for prettier code formatting and updated the builder to support StackBlitz. [#301](https://github.com/blackbaud/skyux-forms/pull/301)
+- Added support for Prettier code formatting and updated the builder to support StackBlitz. [#301](https://github.com/blackbaud/skyux-forms/pull/301)
 
 # 5.0.0 (2021-09-30)
 
