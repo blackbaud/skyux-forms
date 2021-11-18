@@ -1,17 +1,10 @@
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-character-count-visual',
-  templateUrl: './character-count-visual.component.html'
+  templateUrl: './character-count-visual.component.html',
 })
 export class CharacterCountVisualComponent implements OnInit {
   public characterCountForm: FormGroup;
@@ -24,15 +17,13 @@ export class CharacterCountVisualComponent implements OnInit {
 
   public nameValue: string = '';
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   public ngOnInit(): void {
     this.firstName = this.formBuilder.control('John');
 
     this.characterCountForm = this.formBuilder.group({
-      firstName: this.firstName
+      firstName: this.firstName,
     });
   }
 }

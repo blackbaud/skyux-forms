@@ -1,12 +1,7 @@
-<sky-e2e-theme-selector>
-</sky-e2e-theme-selector>
+<sky-e2e-theme-selector> </sky-e2e-theme-selector>
 
-<div
-  style="width: 60%; margin-left: auto; margin-right: auto;"
->
-  <div
-    id="screenshot-file-drop"
-  >
+<div style="width: 60%; margin-left: auto; margin-right: auto">
+  <div id="screenshot-file-drop">
     <sky-file-drop
       [allowLinks]="allowLinks"
       [maxFileSize]="maxFileSize"
@@ -16,9 +11,7 @@
       (linkInputBlur)="linkInputBlur()"
     ></sky-file-drop>
 
-    <div
-      *ngFor="let file of allItems"
-    >
+    <div *ngFor="let file of allItems">
       <sky-file-item
         [fileItem]="file"
         (deleteFile)="deleteFile($event)"

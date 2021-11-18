@@ -13,44 +13,44 @@ import { VisualComponent } from './visual/visual.component';
 const routes: Routes = [
   {
     path: '',
-    component: VisualComponent
+    component: VisualComponent,
   },
   {
     path: 'visual/character-count',
-    component: CharacterCountVisualComponent
+    component: CharacterCountVisualComponent,
   },
   {
     path: 'visual/checkbox',
-    component: CheckboxVisualComponent
+    component: CheckboxVisualComponent,
   },
   {
     path: 'visual/file-attachment',
-    component: FileAttachmentsVisualComponent
+    component: FileAttachmentsVisualComponent,
   },
   {
     path: 'visual/input-box',
-    component: InputBoxVisualComponent
+    component: InputBoxVisualComponent,
   },
   {
     path: 'visual/radio',
-    component: RadioVisualComponent
+    component: RadioVisualComponent,
   },
   {
     path: 'visual/selection-box',
-    component: SelectionBoxVisualComponent
+    component: SelectionBoxVisualComponent,
   },
   {
     path: 'visual/single-file-attachment',
-    component: SingleFileAttachmentVisualComponent
+    component: SingleFileAttachmentVisualComponent,
   },
   {
     path: 'visual/toggle-switch',
-    component: ToggleSwitchVisualComponent
+    component: ToggleSwitchVisualComponent,
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

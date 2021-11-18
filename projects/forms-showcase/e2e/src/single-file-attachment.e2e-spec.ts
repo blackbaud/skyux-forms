@@ -1,20 +1,10 @@
-import {
-  by,
-  element
-} from 'protractor';
+import { by, element } from 'protractor';
 
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
-import {
-  SkyHostBrowserBreakpoint
-} from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
+import { SkyHostBrowserBreakpoint } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 describe('Single file attachment', () => {
-
   //#region helpers
   let browserSize: SkyHostBrowserBreakpoint;
   let currentTheme: string;
@@ -51,36 +41,46 @@ describe('Single file attachment', () => {
 
   function runTests(): void {
     it('should match previous screenshot', (done) => {
-      expect('#screenshot-single-file-attachment').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('single-file-attachment')
-      });
+      expect('#screenshot-single-file-attachment').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName('single-file-attachment'),
+        }
+      );
     });
 
     it('should match previous screenshot with no label', async (done) => {
       await element(by.css('#toggleLabel')).click();
-      expect('#screenshot-single-file-attachment').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('single-file-attachment-no-label')
-      });
+      expect('#screenshot-single-file-attachment').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName('single-file-attachment-no-label'),
+        }
+      );
     });
 
-    it('should match previous screenshot when image is uploaded', async(done) => {
+    it('should match previous screenshot when image is uploaded', async (done) => {
       await SkyHostBrowser.scrollTo('#screenshot-single-file-attachment-image');
-      expect('#screenshot-single-file-attachment-image').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('single-file-attachment-with-image')
+      expect(
+        '#screenshot-single-file-attachment-image'
+      ).toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('single-file-attachment-with-image'),
       });
     });
 
-    it('should match previous screenshot when file is uploaded', async(done) => {
+    it('should match previous screenshot when file is uploaded', async (done) => {
       await SkyHostBrowser.scrollTo('#screenshot-single-file-attachment-file');
-      expect('#screenshot-single-file-attachment-file').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('single-file-attachment-with-file')
+      expect(
+        '#screenshot-single-file-attachment-file'
+      ).toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('single-file-attachment-with-file'),
       });
     });
   }
   //#endregion
 
   describe('(size: lg)', () => {
-    beforeEach( async() => {
+    beforeEach(async () => {
       currentTheme = undefined;
       currentThemeMode = undefined;
       await SkyHostBrowser.get('visual/single-file-attachment');
@@ -107,7 +107,7 @@ describe('Single file attachment', () => {
   });
 
   describe('(size: xs)', () => {
-    beforeEach( async() => {
+    beforeEach(async () => {
       currentTheme = undefined;
       currentThemeMode = undefined;
       await SkyHostBrowser.get('visual/single-file-attachment');

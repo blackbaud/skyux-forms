@@ -1,19 +1,12 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {
-  FormBuilder,
-  FormGroup
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox-visual',
-  templateUrl: './checkbox-visual.component.html'
+  templateUrl: './checkbox-visual.component.html',
 })
 export class CheckboxVisualComponent implements OnInit {
-
   public checkValue: boolean = true;
 
   public foo: boolean;
@@ -24,14 +17,12 @@ export class CheckboxVisualComponent implements OnInit {
 
   public required: boolean = true;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   public ngOnInit(): void {
-    this.reactiveFormGroup = this.formBuilder.group(
-      { reactiveCheckbox: [ undefined ] }
-    );
+    this.reactiveFormGroup = this.formBuilder.group({
+      reactiveCheckbox: [undefined],
+    });
   }
 
   public toggleRequired(): void {

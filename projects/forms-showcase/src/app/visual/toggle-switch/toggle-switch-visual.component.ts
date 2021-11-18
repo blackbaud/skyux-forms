@@ -1,27 +1,18 @@
-import {
-  Component
-} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-toggle-switch-visual',
-  templateUrl: './toggle-switch-visual.component.html'
+  templateUrl: './toggle-switch-visual.component.html',
 })
 export class ToggleSwitchVisualComponent {
-
   public formGroup: FormGroup;
   public showLabel = false;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.formGroup = this.formBuilder.group({
-      notifyByEmail: new FormControl(true)
+      notifyByEmail: new FormControl(true),
     });
 
     setTimeout(() => {

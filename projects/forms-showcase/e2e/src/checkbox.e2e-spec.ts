@@ -1,8 +1,4 @@
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
 describe('Checkbox', () => {
   let currentTheme: string;
@@ -32,7 +28,7 @@ describe('Checkbox', () => {
       await SkyHostBrowser.setWindowBreakpoint('lg');
 
       expect('#screenshot-checkbox').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('checkbox')
+        screenshotName: getScreenshotName('checkbox'),
       });
     });
 
@@ -40,7 +36,7 @@ describe('Checkbox', () => {
       await SkyHostBrowser.setWindowBreakpoint('xs');
 
       expect('#screenshot-checkbox').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('checkbox-xs')
+        screenshotName: getScreenshotName('checkbox-xs'),
       });
     });
 
@@ -48,7 +44,7 @@ describe('Checkbox', () => {
       await SkyHostBrowser.setWindowBreakpoint('lg');
 
       expect('#screenshot-icon-checkbox').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('checkbox-icon')
+        screenshotName: getScreenshotName('checkbox-icon'),
       });
     });
 
@@ -56,7 +52,7 @@ describe('Checkbox', () => {
       await SkyHostBrowser.setWindowBreakpoint('xs');
 
       expect('#screenshot-icon-checkbox').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('checkbox-icon-xs')
+        screenshotName: getScreenshotName('checkbox-icon-xs'),
       });
     });
   }
@@ -68,23 +64,18 @@ describe('Checkbox', () => {
   validateAll();
 
   describe('when modern theme', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'light');
     });
 
     validateAll();
-
   });
 
   describe('when modern theme in dark mode', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'dark');
     });
 
     validateAll();
-
   });
-
 });

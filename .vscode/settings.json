@@ -1,9 +1,10 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    // Columns at which to show vertical rulers
-    "editor.rulers": [],
-
-    // Controls after how many characters the editor will wrap to the next line. Setting this to 0 turns on viewport width wrapping (word wrapping). Setting this to -1 forces the editor to never wrap.
-
-    "typescript.tsdk": "node_modules/typescript/lib"
+  // Columns at which to show vertical rulers
+  "editor.rulers": [],
+  // Controls after how many characters the editor will wrap to the next line. Setting this to 0 turns on viewport width wrapping (word wrapping). Setting this to -1 forces the editor to never wrap.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.requireConfig": true
 }

@@ -1,9 +1,15 @@
 import { Component, Renderer2 } from '@angular/core';
-import { SkyAppStyleLoader, SkyTheme, SkyThemeMode, SkyThemeService, SkyThemeSettings } from '@skyux/theme';
+import {
+  SkyAppStyleLoader,
+  SkyTheme,
+  SkyThemeMode,
+  SkyThemeService,
+  SkyThemeSettings,
+} from '@skyux/theme';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   public isLoaded = false;

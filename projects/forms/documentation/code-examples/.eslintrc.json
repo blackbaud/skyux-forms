@@ -1,13 +1,8 @@
 {
-  "extends": ["../../.eslintrc.json", "prettier"],
-  "ignorePatterns": ["!**/*"],
+  "extends": ["../../.eslintrc.json"],
   "overrides": [
     {
       "files": ["*.ts"],
-      "parserOptions": {
-        "project": ["projects/forms-showcase/tsconfig.app.json"],
-        "createDefaultProgram": true
-      },
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -26,10 +21,6 @@
           }
         ]
       }
-    },
-    {
-      "files": ["*.html"],
-      "rules": {}
     }
   ]
 }

@@ -1,19 +1,13 @@
-import {
-  element,
-  by
-} from 'protractor';
+import { element, by } from 'protractor';
 
-import {
-  expect,
-  SkyHostBrowser
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser } from '@skyux-sdk/e2e';
 
 describe('File attachments', () => {
   it('should match previous file drop screenshot', async (done) => {
     await SkyHostBrowser.get('visual/file-attachment');
     await SkyHostBrowser.setWindowBreakpoint('lg');
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'file-drop'
+      screenshotName: 'file-drop',
     });
   });
 
@@ -21,7 +15,7 @@ describe('File attachments', () => {
     await SkyHostBrowser.get('visual/file-attachment');
     await SkyHostBrowser.setWindowBreakpoint('xs');
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'file-drop-xs'
+      screenshotName: 'file-drop-xs',
     });
   });
 
@@ -30,7 +24,7 @@ describe('File attachments', () => {
     await SkyHostBrowser.setWindowBreakpoint('lg');
     await element(by.css('.sky-test-allow-links')).click();
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'file-drop-no-links'
+      screenshotName: 'file-drop-no-links',
     });
   });
 
@@ -39,7 +33,7 @@ describe('File attachments', () => {
     await SkyHostBrowser.setWindowBreakpoint('xs');
     await element(by.css('.sky-test-allow-links')).click();
     expect('#screenshot-file-drop').toMatchBaselineScreenshot(done, {
-      screenshotName: 'file-drop-no-links-xs'
+      screenshotName: 'file-drop-no-links-xs',
     });
   });
 });

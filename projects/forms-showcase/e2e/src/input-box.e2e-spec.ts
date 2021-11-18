@@ -1,16 +1,6 @@
-import {
-  browser,
-  by,
-  element,
-  ElementFinder,
-  Key
-} from 'protractor';
+import { browser, by, element, ElementFinder, Key } from 'protractor';
 
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
 // tslint:disable-next-line: max-line-length
 const LONG_STRING = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis massa id justo sagittis auctor quis ac orci. Donec scelerisque varius mi, non dignissim est rhoncus eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam at quam erat. Integer at dignissim massa. Pellentesque dictum lacinia malesuada. Quisque quis aliquet enim. Duis suscipit velit interdum libero venenatis, eget fringilla erat faucibus. Duis tincidunt ipsum arcu, ac egestas erat pharetra volutpat. Sed quam tortor, ultrices ac rhoncus non, tincidunt at mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis massa id justo sagittis auctor quis ac orci. Donec scelerisque varius mi, non dignissim est rhoncus eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam at quam erat. Integer at dignissim massa. Pellentesque dictum lacinia malesuada. Quisque quis aliquet enim. Duis suscipit velit interdum libero venenatis, eget fringilla erat faucibus. Duis tincidunt ipsum arcu, ac egestas erat pharetra volutpat. Sed quam tortor, ultrices ac rhoncus non, tincidunt at mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.`;
@@ -46,7 +36,7 @@ describe('Input box', () => {
     let el: ElementFinder;
     try {
       el = await element(by.css(`label[for="${inputId}"]`));
-    } catch(e) {
+    } catch (e) {
       el = await element(by.css(`#label-${inputId}`));
     }
     el.click();
@@ -55,7 +45,10 @@ describe('Input box', () => {
     await SkyHostBrowser.moveCursorOffScreen();
   }
 
-  async function sendKeysToInput(wrapperId: string, value: string): Promise<void> {
+  async function sendKeysToInput(
+    wrapperId: string,
+    value: string
+  ): Promise<void> {
     const input = await element(
       by.css(`#${wrapperId} input, #${wrapperId} textarea`)
     );
@@ -65,11 +58,17 @@ describe('Input box', () => {
   }
 
   async function hoverElement(selector: string): Promise<void> {
-    await browser.actions().mouseMove(element(by.css(selector))).perform();
+    await browser
+      .actions()
+      .mouseMove(element(by.css(selector)))
+      .perform();
   }
 
   async function mouseDownElement(selector: string): Promise<void> {
-    await browser.actions().mouseDown(element(by.css(selector))).perform();
+    await browser
+      .actions()
+      .mouseDown(element(by.css(selector)))
+      .perform();
   }
 
   async function tabToNextElement(): Promise<void> {
@@ -87,7 +86,7 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-basic');
 
       expect('#input-box-basic').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic')
+        screenshotName: getScreenshotName('input-box-basic'),
       });
     });
 
@@ -95,7 +94,7 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-side-by-side');
 
       expect('#input-box-side-by-side').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-side-by-side')
+        screenshotName: getScreenshotName('input-box-side-by-side'),
       });
     });
 
@@ -105,7 +104,7 @@ describe('Input box', () => {
       await clickLabel('input-box-basic');
 
       expect('#input-box-basic').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-focused')
+        screenshotName: getScreenshotName('input-box-basic-focused'),
       });
     });
 
@@ -115,7 +114,7 @@ describe('Input box', () => {
       await hoverElement('#input-box-basic input');
 
       expect('#input-box-basic').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-hover')
+        screenshotName: getScreenshotName('input-box-basic-hover'),
       });
     });
 
@@ -125,7 +124,7 @@ describe('Input box', () => {
       await mouseDownElement('#input-box-basic input');
 
       expect('#input-box-basic').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-active')
+        screenshotName: getScreenshotName('input-box-basic-active'),
       });
     });
 
@@ -133,16 +132,22 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-help-inline');
 
       expect('#input-box-help-inline').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-help-inline')
+        screenshotName: getScreenshotName('input-box-help-inline'),
       });
     });
 
     it(`should match previous input box screenshot with an inline help component
         along side a character counter and required indicator`, async (done) => {
-      await SkyHostBrowser.scrollTo('#input-box-help-inline-required-with-character-counter');
+      await SkyHostBrowser.scrollTo(
+        '#input-box-help-inline-required-with-character-counter'
+      );
 
-      expect('#input-box-help-inline-required-with-character-counter').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-help-inline-required-with-character-counter')
+      expect(
+        '#input-box-help-inline-required-with-character-counter'
+      ).toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-help-inline-required-with-character-counter'
+        ),
       });
     });
 
@@ -152,9 +157,8 @@ describe('Input box', () => {
       await clickLabel('input-box-textarea');
 
       expect('#input-box-textarea').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-textarea-focused')
+        screenshotName: getScreenshotName('input-box-textarea-focused'),
       });
-
     });
 
     it('should match previous textarea input box screenshot when text overflows into label', async (done) => {
@@ -164,184 +168,169 @@ describe('Input box', () => {
       await sendKeysToInput('input-box-textarea', LONG_STRING);
 
       expect('#input-box-textarea').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-textarea-overflow')
+        screenshotName: getScreenshotName('input-box-textarea-overflow'),
       });
-
     });
 
-    it(
-      'should match previous input box with a button screenshot when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single');
+    it('should match previous input box with a button screenshot when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single');
 
-        await clickLabel('input-box-button-single');
+      await clickLabel('input-box-button-single');
 
-        expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-focused-single-input')
-        });
-      }
-    );
+      expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-focused-single-input'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with a button screenshot when button is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single');
+    it('should match previous input box with a button screenshot when button is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single');
 
-        await clickLabel('input-box-button-single');
-        await tabToNextElement();
+      await clickLabel('input-box-button-single');
+      await tabToNextElement();
 
-        expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-focused-single-button')
-        });
-      }
-    );
+      expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-focused-single-button'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with multiple buttons screenshot when button 1 is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-multiple');
+    it('should match previous input box with multiple buttons screenshot when button 1 is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-multiple');
 
-        await clickLabel('input-box-button-multiple');
-        await tabToNextElement();
+      await clickLabel('input-box-button-multiple');
+      await tabToNextElement();
 
-        expect('#input-box-button-multiple').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-focused-multiple-button-1')
-        });
-      }
-    );
+      expect('#input-box-button-multiple').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-focused-multiple-button-1'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with multiple buttons screenshot when button 2 is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-multiple');
+    it('should match previous input box with multiple buttons screenshot when button 2 is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-multiple');
 
-        await clickLabel('input-box-button-multiple');
-        await tabToNextElement();
-        await tabToNextElement();
+      await clickLabel('input-box-button-multiple');
+      await tabToNextElement();
+      await tabToNextElement();
 
-        expect('#input-box-button-multiple').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-focused-multiple-button-2')
-        });
-      }
-    );
+      expect('#input-box-button-multiple').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-focused-multiple-button-2'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with single button screenshot when input is hovered',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single');
+    it('should match previous input box with single button screenshot when input is hovered', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single');
 
-        await hoverElement('#input-box-button-single input');
+      await hoverElement('#input-box-button-single input');
 
-        expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-hover-single-input')
-        });
-      }
-    );
+      expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-hover-single-input'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with single button screenshot when button is hovered',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single');
+    it('should match previous input box with single button screenshot when button is hovered', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single');
 
-        await hoverElement('#input-box-button-single button');
+      await hoverElement('#input-box-button-single button');
 
-        expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-hover-single-button')
-        });
-      }
-    );
+      expect('#input-box-button-single').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-hover-single-button'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with error when bound to form control',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-form-control-error');
+    it('should match previous input box with error when bound to form control', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-form-control-error');
 
-        expect('#input-box-form-control-error').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-form-control-error')
-        });
-      }
-    );
+      expect('#input-box-form-control-error').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-form-control-error'),
+      });
+    });
 
-    it(
-      'should match previous input box with error when bound to form control name',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-form-control-name-error');
+    it('should match previous input box with error when bound to form control name', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-form-control-name-error');
 
-        expect('#input-box-form-control-name-error').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-form-control-name-error')
-        });
-      }
-    );
+      expect('#input-box-form-control-name-error').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName(
+            'input-box-form-control-name-error'
+          ),
+        }
+      );
+    });
 
-    it(
-      'should match previous input box with error when bound to ngModel',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
+    it('should match previous input box with error when bound to ngModel', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
 
-        expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-ngmodel-error')
-        });
-      }
-    );
+      expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-ngmodel-error'),
+      });
+    });
 
-    it(
-      'should match previous input box with error when focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
+    it('should match previous input box with error when focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
 
-        await clickLabel('input-box-ngmodel-error');
+      await clickLabel('input-box-ngmodel-error');
 
-        expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-error-focused')
-        });
-      }
-    );
+      expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-error-focused'),
+      });
+    });
 
-    it(
-      'should match previous input box with button and error when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-form-control-error-button-single');
+    it('should match previous input box with button and error when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo(
+        '#input-box-form-control-error-button-single'
+      );
 
-        await clickLabel('input-box-form-control-error-button-single');
+      await clickLabel('input-box-form-control-error-button-single');
 
-        expect('#input-box-form-control-error-button-single').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-error-focused-input')
-        });
-      }
-    );
+      expect(
+        '#input-box-form-control-error-button-single'
+      ).toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-error-focused-input'),
+      });
+    });
 
-    it(
-      'should match previous input box with button and error when button is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-form-control-error-button-single');
+    it('should match previous input box with button and error when button is focused', async (done) => {
+      await SkyHostBrowser.scrollTo(
+        '#input-box-form-control-error-button-single'
+      );
 
-        await clickLabel('input-box-form-control-error-button-single');
-        await tabToNextElement();
+      await clickLabel('input-box-form-control-error-button-single');
+      await tabToNextElement();
 
-        expect('#input-box-form-control-error-button-single').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-error-focused-button')
-        });
-      }
-    );
+      expect(
+        '#input-box-form-control-error-button-single'
+      ).toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-error-focused-button'),
+      });
+    });
 
-    it(
-      'should match previous input box with error when hovered',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
+    it('should match previous input box with error when hovered', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-ngmodel-error');
 
-        await hoverElement('#input-box-ngmodel-error');
+      await hoverElement('#input-box-ngmodel-error');
 
-        expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-error-hover')
-        });
-      }
-    );
+      expect('#input-box-ngmodel-error').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-error-hover'),
+      });
+    });
 
     it('should match previous input box when disabled', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-disabled');
 
       expect('#input-box-disabled').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-disabled')
+        screenshotName: getScreenshotName('input-box-disabled'),
       });
     });
 
@@ -351,7 +340,7 @@ describe('Input box', () => {
       await hoverElement('#input-box-disabled');
 
       expect('#input-box-disabled').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-disabled-hover')
+        screenshotName: getScreenshotName('input-box-disabled-hover'),
       });
     });
 
@@ -359,7 +348,7 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-button-disabled');
 
       expect('#input-box-button-disabled').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-button-disabled')
+        screenshotName: getScreenshotName('input-box-button-disabled'),
       });
     });
 
@@ -367,7 +356,7 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-select');
 
       expect('#input-box-select').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-select')
+        screenshotName: getScreenshotName('input-box-select'),
       });
     });
 
@@ -375,7 +364,7 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-select-disabled');
 
       expect('#input-box-select-disabled').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-select-disabled')
+        screenshotName: getScreenshotName('input-box-select-disabled'),
       });
     });
 
@@ -384,7 +373,7 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-basic-no-label');
 
       expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-no-label')
+        screenshotName: getScreenshotName('input-box-basic-no-label'),
       });
     });
 
@@ -394,7 +383,7 @@ describe('Input box', () => {
       await clickLabel('input-box-basic-no-label');
 
       expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-no-label-focused')
+        screenshotName: getScreenshotName('input-box-basic-no-label-focused'),
       });
     });
 
@@ -404,7 +393,7 @@ describe('Input box', () => {
       await hoverElement('#input-box-basic-no-label input');
 
       expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-no-label-hover')
+        screenshotName: getScreenshotName('input-box-basic-no-label-hover'),
       });
     });
 
@@ -414,70 +403,78 @@ describe('Input box', () => {
       await mouseDownElement('#input-box-basic-no-label input');
 
       expect('#input-box-basic-no-label').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-no-label-active')
+        screenshotName: getScreenshotName('input-box-basic-no-label-active'),
       });
     });
 
     // Single button no label
-    it(
-      'should match previous input box with a button no label screenshot when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+    it('should match previous input box with a button no label screenshot when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
 
-        await clickLabel('input-box-button-single-no-label');
+      await clickLabel('input-box-button-single-no-label');
 
-        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-no-label-focused-single-input')
-        });
-      }
-    );
+      expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName(
+            'input-box-button-no-label-focused-single-input'
+          ),
+        }
+      );
+    });
 
-    it(
-      'should match previous input box with a button no label screenshot when button is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+    it('should match previous input box with a button no label screenshot when button is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
 
-        await clickLabel('input-box-button-single-no-label');
-        await tabToNextElement();
+      await clickLabel('input-box-button-single-no-label');
+      await tabToNextElement();
 
-        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-no-label-focused-single-button')
-        });
-      }
-    );
+      expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName(
+            'input-box-button-no-label-focused-single-button'
+          ),
+        }
+      );
+    });
 
-    it(
-      'should match previous input box with single button no label screenshot when input is hovered',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+    it('should match previous input box with single button no label screenshot when input is hovered', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
 
-        await hoverElement('#input-box-button-single-no-label input');
+      await hoverElement('#input-box-button-single-no-label input');
 
-        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-no-label-hover-single-input')
-        });
-      }
-    );
+      expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName(
+            'input-box-button-no-label-hover-single-input'
+          ),
+        }
+      );
+    });
 
-    it(
-      'should match previous input box with single button no label screenshot when button is hovered',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
+    it('should match previous input box with single button no label screenshot when button is hovered', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-no-label');
 
-        await hoverElement('#input-box-button-single-no-label button');
+      await hoverElement('#input-box-button-single-no-label button');
 
-        expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-no-label-hover-single-button')
-        });
-      }
-    );
+      expect('#input-box-button-single-no-label').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName(
+            'input-box-button-no-label-hover-single-button'
+          ),
+        }
+      );
+    });
 
     // Select no label
     it('should match previous input box with select no label', async (done) => {
       await SkyHostBrowser.scrollTo('#input-box-select-no-label');
 
       expect('#input-box-select-no-label').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-select-no-label')
+        screenshotName: getScreenshotName('input-box-select-no-label'),
       });
     });
 
@@ -486,172 +483,137 @@ describe('Input box', () => {
       await SkyHostBrowser.scrollTo('#input-box-basic-wrapper');
 
       expect('#input-box-basic-wrapper').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('input-box-basic-wrapper')
+        screenshotName: getScreenshotName('input-box-basic-wrapper'),
       });
     });
 
     // Single button on left
-    it(
-      'should match previous input box with a button on left',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+    it('should match previous input box with a button on left', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-left');
 
-        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-single-left')
-        });
-      }
-    );
+      expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-button-single-left'),
+      });
+    });
 
-    it(
-      'should match previous input box with a button on left screenshot when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+    it('should match previous input box with a button on left screenshot when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-left');
 
-        await clickLabel('input-box-button-single-left');
+      await clickLabel('input-box-button-single-left');
 
-        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-focused-single-left-input')
-        });
-      }
-    );
+      expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-focused-single-left-input'
+        ),
+      });
+    });
 
-    it(
-      'should match previous input box with a button on left screenshot when button is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-single-left');
+    it('should match previous input box with a button on left screenshot when button is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-single-left');
 
-        await clickLabel('input-box-button-single-left');
-        await tabToPreviousElement();
+      await clickLabel('input-box-button-single-left');
+      await tabToPreviousElement();
 
-        expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-focused-single-left-button')
-        });
-      }
-    );
+      expect('#input-box-button-single-left').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName(
+          'input-box-button-focused-single-left-button'
+        ),
+      });
+    });
 
     // Inset button
-    it(
-      'should match previous input box with an inset button',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+    it('should match previous input box with an inset button', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-inset');
 
-        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-inset')
-        });
-      }
-    );
+      expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-button-inset'),
+      });
+    });
 
-    it(
-      'should match previous input box with an inset button screenshot when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+    it('should match previous input box with an inset button screenshot when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-inset');
 
-        await clickLabel('input-box-button-inset');
+      await clickLabel('input-box-button-inset');
 
-        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-inset-input')
-        });
-      }
-    );
+      expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-button-inset-input'),
+      });
+    });
 
-    it(
-      'should match previous input box with an inset button screenshot when button is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-inset');
+    it('should match previous input box with an inset button screenshot when button is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-inset');
 
-        await clickLabel('input-box-button-inset');
-        await tabToNextElement();
+      await clickLabel('input-box-button-inset');
+      await tabToNextElement();
 
-        expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-inset-button')
-        });
-      }
-    );
+      expect('#input-box-button-inset').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-button-inset-button'),
+      });
+    });
 
-    it(
-      'should match previous narrow input box with an inset button',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-button-inset-narrow');
+    it('should match previous narrow input box with an inset button', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-button-inset-narrow');
 
-        expect('#input-box-button-inset-narrow').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-button-inset-narrow')
-        });
-      }
-    );
+      expect('#input-box-button-inset-narrow').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-button-inset-narrow'),
+      });
+    });
 
     // Inset icon
-    it(
-      'should match previous input box with an inset icon',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-icon-inset');
+    it('should match previous input box with an inset icon', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-icon-inset');
 
-        expect('#input-box-icon-inset').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-icon-inset')
-        });
-      }
-    );
+      expect('#input-box-icon-inset').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-icon-inset'),
+      });
+    });
 
-    it(
-      'should match previous input box with an inset button screenshot when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-icon-inset');
+    it('should match previous input box with an inset button screenshot when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-icon-inset');
 
-        await clickLabel('input-box-button-inset');
+      await clickLabel('input-box-button-inset');
 
-        expect('#input-box-icon-inset').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-icon-inset-focused')
-        });
-      }
-    );
+      expect('#input-box-icon-inset').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-icon-inset-focused'),
+      });
+    });
 
     // Disabled inset icon
-    it(
-      'should match previous input box with a disabled inset icon',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-icon-inset-disabled');
+    it('should match previous input box with a disabled inset icon', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-icon-inset-disabled');
 
-        expect('#input-box-icon-inset-disabled').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-icon-inset-disabled')
-        });
-      }
-    );
+      expect('#input-box-icon-inset-disabled').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-icon-inset-disabled'),
+      });
+    });
 
     // Left inset icon
-    it(
-      'should match previous input box with a left inset icon',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
+    it('should match previous input box with a left inset icon', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
 
-        expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-icon-inset-left')
-        });
-      }
-    );
+      expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-icon-inset-left'),
+      });
+    });
 
-    it(
-      'should match previous input box with a left inset icon screenshot when input is focused',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
+    it('should match previous input box with a left inset icon screenshot when input is focused', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-icon-inset-left');
 
-        await clickLabel('input-box-icon-inset-left');
+      await clickLabel('input-box-icon-inset-left');
 
-        expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-icon-inset-left-focused')
-        });
-      }
-    );
+      expect('#input-box-icon-inset-left').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-icon-inset-left-focused'),
+      });
+    });
 
     // Placeholder text
-    it(
-      'should match previous input box with placeholder text',
-      async (done) => {
-        await SkyHostBrowser.scrollTo('#input-box-placeholder');
+    it('should match previous input box with placeholder text', async (done) => {
+      await SkyHostBrowser.scrollTo('#input-box-placeholder');
 
-        expect('#input-box-placeholder').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('input-box-placeholder')
-        });
-      }
-    );
+      expect('#input-box-placeholder').toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('input-box-placeholder'),
+      });
+    });
   }
 
   beforeEach(async () => {
@@ -667,23 +629,18 @@ describe('Input box', () => {
   runTests();
 
   describe('when modern theme', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'light');
     });
 
     runTests();
-
   });
 
   describe('when modern theme in dark mode', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'dark');
     });
 
     runTests();
-
   });
-
 });

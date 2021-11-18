@@ -2,23 +2,20 @@ import {
   FormBuilder,
   FormGroup,
   FormControl,
-  Validators
+  Validators,
 } from '@angular/forms';
 
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {
   SkyFileDropChange,
   SkyFileItem,
-  SkyFileLink
+  SkyFileLink,
 } from 'projects/forms/src/public-api';
 
 @Component({
   selector: 'app-file-attachments-visual',
-  templateUrl: './file-attachments-visual.component.html'
+  templateUrl: './file-attachments-visual.component.html',
 })
 export class FileAttachmentsVisualComponent implements OnInit {
   public acceptedTypes: Array<String>;
@@ -43,25 +40,25 @@ export class FileAttachmentsVisualComponent implements OnInit {
 
   public showLabel: boolean = true;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.filesToUpload = [];
     this.rejectedFiles = [];
-    this.allItems = [<SkyFileItem>{
-      file: {
-        name: 'myfile.pdf',
-        size: 50,
-        type: 'pdf'
-      }
-    }];
+    this.allItems = [
+      <SkyFileItem>{
+        file: {
+          name: 'myfile.pdf',
+          size: 50,
+          type: 'pdf',
+        },
+      },
+    ];
     this.linksToUpload = [];
   }
 
   public ngOnInit(): void {
     this.attachment = new FormControl(undefined, Validators.required);
     this.fileForm = this.formBuilder.group({
-      attachment: this.attachment
+      attachment: this.attachment,
     });
   }
 
@@ -78,7 +75,7 @@ export class FileAttachmentsVisualComponent implements OnInit {
 
   public validateFile(file: SkyFileItem): string {
     if (file.file.name.indexOf('a') === 0) {
-        return 'You may not upload a file that begins with the letter "a."';
+      return 'You may not upload a file that begins with the letter "a."';
     } else {
       return '';
     }
@@ -94,7 +91,10 @@ export class FileAttachmentsVisualComponent implements OnInit {
     console.log('Link input blurred');
   }
 
-  private removeFromArray(items: Array<any>, obj: SkyFileItem | SkyFileLink): void {
+  private removeFromArray(
+    items: Array<any>,
+    obj: SkyFileItem | SkyFileLink
+  ): void {
     if (items) {
       const index = items.indexOf(obj);
 
