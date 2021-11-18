@@ -1,5 +1,4 @@
-<sky-e2e-theme-selector>
-</sky-e2e-theme-selector>
+<sky-e2e-theme-selector> </sky-e2e-theme-selector>
 
 <button
   type="button"
@@ -17,18 +16,10 @@
   Toggle disabled
 </button>
 
-<h1>
-  Radio buttons (reactive)
-</h1>
+<h1>Radio buttons (reactive)</h1>
 
-<form
-  novalidate
-  [formGroup]="radioForm"
->
-  <h3
-    id="favorite-id"
-    [ngClass]="{ 'sky-control-label-required': required }"
-  >
+<form novalidate [formGroup]="radioForm">
+  <h3 id="favorite-id" [ngClass]="{ 'sky-control-label-required': required }">
     What is your favorite season?
   </h3>
   <div id="screenshot-radio">
@@ -37,14 +28,9 @@
       formControlName="favoriteSeason"
       [required]="required"
     >
-      <ul
-        class="sky-list-unstyled"
-      >
+      <ul class="sky-list-unstyled">
         <li *ngFor="let value of seasons">
-          <sky-radio
-            [disabled]="value.disabled"
-            [value]="value"
-          >
+          <sky-radio [disabled]="value.disabled" [value]="value">
             <sky-radio-label>
               {{ value.name }}
             </sky-radio-label>
@@ -69,19 +55,16 @@
     </tr>
     <tr>
       <th>Value</th>
-      <td>{{ radioForm.value.favoriteSeason?.name || 'Nothing selected...' }}</td>
+      <td>
+        {{ radioForm.value.favoriteSeason?.name || 'Nothing selected...' }}
+      </td>
     </tr>
   </table>
-
 </form>
 
-<h1>
-  Radio buttons (template-driven)
-</h1>
+<h1>Radio buttons (template-driven)</h1>
 
-<h3
-  [ngClass]="{ 'sky-control-label-required': required }"
->
+<h3 [ngClass]="{ 'sky-control-label-required': required }">
   What is your favorite season?
 </h3>
 <div>
@@ -91,13 +74,9 @@
     [(ngModel)]="radioValue"
     #foo="ngModel"
   >
-    <ul
-      class="sky-list-unstyled"
-    >
+    <ul class="sky-list-unstyled">
       <li *ngFor="let item of seasons">
-        <sky-radio
-          [value]="item.name"
-        >
+        <sky-radio [value]="item.name">
           <sky-radio-label>
             {{ item.name }}
           </sky-radio-label>
@@ -126,46 +105,20 @@
   </tr>
 </table>
 
-<h1>
-  Icon radio buttons
-</h1>
+<h1>Icon radio buttons</h1>
 
-<form
-  novalidate
->
-  <h3
-    id="icon-radio-group-label"
-  >
-    Do you like it?
-  </h3>
-  <div
-    id="screenshot-icon-radio"
-    class="sky-switch-icon-group"
-  >
+<form novalidate>
+  <h3 id="icon-radio-group-label">Do you like it?</h3>
+  <div id="screenshot-icon-radio" class="sky-switch-icon-group">
     <sky-radio-group
       name="iconRadioTest"
       [disabled]="disabled"
       [(ngModel)]="iconSelectedValue"
     >
-      <sky-radio
-        icon="thumbs-o-up"
-        label="I like it"
-        value="1"
-      >
+      <sky-radio icon="thumbs-o-up" label="I like it" value="1"> </sky-radio>
+      <sky-radio disabled icon="balance-scale" label="meh" value="2">
       </sky-radio>
-      <sky-radio
-        disabled
-        icon="balance-scale"
-        label="meh"
-        value="2"
-      >
-      </sky-radio>
-      <sky-radio
-        icon="thumbs-o-down"
-        label="I hate it"
-        value="3"
-      >
-      </sky-radio>
+      <sky-radio icon="thumbs-o-down" label="I hate it" value="3"> </sky-radio>
     </sky-radio-group>
   </div>
 </form>

@@ -1,8 +1,4 @@
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
 describe('Radio', () => {
   let currentTheme: string;
@@ -33,7 +29,7 @@ describe('Radio', () => {
       await SkyHostBrowser.scrollTo('#screenshot-radio');
 
       expect('#screenshot-radio').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('radio')
+        screenshotName: getScreenshotName('radio'),
       });
     });
 
@@ -42,7 +38,7 @@ describe('Radio', () => {
       await SkyHostBrowser.scrollTo('#screenshot-radio');
 
       expect('#screenshot-radio').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('radio-xs')
+        screenshotName: getScreenshotName('radio-xs'),
       });
     });
 
@@ -51,7 +47,7 @@ describe('Radio', () => {
       await SkyHostBrowser.scrollTo('#screenshot-icon-radio');
 
       expect('#screenshot-icon-radio').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('icon-radio')
+        screenshotName: getScreenshotName('icon-radio'),
       });
     });
 
@@ -60,7 +56,7 @@ describe('Radio', () => {
       await SkyHostBrowser.scrollTo('#screenshot-icon-radio');
 
       expect('#screenshot-icon-radio').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('icon-radio-xs')
+        screenshotName: getScreenshotName('icon-radio-xs'),
       });
     });
   }
@@ -72,23 +68,18 @@ describe('Radio', () => {
   validateAll();
 
   describe('when modern theme', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'light');
     });
 
     validateAll();
-
   });
 
   describe('when modern theme in dark mode', () => {
-
     beforeEach(async () => {
       await selectTheme('modern', 'dark');
     });
 
     validateAll();
-
   });
-
 });

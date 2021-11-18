@@ -3,35 +3,29 @@ import {
   OnInit,
   Optional,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
-import {
-  SkyInputBoxHostService
-} from 'projects/forms/src/public-api';
+import { SkyInputBoxHostService } from 'projects/forms/src/public-api';
 
 @Component({
   selector: 'app-input-box-visual-host',
-  templateUrl: './input-box-visual-host.component.html'
+  templateUrl: './input-box-visual-host.component.html',
 })
 export class InputBoxVisualHostComponent implements OnInit {
-
   @ViewChild('inputTemplateRef', {
     read: TemplateRef,
-    static: true
+    static: true,
   })
   private inputTemplateRef: TemplateRef<any>;
 
-  constructor(
-    @Optional() public inputBoxHostSvc?: SkyInputBoxHostService
-  ) { }
+  constructor(@Optional() public inputBoxHostSvc?: SkyInputBoxHostService) {}
 
   public ngOnInit(): void {
     if (this.inputBoxHostSvc) {
       this.inputBoxHostSvc.populate({
-        inputTemplate: this.inputTemplateRef
+        inputTemplate: this.inputTemplateRef,
       });
     }
   }
-
 }

@@ -1,17 +1,8 @@
-import {
-  by,
-  element
-} from 'protractor';
+import { by, element } from 'protractor';
 
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
-import {
-  SkyHostBrowserBreakpoint
-} from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
+import { SkyHostBrowserBreakpoint } from '@skyux-sdk/e2e/host-browser/host-browser-breakpoint';
 
 describe('Character count', () => {
   let currentTheme: string;
@@ -46,7 +37,7 @@ describe('Character count', () => {
       await SkyHostBrowser.scrollTo('#screenshot-character-count');
 
       expect('#screenshot-character-count').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('character-count')
+        screenshotName: getScreenshotName('character-count'),
       });
     });
 
@@ -54,11 +45,12 @@ describe('Character count', () => {
       await SkyHostBrowser.setWindowBreakpoint(breakpoint);
       await SkyHostBrowser.scrollTo('#screenshot-character-count');
 
-      await element(by.css("input[formControlName='firstName']"))
-        .sendKeys('A message that exceeds the limit \n');
+      await element(by.css("input[formControlName='firstName']")).sendKeys(
+        'A message that exceeds the limit \n'
+      );
 
       expect('#screenshot-character-count').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('character-count-invalid')
+        screenshotName: getScreenshotName('character-count-invalid'),
       });
     });
 
@@ -67,23 +59,27 @@ describe('Character count', () => {
       await SkyHostBrowser.scrollTo('#screenshot-character-count-input-box');
       await SkyHostBrowser.moveCursorOffScreen();
 
-      expect('#screenshot-character-count-input-box').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('character-count-input-box')
-      });
+      expect('#screenshot-character-count-input-box').toMatchBaselineScreenshot(
+        done,
+        {
+          screenshotName: getScreenshotName('character-count-input-box'),
+        }
+      );
     });
 
-    it(
-      'should match previous character-count in input box with no label screenshot',
-      async (done) => {
-        await SkyHostBrowser.setWindowBreakpoint(breakpoint);
-        await SkyHostBrowser.scrollTo('#screenshot-character-count-input-box-no-label');
-        await SkyHostBrowser.moveCursorOffScreen();
+    it('should match previous character-count in input box with no label screenshot', async (done) => {
+      await SkyHostBrowser.setWindowBreakpoint(breakpoint);
+      await SkyHostBrowser.scrollTo(
+        '#screenshot-character-count-input-box-no-label'
+      );
+      await SkyHostBrowser.moveCursorOffScreen();
 
-        expect('#screenshot-character-count-input-box-no-label').toMatchBaselineScreenshot(done, {
-          screenshotName: getScreenshotName('character-count-input-box-no-label')
-        });
-      }
-    );
+      expect(
+        '#screenshot-character-count-input-box-no-label'
+      ).toMatchBaselineScreenshot(done, {
+        screenshotName: getScreenshotName('character-count-input-box-no-label'),
+      });
+    });
   }
 
   beforeEach(async () => {
@@ -122,5 +118,4 @@ describe('Character count', () => {
       runTests('xs');
     });
   });
-
 });

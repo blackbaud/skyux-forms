@@ -9,7 +9,15 @@ import { RadioVisualComponent } from './radio/radio-visual.component';
 import { SelectionBoxVisualComponent } from './selection-box/selection-box-visual.component';
 import { SingleFileAttachmentVisualComponent } from './single-file-attachment/single-file-attachment-visual.component';
 import { ToggleSwitchVisualComponent } from './toggle-switch/toggle-switch-visual.component';
-import { SkyCharacterCounterModule, SkyCheckboxModule, SkyFileAttachmentsModule, SkyInputBoxModule, SkyRadioModule, SkySelectionBoxModule, SkyToggleSwitchModule } from 'projects/forms/src/public-api';
+import {
+  SkyCharacterCounterModule,
+  SkyCheckboxModule,
+  SkyFileAttachmentsModule,
+  SkyInputBoxModule,
+  SkyRadioModule,
+  SkySelectionBoxModule,
+  SkyToggleSwitchModule,
+} from 'projects/forms/src/public-api';
 import { RouterModule } from '@angular/router';
 import { SkyE2eThemeSelectorModule } from '@skyux/e2e-client';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,7 +36,7 @@ import { InputBoxVisualHostComponent } from './input-box/input-box-visual-host.c
     RadioVisualComponent,
     SelectionBoxVisualComponent,
     SingleFileAttachmentVisualComponent,
-    ToggleSwitchVisualComponent
+    ToggleSwitchVisualComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +53,7 @@ import { InputBoxVisualHostComponent } from './input-box/input-box-visual-host.c
     SkyInputBoxModule,
     SkyRadioModule,
     SkySelectionBoxModule,
-    SkyToggleSwitchModule
-  ]
+    SkyToggleSwitchModule,
+  ],
 })
-export class VisualModule { }
+export class VisualModule {}

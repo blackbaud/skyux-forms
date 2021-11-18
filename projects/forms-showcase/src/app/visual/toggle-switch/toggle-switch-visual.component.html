@@ -1,64 +1,39 @@
-<sky-e2e-theme-selector>
-</sky-e2e-theme-selector>
+<sky-e2e-theme-selector> </sky-e2e-theme-selector>
 
-<div
-  class="app-screenshot"
-  id="screenshot-toggle-switch"
->
+<div class="app-screenshot" id="screenshot-toggle-switch">
   <p>
-    <sky-toggle-switch
-      [checked]="true"
-    >
+    <sky-toggle-switch [checked]="true">
+      <sky-toggle-switch-label> Switch is "on" </sky-toggle-switch-label>
+    </sky-toggle-switch>
+  </p>
+
+  <p>
+    <sky-toggle-switch [checked]="false">
+      <sky-toggle-switch-label> Switch is "off" </sky-toggle-switch-label>
+    </sky-toggle-switch>
+  </p>
+
+  <p>
+    <sky-toggle-switch [checked]="true" [disabled]="true">
       <sky-toggle-switch-label>
-        Switch is "on"
+        Switch is "on", disabled
       </sky-toggle-switch-label>
     </sky-toggle-switch>
   </p>
 
   <p>
-    <sky-toggle-switch
-      [checked]="false"
-    >
-    <sky-toggle-switch-label>
-      Switch is "off"
-    </sky-toggle-switch-label>
-    </sky-toggle-switch>
-  </p>
-
-  <p>
-    <sky-toggle-switch
-      [checked]="true"
-      [disabled]="true"
-    >
-    <sky-toggle-switch-label>
-      Switch is "on", disabled
-    </sky-toggle-switch-label>
-    </sky-toggle-switch>
-  </p>
-
-  <p>
-    <sky-toggle-switch
-      [checked]="false"
-      [disabled]="true"
-    >
-    <sky-toggle-switch-label>
-      Switch is "off", disabled
-    </sky-toggle-switch-label>
+    <sky-toggle-switch [checked]="false" [disabled]="true">
+      <sky-toggle-switch-label>
+        Switch is "off", disabled
+      </sky-toggle-switch-label>
     </sky-toggle-switch>
   </p>
 </div>
 
-<div
-  class="app-screenshot"
->
-  <h2>
-    Reactive form with asynchronous label component
-  </h2>
+<div class="app-screenshot">
+  <h2>Reactive form with asynchronous label component</h2>
 
-  <form
-    [formGroup]="formGroup"
-    novalidate
-  >
+  <form [formGroup]="formGroup" novalidate>
     <div class="sky-form-group">
       <sky-toggle-switch
         ariaLabel="Foobar label"
@@ -78,11 +53,7 @@
       Toggle disabled
     </button>
 
-    <button
-      class="sky-btn"
-      type="button"
-      (click)="showLabel = !showLabel"
-    >
+    <button class="sky-btn" type="button" (click)="showLabel = !showLabel">
       Toggle label visibility
     </button>
   </form>

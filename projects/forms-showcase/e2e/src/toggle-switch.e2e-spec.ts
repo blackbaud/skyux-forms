@@ -1,8 +1,4 @@
-import {
-  expect,
-  SkyHostBrowser,
-  SkyVisualThemeSelector
-} from '@skyux-sdk/e2e';
+import { expect, SkyHostBrowser, SkyVisualThemeSelector } from '@skyux-sdk/e2e';
 
 describe('Toggle switch', () => {
   let currentTheme: string;
@@ -32,7 +28,7 @@ describe('Toggle switch', () => {
       await SkyHostBrowser.setWindowBreakpoint('lg');
 
       expect('#screenshot-toggle-switch').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('toggle-switch')
+        screenshotName: getScreenshotName('toggle-switch'),
       });
     });
 
@@ -40,7 +36,7 @@ describe('Toggle switch', () => {
       await SkyHostBrowser.setWindowBreakpoint('xs');
 
       expect('#screenshot-toggle-switch').toMatchBaselineScreenshot(done, {
-        screenshotName: getScreenshotName('toggle-switch-xs')
+        screenshotName: getScreenshotName('toggle-switch-xs'),
       });
     });
   }
@@ -69,5 +65,4 @@ describe('Toggle switch', () => {
 
     runTests();
   });
-
 });

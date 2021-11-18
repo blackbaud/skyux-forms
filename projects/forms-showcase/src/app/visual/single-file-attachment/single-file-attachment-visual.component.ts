@@ -1,28 +1,15 @@
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {
-  SkyFileItem,
-  SkyFileLink
-} from 'projects/forms/src/public-api';
+import { SkyFileItem, SkyFileLink } from 'projects/forms/src/public-api';
 
 @Component({
   selector: 'app-single-file-attachment-visual',
   templateUrl: './single-file-attachment-visual.component.html',
-  styleUrls: [
-    './single-file-attachment-visual.component.scss'
-  ]
+  styleUrls: ['./single-file-attachment-visual.component.scss'],
 })
 export class SingleFileAttachmentVisualComponent implements OnInit {
-
   public acceptedTypes: Array<String>;
 
   public attachment: FormControl = new FormControl(undefined);
@@ -47,9 +34,7 @@ export class SingleFileAttachmentVisualComponent implements OnInit {
 
   public showLabel: boolean = true;
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private formBuilder: FormBuilder) {
     this.filesToUpload = [];
     this.rejectedFiles = [];
   }
@@ -58,14 +43,14 @@ export class SingleFileAttachmentVisualComponent implements OnInit {
     this.singleFileAttachmentForm = this.formBuilder.group({
       attachment: this.attachment,
       attachmentFileUploaded: this.attachmentFileUploaded,
-      attachmentImageUploaded: this.attachmentImageUploaded
+      attachmentImageUploaded: this.attachmentImageUploaded,
     });
     this.initTestingData();
   }
 
   public validateFile(file: SkyFileItem): string {
     if (file.file.name.indexOf('a') === 0) {
-        return 'You may not upload a file that begins with the letter "a."';
+      return 'You may not upload a file that begins with the letter "a."';
     } else {
       return '';
     }
@@ -92,28 +77,31 @@ export class SingleFileAttachmentVisualComponent implements OnInit {
   }
 
   private initTestingData(): void {
-    const testImage = <SkyFileItem> {
+    const testImage = <SkyFileItem>{
       file: {
         name: 'myFile.jpeg',
         type: 'image/jpeg',
-        size: 1000
+        size: 1000,
       },
-      url: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCABkAGQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCkAniUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//Z'
+      url: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCABkAGQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCkAniUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//Z',
     };
     this.attachmentImageUploaded.setValue(testImage);
 
-    const testFile = <SkyFileItem> {
+    const testFile = <SkyFileItem>{
       file: {
         name: 'myFile.txt',
-        type:  'txt/txt',
-        size: 10
+        type: 'txt/txt',
+        size: 10,
       },
-      url: 'myFile.txt'
+      url: 'myFile.txt',
     };
     this.attachmentFileUploaded.setValue(testFile);
   }
 
-  private removeFromArray(items: Array<any>, obj: SkyFileItem | SkyFileLink): void {
+  private removeFromArray(
+    items: Array<any>,
+    obj: SkyFileItem | SkyFileLink
+  ): void {
     if (items) {
       const index = items.indexOf(obj);
 

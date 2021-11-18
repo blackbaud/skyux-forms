@@ -1,19 +1,12 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {
-  FormBuilder,
-  FormGroup
-} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-radio-visual',
-  templateUrl: './radio-visual.component.html'
+  templateUrl: './radio-visual.component.html',
 })
 export class RadioVisualComponent implements OnInit {
-
   public disabled: boolean;
 
   public iconSelectedValue = '1';
@@ -28,18 +21,16 @@ export class RadioVisualComponent implements OnInit {
     { name: 'Spring', disabled: false },
     { name: 'Summer', disabled: false },
     { name: 'Fall', disabled: true },
-    { name: 'Winter', disabled: false }
+    { name: 'Winter', disabled: false },
   ];
 
   public selectedValue = '3';
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   public ngOnInit(): void {
     this.radioForm = this.formBuilder.group({
-      favoriteSeason: this.seasons[0]
+      favoriteSeason: this.seasons[0],
     });
   }
 
