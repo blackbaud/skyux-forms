@@ -2,6 +2,7 @@ import {
   browser,
   by,
   element,
+  ExpectedConditions,
   Key
 } from 'protractor';
 
@@ -42,7 +43,10 @@ describe('Input box', () => {
       by.css(`#${wrapperId} input, #${wrapperId} textarea`)
     ).getAttribute('id');
 
-    await element(by.css(`label[for="${inputId}"]`)).click();
+    const label = element(by.css(`label[for="${inputId}"]`));
+    browser.wait(ExpectedConditions.elementToBeClickable(label), 5000);
+    await SkyHostBrowser.scrollTo(`label[for="${inputId}"]`);
+    await label.click();
 
     // Move the cursor so the hover state isn't activated.
     await SkyHostBrowser.moveCursorOffScreen();
