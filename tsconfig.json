@@ -7,7 +7,8 @@
     "sourceMap": true,
     "declaration": false,
     "paths": {
-      "forms": ["dist/forms/forms", "dist/forms"]
+      "forms": ["dist/forms/forms", "dist/forms"],
+      "@skyux/forms": ["projects/forms/src/public-api.ts"]
     },
     "downlevelIteration": true,
     "experimentalDecorators": true,
