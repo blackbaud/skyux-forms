@@ -17,6 +17,7 @@ module.exports = function (config) {
           function () {
             // Middleware that avoids triggering 404s during tests that need to reference
             // image paths. Assumes that the image path will start with `/$`.
+            // Credit: https://github.com/angular/components/blob/59002e1649123922df3532f4be78c485a73c5bc1/test/karma.conf.js
             return function (request, response, next) {
               if (request.url.indexOf('/$') === 0) {
                 response.writeHead(200);
