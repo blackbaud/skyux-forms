@@ -66,7 +66,7 @@ export class SkyToggleSwitchComponent implements AfterContentInit, OnDestroy, Co
 
   /**
    * Specifies an ARIA label for the toggle switch. This sets the toggle switch's `aria-label`
-   * attribute [to support accessibility](https://developer.blackbaud.com/skyux/learn/accessibility).
+   * attribute [to support accessibility](https://developer.blackbaud.com/skyux-v4/learn/accessibility).
    * If the `sky-toggle-switch-label` component displays a visible label, do not use this property.
    */
   @Input()

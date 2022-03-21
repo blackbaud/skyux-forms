@@ -45,7 +45,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
 
   /**
    * Specifies an ARIA label for the checkbox. This sets the checkbox's `aria-label` attribute
-   * [to support accessibility](https://developer.blackbaud.com/skyux/components/checkbox#accessibility)
+   * [to support accessibility](https://developer.blackbaud.com/skyux-v4/components/checkbox#accessibility)
    * when the checkbox does not include a visible label. You must set this property for icon
    * checkboxes. If the checkbox includes a visible label, use `labelledBy` instead.
    */
@@ -55,7 +55,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   /**
    * Specifies the HTML element ID (without the leading `#`) of the element that labels the
    * checkbox. This sets the checkbox's `aria-labelledby` attribute
-   * [to support accessibility](https://developer.blackbaud.com/skyux/components/checkbox#accessibility).
+   * [to support accessibility](https://developer.blackbaud.com/skyux-v4/components/checkbox#accessibility).
    * If the checkbox does not include a visible label, use `label` instead.
    */
   @Input()
@@ -119,7 +119,7 @@ export class SkyCheckboxComponent implements ControlValueAccessor, OnInit {
   /**
    * Specifies a type to set the background color after users select a checkbox where the
    * `icon` property displays an icon in place of the checkbox. The valid options correspond to
-   * [the label component's](https://developer.blackbaud.com/skyux/components/label)
+   * [the label component's](https://developer.blackbaud.com/skyux-v4/components/label)
    * label types. `'info'` creates a blue background, `'success'` creates a green
    * background, `'warning'` creates an orange background, and `'danger'` creates a red background.
    * @default 'info'
