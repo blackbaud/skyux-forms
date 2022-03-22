@@ -118,7 +118,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
 
   /**
    * Specifies an ARIA label for the radio button. This sets the radio button's `aria-label`
-   * attribute [to support accessibility](https://developer.blackbaud.com/skyux/learn/accessibility)
+   * attribute [to support accessibility](https://developer.blackbaud.com/skyux-v4/learn/accessibility)
    * when the radio button does not include a visible label. You must set this property for icon
    * radio buttons. If the radio button includes a visible label, use `labelledBy` instead.
    */
@@ -128,7 +128,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   /**
    * Specifies the HTML element ID (without the leading `#`) of the element that labels
    * the radio button. This sets the radio button's `aria-labelledby` attribute
-   * [to support accessibility](https://developer.blackbaud.com/skyux/learn/accessibility).
+   * [to support accessibility](https://developer.blackbaud.com/skyux-v4/learn/accessibility).
    * If the radio button does not include a visible label, use `label` instead.
    */
   @Input()
@@ -208,7 +208,7 @@ export class SkyRadioComponent implements OnDestroy, ControlValueAccessor {
   /**
    * Specifies a type to set the background color after users select an icon radio button.
    * The valid options correspond
-   * [the label component's](https://developer.blackbaud.com/skyux/components/label)
+   * [the label component's](https://developer.blackbaud.com/skyux-v4/components/label)
    * label types. `danger` creates a red background, `info` creates a blue background,
    * `success` creates a green background, and `warning` creates an orange background.
    * @default "info"
