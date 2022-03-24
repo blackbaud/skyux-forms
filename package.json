@@ -52,7 +52,7 @@
     "@skyux/config": "4.4.0",
     "@skyux/core": "4.6.2",
     "@skyux/datetime": "4.12.0",
-    "@skyux/docs-tools": "4.9.7",
+    "@skyux/docs-tools": "4.10.0",
     "@skyux/forms": "4.20.0",
     "@skyux/http": "4.2.0",
     "@skyux/i18n": "4.2.1",
