@@ -12,6 +12,19 @@ import {
   SkyVisualThemeSelector
 } from '@skyux-sdk/e2e';
 
+class ThemePlatformHelper {
+  public static shouldSkipVisualTests() {
+    const idxPlatformKey = process.argv.indexOf('--platform');
+    const idxPlatformVSTS = process.argv.indexOf('vsts');
+
+    // Minimist sure is nice
+    if (idxPlatformKey > -1 && idxPlatformVSTS > -1 && idxPlatformVSTS === (idxPlatformKey + 1)) {
+      console.warn('Platform is VSTS - skipping visual test.');
+      return true;
+    }
+  }
+}
+
 // tslint:disable-next-line: max-line-length
 const LONG_STRING = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis massa id justo sagittis auctor quis ac orci. Donec scelerisque varius mi, non dignissim est rhoncus eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam at quam erat. Integer at dignissim massa. Pellentesque dictum lacinia malesuada. Quisque quis aliquet enim. Duis suscipit velit interdum libero venenatis, eget fringilla erat faucibus. Duis tincidunt ipsum arcu, ac egestas erat pharetra volutpat. Sed quam tortor, ultrices ac rhoncus non, tincidunt at mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis massa id justo sagittis auctor quis ac orci. Donec scelerisque varius mi, non dignissim est rhoncus eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam at quam erat. Integer at dignissim massa. Pellentesque dictum lacinia malesuada. Quisque quis aliquet enim. Duis suscipit velit interdum libero venenatis, eget fringilla erat faucibus. Duis tincidunt ipsum arcu, ac egestas erat pharetra volutpat. Sed quam tortor, ultrices ac rhoncus non, tincidunt at mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.`;
 
@@ -77,6 +90,12 @@ describe('Input box', () => {
   async function tabToPreviousElement(): Promise<void> {
     const el = await browser.driver.switchTo().activeElement();
     await el.sendKeys(Key.chord(Key.SHIFT, Key.TAB));
+  }
+
+  function checkSkipTests(done: DoneFn) {
+    if (ThemePlatformHelper.shouldSkipVisualTests()) {
+      return done();
+    }
   }
 
   function runTests(): void {
@@ -386,6 +405,8 @@ describe('Input box', () => {
     });
 
     it('should match previous basic input box no label screenshot when focused', async (done) => {
+      checkSkipTests(done);
+
       await SkyHostBrowser.scrollTo('#input-box-basic-no-label');
 
       await clickLabel('input-box-basic-no-label');
